@@ -14,5 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Current Meter Reading" />
+        
+    <Button
+    	android:id="@+id/meter_consumption_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meter Consumption Readings" />
 
 </LinearLayout>
