@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ViewCurrentMeterReading extends Activity {
-	private static final String url = "https://dev-program.tendrildemo.com/api/rest/meter/read;account=Jenkins;from=2010-01-01T00:00:00-0000;limitToLatest=1";
+	private static final String url = "https://dev-program.tendrildemo.com/api/rest/meter/read;account=Jenkins;from=2000-01-01T00:00:00-0000;limitToLatest=1";
 	private static String note_id = "";
 
 	@Override
@@ -33,6 +33,7 @@ public class ViewCurrentMeterReading extends Activity {
 		String response = "";
 		String line = "";
 		HttpsURLConnection c = null;
+		JSONObject j = null;
 		try {
 			URL u = new URL(url);
 
@@ -51,21 +52,28 @@ public class ViewCurrentMeterReading extends Activity {
 			while ((line = reader.readLine()) != null) {
 				response += line;
 			}
+
+			j = new JSONObject(response);
+			TextView v = (TextView) findViewById(R.id.textView1);
+			v.setText(j.toString(2));
+			
+
 		} catch (MalformedURLException e) {
 			Log.e(this.getLocalClassName(),
 					"MalformedURLException  " + e.toString());
 		} catch (IOException e) {
 			Log.e(this.getLocalClassName(), "IOException   " + e.toString());
 			e.printStackTrace();
+		} catch (JSONException e) {
+			Log.e(this.getLocalClassName(), "JSONxception   " + e.toString());
+			e.printStackTrace();
 		} finally {
 			if (c != null)
 				c.disconnect();
 		}
 
-		TextView v = (TextView) findViewById(R.id.textView1);
-		v.setText(response);
+		
 	}
-
 
 	public void onStart() {
 		super.onStart();
