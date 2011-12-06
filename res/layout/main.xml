@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <TextView
+    android:orientation="vertical" 
+    android:configChanges="orientation|keyboardHidden">
+    <com.androidplot.xy.XYPlot
+        android:id="@+id/myTendrilPlot"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:layout_height="200dp"
+        android:layout_marginTop="5px"
+        android:layout_marginLeft="5px"
+        android:layout_marginRight="5px"
+        title="Historic Energy Data"/>
+    <Button android:id="@+id/pickStartDate"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/myTendrilPlot"
+        android:layout_marginTop="5px"
+        android:layout_marginLeft="5px"
+        android:layout_marginRight="5px"
+        android:text="Start" />
+    <Button android:id="@+id/pickEndDate"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/pickStartDate"
+        android:layout_alignTop="@id/pickStartDate"
+        android:layout_marginLeft="5px"
+        android:layout_marginRight="5px"
+        android:text="End" />
+    <Button android:id="@+id/refreshGraph"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/pickEndDate"
+        android:layout_alignTop="@id/pickStartDate"
+        android:layout_marginLeft="5px"
+        android:layout_marginRight="5px"
+        android:text="Refresh" />
+</RelativeLayout>
 
-</LinearLayout>
