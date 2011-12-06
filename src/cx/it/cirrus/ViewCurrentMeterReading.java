@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,8 +57,10 @@ public class ViewCurrentMeterReading extends Activity {
 
 			j = new JSONObject(response);
 			TextView v = (TextView) findViewById(R.id.textView1);
-			v.setText(j.toString(2));
-			
+			JSONArray reading = (((JSONObject) j.getJSONArray("MeterReading")
+					.get(0)).getJSONArray("Readings"));
+
+			v.setText(((JSONObject) reading.get(0)).get("value").toString());
 
 		} catch (MalformedURLException e) {
 			Log.e(this.getLocalClassName(),
@@ -72,7 +76,6 @@ public class ViewCurrentMeterReading extends Activity {
 				c.disconnect();
 		}
 
-		
 	}
 
 	public void onStart() {
