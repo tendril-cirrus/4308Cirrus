@@ -18,6 +18,9 @@ public class TendrilManager extends Activity implements OnClickListener {
 		
 		View consumptionReadings = findViewById(R.id.meter_consumption_reading);
 		consumptionReadings.setOnClickListener(this);
+		
+		View pricingschedule = findViewById(R.id.pricing_schedule);
+		pricingschedule.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -28,6 +31,10 @@ public class TendrilManager extends Activity implements OnClickListener {
 		
 		case R.id.meter_consumption_reading:
 			startActivity(new Intent(this, ViewConsumptionReadings.class));
+			break;
+			
+		case R.id.pricing_schedule:
+			startActivity(new Intent(this, ViewPricingSchedule.class));
 			break;
 		}
 	}

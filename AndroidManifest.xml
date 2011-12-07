@@ -22,6 +22,8 @@
         </activity>
         <activity android:name="ViewConsumptionReadings">
         </activity>
+        <activity android:name="ViewPricingSchedule">
+        </activity>
     </application>
 
 </manifest>
