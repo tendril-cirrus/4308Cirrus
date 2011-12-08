@@ -41,5 +41,15 @@
         android:layout_alignTop="@id/showMeterData"
         android:layout_marginRight="10dp"
         android:text="Consumption Data" />
+
+    <Button
+        android:id="@+id/getMostRecentMeterReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/showConsumptionData"
+        android:layout_below="@+id/showMeterData"
+        android:text="Most Recent Meter Reading" />
+
 </RelativeLayout>
 
