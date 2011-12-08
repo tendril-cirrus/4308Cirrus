@@ -20,92 +20,82 @@ import android.graphics.Shader;
 
 public class GraphUtils {
     
-    public static void initalizePlot(XYPlot mySimpleXYPlot){
-        mySimpleXYPlot.getGraphWidget().getGridBackgroundPaint()
-                .setColor(Color.GRAY);
-        mySimpleXYPlot.getGraphWidget().getGridLinePaint()
-                .setColor(Color.BLACK);
-        mySimpleXYPlot.getGraphWidget().getGridLinePaint()
+    public static void initalizePlot(XYPlot myXYPlot) {
+        myXYPlot.getGraphWidget().getGridBackgroundPaint().setColor(Color.GRAY);
+        myXYPlot.getGraphWidget().getGridLinePaint().setColor(Color.BLACK);
+        myXYPlot.getGraphWidget().getGridLinePaint()
                 .setPathEffect(new DashPathEffect(new float[] { 1, 1 }, 1));
-        mySimpleXYPlot.getGraphWidget().getDomainOriginLinePaint()
+        myXYPlot.getGraphWidget().getDomainOriginLinePaint()
                 .setColor(Color.BLACK);
-        mySimpleXYPlot.getGraphWidget().getRangeOriginLinePaint()
+        myXYPlot.getGraphWidget().getRangeOriginLinePaint()
                 .setColor(Color.BLACK);
         
-        mySimpleXYPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
-        mySimpleXYPlot.getBorderPaint().setStrokeWidth(1);
-        mySimpleXYPlot.getBorderPaint().setAntiAlias(false);
-        mySimpleXYPlot.getBorderPaint().setColor(Color.WHITE);
+        myXYPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
+        myXYPlot.getBorderPaint().setStrokeWidth(1);
+        myXYPlot.getBorderPaint().setAntiAlias(false);
+        myXYPlot.getBorderPaint().setColor(Color.WHITE);
         
-        // Create a formatter to use for drawing a series using
-        // LineAndPointRenderer:
-        LineAndPointFormatter series1Format = new LineAndPointFormatter(
-                Color.rgb(0, 100, 0), // line color
-                Color.rgb(0, 100, 0), // point color
-                Color.rgb(100, 200, 0)); // fill color
-        
-        
-        mySimpleXYPlot.getGraphWidget().setPaddingRight(2);
+        myXYPlot.getGraphWidget().setPaddingRight(2);
         
         // draw a domain ticks:
-        mySimpleXYPlot.setDomainStep(XYStepMode.SUBDIVIDE, 10);
+        myXYPlot.setDomainStep(XYStepMode.SUBDIVIDE, 5);
         
         // customize our domain/range labels
-        mySimpleXYPlot.setDomainLabel("Time");
-        mySimpleXYPlot.setRangeLabel("MeterUsage");
+        myXYPlot.setDomainLabel("Time");
+        myXYPlot.setRangeLabel("MeterUsage");
         
         // round to 2 decimal points
-        mySimpleXYPlot.setRangeValueFormat(new DecimalFormat("2"));
+        myXYPlot.setRangeValueFormat(new DecimalFormat("2"));
         
-        mySimpleXYPlot.setDomainValueFormat(new myDateFormat());
+        myXYPlot.setDomainValueFormat(new myDateFormat());
         
         // by default, AndroidPlot displays developer guides to aid in laying
         // out your plot.
         // To get rid of them call disableAllMarkup():
-        mySimpleXYPlot.disableAllMarkup();
+        myXYPlot.disableAllMarkup();
         
-        mySimpleXYPlot.redraw();
+        myXYPlot.redraw();
         
     }
-
-    public static void setMeterConsumptionPlot(XYPlot mySimpleXYPlot, Number[][] meterArray, Number[][] consumptionArray) {
-         
-        if( meterArray == null ){
-            System.out.println("Got null meterData");
+    
+    public static void setXYPlot(XYPlot myXYPlot,
+            Number[][] myArray, String legandName ) {
+        
+        if (myArray == null) {
+            System.out.println("Got null myArray");
             return;
         }
-        if( meterArray[0] == null){
-            System.out.println("Got null meterArray[0]");
+        if (myArray.length != 2) {
+            System.out.println("Got malformed myArray");
             return;
         }
-        if( meterArray[0] == null){
-            System.out.println("Got null meterArray[1]");
-            return;
-        }
-
-        removeAllXYSeries(mySimpleXYPlot);
-
-        Number[] vals = meterArray[0];
-        Number[] timestamps = meterArray[1];
+        
+        removeAllXYSeries(myXYPlot);
+        
+        Number[] myVals = myArray[0];
+        Number[] myTimestamps = myArray[1];
         
         // create our series from our Arrays:
-        XYSeries series1 = new SimpleXYSeries(Arrays.asList(timestamps),
-                Arrays.asList(vals), "Meter Reading");
+        XYSeries mySeries = new SimpleXYSeries(
+                Arrays.asList(myTimestamps), Arrays.asList(myVals),
+                legandName);
         
-        Paint lineFill = new Paint();
+        Paint myLineFill = new Paint();
+        
         // setup our line fill paint to be a slightly transparent gradient:
-        lineFill.setAlpha(200);
-        lineFill.setShader(new LinearGradient(0, 0, 0, 250, Color.WHITE,
+        myLineFill.setAlpha(500);
+        myLineFill.setShader(new LinearGradient(0, 0, 0, 250, Color.WHITE,
                 Color.GREEN, Shader.TileMode.MIRROR));
-
-
-        LineAndPointFormatter formatter = new LineAndPointFormatter(Color.rgb(
-                0, 0, 0), Color.BLUE, Color.RED);
-        formatter.setFillPaint(lineFill);
-
-        mySimpleXYPlot.addSeries(series1, formatter);
         
-        mySimpleXYPlot.redraw();
+        LineAndPointFormatter myFormatter = new LineAndPointFormatter(
+                Color.rgb(0, 0, 0), Color.BLUE, Color.RED);
+        myFormatter.setFillPaint(myLineFill);
+        
+        // add series to plot
+        myXYPlot.addSeries(mySeries, myFormatter);
+        
+        // Redraw
+        myXYPlot.redraw();
     }
     
     private static class myDateFormat extends Format {
@@ -114,7 +104,7 @@ public class GraphUtils {
         // create a simple date format that draws on the month and year
         // portion of our timestamp.
         private static SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "MM/yy");
+                "MM/dd/yy HH:mm");
         
         @Override
         public StringBuffer format(Object obj, StringBuffer toAppendTo,
@@ -131,15 +121,15 @@ public class GraphUtils {
         }
         
     }
-
-    public static void removeAllXYSeries(XYPlot myXYPlot){
+    
+    public static void removeAllXYSeries(XYPlot myXYPlot) {
         
         Set<XYSeries> seriesSet = myXYPlot.getSeriesSet();
         Iterator<XYSeries> it = seriesSet.iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             myXYPlot.removeSeries(it.next());
         }
-
-    } 
+        
+    }
     
 }

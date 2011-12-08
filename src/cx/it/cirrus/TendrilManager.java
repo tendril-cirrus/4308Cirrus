@@ -30,7 +30,8 @@ import android.widget.Toast;
 public class TendrilManager extends Activity implements Button.OnClickListener {
     private Button startDateButton;
     private Button endDateButton;
-    private Button refreshButton;
+    private Button meterDataButton;
+    private Button consumptionDataButton;
     static final int START_DATE_DIALOG_ID = 0;
     static final int END_DATE_DIALOG_ID = 1;
     private Calendar startDateCalendar = Calendar.getInstance();
@@ -82,8 +83,10 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
             }
         });
         
-        refreshButton = (Button) findViewById(R.id.refreshGraph);
-        refreshButton.setOnClickListener(mySimpleListener);
+        meterDataButton = (Button) findViewById(R.id.showMeterData);
+        meterDataButton.setOnClickListener(mySimpleListener);
+        consumptionDataButton = (Button) findViewById(R.id.showConsumptionData);
+        consumptionDataButton.setOnClickListener(mySimpleListener);
         
         // Set plot stuff
         myTendrilPlot = (XYPlot) findViewById(R.id.myTendrilPlot);
@@ -98,11 +101,19 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
             // Refresh the graph and current reading
-            if (v.equals(refreshButton)) {
+            if (v.equals(meterDataButton)) {
                 try {
-                    refreshGraph();
+                    refreshMeterGraph();
                 } catch (JSONException e) {
-                    Log.e("JSONObject:", e.toString());
+                    Log.e("JSONException:", e.toString());
+                }
+                refreshCurrent();
+            }
+            else if (v.equals(consumptionDataButton)) {
+                try {
+                    refreshConsumptionGraph();
+                } catch (JSONException e) {
+                    Log.e("JSONException:", e.toString());
                 }
                 refreshCurrent();
             } else {
@@ -116,7 +127,7 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
         }
     }
     
-    private void refreshGraph() throws JSONException {
+    private void refreshMeterGraph() throws JSONException {
         
         if (!startDateCalendar.before(endDateCalendar)) {
             Toast.makeText(TendrilManager.this,
@@ -130,18 +141,33 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
                 MeterUtils.calendarToURLString(startDateCalendar, true),
                 MeterUtils.calendarToURLString(endDateCalendar, true));
         
-        JSONObject consumptionReadings = MeterUtils.getDateRangeReadings(
-                MeterUtils.CONSUMPTION_BASE_URL,
-                MeterUtils.calendarToURLString(startDateCalendar, false),
-                MeterUtils.calendarToURLString(endDateCalendar, false));
-        
-        // System.out.println("meter: " + meterReadings);
-        // System.out.println("consumption" + consumptionReadings);
-        
-        GraphUtils.setMeterConsumptionPlot(myTendrilPlot, MeterUtils.formatMeterData(meterReadings), new Number[0][0]);
-        
+        GraphUtils.setXYPlot(myTendrilPlot,
+                MeterUtils.formatMeterData(meterReadings),
+                "Meter Readings");
         
     }
+
+    private void refreshConsumptionGraph() throws JSONException {
+        
+        if (!startDateCalendar.before(endDateCalendar)) {
+            Toast.makeText(TendrilManager.this,
+                    "Start date must be before end date!!!", Toast.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+       
+         JSONObject consumptionReadings = MeterUtils.getDateRangeReadings(
+                  MeterUtils.CONSUMPTION_BASE_URL,
+                  MeterUtils.calendarToURLString(startDateCalendar, false),
+                  MeterUtils.calendarToURLString(endDateCalendar, false));
+ 
+        GraphUtils.setXYPlot(myTendrilPlot,
+                MeterUtils.formatConsumptionData(consumptionReadings),
+                "Consumption Readings");
+        
+    }
+
+
     
     private void refreshCurrent() {
         

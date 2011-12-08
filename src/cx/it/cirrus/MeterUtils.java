@@ -168,4 +168,55 @@ public class MeterUtils {
         
     }
     
+    public static Number[][] formatConsumptionData(JSONObject consumptionData) {
+        
+        int numReadings;
+        Number[][] returnArray;
+        // Format that the API returns for the date
+        DateTimeFormatter dtf = DateTimeFormat
+                .forPattern(meterReadingTimePattern);
+        
+        try {
+            
+            numReadings = consumptionData.getJSONArray("MeterReading")
+                    .getJSONObject(0).getJSONArray("IntervalBlocks").length();
+
+            // We are going to discard the first reading because
+            // it is inclusive up to that point.
+            numReadings -= 1; 
+
+            returnArray = new Number[2][numReadings];
+            
+            // Skip first element
+            for (int i = 1; i < numReadings; i++) {
+                // Set the values
+                String value = consumptionData.getJSONArray("MeterReading")
+                        .getJSONObject(0).getJSONArray("IntervalBlocks")
+                        .getJSONObject(i).getJSONArray("IntervalReadings")
+                        .getJSONObject(0).getString("value");
+                //System.out.println("value: " + value);
+                returnArray[0][i-1] = Float.parseFloat(value);
+                // Set the timestamps
+                String timestamp = consumptionData.getJSONArray("MeterReading")
+                        .getJSONObject(0).getJSONArray("IntervalBlocks")
+                        .getJSONObject(i).getJSONArray("IntervalReadings")
+                        .getJSONObject(0).getString("timeStamp");
+                // convert timestamp to epoc time
+                returnArray[1][i-1] = DateTime.parse(timestamp, dtf)
+                        .toCalendar(null).getTimeInMillis();
+                
+                //System.out.println(returnArray[0][i] + " : "
+                //        + returnArray[1][i]);
+            }
+            
+            return returnArray;
+            
+        } catch (Exception e) {
+            System.out.println("JSONException: " + e);
+        }
+        
+        return null;
+        
+    }
+    
 }
