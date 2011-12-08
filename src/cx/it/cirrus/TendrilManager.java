@@ -123,10 +123,9 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 					Log.e("JSONException:", e.toString());
 				}
 				refreshCurrent();
-			} else if (v.equals(getMostRecentMeterReadingButton)){
+			} else if (v.equals(getMostRecentMeterReadingButton)) {
 				showDialog(GET_MOST_RECENT_METER_READING_DIALOG_ID);
-			}
-			else {
+			} else {
 				// No action defined for whatever button called us
 				// Notify with a Toast Popup
 				Toast.makeText(TendrilManager.this,
@@ -196,33 +195,32 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 					cday);
 		case GET_MOST_RECENT_METER_READING_DIALOG_ID:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Current Meter Reading")
-			       .setCancelable(true)
-//			       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//			           public void onClick(DialogInterface dialog, int id) {
-//			                TendrilManager.this.finish();
-//			           }
-//			       })
-			       .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                dialog.cancel();
-			           }
-			       });
+			builder.setTitle("Most Recent Meter Reading")
+					.setMessage("Message")
+					.setCancelable(true)
+					.setNegativeButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									dialog.cancel();
+								}
+							});
 			return builder.create();
 		}
 		return null;
 	}
 
 	@Override
-    protected void onPrepareDialog(int id, Dialog dialog) {
-    	switch(id){
-    	
-    	case GET_MOST_RECENT_METER_READING_DIALOG_ID:
-    		System.out.println("onPrepareDialog");
-        	//TODO: get data for most recent meter read dialog
-    	}
-    	
-    };
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		switch (id) {
+
+		case GET_MOST_RECENT_METER_READING_DIALOG_ID:
+			System.out.println("onPrepareDialog");
+			((AlertDialog) dialog).setMessage(MeterUtils
+					.getMostRecentMeterReading());
+		}
+
+	};
 
 	@Override
 	public void onClick(View v) {

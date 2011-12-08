@@ -7,6 +7,7 @@ import android.util.Log;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,11 +29,12 @@ public class MeterUtils {
     private static final String username = "jason@tendrilinc.com";
     private static final String password = "password";
     
-    public static String getCurrentMeterReading() {
+    public static String getMostRecentMeterReading() {
         
         String response = "";
         String line = "";
         HttpsURLConnection c = null;
+        JSONObject j;
         
         String currentMeterReadURL = METER_READINGS_BASE_URL
                 + ";from=2000-01-01T00:00:00-0000;limitToLatest=1";
@@ -53,12 +55,26 @@ public class MeterUtils {
             while ((line = reader.readLine()) != null) {
                 response += line;
             }
+            StringBuilder sb = new StringBuilder();
+			j = new JSONObject(response);
+			
+			JSONArray reading = (((JSONObject) j.getJSONArray("MeterReading")
+					.get(0)).getJSONArray("Readings"));
+
+			sb.append(((JSONObject) reading.get(0)).get("value").toString() + " kWh\n");
+			sb.append(((JSONObject) reading.get(0)).get("timeStamp"));
+			response = sb.toString();
+			
         } catch (MalformedURLException e) {
             Log.e("MeterUtils ", "MalformedURLException  " + e.toString());
         } catch (IOException e) {
             Log.e("MeterUtils ", "IOException   " + e.toString());
             e.printStackTrace();
-        } finally {
+            response = ("Could not connect to server");
+        } catch (JSONException e) {
+        	Log.e("MeterUtils ", "JSONException   " + e.toString());
+            e.printStackTrace();
+		} finally {
             if (c != null)
                 c.disconnect();
         }
