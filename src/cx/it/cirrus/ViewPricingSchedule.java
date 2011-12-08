@@ -33,7 +33,7 @@ public class ViewPricingSchedule extends Activity {
 	}
 	
 
-	private void updateMeterConsumption() {
+	private void updateMeterConsumption() throws JSONException {
 
 		String response = "";
 		String line = "";
@@ -67,12 +67,34 @@ public class ViewPricingSchedule extends Activity {
 				c.disconnect();
 		}
 		
+		JSONObject j = new JSONObject(response);
+		TextView v = (TextView) findViewById(R.id.textView1);
+		
+		JSONArray pricing = j.getJSONObject("effectivePriceRecords").getJSONArray("effectivePriceRecord");
+		String text = "";
+		String paragraph = "";
+		for(int i = 0; i < (j.length()-1); i++){
+			text =(((JSONObject) pricing.get(i)).get("programName").toString()+
+				"\n"+((JSONObject) pricing.get(i)).get("programDescription").toString()+
+				"\n"+ "Energy Price: "+((JSONObject) pricing.get(i)).get("energyPrice").toString()+
+				"\n"+ "Delivery Charge : "+((JSONObject) pricing.get(i)).get("deliveryCharge").toString()+
+				"\n"+ "Effective Date : "+((JSONObject) pricing.get(i)).get("effectiveDate").toString()+
+				"\n"+ "End Date: "+((JSONObject) pricing.get(i)).get("endDate").toString()+ "\n"+"\n"
+				);
+			paragraph +=text;
+		}
+		v.setText(paragraph);
 	}
-
+		
 
 	public void onStart() {
 		super.onStart();
-		updateMeterConsumption();
+		try {
+			updateMeterConsumption();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
 
