@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.graphics.Color;
 
@@ -35,9 +36,11 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 	private Button meterDataButton;
 	private Button consumptionDataButton;
 	private Button getMostRecentMeterReadingButton;
+	private Button showPricingScheduleButton;
 	static final int START_DATE_DIALOG_ID = 0;
 	static final int END_DATE_DIALOG_ID = 1;
 	static final int GET_MOST_RECENT_METER_READING_DIALOG_ID = 2;
+	static final int SHOW_PRICING_SCHEDULE = 3;
 	private Calendar startDateCalendar = Calendar.getInstance();
 	private Calendar endDateCalendar = Calendar.getInstance();
 	private XYPlot myTendrilPlot;
@@ -65,7 +68,7 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 	};
 
 	// Listener for all other buttons
-	private simpleListener mySimpleListener = new simpleListener();
+	// private simpleListener mySimpleListener = new simpleListener();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,13 +91,16 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 		});
 
 		meterDataButton = (Button) findViewById(R.id.showMeterData);
-		meterDataButton.setOnClickListener(mySimpleListener);
+		meterDataButton.setOnClickListener(this);
 
 		consumptionDataButton = (Button) findViewById(R.id.showConsumptionData);
-		consumptionDataButton.setOnClickListener(mySimpleListener);
+		consumptionDataButton.setOnClickListener(this);
 
 		getMostRecentMeterReadingButton = (Button) findViewById(R.id.getMostRecentMeterReading);
-		getMostRecentMeterReadingButton.setOnClickListener(mySimpleListener);
+		getMostRecentMeterReadingButton.setOnClickListener(this);
+
+		showPricingScheduleButton = (Button) findViewById(R.id.pricing_schedule);
+		showPricingScheduleButton.setOnClickListener(this);
 
 		// Set plot stuff
 		myTendrilPlot = (XYPlot) findViewById(R.id.myTendrilPlot);
@@ -102,39 +108,41 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 
 	}
 
-	class simpleListener implements OnClickListener {
-		// 8 visibility = gone
-		// 4 visibility = invisible
-		// 0 visibility = visible
-		@Override
-		public void onClick(View v) {
-			// Refresh the graph and current reading
-			if (v.equals(meterDataButton)) {
-				try {
-					refreshMeterGraph();
-				} catch (JSONException e) {
-					Log.e("JSONException:", e.toString());
-				}
-				refreshCurrent();
-			} else if (v.equals(consumptionDataButton)) {
-				try {
-					refreshConsumptionGraph();
-				} catch (JSONException e) {
-					Log.e("JSONException:", e.toString());
-				}
-				refreshCurrent();
-			} else if (v.equals(getMostRecentMeterReadingButton)) {
-				showDialog(GET_MOST_RECENT_METER_READING_DIALOG_ID);
-			} else {
-				// No action defined for whatever button called us
-				// Notify with a Toast Popup
-				Toast.makeText(TendrilManager.this,
-						"No action defined for button: " + v.toString(),
-						Toast.LENGTH_SHORT).show();
-
-			}
-		}
-	}
+	// class simpleListener implements OnClickListener {
+	// // 8 visibility = gone
+	// // 4 visibility = invisible
+	// // 0 visibility = visible
+	// @Override
+	// public void onClick(View v) {
+	// // Refresh the graph and current reading
+	// if (v.equals(meterDataButton)) {
+	// try {
+	// refreshMeterGraph();
+	// } catch (JSONException e) {
+	// Log.e("JSONException:", e.toString());
+	// }
+	// refreshCurrent();
+	// } else if (v.equals(consumptionDataButton)) {
+	// try {
+	// refreshConsumptionGraph();
+	// } catch (JSONException e) {
+	// Log.e("JSONException:", e.toString());
+	// }
+	// refreshCurrent();
+	// } else if (v.equals(getMostRecentMeterReadingButton)) {
+	// showDialog(GET_MOST_RECENT_METER_READING_DIALOG_ID);
+	// } else if (v.equals(SHOW_PRICING_SCHEDULE))
+	// startActivity(new Intent("ViewPricingSchedule"));
+	// else {
+	// // No action defined for whatever button called us
+	// // Notify with a Toast Popup
+	// Toast.makeText(TendrilManager.this,
+	// "No action defined for button: " + v.toString(),
+	// Toast.LENGTH_SHORT).show();
+	//
+	// }
+	// }
+	// }
 
 	private void refreshMeterGraph() throws JSONException {
 
@@ -222,14 +230,39 @@ public class TendrilManager extends Activity implements Button.OnClickListener {
 
 	};
 
+	// if (v.equals(meterDataButton)) {
+	// try {
+	// refreshMeterGraph();
+	// } catch (JSONException e) {
+	// Log.e("JSONException:", e.toString());
+	// }
+	// refreshCurrent();
+	// } else if (v.equals(consumptionDataButton)) {
+	// try {
+	// refreshConsumptionGraph();
+	// } catch (JSONException e) {
+	// Log.e("JSONException:", e.toString());
+	// }
+	// refreshCurrent();
+
 	@Override
 	public void onClick(View v) {
-		if (v == startDateButton) {
-			showDialog(START_DATE_DIALOG_ID);
-		} else if (v == endDateButton) {
-			showDialog(END_DATE_DIALOG_ID);
-		} else if (v == getMostRecentMeterReadingButton) {
-			showDialog(GET_MOST_RECENT_METER_READING_DIALOG_ID);
+		try {
+			if (v == startDateButton) {
+				showDialog(START_DATE_DIALOG_ID);
+			} else if (v == endDateButton) {
+				showDialog(END_DATE_DIALOG_ID);
+			} else if (v == meterDataButton)
+				refreshMeterGraph();
+			else if (v == consumptionDataButton)
+				refreshConsumptionGraph();
+			else if (v == getMostRecentMeterReadingButton) {
+				showDialog(GET_MOST_RECENT_METER_READING_DIALOG_ID);
+			} else if (v == showPricingScheduleButton) {
+				startActivity(new Intent(this, ViewPricingSchedule.class));
+			}
+		} catch (JSONException j) {
+			Log.e("JSONException:", j.toString());
 		}
 
 	}
