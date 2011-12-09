@@ -26,8 +26,8 @@ public class MeterUtils {
     public static final String CONSUMPTION_BASE_URL = "https://dev-program.tendrildemo.com/api/rest/meter/consumption;account=Jenkins;";
     public static final String meterReadingTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZZ";
     
-    private static final String username = "jason@tendrilinc.com";
-    private static final String password = "password";
+    private static final String USERNAME = "jason@tendrilinc.com";
+    private static final String PASSWORD = "password";
     
     public static String getMostRecentMeterReading() {
         
@@ -43,7 +43,7 @@ public class MeterUtils {
             
             c = (HttpsURLConnection) u.openConnection();
             
-            c.setRequestProperty("Emsauthtoken", username + ":" + password);
+            c.setRequestProperty("Emsauthtoken", USERNAME + ":" + PASSWORD);
             c.setRequestProperty("Accept", "application/json");
             
             c.setRequestMethod("GET");
@@ -98,7 +98,7 @@ public class MeterUtils {
             
             c = (HttpsURLConnection) u.openConnection();
             
-            c.setRequestProperty("Emsauthtoken", username + ":" + password);
+            c.setRequestProperty("Emsauthtoken", USERNAME + ":" + PASSWORD);
             c.setRequestProperty("Accept", "application/json");
             
             c.setRequestMethod("GET");
@@ -119,17 +119,9 @@ public class MeterUtils {
             if (c != null)
                 c.disconnect();
         }
-        // System.out.println(response);
         return new JSONObject(response);
         
     }
-    
-    // 2010-01-01T00:00:00-0000
-    
-    // 12-06 16:06:32.253: I/url:(308):
-    // https://dev-program.tendrildemo.com/api/rest/meter/read;account=Jenkins;
-    // from=2011-12-06T16:06:16.061-07:00;
-    // to=2011-12-06T16:06:16.062-07:00
     
     public static String calendarToURLString(Calendar cal, boolean includeTime) {
         DateTime d = new DateTime(cal);
