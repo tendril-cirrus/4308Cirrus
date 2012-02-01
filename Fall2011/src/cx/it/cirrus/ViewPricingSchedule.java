@@ -1,29 +1,25 @@
 package cx.it.cirrus;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.*;
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.regex.Pattern;
-
-import javax.net.ssl.HttpsURLConnection;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 
 public class ViewPricingSchedule extends Activity {
 	private static final String url = "https://dev-program.tendrildemo.com/api/rest/pricing/schedule;account=Jenkins;from=2010-01-01T00:00:00-0000;to=2010-01-02T00:00:00-0000";
-	private static String note_id ="";
 	
 	
 	@Override

@@ -21,13 +21,16 @@ import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ViewCurrentMeterReading extends Activity {
-	private static final String url = "https://dev-program.tendrildemo.com/api/rest/meter/read;account=Jenkins;from=2000-01-01T00:00:00-0000;limitToLatest=1";
+	public static final String METER_READINGS_BASE_URL = "https://dev-program.tendrildemo.com/api/rest/meter/read;account=Jenkins;from=2000-01-01T00:00:00-0000;limitToLatest=1";
+	public static final String CONSUMPTION_BASE_URL = "https://dev-program.tendrildemo.com/api/rest/meter/consumption;account=Jenkins;from=2000-01-01T00:00:00-0000;limitToLatest=1";
+
+	
 	private static String note_id = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.current_meter_reading);
+		//setContentView(R.layout.current_meter_reading);
 	}
 
 	private void updateCurrentMeterReading() {
@@ -37,7 +40,7 @@ public class ViewCurrentMeterReading extends Activity {
 		HttpsURLConnection c = null;
 		JSONObject j = null;
 		try {
-			URL u = new URL(url);
+			URL u = new URL(METER_READINGS_BASE_URL);
 
 			c = (HttpsURLConnection) u.openConnection();
 
@@ -54,14 +57,20 @@ public class ViewCurrentMeterReading extends Activity {
 			while ((line = reader.readLine()) != null) {
 				response += line;
 			}
-
+			//TextView v = (TextView) findViewById(R.id.textView1);
+			
+			StringBuilder sb = new StringBuilder("Current Meter Reading: \n");
 			j = new JSONObject(response);
-			TextView v = (TextView) findViewById(R.id.textView1);
+			
 			JSONArray reading = (((JSONObject) j.getJSONArray("MeterReading")
 					.get(0)).getJSONArray("Readings"));
 
-			v.setText(((JSONObject) reading.get(0)).get("value").toString());
+			sb.append(((JSONObject) reading.get(0)).get("value").toString() + " kWh\n");
+			sb.append(((JSONObject) reading.get(0)).get("timeStamp"));
+			
+			//v.setText(sb.toString());
 
+			
 		} catch (MalformedURLException e) {
 			Log.e(this.getLocalClassName(),
 					"MalformedURLException  " + e.toString());
