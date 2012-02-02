@@ -1,0 +1,398 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>3.&nbsp;Spring Android Auth Module</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="Spring Android Reference Manual"><link rel="up" href="index.html" title="Spring Android Reference Manual"><link rel="prev" href="rest-template.html" title="2.&nbsp;Spring Android RestTemplate Module"><link rel="next" href="core.html" title="4.&nbsp;Spring Android Core Module"><!--Begin Google Analytics code--><script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script><script type="text/javascript">
+			var pageTracker = _gat._getTracker("UA-2728886-3");
+			pageTracker._setDomainName("none");
+			pageTracker._setAllowLinker(true);
+			pageTracker._trackPageview();
+		</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.&nbsp;Spring Android Auth Module</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="rest-template.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="core.html">Next</a></td></tr></table><hr></div><div class="chapter" title="3.&nbsp;Spring Android Auth Module"><div class="titlepage"><div><div><h2 class="title"><a name="auth"></a>3.&nbsp;Spring Android Auth Module</h2></div></div></div>
+	
+  
+
+  <div class="section" title="3.1&nbsp;Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-introduction"></a>3.1&nbsp;Introduction</h2></div></div></div>
+	
+    
+
+    <p>Many mobile applications today connect to external web services to access some type of data.  These web services may be a third-party data provider, such as <a class="ulink" href="http://twitter.com" target="_top">Twitter</a>, or it may be an in house service for connecting to a corporate calendar, for example.  In many of these cases, to access that data through the web service, you must authenticate and authorize an application on your mobile device.  The goal of the spring-android-auth module is to address the need of an Android application to gain authorization to a web service.</p>
+
+  	<p>There are many types of authorization methods and protocols, some custom and proprietary, while others are open standards.  One protocol that is rapidly growing in popularity is <a class="ulink" href="http://oauth.net/" target="_top">OAuth</a>. OAuth is an open protocol that allows users to give permission to a third-party application or web site to access restricted resources on another web site or service.  The third-party application receives an access token with which it can make requests to the protected service.  By using this access token strategy, a user's login credentials are never stored within an application, and are only required when authenticating to the service.</p>
+
+	<p></p>
+
+  </div>
+
+  <div class="section" title="3.2&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-overview"></a>3.2&nbsp;Overview</h2></div></div></div>
+
+	
+
+	<p>The initial release of the spring-android-auth module provides <a class="ulink" href="http://oauth.net/" target="_top">OAuth</a> 1.x and 2.0 support in an Android application by utilizing <a class="ulink" href="http://www.springsource.org/spring-social" target="_top">Spring Social</a>. It includes a <a class="ulink" href="http://www.sqlite.org/" target="_top">SQLite</a> repository, and Android compatible <a class="ulink" href="http://static.springsource.org/spring-security/site/index.html" target="_top">Spring Security</a> encryption.  The Spring Social project enables your applications to establish Connections with Software-as-a-Service (SaaS) Providers such as <a class="ulink" href="http://facebook.com" target="_top">Facebook</a> and <a class="ulink" href="http://twitter.com" target="_top">Twitter</a> to invoke Service APIs on behalf of Users. In order to make use of Spring Social on Android the following classes are available.</p>
+	
+	<div class="section" title="3.2.1&nbsp;SQLite Connection Repository"><div class="titlepage"><div><div><h3 class="title"><a name="d4e347"></a>3.2.1&nbsp;SQLite Connection Repository</h3></div></div></div>
+		
+		
+		
+		<p>The <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/social/connect/sqlite/SQLiteConnectionRepository.html" target="_top"><code class="classname">SQLiteConnectionRepository</code></a> class implements the <a class="ulink" href="http://static.springsource.org/spring-social/docs/1.0.x/api/org/springframework/social/connect/ConnectionRepository.html" target="_top"><code class="interfacename">ConnectionRepository</code></a> interface from Spring Social. It is used to persist the connection information to a <a class="ulink" href="http://www.sqlite.org/" target="_top">SQLite</a> database on the Android device.  This connection repository is designed for a single user who accesses multiple service providers and may even have multiple accounts on each service provider.</p>
+		
+		<p>If your device and application are used by multiple people, then a <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/index.html?org/springframework/social/connect/sqlite/SQLiteConnectionRepository.html" target="_top"><code class="classname">SQLiteUsersConnectionRepository</code></a> class is available for storing multiple user accounts, where each user account may have multiple connections per provider.  This scenario is probably not as typical, however, as many people do not share their phones or devices.</p>
+		
+	</div>
+	
+	<div class="section" title="3.2.2&nbsp;Encryption"><div class="titlepage"><div><div><h3 class="title"><a name="d4e358"></a>3.2.2&nbsp;Encryption</h3></div></div></div>
+		
+		
+		
+		<p>The Spring Security Crypto library is not currently supported on Android.  To take advantage of the encryption tools in Spring Security, the Android specific class, <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/security/crypto/encrypt/AndroidEncryptors.html" target="_top"><code class="classname">AndroidEncryptors</code></a> has been provided in Spring Android. This class uses an Android compatible <a class="ulink" href="http://developer.android.com/reference/java/security/SecureRandom.html" target="_top"><code class="classname">SecureRandom</code></a> provider for generating byte array based keys using the SHA1PRNG algorithm.</p>
+		
+	</div>
+
+  </div>
+
+  <div class="section" title="3.3&nbsp;How to get"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-howtoget"></a>3.3&nbsp;How to get</h2></div></div></div>
+	
+    
+
+	<p>Add the spring-android-auth and the supporting artifacts to your classpath. Maven will handle the dependency management, but the required dependencies are listed here for clarity.  </p>
+		
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-auth<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-rest-template<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.security<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-security-crypto<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>3.1.0.RC2.crypto<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-comment">&lt;!-- Exclude in favor of Spring Android Core --&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-comment">&lt;!-- Exclude in favor of Spring Android RestTemplate --&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-web<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+	<span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+	<span class="hl-tag">&lt;artifactId&gt;</span>jackson-mapper-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+	<span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+	<span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+	<span class="hl-tag">&lt;artifactId&gt;</span>jackson-core-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+	<span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+	<p>To use the Spring Social Twitter provider, you can add it to your classpath.  Note the exclusions in this dependency. Commons Logging is built into Android, and many of the Spring Social provider libraries are built with support for Spring Web, which is not needed on Android.</p>
+
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-twitter<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+	<p>Similarly, you can use the Spring Social Facebook provider by adding it to your classpath. Again note the exclusions.</p>
+
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-facebook<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+  </div>
+
+  <div class="section" title="3.4&nbsp;Usage Examples"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-examples"></a>3.4&nbsp;Usage Examples</h2></div></div></div>
+	
+  	
+
+  	<p>Below are several usage examples that illustrate how to use Spring Android with Spring Social.</p>
+
+	<p>The following examples are based on a <a class="ulink" href="https://github.com/SpringSource/spring-android-samples" target="_top">sample Android application</a>, which has Facebook and Twitter examples using Spring Social.  You can retrieve the source code for the sample app with Git:</p>
+	
+	<pre class="programlisting">
+$ git clone git://github.com/SpringSource/spring-android-samples.git
+	</pre>
+
+  	<div class="section" title="3.4.1&nbsp;Initializing the SQLite Database"><div class="titlepage"><div><div><h3 class="title"><a name="d4e379"></a>3.4.1&nbsp;Initializing the SQLite Database</h3></div></div></div>
+	
+		
+		
+		<p><a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/social/connect/sqlite/support/SQLiteConnectionRepositoryHelper.html" target="_top"><code class="classname">SQLiteConnectionRepositoryHelper</code></a> extends <a class="ulink" href="http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html" target="_top"><code class="classname">SQLiteOpenHelper</code></a>.  Create a new instance by passing a <a class="ulink" href="http://developer.android.com/reference/android/content/Context.html" target="_top"><code class="classname">context</code></a> reference. Depending on your implementation, and to avoid <a class="ulink" href="http://developer.android.com/resources/articles/avoiding-memory-leaks.html" target="_top">memory leaks</a>, you will probably want to use the Application Context when creating a new instance of <code class="classname">SQLiteConnectionRepositoryHelper</code>. The name of the database file created is <code class="literal">spring_social_connection_repository.sqlite</code>, and is created the first time the application attempts to open it.</p>
+		
+		<pre class="programlisting">
+Context context = getApplicationContext();
+SQLiteOpenHelper repositoryHelper = <span class="hl-keyword">new</span> SQLiteConnectionRepositoryHelper(context);
+		</pre>
+
+	</div>
+	
+  	<div class="section" title="3.4.2&nbsp;Single User App Environment"><div class="titlepage"><div><div><h3 class="title"><a name="d4e392"></a>3.4.2&nbsp;Single User App Environment</h3></div></div></div>
+
+		
+
+		<p>This example show how to set up the <code class="interfacename">ConnectionRepository</code> for use with multiple connection factories.</p>
+		
+		<p>To establish a <code class="interfacename">ConnectionRepository</code>, you will need the following objects.</p>
+
+		<pre class="programlisting">
+ConnectionFactoryRegistry connectionFactoryRegistry;
+SQLiteOpenHelper repositoryHelper;
+ConnectionRepository connectionRepository;
+		</pre>
+			
+		<p>The <a class="ulink" href="http://static.springsource.org/spring-social/docs/1.0.x/api/org/springframework/social/connect/support/ConnectionFactoryRegistry.html" target="_top"><code class="classname">ConnectionFactoryRegistry</code></a> stores the different Spring Social connections to be used in the application.</p>
+		
+		<pre class="programlisting">
+connectionFactoryRegistry = <span class="hl-keyword">new</span> ConnectionFactoryRegistry();
+		</pre>
+
+		<p>You can create a <a class="ulink" href="http://static.springsource.org/spring-social-facebook/docs/1.0.x/api/org/springframework/social/facebook/connect/FacebookConnectionFactory.html" target="_top"><code class="classname">FacebookConnectionFactory</code></a>, if your application requires Facebook connectivity.</p>
+		
+		<pre class="programlisting">
+<span class="hl-comment">// the App ID and App Secret are provided when you register a new Facebook application at facebook.com</span>
+String appId = <span class="hl-string">"8ae8f060d81d51e90fadabaab1414a97"</span>;
+String appSecret = <span class="hl-string">"473e66d79ddc0e360851dc512fe0fb1e"</span>;
+
+<span class="hl-comment">// Prepare a Facebook connection factory with the App ID and App Secret</span>
+FacebookConnectionFactory facebookConnectionFactory;
+facebookConnectionFactory = <span class="hl-keyword">new</span> FacebookConnectionFactory(appId, appSecret);
+		</pre>
+
+		<p>Similarly, you can also create a <a class="ulink" href="http://static.springsource.org/spring-social-twitter/docs/1.0.x/api/org/springframework/social/twitter/connect/TwitterConnectionFactory.html" target="_top"><code class="classname">TwitterConnectionFactory</code></a>.  Spring Social offers several different connection factories to popular services.  Additionally, you can create your own connection factory based on the Spring Social framework.</p>
+
+		<pre class="programlisting">
+<span class="hl-comment">// The consumer token and secret are provided when you register a new Twitter application at twitter.com</span>
+String consumerToken = <span class="hl-string">"YR571S2JiVBOFyJS5MEg"</span>;
+String consumerTokenSecret = <span class="hl-string">"Kb8hS0luftwCJX3qVoyiLUMfZDtK1EozFoUkjNLUMx4"</span>;
+
+<span class="hl-comment">// Prepare a Twitter connection factory with the consumer token and secret</span>
+TwitterConnectionFactory twitterConnectionFactory;
+twitterConnectionFactory = <span class="hl-keyword">new</span> TwitterConnectionFactory(consumerToken, consumerTokenSecret)
+		</pre>
+
+		<p>After you create a connection factory, you can add it to the registry.  Connection factories may be later retrieved from the registry in order to create new connections to the provider.</p>
+
+		<pre class="programlisting">
+connectionFactoryRegistry.addConnectionFactory(facebookConnectionFactory);
+connectionFactoryRegistry.addConnectionFactory(twitterConnectionFactory);
+		</pre>
+
+		<p>The final step is to prepare the connection repository for storing connections to the different providers.</p>
+
+		<pre class="programlisting">
+<span class="hl-comment">// Create the SQLiteOpenHelper for creating the local database</span>
+Context context = getApplicationContext();
+SQLiteOpenHelper repositoryHelper = <span class="hl-keyword">new</span> SQLiteConnectionRepositoryHelper(context);
+
+<span class="hl-comment">// The connection repository takes a TextEncryptor as a parameter for encrypting the OAuth information</span>
+TextEncryptor textEncryptor = AndroidEncryptors.noOpText();
+
+<span class="hl-comment">// Create the connection repository</span>
+ConnectionRepository connectionRepository = <span class="hl-keyword">new</span> SQLiteConnectionRepository(repositoryHelper, 
+	connectionFactoryRegistry, textEncryptor);
+		</pre>
+
+	</div>
+	
+	<div class="section" title="3.4.3&nbsp;Encrypting OAuth Data"><div class="titlepage"><div><div><h3 class="title"><a name="d4e415"></a>3.4.3&nbsp;Encrypting OAuth Data</h3></div></div></div>
+
+		
+
+		<p>Spring Social supports encrypting the user's OAuth connection information within the <code class="classname">ConnectionRepository</code> through the use of a Spring Security <code class="classname">TextEncryptor</code>.  The password and salt values are used to generate the encryptor's secret key. The salt value should be hex-encoded, random, and application-global.  While this will encrypt the OAuth credentials stored in the database, it is not an absolute solution.  When designing your application, keep in mind that there are already tools available for translating a DEX to a JAR file, and decompiling to source code.  Because your application is distributed to a user's device, it is more vulnerable than if it were running on a web server, for example.</p>
+
+		<pre class="programlisting">
+String password = <span class="hl-string">"password"</span>;
+String salt = <span class="hl-string">"5c0744940b5c369b"</span>;
+TextEncryptor textEncryptor = AndroidEncryptors.text(password, salt);
+connectionRepository = <span class="hl-keyword">new</span> SQLiteConnectionRepository(repositoryHelper, 
+	connectionFactoryRegistry, textEncryptor);
+		</pre>
+		
+		<p>During development you may wish to avoid encryption so you can more easily debug your application by viewing the OAuth data being saved to the database. This <code class="classname">TextEncryptor</code> performs no encryption.</p>
+		
+		<pre class="programlisting">
+TextEncryptor textEncryptor = AndroidEncryptors.noOpText();
+connectionRepository = <span class="hl-keyword">new</span> SQLiteConnectionRepository(repositoryHelper, 
+	connectionFactoryRegistry, textEncryptor);
+		</pre>
+	
+	</div>
+	
+	<div class="section" title="3.4.4&nbsp;Establishing an OAuth 1.0a connection"><div class="titlepage"><div><div><h3 class="title"><a name="d4e424"></a>3.4.4&nbsp;Establishing an OAuth 1.0a connection</h3></div></div></div>
+			
+		
+	
+		<p>The following steps illustrate how to establish a connection to Twitter. A working example is provided in the sample application described earlier.</p>
+		
+		<p>The first step is to retrieve the connection factory from the registry that we created earlier.</p>
+		
+		<pre class="programlisting">
+TwitterConnectionFactory connectionFactory;
+connectionFactory = (TwitterConnectionFactory) connectionFactoryRegistry.getConnectionFactory(Twitter.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>Fetch a one time use request token.  You must save this request token, because it will be needed in a later step.</p>
+		
+		<pre class="programlisting">  
+OAuth1Operations oauth = connectionFactory.getOAuthOperations();
+
+<span class="hl-comment">// The callback url is used to respond to your application with an OAuth verifier</span>
+String callbackUrl = <span class="hl-string">"x-org-springsource-android-showcase://twitter-oauth-response"</span>;
+
+<span class="hl-comment">// Fetch a one time use Request Token from Twitter</span>
+OAuthToken requestToken = oauth.fetchRequestToken(callbackUrl, null);
+		</pre>
+		
+		<p>Generate the url for authorizing against Twitter. Once you have the url, you use it in a WebView so the user can login and authorize your application.  One method of doing this is provided in the sample application.</p>
+
+		<pre class="programlisting">
+String authorizeUrl = oauth.buildAuthorizeUrl(requestToken.getValue(), OAuth1Parameters.NONE);
+		</pre>
+		
+		<p>Once the user has successfully authenticated and authorized the application, Twitter will call back to your application with the oauth verifier.  The following settings from an AndroidManifest illustrate how to associate a callback url with a specific Activity.  In this case, when the request is made from Twitter to the callback url, the TwitterActivity will respond.</p>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;activity</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"org.springframework.android.showcase.social.twitter.TwitterActivity"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;intent-filter&gt;</span>
+    <span class="hl-tag">&lt;action</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"android.intent.action.VIEW"</span><span class="hl-tag"> /&gt;</span>
+    <span class="hl-tag">&lt;category</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"android.intent.category.DEFAULT"</span><span class="hl-tag"> /&gt;</span>
+    <span class="hl-tag">&lt;category</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"android.intent.category.BROWSABLE"</span><span class="hl-tag"> /&gt;</span>
+    <span class="hl-tag">&lt;data</span> <span class="hl-attribute">android:scheme</span>=<span class="hl-value">"x-org-springsource-android-showcase"</span> <span class="hl-attribute">android:host</span>=<span class="hl-value">"twitter-oauth-response"</span><span class="hl-tag"> /&gt;</span>
+  <span class="hl-tag">&lt;/intent-filter&gt;</span>
+<span class="hl-tag">&lt;/activity&gt;</span>
+		</pre>
+		
+		<p>The Activity that responds to the callback url should retrieve the <code class="literal">oauth_verifier</code> querystring parameter from the request.</p>
+		
+		<pre class="programlisting">
+Uri uri = getIntent().getData();
+String oauthVerifier = uri.getQueryParameter(<span class="hl-string">"oauth_verifier"</span>);
+		</pre>
+		
+		<p>Once you have the oauth_verifier, you can authorize the request token that was saved earlier.</p>
+	
+		<pre class="programlisting">
+AuthorizedRequestToken authorizedRequestToken = <span class="hl-keyword">new</span> AuthorizedRequestToken(requestToken, verifier);
+		</pre>
+		
+		<p>Now exchange the authorized request token for an access token.  Once you have the access token, the request token is no longer required, and can be safely discarded.</p>
+
+		<pre class="programlisting">
+OAuth1Operations oauth = connectionFactory.getOAuthOperations();
+OAuthToken accessToken = oauth.exchangeForAccessToken(authorizedRequestToken, null);
+		</pre>
+		
+		<p>Finally, we can create a Twitter connection and store it in the repository.</p>
+
+		<pre class="programlisting">
+Connection&lt;TwitterApi&gt; connection = connectionFactory.createConnection(accessToken);
+connectionRepository.addConnection(connection);
+		</pre>
+		
+	</div>
+	
+	<div class="section" title="3.4.5&nbsp;Establishing an OAuth 2.0 connection"><div class="titlepage"><div><div><h3 class="title"><a name="d4e444"></a>3.4.5&nbsp;Establishing an OAuth 2.0 connection</h3></div></div></div>
+
+		
+
+		<p>The following steps illustrate how to establish a connection to Facebook. A working example is provided in the sample application described earlier.  Keep in mind that each provider's implementation may be different.  You may have to adjust these steps when connecting to a different OAuth 2.0 provider.</p>
+
+		<p>The first step is to retrieve the connection factory from the registry that we created earlier.</p>
+
+		<pre class="programlisting">
+FacebookConnectionFactory connectionFactory;
+connectionFactory = (FacebookConnectionFactory) connectionFactoryRegistry.getConnectionFactory(Facebook.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>Specify the redirect url.  In the case of Facebook, we are using the client-side authorization flow. In order to retrieve the access token, Facebook will redirect to a success page that contains the access token in a URI fragment.</p>
+		
+		<pre class="programlisting">
+String redirectUri = <span class="hl-string">"https://www.facebook.com/connect/login_success.html"</span>;
+		</pre>
+
+		<p>Define the scope of permissions your app requires.</p>
+
+		<pre class="programlisting">
+String scope = <span class="hl-string">"publish_stream,offline_access,read_stream,user_about_me"</span>;
+		</pre>
+		
+		<p>In order to display a mobile formatted web page for Facebook authorization, you must <a class="ulink" href="http://developers.facebook.com/docs/guides/mobile/#web" target="_top">pass an additional parameter</a> in the request. This parameter is not part of the OAuth specification, but the following illustrates how Spring Social supports additional parameters.</p>
+
+		<pre class="programlisting">
+MultiValueMap&lt;String, String&gt; additionalParameters = <span class="hl-keyword">new</span> LinkedMultiValueMap&lt;String, String&gt;();
+additionalParameters.add(<span class="hl-string">"display"</span>, <span class="hl-string">"touch"</span>);
+		</pre>
+		
+		<p>Now we can generate the Facebook authorization url to be used in the browser or web view</p>
+
+		<pre class="programlisting">
+OAuth2Parameters parameters = <span class="hl-keyword">new</span> OAuth2Parameters(redirectUri, scope, null, additionalParameters);
+OAuth2Operations oauth = connectionFactory.getOAuthOperations();
+String authorizeUrl = oauth.buildAuthorizeUrl(GrantType.IMPLICIT_GRANT, parameters);
+		</pre>
+		
+		<p>The next step is to load the generated authorization url into a webview within your application.  After the user logs in and authorizes your application, the browser will redirect to the url specified earlier.  If authentication was successful, the url of the redirected page will now include a URI fragment which contains an access_token parameter.  Retrieve the access token from the URI fragment and use it to create the Facebook connection.  One method of doing this is provided in the sample application.</p>
+		
+		<pre class="programlisting">
+AccessGrant accessGrant = <span class="hl-keyword">new</span> AccessGrant(accessToken);
+Connection&lt;FacebookApi&gt; connection = connectionFactory.createConnection(accessGrant);
+connectionRepository.addConnection(connection);
+		</pre>
+		
+	</div>
+	
+  </div>
+
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+			_lf_cid = "LF_48be82fa";
+			_lf_remora();
+		</script><!--End LoopFuse code--><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="rest-template.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="core.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.&nbsp;Spring Android RestTemplate Module&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;4.&nbsp;Spring Android Core Module</td></tr></table></div></body></html>

@@ -1,0 +1,1441 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Spring Android Reference Manual</title><link rel="stylesheet" href="css/manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><!--Begin Google Analytics code--><script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2728886-3");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+</script><!--End Google Analytics code--></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" title="Spring Android Reference Manual"><div class="titlepage"><div><div><h1 class="title"><a name="spring-android-reference"></a>Spring Android Reference Manual</h1></div><div><div class="authorgroup">
+      <div class="author"><h3 class="author"><span class="firstname">Roy</span> <span class="surname">Clarkson</span></h3></div>
+    </div></div><div><p class="releaseinfo">1.0.0.M4</p></div><div><div class="legalnotice" title="Legal Notice"><a name="d4e16"></a><p>&copy; SpringSource Inc., 2011</p></div></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#overview">1. Spring Android Overview</a></span></dt><dd><dl><dt><span class="section"><a href="#spring-android-overview-introduction">1.1. Introduction</a></span></dt></dl></dd><dt><span class="chapter"><a href="#rest-template">2. Spring Android RestTemplate Module</a></span></dt><dd><dl><dt><span class="section"><a href="#rest-template-introduction">2.1. Introduction</a></span></dt><dt><span class="section"><a href="#rest-template-overview">2.2. Overview</a></span></dt><dd><dl><dt><span class="section"><a href="#d4e37">2.2.1. HTTP Client</a></span></dt><dt><span class="section"><a href="#d4e51">2.2.2. Gzip Compression</a></span></dt><dt><span class="section"><a href="#d4e57">2.2.3. Object to JSON Marshaling</a></span></dt><dt><span class="section"><a href="#d4e62">2.2.4. Object to XML Marshaling</a></span></dt><dt><span class="section"><a href="#d4e66">2.2.5. RSS and Atom Support</a></span></dt></dl></dd><dt><span class="section"><a href="#rest-template-methods">2.3. RestTemplate Methods</a></span></dt><dd><dl><dt><span class="section"><a href="#d4e84">2.3.1. HTTP DELETE</a></span></dt><dt><span class="section"><a href="#d4e87">2.3.2. HTTP GET</a></span></dt><dt><span class="section"><a href="#d4e90">2.3.3. HTTP HEAD</a></span></dt><dt><span class="section"><a href="#d4e93">2.3.4. HTTP OPTIONS</a></span></dt><dt><span class="section"><a href="#d4e96">2.3.5. HTTP POST</a></span></dt><dt><span class="section"><a href="#d4e99">2.3.6. HTTP PUT</a></span></dt></dl></dd><dt><span class="section"><a href="#rest-template-message-converters">2.4. HTTP Message Conversion</a></span></dt><dd><dl><dt><span class="section"><a href="#d4e128">2.4.1. StringHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e135">2.4.2. FormHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e141">2.4.3. ByteArrayMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e149">2.4.4. SimpleXmlHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e161">2.4.5. MappingJacksonHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e170">2.4.6. GsonHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e183">2.4.7. SourceHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e193">2.4.8. SyndFeedHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e201">2.4.9. RssChannelHttpMessageConverter</a></span></dt><dt><span class="section"><a href="#d4e212">2.4.10. AtomFeedHttpMessageConverter</a></span></dt></dl></dd><dt><span class="section"><a href="#rest-template-howtoget">2.5. How to get</a></span></dt><dd><dl><dt><span class="section"><a href="#rest-template-howtoget-jackson">2.5.1. Jackson JSON Processor</a></span></dt><dt><span class="section"><a href="#rest-template-howtoget-gson">2.5.2. Google Gson</a></span></dt><dt><span class="section"><a href="#rest-template-howtoget-simple">2.5.3. Simple XML Serializer</a></span></dt><dt><span class="section"><a href="#rest-template-howtoget-rome">2.5.4. Android ROME Feed Reader</a></span></dt></dl></dd><dt><span class="section"><a href="#rest-template-examples">2.6. Usage Examples</a></span></dt><dd><dl><dt><span class="section"><a href="#d4e270">2.6.1. Basic Usage Example</a></span></dt><dt><span class="section"><a href="#d4e274">2.6.2. Using Gzip Compression</a></span></dt><dt><span class="section"><a href="#d4e284">2.6.3. Retrieving JSON data via HTTP GET</a></span></dt><dt><span class="section"><a href="#d4e297">2.6.4. Retrieving XML data via HTTP GET</a></span></dt><dt><span class="section"><a href="#d4e309">2.6.5. Send JSON data via HTTP POST</a></span></dt><dt><span class="section"><a href="#d4e319">2.6.6. Retrieve RSS or Atom feed</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#auth">3. Spring Android Auth Module</a></span></dt><dd><dl><dt><span class="section"><a href="#auth-introduction">3.1. Introduction</a></span></dt><dt><span class="section"><a href="#auth-overview">3.2. Overview</a></span></dt><dd><dl><dt><span class="section"><a href="#d4e347">3.2.1. SQLite Connection Repository</a></span></dt><dt><span class="section"><a href="#d4e358">3.2.2. Encryption</a></span></dt></dl></dd><dt><span class="section"><a href="#auth-howtoget">3.3. How to get</a></span></dt><dt><span class="section"><a href="#auth-examples">3.4. Usage Examples</a></span></dt><dd><dl><dt><span class="section"><a href="#d4e379">3.4.1. Initializing the SQLite Database</a></span></dt><dt><span class="section"><a href="#d4e392">3.4.2. Single User App Environment</a></span></dt><dt><span class="section"><a href="#d4e415">3.4.3. Encrypting OAuth Data</a></span></dt><dt><span class="section"><a href="#d4e424">3.4.4. Establishing an OAuth 1.0a connection</a></span></dt><dt><span class="section"><a href="#d4e444">3.4.5. Establishing an OAuth 2.0 connection</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#core">4. Spring Android Core Module</a></span></dt><dd><dl><dt><span class="section"><a href="#core-introduction">4.1. Introduction</a></span></dt><dt><span class="section"><a href="#core-howtoget">4.2. How to get</a></span></dt></dl></dd><dt><span class="chapter"><a href="#spring-android-maven">5. Spring Android and Maven</a></span></dt><dd><dl><dt><span class="section"><a href="#maven-example-introduction">5.1. Introduction</a></span></dt><dt><span class="section"><a href="#maven-example-pom">5.2. Example POM</a></span></dt><dt><span class="section"><a href="#maven-commands">5.3. Maven Commands</a></span></dt></dl></dd></dl></div>
+  
+
+  
+  
+  <div class="chapter" title="1.&nbsp;Spring Android Overview"><div class="titlepage"><div><div><h2 class="title"><a name="overview"></a>1.&nbsp;Spring Android Overview</h2></div></div></div>
+  
+
+  <div class="section" title="1.1&nbsp;Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="spring-android-overview-introduction"></a>1.1&nbsp;Introduction</h2></div></div></div>
+	
+    
+
+    <p>The Spring Android project supports the usage of the Spring Framework in an Android environment. This includes the ability to use RestTemplate as the REST client for your Android applications. Spring Android also provides support for integrating Spring Social functionality into your Android application, which includes a robust OAuth based, authorization client and implementations for popular social web sites, such as Twitter and Facebook.</p>
+
+  </div>
+
+</div>
+  <div class="chapter" title="2.&nbsp;Spring Android RestTemplate Module"><div class="titlepage"><div><div><h2 class="title"><a name="rest-template"></a>2.&nbsp;Spring Android RestTemplate Module</h2></div></div></div>
+ 
+
+  <div class="section" title="2.1&nbsp;Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rest-template-introduction"></a>2.1&nbsp;Introduction</h2></div></div></div>
+	
+	
+	
+	<p>Spring's RestTemplate is a robust, popular Java-based REST client. The Spring Android RestTemplate Module provides a version of RestTemplate that works in an Android environment.</p>
+	
+  </div>
+
+  <div class="section" title="2.2&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rest-template-overview"></a>2.2&nbsp;Overview</h2></div></div></div>
+	
+		
+	
+	<p>The <code class="classname">RestTemplate</code> class is the heart of the Spring Android RestTemplate library. It is conceptually similar to other template classes found in other Spring portfolio projects. RestTemplate's behavior is customized by providing callback methods and configuring the <code class="interfacename">HttpMessageConverter</code> used to marshal objects into the HTTP request body and to unmarshal any response back into an object. When you create a new <code class="classname">RestTemplate</code> instance, the constructor sets up several supporting objects that make up the RestTemplate functionality.</p>
+			
+	<p>Here is an overview of the functionality supported within <code class="classname">RestTemplate</code>.</p>
+	
+	<div class="section" title="2.2.1&nbsp;HTTP Client"><div class="titlepage"><div><div><h3 class="title"><a name="d4e37"></a>2.2.1&nbsp;HTTP Client</h3></div></div></div>
+		
+		
+		
+		<p><code class="classname">RestTemplate</code> provides an abstraction for making RESTful http requests, and internally, <code class="classname">RestTemplate</code> utilizes a native Android HTTP client library for those requests.  The <a class="ulink" href="http://hc.apache.org/httpcomponents-client-ga/index.html" target="_top">HttpComponents HttpClient</a> is a native HTTP client available on the Android platform. Within Spring Android RestTemplate the HttpClient is made available through the <code class="classname">HttpComponentsClientHttpRequestFactory</code>. This class is set as the default <code class="interfacename">ClientHttpRequestFactory</code> when you create a new <code class="classname">RestTemplate</code> instance.  The standard J2SE facilities are also available as a native Android library, and are made available through the <code class="classname">SimpleClientHttpRequestFactory</code>. To utilize the <code class="classname">SimpleClientHttpRequestFactory</code>, you must either pass a new instance into the <code class="classname">RestTemplate</code> constructor, or call <code class="methodname">setRequestFactory(ClientHttpRequestFactory requestFactory)</code> on an existing <code class="classname">RestTemplate</code> instance.</p>
+		
+	</div>
+	
+	<div class="section" title="2.2.2&nbsp;Gzip Compression"><div class="titlepage"><div><div><h3 class="title"><a name="d4e51"></a>2.2.2&nbsp;Gzip Compression</h3></div></div></div>
+		
+		
+		
+		<p><code class="classname">RestTemplate</code> supports sending and receiving data encoded with gzip compression.  The HTTP specification allows for additional values in the <code class="literal">Accept-Encoding</code> header field, however <code class="classname">RestTemplate</code> only supports gzip compression at this time.</p>
+		
+	</div>
+	
+	<div class="section" title="2.2.3&nbsp;Object to JSON Marshaling"><div class="titlepage"><div><div><h3 class="title"><a name="d4e57"></a>2.2.3&nbsp;Object to JSON Marshaling</h3></div></div></div>
+		
+		
+		
+		<p>Object to JSON marshaling in Spring Android RestTemplate requires the use of a third party JSON mapping library. There are two libraries supported in Spring Android, <a class="ulink" href="http://jackson.codehaus.org" target="_top">Jackson JSON Processor</a>, and <a class="ulink" href="http://code.google.com/p/google-gson/" target="_top">Google Gson</a>.  While Jackson is a well known JSON parsing library, the Gson library is smaller, which would result in an smaller Android app when packaged.</p>
+		
+	</div>
+	
+	<div class="section" title="2.2.4&nbsp;Object to XML Marshaling"><div class="titlepage"><div><div><h3 class="title"><a name="d4e62"></a>2.2.4&nbsp;Object to XML Marshaling</h3></div></div></div>
+		
+		
+		
+		<p>Object to XML marshaling in Spring Android RestTemplate requires the use of a third party XML mapping library. The <a class="ulink" href="http://simple.sourceforge.net" target="_top">Simple XML serializer</a> is used to provide this marshaling functionality.</p>
+		
+	</div>
+	
+	<div class="section" title="2.2.5&nbsp;RSS and Atom Support"><div class="titlepage"><div><div><h3 class="title"><a name="d4e66"></a>2.2.5&nbsp;RSS and Atom Support</h3></div></div></div>
+		
+		
+		
+		<p>RSS and Atom feed support in Spring Android RestTemplate requires the use of a third party feed reader library. The <a class="ulink" href="http://code.google.com/p/android-rome-feed-reader" target="_top">Android ROME Feed Reader</a> is used to provide this functionality.</p>
+		
+	</div>
+	
+  </div>
+
+
+  <div class="section" title="2.3&nbsp;RestTemplate Methods"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rest-template-methods"></a>2.3&nbsp;RestTemplate Methods</h2></div></div></div>
+		
+	
+	
+	<p><code class="classname">RestTemplate</code> provides higher level methods that correspond to each of the six main HTTP methods.  These methods make it easy to invoke many RESTful services and enforce REST best practices.</p>
+	
+	<p>The names of <code class="classname">RestTemplate</code> methods follow a naming convention, the first part indicates what HTTP method is being invoked and the second part indicates what is returned. For example, the method <code class="methodname">getForObject()</code> will perform a GET, convert the HTTP response into an object type of your choice and return that object. The method <code class="methodname">postForLocation()</code> will do a POST, converting the given object into a HTTP request and return the response HTTP Location header where the newly created object can be found. In case of an exception processing the HTTP request, an exception of the type <code class="classname">RestClientException</code> will be thrown.  This behavior can be changed by plugging in another <code class="interfacename">ResponseErrorHandler</code> implementation into the <code class="classname">RestTemplate.</code></p>
+	
+	<p>For more information on <code class="classname">RestTemplate</code> and it's associated methods, please refer to the <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/web/client/RestTemplate.html" target="_top">API Javadoc</a></p>
+	
+	<div class="section" title="2.3.1&nbsp;HTTP DELETE"><div class="titlepage"><div><div><h3 class="title"><a name="d4e84"></a>2.3.1&nbsp;HTTP DELETE</h3></div></div></div>
+		
+		
+		
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> delete(String url, Object... urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> delete(String url, Map&lt;String, ?&gt; urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> delete(URI url) <span class="hl-keyword">throws</span> RestClientException;
+		</pre>
+
+	</div>
+
+	<div class="section" title="2.3.2&nbsp;HTTP GET"><div class="titlepage"><div><div><h3 class="title"><a name="d4e87"></a>2.3.2&nbsp;HTTP GET</h3></div></div></div>
+		
+		
+
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> &lt;T&gt; T getForObject(String url, Class&lt;T&gt; responseType, Object... urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> &lt;T&gt; T getForObject(String url, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> &lt;T&gt; T getForObject(URI url, Class&lt;T&gt; responseType) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> &lt;T&gt; ResponseEntity&lt;T&gt; getForEntity(String url, Class&lt;T&gt; responseType, Object... urlVariables);
+
+<span class="hl-keyword">public</span> &lt;T&gt; ResponseEntity&lt;T&gt; getForEntity(String url, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; urlVariables);
+
+<span class="hl-keyword">public</span> &lt;T&gt; ResponseEntity&lt;T&gt; getForEntity(URI url, Class&lt;T&gt; responseType) <span class="hl-keyword">throws</span> RestClientException;
+		</pre>
+		
+	</div>
+
+	<div class="section" title="2.3.3&nbsp;HTTP HEAD"><div class="titlepage"><div><div><h3 class="title"><a name="d4e90"></a>2.3.3&nbsp;HTTP HEAD</h3></div></div></div>
+
+		
+
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> HttpHeaders headForHeaders(String url, Object... urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> HttpHeaders headForHeaders(String url, Map&lt;String, ?&gt; urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> HttpHeaders headForHeaders(URI url) <span class="hl-keyword">throws</span> RestClientException;
+		</pre>
+
+	</div>
+	
+	<div class="section" title="2.3.4&nbsp;HTTP OPTIONS"><div class="titlepage"><div><div><h3 class="title"><a name="d4e93"></a>2.3.4&nbsp;HTTP OPTIONS</h3></div></div></div>
+
+		
+
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> Set&lt;HttpMethod&gt; optionsForAllow(String url, Object... urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> Set&lt;HttpMethod&gt; optionsForAllow(String url, Map&lt;String, ?&gt; urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> Set&lt;HttpMethod&gt; optionsForAllow(URI url) <span class="hl-keyword">throws</span> RestClientException;
+		</pre>
+
+	</div>
+	
+	<div class="section" title="2.3.5&nbsp;HTTP POST"><div class="titlepage"><div><div><h3 class="title"><a name="d4e96"></a>2.3.5&nbsp;HTTP POST</h3></div></div></div>
+
+		
+
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> URI postForLocation(String url, Object request, Object... urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> URI postForLocation(String url, Object request, Map&lt;String, ?&gt; urlVariables);
+
+<span class="hl-keyword">public</span> URI postForLocation(URI url, Object request) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> &lt;T&gt; T postForObject(String url, Object request, Class&lt;T&gt; responseType, Object... uriVariables);
+
+<span class="hl-keyword">public</span> &lt;T&gt; T postForObject(String url, Object request, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; uriVariables);
+
+<span class="hl-keyword">public</span> &lt;T&gt; T postForObject(URI url, Object request, Class&lt;T&gt; responseType) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> &lt;T&gt; ResponseEntity&lt;T&gt; postForEntity(String url, Object request, Class&lt;T&gt; responseType, Object... uriVariables);
+
+<span class="hl-keyword">public</span> &lt;T&gt; ResponseEntity&lt;T&gt; postForEntity(String url, Object request, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; uriVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> &lt;T&gt; ResponseEntity&lt;T&gt; postForEntity(URI url, Object request, Class&lt;T&gt; responseType) <span class="hl-keyword">throws</span> RestClientException;
+		</pre>
+
+	</div>
+	
+	<div class="section" title="2.3.6&nbsp;HTTP PUT"><div class="titlepage"><div><div><h3 class="title"><a name="d4e99"></a>2.3.6&nbsp;HTTP PUT</h3></div></div></div>
+
+		
+
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> put(String url, Object request, Object... urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> put(String url, Object request, Map&lt;String, ?&gt; urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+
+<span class="hl-keyword">public</span> <span class="hl-keyword">void</span> put(String url, Object request, Map&lt;String, ?&gt; urlVariables) <span class="hl-keyword">throws</span> RestClientException;
+		</pre>
+
+	</div>
+	
+  </div>
+
+
+  <div class="section" title="2.4&nbsp;HTTP Message Conversion"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rest-template-message-converters"></a>2.4&nbsp;HTTP Message Conversion</h2></div></div></div>
+
+	
+
+	<p>Objects passed to and returned from the methods <code class="methodname">getForObject()</code>, <code class="methodname">getForEntity()</code>, <code class="methodname">postForLocation()</code>, <code class="methodname">postForObject()</code> and <code class="methodname">put()</code> are converted to HTTP requests and from HTTP responses by <code class="interfacename">HttpMessageConverter</code> instances. Converters for the main mime types are registered by default, but you can also write your own converter and register it via the <code class="methodname">messageConverters()</code> property.</p> 
+	
+	
+	<p>The default converter instances registered with the template are <code class="classname">ByteArrayHttpMessageConverter</code>, <code class="classname">StringHttpMessageConverter</code>, and <code class="classname">ResourceHttpMessageConverter</code>.  If you are app is running on Android 2.2 or later, then <code class="classname">XmlAwareFormHttpMessageConverter</code> and <code class="classname">SourceHttpMessageConverter</code> are registered, as these two message converters require the <code class="classname">javax.xml.transform</code> library. On Android 2.1, this falls back to the <code class="classname">FormHttpMessageConverter</code> which lacks some of the XML support in the other two.</p> 
+	
+	<p>The <code class="interfacename">HttpMessageConverter</code> interface is shown below to give you a better feel for its functionality.</p>
+
+	<pre class="programlisting">
+<span class="hl-keyword">public</span> <span class="hl-keyword">interface</span> HttpMessageConverter&lt;T&gt; {
+
+    <span class="hl-comment">// Indicates whether the given class can be read by this converter.</span>
+    <span class="hl-keyword">boolean</span> canRead(Class&lt;?&gt; clazz, MediaType mediaType);
+
+    <span class="hl-comment">// Indicates whether the given class can be written by this converter.</span>
+    <span class="hl-keyword">boolean</span> canWrite(Class&lt;?&gt; clazz, MediaType mediaType);
+
+    <span class="hl-comment">// Return the list of {@link MediaType} objects supported by this converter.</span>
+    List&lt;MediaType&gt; getSupportedMediaTypes();
+
+    <span class="hl-comment">// Read an object of the given type form the given input message, and returns it.</span>
+    T read(Class&lt;? <span class="hl-keyword">extends</span> T&gt; clazz, HttpInputMessage inputMessage)
+            <span class="hl-keyword">throws</span> IOException, HttpMessageNotReadableException;
+
+    <span class="hl-comment">// Write an given object to the given output message.</span>
+    <span class="hl-keyword">void</span> write(T t, MediaType contentType, HttpOutputMessage outputMessage)
+            <span class="hl-keyword">throws</span> IOException, HttpMessageNotWritableException;
+
+}
+	</pre>	
+
+	<p>Concrete implementations for the main media (mime) types are provided in the framework and are registered by default within <code class="classname">RestTemplate</code></p>
+
+	<p>The following <code class="interfacename">HttpMessageConverter</code> implementations are available in Spring Android. For all converters a default media type is used but can be overridden by calling the <code class="methodname">setSupportedMediaTypes()</code> method.</p>
+
+	<div class="section" title="2.4.1&nbsp;StringHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e128"></a>2.4.1&nbsp;StringHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write Strings from the HTTP request and response. By default, this converter supports all text media types (<code class="literal">text/*</code>), and writes with a <code class="literal">Content-Type</code> of <code class="literal">text/plain</code>.</p>
+
+	</div>
+
+	<div class="section" title="2.4.2&nbsp;FormHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e135"></a>2.4.2&nbsp;FormHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write form data from the HTTP request and response. By default, this converter reads and writes the media type <code class="literal">application/x-www-form-urlencoded</code>. Form data is read from and written into a <code class="literal">MultiValueMap&lt;String, String&gt;</code>.</p>
+
+	</div>
+
+	<div class="section" title="2.4.3&nbsp;ByteArrayMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e141"></a>2.4.3&nbsp;ByteArrayMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write byte arrays from the HTTP request and response. By default, this converter supports all media types (<code class="literal">*/*</code>), and writes with a <code class="literal">Content-Type</code> of <code class="literal">application/octet-stream</code>. This can be overridden by setting the supportedMediaTypes property, and overriding <code class="methodname">getContentType(byte[])</code>.</p>
+
+	</div>
+
+	<div class="section" title="2.4.4&nbsp;SimpleXmlHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e149"></a>2.4.4&nbsp;SimpleXmlHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write XML from the HTTP request and response using <a class="ulink" href="http://simple.sourceforge.net" target="_top">Simple Framework</a>'s <code class="interfacename">Serializer</code>. XML mapping can be customized as needed through the use of Simple's provided annotations. When additional control is needed, a custom <code class="interfacename">Serializer</code> can be injected through the <code class="interfacename">Serializer</code> property. By default, this converter reads and writes the media types <code class="literal">application/xml</code>, <code class="literal">text/xml</code>, and <code class="literal">application/*+xml</code>.</p>
+
+		<p>It is important to note that this is not a Spring OXM compatible message converter. It is a standalone implementation that enables XML serialization through Spring Android.</p>
+
+	</div>
+
+	<div class="section" title="2.4.5&nbsp;MappingJacksonHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e161"></a>2.4.5&nbsp;MappingJacksonHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write JSON using <a class="ulink" href="http://jackson.codehaus.org" target="_top">Jackson JSON Processor</a>'s <code class="classname">ObjectMapper</code>. JSON mapping can be customized as needed through the use of Jackson's provided annotations. When further control is needed, a custom <code class="classname">ObjectMapper</code> can be injected through the <code class="classname">ObjectMapper</code> property for cases where custom JSON serializers/deserializers need to be provided for specific types. By default this converter supports (<code class="literal">application/json</code>).</p>
+
+	</div>
+
+	<div class="section" title="2.4.6&nbsp;GsonHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e170"></a>2.4.6&nbsp;GsonHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write JSON using <a class="ulink" href="http://code.google.com/p/google-gson/" target="_top">Google Gson</a>'s <code class="classname">Gson</code> class. JSON mapping can be customized as needed through the use of Gson's provided annotations. When further control is needed, a custom <code class="classname">Gson</code> can be injected through the <code class="classname">Gson</code> property for cases where custom JSON serializers/deserializers need to be provided for specific types. By default this converter supports (<code class="literal">application/json</code>).</p>
+
+		<p>Please note that this message converter and the <code class="classname">MappingJacksonHttpMessageConverter</code> support <code class="literal">application/json</code>. Because of this, only one will automatically be loaded with a new <code class="classname">RestTemplate</code> instance. If you include Jackson and Gson in your classpath, Jackson will take precedence over Gson.</p>
+
+	</div>
+
+	<div class="section" title="2.4.7&nbsp;SourceHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e183"></a>2.4.7&nbsp;SourceHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write <code class="classname">javax.xml.transform.Source</code> from the HTTP request and response. Only <code class="classname">DOMSource</code>, <code class="classname">SAXSource</code>, and <code class="classname">StreamSource</code> are supported. By default, this converter supports (<code class="literal">text/xml</code>) and (<code class="literal">application/xml</code>).</p>
+
+	</div>
+	
+	<div class="section" title="2.4.8&nbsp;SyndFeedHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e193"></a>2.4.8&nbsp;SyndFeedHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write RSS and Atom feeds from the HTTP request and response using <a class="ulink" href="http://code.google.com/p/android-rome-feed-reader" target="_top">Android ROME Feed Reader</a>.  The data is read from and written into a <code class="classname">com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndFeed</code>.  By default, this converter supports (<code class="literal">application/rss+xml</code>) and (<code class="literal">application/atom+xml</code>).</p>
+
+	</div>
+	
+	<div class="section" title="2.4.9&nbsp;RssChannelHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e201"></a>2.4.9&nbsp;RssChannelHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write RSS feeds from the HTTP request and response.  The data is read from and written into a <code class="classname">com.google.code.rome.android.repackaged.com.sun.syndication.feed.rss.Channel</code>.  By default, this converter supports (<code class="literal">application/rss+xml</code>).</p>
+		
+		<p>Because the <code class="classname">SyndFeedHttpMessageConverter</code> provides a higher level of abstraction around RSS and Atom feeds, the <code class="classname">RssChannelHttpMessageConverter</code> is not automatically added when you create a new <code class="classname">RestTemplate</code> instance.  If you prefer to use this message converter then you have to manually add it to the <code class="classname">RestTemplate</code> instance.
+		</p>
+		
+	</div>
+	
+	<div class="section" title="2.4.10&nbsp;AtomFeedHttpMessageConverter"><div class="titlepage"><div><div><h3 class="title"><a name="d4e212"></a>2.4.10&nbsp;AtomFeedHttpMessageConverter</h3></div></div></div>
+
+		
+
+		<p>An <code class="interfacename">HttpMessageConverter</code> implementation that can read and write Atom feeds from the HTTP request and response.  The data is read from and written into a <code class="classname">com.google.code.rome.android.repackaged.com.sun.syndication.feed.atom.Feed</code>.  By default, this converter supports (<code class="literal">application/atom+xml</code>).</p>
+		
+		<p>Because the <code class="classname">SyndFeedHttpMessageConverter</code> provides a higher level of abstraction around RSS and Atom feeds, the <code class="classname">AtomFeedHttpMessageConverter</code> is not automatically added when you create a new <code class="classname">RestTemplate</code> instance.  If you prefer to use this message converter then you have to manually add it to the <code class="classname">RestTemplate</code> instance.
+		</p>
+		
+	</div>
+
+  </div>
+
+
+  <div class="section" title="2.5&nbsp;How to get"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rest-template-howtoget"></a>2.5&nbsp;How to get</h2></div></div></div>
+	
+	
+	
+	<p>Add the spring-android-rest-template artifact to your classpath:</p>
+		
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-rest-template<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+	<p>Google's provided Android toolset does not include dependency management support. However, through the use of third party tools, you can use Maven to manage dependencies and build your Android app. See the <a class="link" href="#spring-android-maven" title="5.&nbsp;Spring Android and Maven">Spring Android and Maven</a> section for more information.</p>
+
+	<p>Spring Android RestTemplate supports several optional libraries.  These optional libraries are used by different <code class="interfacename">HttpMessageConverter</code> instances within <code class="classname">RestTemplate</code>.  If you would like to make use of these message converters, then you need to include the corresponding libraries in your classpath.</p>	
+	
+	<div class="section" title="2.5.1&nbsp;Jackson JSON Processor"><div class="titlepage"><div><div><h3 class="title"><a name="rest-template-howtoget-jackson"></a>2.5.1&nbsp;Jackson JSON Processor</h3></div></div></div>
+		
+		
+				
+		<p>Include the following <a class="ulink" href="http://jackson.codehaus.org" target="_top">Jackson</a> dependencies to your classpath to enable the <code class="classname">MappingJacksonHttpMessageConverter</code>.</p>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>jackson-mapper-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+		</pre>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>jackson-core-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+		</pre>
+		
+	</div>
+	
+		<div class="section" title="2.5.2&nbsp;Google Gson"><div class="titlepage"><div><div><h3 class="title"><a name="rest-template-howtoget-gson"></a>2.5.2&nbsp;Google Gson</h3></div></div></div>
+			
+			
+			
+			<p>Add the following <a class="ulink" href="http://code.google.com/p/google-gson/" target="_top">Google Gson</a> dependency to your classpath to enable the <code class="classname">GsonHttpMessageConverter</code>.</p>
+			
+			<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>com.google.code.gson<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>gson<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${gson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+			</pre>
+			
+		</div>
+	
+	<div class="section" title="2.5.3&nbsp;Simple XML Serializer"><div class="titlepage"><div><div><h3 class="title"><a name="rest-template-howtoget-simple"></a>2.5.3&nbsp;Simple XML Serializer</h3></div></div></div>
+		
+		
+		
+		<p>Add the following <a class="ulink" href="http://simple.sourceforge.net" target="_top">Simple XML Serializer</a> dependency to your classpath to enable the <code class="classname">SimpleXmlHttpMessageConverter</code>.</p>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.simpleframework<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>simple-xml<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${simple-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+		</pre>
+		
+	</div>
+	
+	<div class="section" title="2.5.4&nbsp;Android ROME Feed Reader"><div class="titlepage"><div><div><h3 class="title"><a name="rest-template-howtoget-rome"></a>2.5.4&nbsp;Android ROME Feed Reader</h3></div></div></div>
+		
+		
+		
+		<p>Add the following <a class="ulink" href="http://code.google.com/p/android-rome-feed-reader" target="_top">Android ROME Feed Reader</a> dependencies to your classpath to enable the <code class="classname">RssChannelHttpMessageConverter</code>, <code class="classname">AtomFeedHttpMessageConverter</code>, and <code class="classname">SyndFeedHttpMessageConverter</code>. This library depends on a forked version of JDOM to work on Android 2.1 and earlier. The JDOM library addresses a <a class="ulink" href="http://www.jdom.org/pipermail/jdom-interest/2009-July/016345.html" target="_top">bug</a> in the Android XML parser.</p>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>com.google.code.android-rome-feed-reader<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>android-rome-feed-reader<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${android-rome-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+		</pre>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.jdom<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>jdom<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${jdom-fork-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+		</pre>
+		
+		<p>The Android ROME Feed Reader is not available through the Maven central repository. When using Maven, you will need to include the following repository in your POM.</p>
+		
+		<pre class="programlisting">
+<span class="hl-comment">&lt;!-- For developing with Android ROME Feed Reader --&gt;</span>
+<span class="hl-tag">&lt;repository&gt;</span>
+    <span class="hl-tag">&lt;id&gt;</span>android-rome-feed-reader-repository<span class="hl-tag">&lt;/id&gt;</span>
+    <span class="hl-tag">&lt;name&gt;</span>Android ROME Feed Reader Repository<span class="hl-tag">&lt;/name&gt;</span>
+    <span class="hl-tag">&lt;url&gt;</span>https://android-rome-feed-reader.googlecode.com/svn/maven2/releases<span class="hl-tag">&lt;/url&gt;</span>
+<span class="hl-tag">&lt;/repository&gt;</span>
+		</pre>
+		
+	</div>
+	
+  </div>
+
+
+  <div class="section" title="2.6&nbsp;Usage Examples"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rest-template-examples"></a>2.6&nbsp;Usage Examples</h2></div></div></div>
+	
+  	
+
+  	<p>Using <code class="classname">RestTemplate</code>, it's easy to invoke RESTful APIs.  Below are several usage examples that illustrate the different methods for making RESTful requests.</p>
+	
+	<p>All of the following examples are based on a <a class="ulink" href="https://github.com/SpringSource/spring-android-samples" target="_top">sample Android application</a>. You can retrieve the source code for the sample app with the following command:</p>
+	
+	<pre class="programlisting">
+$ git clone git://github.com/SpringSource/spring-android-samples.git
+	</pre>	
+
+  	<div class="section" title="2.6.1&nbsp;Basic Usage Example"><div class="titlepage"><div><div><h3 class="title"><a name="d4e270"></a>2.6.1&nbsp;Basic Usage Example</h3></div></div></div>
+	
+		
+		
+		<p>The following example shows a query to google for the search term "SpringSource".</p>
+		
+		<pre class="programlisting">
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+String url = <span class="hl-string">"https://ajax.googleapis.com/ajax/services/search/web?v=1.0&amp;q={query}"</span>;
+String result = restTemplate.getForObject(url, String.<span class="hl-keyword">class</span>, <span class="hl-string">"SpringSource"</span>);
+		</pre>
+		
+	</div>
+	
+  	<div class="section" title="2.6.2&nbsp;Using Gzip Compression"><div class="titlepage"><div><div><h3 class="title"><a name="d4e274"></a>2.6.2&nbsp;Using Gzip Compression</h3></div></div></div>
+
+		
+
+		<p>Gzip compression can significantly reduce the size of the response data being returned in a REST request. Gzip must be supported by the web server to which the request is being made.  By setting the content coding type of the <code class="literal">Accept-Encoding</code> header to <code class="literal">gzip</code>, you are requesting that the server respond using gzip compression.  If gzip is available, or enabled on the server, then it should return a compressed response.  RestTemplate checks the <code class="literal">Content-Encoding</code> header in the response to determine if, in fact, the response is gzip compressed.  At this time, RestTemplate only supports the gzip content coding type in the <code class="literal">Content-Encoding</code> header.  If the response data is determined to be gzip compressed, then a <a class="ulink" href="http://developer.android.com/reference/java/util/zip/GZIPInputStream.html" target="_top">GZIPInputStream</a> is used to decompress it.</p>
+		
+		<p>The following example shows how to request a gzip compressed response from the server.</p>
+
+		<pre class="programlisting">
+HttpHeaders requestHeaders = <span class="hl-keyword">new</span> HttpHeaders();
+requestHeaders.setAcceptEncoding(Collections.singletonList(ContentCodingType.GZIP));
+
+HttpEntity&lt;?&gt; requestEntity = <span class="hl-keyword">new</span> HttpEntity&lt;Object&gt;(requestHeaders);
+
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+ResponseEntity&lt;String&gt; response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.<span class="hl-keyword">class</span>);
+		</pre>
+
+	</div>
+  
+	<div class="section" title="2.6.3&nbsp;Retrieving JSON data via HTTP GET"><div class="titlepage"><div><div><h3 class="title"><a name="d4e284"></a>2.6.3&nbsp;Retrieving JSON data via HTTP GET</h3></div></div></div>
+		
+		
+		
+		<p>Suppose you have defined a Java object you wish to populate from a RESTful web request that returns JSON content.</p>
+		
+		<p>Define your object based on the JSON data being returned from the RESTful request:</p>
+		
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> <span class="hl-keyword">class</span> Event {
+
+    <span class="hl-keyword">private</span> Long id;
+
+    <span class="hl-keyword">private</span> String title;
+	
+    <span class="hl-keyword">public</span> Long getId() {
+        <span class="hl-keyword">return</span> id;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setId(Long id) {
+        <span class="hl-keyword">this</span>.id = id;
+    }
+
+    <span class="hl-keyword">public</span> String getTitle() {
+        <span class="hl-keyword">return</span> title;
+    }
+	
+    <span class="hl-keyword">public</span> String setTitle(String title) {
+        <span class="hl-keyword">this</span>.title = title;
+    }
+}
+		</pre>
+		
+		<p>Make the REST request:</p>
+		
+		<pre class="programlisting">
+String url = <span class="hl-string">"http://mypretendservice.com/events"</span>;
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+Event[] events = restTemplate.getForObject(url, Event[].<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>You can also set the <code class="literal">Accept</code> header for the request:</p>
+		
+		<pre class="programlisting">
+HttpHeaders requestHeaders = <span class="hl-keyword">new</span> HttpHeaders();
+requestHeaders.setAccept(Collections.singletonList(<span class="hl-keyword">new</span> MediaType(<span class="hl-string">"application"</span>,<span class="hl-string">"json"</span>)));
+
+HttpEntity&lt;?&gt; requestEntity = <span class="hl-keyword">new</span> HttpEntity&lt;Object&gt;(requestHeaders);
+
+String url = <span class="hl-string">"http://mypretendservice.com/events"</span>;
+
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+ResponseEntity&lt;Event[]&gt; responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Event[].<span class="hl-keyword">class</span>);
+Event[] events = responseEntity.getBody();
+		</pre>
+		
+		<p>Alternatively, you can use the <code class="classname">GsonHttpMessageConverter</code> for JSON marshaling. The following repeats the same request, utilizing Gson.</p>
+		
+		<pre class="programlisting">
+HttpHeaders requestHeaders = <span class="hl-keyword">new</span> HttpHeaders();
+requestHeaders.setAccept(Collections.singletonList(<span class="hl-keyword">new</span> MediaType(<span class="hl-string">"application"</span>,<span class="hl-string">"json"</span>)));
+
+HttpEntity&lt;?&gt; requestEntity = <span class="hl-keyword">new</span> HttpEntity&lt;Object&gt;(requestHeaders);
+
+String url = <span class="hl-string">"http://mypretendservice.com/events"</span>;
+
+GsonHttpMessageConverter messageConverter = <span class="hl-keyword">new</span> GsonHttpMessageConverter();
+List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = <span class="hl-keyword">new</span> ArrayList&lt;HttpMessageConverter&lt;?&gt;&gt;();
+messageConverters.add(messageConverter);
+
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+restTemplate.setMessageConverters(messageConverters);
+
+ResponseEntity&lt;Event[]&gt; responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Event[].<span class="hl-keyword">class</span>);
+Event[] events = responseEntity.getBody();
+		</pre>
+		
+	</div>
+	
+	<div class="section" title="2.6.4&nbsp;Retrieving XML data via HTTP GET"><div class="titlepage"><div><div><h3 class="title"><a name="d4e297"></a>2.6.4&nbsp;Retrieving XML data via HTTP GET</h3></div></div></div>
+		
+		
+		
+		<p>Using the same Java object we defined earlier, we can modify the requests to retrieve XML.</p>
+		
+		<p>Define your object based on the XML data being returned from the RESTful request. Note the annotations used by Simple to marshal the object:</p>
+		
+		<pre class="programlisting">
+<i><span class="hl-annotation" style="color: gray">@Root</span></i>
+<span class="hl-keyword">public</span> <span class="hl-keyword">class</span> Event {
+
+    <i><span class="hl-annotation" style="color: gray">@Element</span></i>
+    <span class="hl-keyword">private</span> Long id;
+
+    <i><span class="hl-annotation" style="color: gray">@Element</span></i>
+    <span class="hl-keyword">private</span> String title;
+
+    <span class="hl-keyword">public</span> Long getId() {
+        <span class="hl-keyword">return</span> id;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setId(Long id) {
+        <span class="hl-keyword">this</span>.id = id;
+    }
+
+    <span class="hl-keyword">public</span> String getTitle() {
+        <span class="hl-keyword">return</span> title;
+    }
+
+    <span class="hl-keyword">public</span> String setTitle(String title) {
+        <span class="hl-keyword">this</span>.title = title;
+    }
+}
+		</pre>
+		
+		<p>To marshal an array of events from xml, we need to define a wrapper class for the list:</p>
+		
+		<pre class="programlisting">
+<i><span class="hl-annotation" style="color: gray">@Root(name="events")</span></i>
+<span class="hl-keyword">public</span> <span class="hl-keyword">class</span> EventList {
+
+   <i><span class="hl-annotation" style="color: gray">@ElementList(inline=true)</span></i>
+   <span class="hl-keyword">private</span> List&lt;Event&gt; events;
+
+   <span class="hl-keyword">public</span> List&lt;Event&gt; getEvents() {
+      <span class="hl-keyword">return</span> events;
+   }
+
+   <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setEvents(List&lt;Event&gt; events) {
+       <span class="hl-keyword">this</span>.events = events;
+   }
+}
+		</pre>
+		
+		<p>Make the REST request:</p>
+		
+		<pre class="programlisting">
+String url = <span class="hl-string">"http://mypretendservice.com/events"</span>;
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+EventList eventList = restTemplate.getForObject(url, EventList.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>You can also specify the <code class="literal">Accept</code> header for the request:</p>
+		
+		<pre class="programlisting">
+List&lt;MediaType&gt; acceptableMediaTypes = <span class="hl-keyword">new</span> ArrayList&lt;MediaType&gt;();
+acceptableMediaTypes.add(<span class="hl-keyword">new</span> MediaType(<span class="hl-string">"application"</span>,<span class="hl-string">"xml"</span>));
+
+HttpHeaders requestHeaders = <span class="hl-keyword">new</span> HttpHeaders();
+requestHeaders.setAccept(acceptableMediaTypes);
+
+HttpEntity&lt;?&gt; requestEntity = <span class="hl-keyword">new</span> HttpEntity&lt;Object&gt;(requestHeaders);
+
+String url = <span class="hl-string">"http://mypretendservice.com/events"</span>;
+
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+ResponseEntity&lt;EventList&gt; responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, EventList.<span class="hl-keyword">class</span>);
+EventList eventList = responseEntity.getBody();
+		</pre>
+		
+	</div>
+	
+	<div class="section" title="2.6.5&nbsp;Send JSON data via HTTP POST"><div class="titlepage"><div><div><h3 class="title"><a name="d4e309"></a>2.6.5&nbsp;Send JSON data via HTTP POST</h3></div></div></div>
+		
+		
+		
+		<p>POST a Java object you have defined to a RESTful service that accepts JSON data.</p>
+		
+		<p>Define your object based on the JSON data expected by the RESTful request:</p>
+		
+		<pre class="programlisting">
+<span class="hl-keyword">public</span> <span class="hl-keyword">class</span> Message 
+{
+    <span class="hl-keyword">private</span> <span class="hl-keyword">long</span> id;
+
+    <span class="hl-keyword">private</span> String subject;
+
+    <span class="hl-keyword">private</span> String text;
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setId(<span class="hl-keyword">long</span> id) {
+        <span class="hl-keyword">this</span>.id = id;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">long</span> getId() {
+        <span class="hl-keyword">return</span> id;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setSubject(String subject) {
+        <span class="hl-keyword">this</span>.subject = subject;
+    }
+
+    <span class="hl-keyword">public</span> String getSubject() {
+        <span class="hl-keyword">return</span> subject;
+    }
+
+    <span class="hl-keyword">public</span> <span class="hl-keyword">void</span> setText(String text) {
+        <span class="hl-keyword">this</span>.text = text;
+    }
+
+    <span class="hl-keyword">public</span> String getText() {
+        <span class="hl-keyword">return</span> text;
+    }
+}
+		</pre>
+		
+		<p>Make the REST request. In this example, the request responds with a string value:</p>
+		
+		<pre class="programlisting">
+Message message = <span class="hl-keyword">new</span> Message();
+message.setId(<span class="hl-number">555</span>);
+message.setSubject(<span class="hl-string">"test subject"</span>);
+message.setText(<span class="hl-string">"test text"</span>);
+			
+String url = <span class="hl-string">"http://mypretendservice.com/sendmessage"</span>;
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+String response = restTemplate.postForObject(url, message, String.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>You can also specify the <code class="literal">Content-Type</code> header in your request:</p>
+		
+		<pre class="programlisting">
+Message message = <span class="hl-keyword">new</span> Message();
+message.setId(<span class="hl-number">555</span>);
+message.setSubject(<span class="hl-string">"test subject"</span>);
+message.setText(<span class="hl-string">"test text"</span>);
+
+HttpHeaders requestHeaders = <span class="hl-keyword">new</span> HttpHeaders();
+requestHeaders.setContentType(<span class="hl-keyword">new</span> MediaType(<span class="hl-string">"application"</span>,<span class="hl-string">"json"</span>));
+
+HttpEntity&lt;Message&gt; requestEntity = <span class="hl-keyword">new</span> HttpEntity&lt;Message&gt;(message, requestHeaders);
+
+String url = <span class="hl-string">"http://mypretendservice.com/sendmessage"</span>;
+
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+ResponseEntity&lt;String&gt; responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.<span class="hl-keyword">class</span>);
+String result = responseEntity.getBody();
+		</pre>
+	</div>
+	
+	<div class="section" title="2.6.6&nbsp;Retrieve RSS or Atom feed"><div class="titlepage"><div><div><h3 class="title"><a name="d4e319"></a>2.6.6&nbsp;Retrieve RSS or Atom feed</h3></div></div></div>
+		
+		
+		
+		<p>The following is a basic example of loading an RSS feed:</p>
+		
+		<pre class="programlisting">
+String url = <span class="hl-string">"http://mypretendservice.com/rssfeed"</span>;
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+SyndFeed = restTemplate.getForObject(url, SyndFeed.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>It is possible that you need to adjust the Media Type associated with the <code class="classname">SyndFeedHttpMessageConverter</code>. By default, the converter is associated with <code class="literal">application/rss+xml</code> and <code class="literal">application/atom+xml</code>.  An RSS feed might instead have a media type of <code class="literal">text/xml</code>, for example. The following code illustrates how to set the media type.</p>
+		
+		<pre class="programlisting">
+String url = <span class="hl-string">"http://mypretendservice.com/rssfeed"</span>;
+
+SyndFeedHttpMessageConverter converter = <span class="hl-keyword">new</span> SyndFeedHttpMessageConverter();
+List&lt;MediaType&gt; mediaTypes = <span class="hl-keyword">new</span> ArrayList&lt;MediaType&gt;();
+mediaTypes.add(<span class="hl-keyword">new</span> MediaType(<span class="hl-string">"text"</span>,<span class="hl-string">"xml"</span>));
+converter.setSupportedMediaTypes(mediaTypes);
+
+List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = <span class="hl-keyword">new</span> ArrayList&lt;HttpMessageConverter&lt;?&gt;&gt;();
+messageConverters.add(converter);
+
+RestTemplate restTemplate = <span class="hl-keyword">new</span> RestTemplate();
+restTemplate.setMessageConverters(messageConverters);
+SyndFeed feed = restTemplate.getForObject(url, SyndFeed.<span class="hl-keyword">class</span>);
+		</pre>
+		
+	</div>
+	
+  </div>
+
+</div>
+  <div class="chapter" title="3.&nbsp;Spring Android Auth Module"><div class="titlepage"><div><div><h2 class="title"><a name="auth"></a>3.&nbsp;Spring Android Auth Module</h2></div></div></div>
+	
+  
+
+  <div class="section" title="3.1&nbsp;Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-introduction"></a>3.1&nbsp;Introduction</h2></div></div></div>
+	
+    
+
+    <p>Many mobile applications today connect to external web services to access some type of data.  These web services may be a third-party data provider, such as <a class="ulink" href="http://twitter.com" target="_top">Twitter</a>, or it may be an in house service for connecting to a corporate calendar, for example.  In many of these cases, to access that data through the web service, you must authenticate and authorize an application on your mobile device.  The goal of the spring-android-auth module is to address the need of an Android application to gain authorization to a web service.</p>
+
+  	<p>There are many types of authorization methods and protocols, some custom and proprietary, while others are open standards.  One protocol that is rapidly growing in popularity is <a class="ulink" href="http://oauth.net/" target="_top">OAuth</a>. OAuth is an open protocol that allows users to give permission to a third-party application or web site to access restricted resources on another web site or service.  The third-party application receives an access token with which it can make requests to the protected service.  By using this access token strategy, a user's login credentials are never stored within an application, and are only required when authenticating to the service.</p>
+
+	<p></p>
+
+  </div>
+
+  <div class="section" title="3.2&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-overview"></a>3.2&nbsp;Overview</h2></div></div></div>
+
+	
+
+	<p>The initial release of the spring-android-auth module provides <a class="ulink" href="http://oauth.net/" target="_top">OAuth</a> 1.x and 2.0 support in an Android application by utilizing <a class="ulink" href="http://www.springsource.org/spring-social" target="_top">Spring Social</a>. It includes a <a class="ulink" href="http://www.sqlite.org/" target="_top">SQLite</a> repository, and Android compatible <a class="ulink" href="http://static.springsource.org/spring-security/site/index.html" target="_top">Spring Security</a> encryption.  The Spring Social project enables your applications to establish Connections with Software-as-a-Service (SaaS) Providers such as <a class="ulink" href="http://facebook.com" target="_top">Facebook</a> and <a class="ulink" href="http://twitter.com" target="_top">Twitter</a> to invoke Service APIs on behalf of Users. In order to make use of Spring Social on Android the following classes are available.</p>
+	
+	<div class="section" title="3.2.1&nbsp;SQLite Connection Repository"><div class="titlepage"><div><div><h3 class="title"><a name="d4e347"></a>3.2.1&nbsp;SQLite Connection Repository</h3></div></div></div>
+		
+		
+		
+		<p>The <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/social/connect/sqlite/SQLiteConnectionRepository.html" target="_top"><code class="classname">SQLiteConnectionRepository</code></a> class implements the <a class="ulink" href="http://static.springsource.org/spring-social/docs/1.0.x/api/org/springframework/social/connect/ConnectionRepository.html" target="_top"><code class="interfacename">ConnectionRepository</code></a> interface from Spring Social. It is used to persist the connection information to a <a class="ulink" href="http://www.sqlite.org/" target="_top">SQLite</a> database on the Android device.  This connection repository is designed for a single user who accesses multiple service providers and may even have multiple accounts on each service provider.</p>
+		
+		<p>If your device and application are used by multiple people, then a <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/index.html?org/springframework/social/connect/sqlite/SQLiteConnectionRepository.html" target="_top"><code class="classname">SQLiteUsersConnectionRepository</code></a> class is available for storing multiple user accounts, where each user account may have multiple connections per provider.  This scenario is probably not as typical, however, as many people do not share their phones or devices.</p>
+		
+	</div>
+	
+	<div class="section" title="3.2.2&nbsp;Encryption"><div class="titlepage"><div><div><h3 class="title"><a name="d4e358"></a>3.2.2&nbsp;Encryption</h3></div></div></div>
+		
+		
+		
+		<p>The Spring Security Crypto library is not currently supported on Android.  To take advantage of the encryption tools in Spring Security, the Android specific class, <a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/security/crypto/encrypt/AndroidEncryptors.html" target="_top"><code class="classname">AndroidEncryptors</code></a> has been provided in Spring Android. This class uses an Android compatible <a class="ulink" href="http://developer.android.com/reference/java/security/SecureRandom.html" target="_top"><code class="classname">SecureRandom</code></a> provider for generating byte array based keys using the SHA1PRNG algorithm.</p>
+		
+	</div>
+
+  </div>
+
+  <div class="section" title="3.3&nbsp;How to get"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-howtoget"></a>3.3&nbsp;How to get</h2></div></div></div>
+	
+    
+
+	<p>Add the spring-android-auth and the supporting artifacts to your classpath. Maven will handle the dependency management, but the required dependencies are listed here for clarity.  </p>
+		
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-auth<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-rest-template<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.security<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-security-crypto<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>3.1.0.RC2.crypto<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-comment">&lt;!-- Exclude in favor of Spring Android Core --&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-comment">&lt;!-- Exclude in favor of Spring Android RestTemplate --&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-web<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+	<span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+	<span class="hl-tag">&lt;artifactId&gt;</span>jackson-mapper-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+	<span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+
+<span class="hl-tag">&lt;dependency&gt;</span>
+	<span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+	<span class="hl-tag">&lt;artifactId&gt;</span>jackson-core-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+	<span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+	<p>To use the Spring Social Twitter provider, you can add it to your classpath.  Note the exclusions in this dependency. Commons Logging is built into Android, and many of the Spring Social provider libraries are built with support for Spring Web, which is not needed on Android.</p>
+
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-twitter<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+	<p>Similarly, you can use the Spring Social Facebook provider by adding it to your classpath. Again note the exclusions.</p>
+
+	<pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-facebook<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;exclusions&gt;</span>
+        <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+        <span class="hl-tag">&lt;exclusion&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+        <span class="hl-tag">&lt;/exclusion&gt;</span>
+    <span class="hl-tag">&lt;/exclusions&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+	</pre>
+	
+  </div>
+
+  <div class="section" title="3.4&nbsp;Usage Examples"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="auth-examples"></a>3.4&nbsp;Usage Examples</h2></div></div></div>
+	
+  	
+
+  	<p>Below are several usage examples that illustrate how to use Spring Android with Spring Social.</p>
+
+	<p>The following examples are based on a <a class="ulink" href="https://github.com/SpringSource/spring-android-samples" target="_top">sample Android application</a>, which has Facebook and Twitter examples using Spring Social.  You can retrieve the source code for the sample app with Git:</p>
+	
+	<pre class="programlisting">
+$ git clone git://github.com/SpringSource/spring-android-samples.git
+	</pre>
+
+  	<div class="section" title="3.4.1&nbsp;Initializing the SQLite Database"><div class="titlepage"><div><div><h3 class="title"><a name="d4e379"></a>3.4.1&nbsp;Initializing the SQLite Database</h3></div></div></div>
+	
+		
+		
+		<p><a class="ulink" href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/social/connect/sqlite/support/SQLiteConnectionRepositoryHelper.html" target="_top"><code class="classname">SQLiteConnectionRepositoryHelper</code></a> extends <a class="ulink" href="http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html" target="_top"><code class="classname">SQLiteOpenHelper</code></a>.  Create a new instance by passing a <a class="ulink" href="http://developer.android.com/reference/android/content/Context.html" target="_top"><code class="classname">context</code></a> reference. Depending on your implementation, and to avoid <a class="ulink" href="http://developer.android.com/resources/articles/avoiding-memory-leaks.html" target="_top">memory leaks</a>, you will probably want to use the Application Context when creating a new instance of <code class="classname">SQLiteConnectionRepositoryHelper</code>. The name of the database file created is <code class="literal">spring_social_connection_repository.sqlite</code>, and is created the first time the application attempts to open it.</p>
+		
+		<pre class="programlisting">
+Context context = getApplicationContext();
+SQLiteOpenHelper repositoryHelper = <span class="hl-keyword">new</span> SQLiteConnectionRepositoryHelper(context);
+		</pre>
+
+	</div>
+	
+  	<div class="section" title="3.4.2&nbsp;Single User App Environment"><div class="titlepage"><div><div><h3 class="title"><a name="d4e392"></a>3.4.2&nbsp;Single User App Environment</h3></div></div></div>
+
+		
+
+		<p>This example show how to set up the <code class="interfacename">ConnectionRepository</code> for use with multiple connection factories.</p>
+		
+		<p>To establish a <code class="interfacename">ConnectionRepository</code>, you will need the following objects.</p>
+
+		<pre class="programlisting">
+ConnectionFactoryRegistry connectionFactoryRegistry;
+SQLiteOpenHelper repositoryHelper;
+ConnectionRepository connectionRepository;
+		</pre>
+			
+		<p>The <a class="ulink" href="http://static.springsource.org/spring-social/docs/1.0.x/api/org/springframework/social/connect/support/ConnectionFactoryRegistry.html" target="_top"><code class="classname">ConnectionFactoryRegistry</code></a> stores the different Spring Social connections to be used in the application.</p>
+		
+		<pre class="programlisting">
+connectionFactoryRegistry = <span class="hl-keyword">new</span> ConnectionFactoryRegistry();
+		</pre>
+
+		<p>You can create a <a class="ulink" href="http://static.springsource.org/spring-social-facebook/docs/1.0.x/api/org/springframework/social/facebook/connect/FacebookConnectionFactory.html" target="_top"><code class="classname">FacebookConnectionFactory</code></a>, if your application requires Facebook connectivity.</p>
+		
+		<pre class="programlisting">
+<span class="hl-comment">// the App ID and App Secret are provided when you register a new Facebook application at facebook.com</span>
+String appId = <span class="hl-string">"8ae8f060d81d51e90fadabaab1414a97"</span>;
+String appSecret = <span class="hl-string">"473e66d79ddc0e360851dc512fe0fb1e"</span>;
+
+<span class="hl-comment">// Prepare a Facebook connection factory with the App ID and App Secret</span>
+FacebookConnectionFactory facebookConnectionFactory;
+facebookConnectionFactory = <span class="hl-keyword">new</span> FacebookConnectionFactory(appId, appSecret);
+		</pre>
+
+		<p>Similarly, you can also create a <a class="ulink" href="http://static.springsource.org/spring-social-twitter/docs/1.0.x/api/org/springframework/social/twitter/connect/TwitterConnectionFactory.html" target="_top"><code class="classname">TwitterConnectionFactory</code></a>.  Spring Social offers several different connection factories to popular services.  Additionally, you can create your own connection factory based on the Spring Social framework.</p>
+
+		<pre class="programlisting">
+<span class="hl-comment">// The consumer token and secret are provided when you register a new Twitter application at twitter.com</span>
+String consumerToken = <span class="hl-string">"YR571S2JiVBOFyJS5MEg"</span>;
+String consumerTokenSecret = <span class="hl-string">"Kb8hS0luftwCJX3qVoyiLUMfZDtK1EozFoUkjNLUMx4"</span>;
+
+<span class="hl-comment">// Prepare a Twitter connection factory with the consumer token and secret</span>
+TwitterConnectionFactory twitterConnectionFactory;
+twitterConnectionFactory = <span class="hl-keyword">new</span> TwitterConnectionFactory(consumerToken, consumerTokenSecret)
+		</pre>
+
+		<p>After you create a connection factory, you can add it to the registry.  Connection factories may be later retrieved from the registry in order to create new connections to the provider.</p>
+
+		<pre class="programlisting">
+connectionFactoryRegistry.addConnectionFactory(facebookConnectionFactory);
+connectionFactoryRegistry.addConnectionFactory(twitterConnectionFactory);
+		</pre>
+
+		<p>The final step is to prepare the connection repository for storing connections to the different providers.</p>
+
+		<pre class="programlisting">
+<span class="hl-comment">// Create the SQLiteOpenHelper for creating the local database</span>
+Context context = getApplicationContext();
+SQLiteOpenHelper repositoryHelper = <span class="hl-keyword">new</span> SQLiteConnectionRepositoryHelper(context);
+
+<span class="hl-comment">// The connection repository takes a TextEncryptor as a parameter for encrypting the OAuth information</span>
+TextEncryptor textEncryptor = AndroidEncryptors.noOpText();
+
+<span class="hl-comment">// Create the connection repository</span>
+ConnectionRepository connectionRepository = <span class="hl-keyword">new</span> SQLiteConnectionRepository(repositoryHelper, 
+	connectionFactoryRegistry, textEncryptor);
+		</pre>
+
+	</div>
+	
+	<div class="section" title="3.4.3&nbsp;Encrypting OAuth Data"><div class="titlepage"><div><div><h3 class="title"><a name="d4e415"></a>3.4.3&nbsp;Encrypting OAuth Data</h3></div></div></div>
+
+		
+
+		<p>Spring Social supports encrypting the user's OAuth connection information within the <code class="classname">ConnectionRepository</code> through the use of a Spring Security <code class="classname">TextEncryptor</code>.  The password and salt values are used to generate the encryptor's secret key. The salt value should be hex-encoded, random, and application-global.  While this will encrypt the OAuth credentials stored in the database, it is not an absolute solution.  When designing your application, keep in mind that there are already tools available for translating a DEX to a JAR file, and decompiling to source code.  Because your application is distributed to a user's device, it is more vulnerable than if it were running on a web server, for example.</p>
+
+		<pre class="programlisting">
+String password = <span class="hl-string">"password"</span>;
+String salt = <span class="hl-string">"5c0744940b5c369b"</span>;
+TextEncryptor textEncryptor = AndroidEncryptors.text(password, salt);
+connectionRepository = <span class="hl-keyword">new</span> SQLiteConnectionRepository(repositoryHelper, 
+	connectionFactoryRegistry, textEncryptor);
+		</pre>
+		
+		<p>During development you may wish to avoid encryption so you can more easily debug your application by viewing the OAuth data being saved to the database. This <code class="classname">TextEncryptor</code> performs no encryption.</p>
+		
+		<pre class="programlisting">
+TextEncryptor textEncryptor = AndroidEncryptors.noOpText();
+connectionRepository = <span class="hl-keyword">new</span> SQLiteConnectionRepository(repositoryHelper, 
+	connectionFactoryRegistry, textEncryptor);
+		</pre>
+	
+	</div>
+	
+	<div class="section" title="3.4.4&nbsp;Establishing an OAuth 1.0a connection"><div class="titlepage"><div><div><h3 class="title"><a name="d4e424"></a>3.4.4&nbsp;Establishing an OAuth 1.0a connection</h3></div></div></div>
+			
+		
+	
+		<p>The following steps illustrate how to establish a connection to Twitter. A working example is provided in the sample application described earlier.</p>
+		
+		<p>The first step is to retrieve the connection factory from the registry that we created earlier.</p>
+		
+		<pre class="programlisting">
+TwitterConnectionFactory connectionFactory;
+connectionFactory = (TwitterConnectionFactory) connectionFactoryRegistry.getConnectionFactory(Twitter.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>Fetch a one time use request token.  You must save this request token, because it will be needed in a later step.</p>
+		
+		<pre class="programlisting">  
+OAuth1Operations oauth = connectionFactory.getOAuthOperations();
+
+<span class="hl-comment">// The callback url is used to respond to your application with an OAuth verifier</span>
+String callbackUrl = <span class="hl-string">"x-org-springsource-android-showcase://twitter-oauth-response"</span>;
+
+<span class="hl-comment">// Fetch a one time use Request Token from Twitter</span>
+OAuthToken requestToken = oauth.fetchRequestToken(callbackUrl, null);
+		</pre>
+		
+		<p>Generate the url for authorizing against Twitter. Once you have the url, you use it in a WebView so the user can login and authorize your application.  One method of doing this is provided in the sample application.</p>
+
+		<pre class="programlisting">
+String authorizeUrl = oauth.buildAuthorizeUrl(requestToken.getValue(), OAuth1Parameters.NONE);
+		</pre>
+		
+		<p>Once the user has successfully authenticated and authorized the application, Twitter will call back to your application with the oauth verifier.  The following settings from an AndroidManifest illustrate how to associate a callback url with a specific Activity.  In this case, when the request is made from Twitter to the callback url, the TwitterActivity will respond.</p>
+		
+		<pre class="programlisting">
+<span class="hl-tag">&lt;activity</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"org.springframework.android.showcase.social.twitter.TwitterActivity"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;intent-filter&gt;</span>
+    <span class="hl-tag">&lt;action</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"android.intent.action.VIEW"</span><span class="hl-tag"> /&gt;</span>
+    <span class="hl-tag">&lt;category</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"android.intent.category.DEFAULT"</span><span class="hl-tag"> /&gt;</span>
+    <span class="hl-tag">&lt;category</span> <span class="hl-attribute">android:name</span>=<span class="hl-value">"android.intent.category.BROWSABLE"</span><span class="hl-tag"> /&gt;</span>
+    <span class="hl-tag">&lt;data</span> <span class="hl-attribute">android:scheme</span>=<span class="hl-value">"x-org-springsource-android-showcase"</span> <span class="hl-attribute">android:host</span>=<span class="hl-value">"twitter-oauth-response"</span><span class="hl-tag"> /&gt;</span>
+  <span class="hl-tag">&lt;/intent-filter&gt;</span>
+<span class="hl-tag">&lt;/activity&gt;</span>
+		</pre>
+		
+		<p>The Activity that responds to the callback url should retrieve the <code class="literal">oauth_verifier</code> querystring parameter from the request.</p>
+		
+		<pre class="programlisting">
+Uri uri = getIntent().getData();
+String oauthVerifier = uri.getQueryParameter(<span class="hl-string">"oauth_verifier"</span>);
+		</pre>
+		
+		<p>Once you have the oauth_verifier, you can authorize the request token that was saved earlier.</p>
+	
+		<pre class="programlisting">
+AuthorizedRequestToken authorizedRequestToken = <span class="hl-keyword">new</span> AuthorizedRequestToken(requestToken, verifier);
+		</pre>
+		
+		<p>Now exchange the authorized request token for an access token.  Once you have the access token, the request token is no longer required, and can be safely discarded.</p>
+
+		<pre class="programlisting">
+OAuth1Operations oauth = connectionFactory.getOAuthOperations();
+OAuthToken accessToken = oauth.exchangeForAccessToken(authorizedRequestToken, null);
+		</pre>
+		
+		<p>Finally, we can create a Twitter connection and store it in the repository.</p>
+
+		<pre class="programlisting">
+Connection&lt;TwitterApi&gt; connection = connectionFactory.createConnection(accessToken);
+connectionRepository.addConnection(connection);
+		</pre>
+		
+	</div>
+	
+	<div class="section" title="3.4.5&nbsp;Establishing an OAuth 2.0 connection"><div class="titlepage"><div><div><h3 class="title"><a name="d4e444"></a>3.4.5&nbsp;Establishing an OAuth 2.0 connection</h3></div></div></div>
+
+		
+
+		<p>The following steps illustrate how to establish a connection to Facebook. A working example is provided in the sample application described earlier.  Keep in mind that each provider's implementation may be different.  You may have to adjust these steps when connecting to a different OAuth 2.0 provider.</p>
+
+		<p>The first step is to retrieve the connection factory from the registry that we created earlier.</p>
+
+		<pre class="programlisting">
+FacebookConnectionFactory connectionFactory;
+connectionFactory = (FacebookConnectionFactory) connectionFactoryRegistry.getConnectionFactory(Facebook.<span class="hl-keyword">class</span>);
+		</pre>
+		
+		<p>Specify the redirect url.  In the case of Facebook, we are using the client-side authorization flow. In order to retrieve the access token, Facebook will redirect to a success page that contains the access token in a URI fragment.</p>
+		
+		<pre class="programlisting">
+String redirectUri = <span class="hl-string">"https://www.facebook.com/connect/login_success.html"</span>;
+		</pre>
+
+		<p>Define the scope of permissions your app requires.</p>
+
+		<pre class="programlisting">
+String scope = <span class="hl-string">"publish_stream,offline_access,read_stream,user_about_me"</span>;
+		</pre>
+		
+		<p>In order to display a mobile formatted web page for Facebook authorization, you must <a class="ulink" href="http://developers.facebook.com/docs/guides/mobile/#web" target="_top">pass an additional parameter</a> in the request. This parameter is not part of the OAuth specification, but the following illustrates how Spring Social supports additional parameters.</p>
+
+		<pre class="programlisting">
+MultiValueMap&lt;String, String&gt; additionalParameters = <span class="hl-keyword">new</span> LinkedMultiValueMap&lt;String, String&gt;();
+additionalParameters.add(<span class="hl-string">"display"</span>, <span class="hl-string">"touch"</span>);
+		</pre>
+		
+		<p>Now we can generate the Facebook authorization url to be used in the browser or web view</p>
+
+		<pre class="programlisting">
+OAuth2Parameters parameters = <span class="hl-keyword">new</span> OAuth2Parameters(redirectUri, scope, null, additionalParameters);
+OAuth2Operations oauth = connectionFactory.getOAuthOperations();
+String authorizeUrl = oauth.buildAuthorizeUrl(GrantType.IMPLICIT_GRANT, parameters);
+		</pre>
+		
+		<p>The next step is to load the generated authorization url into a webview within your application.  After the user logs in and authorizes your application, the browser will redirect to the url specified earlier.  If authentication was successful, the url of the redirected page will now include a URI fragment which contains an access_token parameter.  Retrieve the access token from the URI fragment and use it to create the Facebook connection.  One method of doing this is provided in the sample application.</p>
+		
+		<pre class="programlisting">
+AccessGrant accessGrant = <span class="hl-keyword">new</span> AccessGrant(accessToken);
+Connection&lt;FacebookApi&gt; connection = connectionFactory.createConnection(accessGrant);
+connectionRepository.addConnection(connection);
+		</pre>
+		
+	</div>
+	
+  </div>
+
+</div>
+  <div class="chapter" title="4.&nbsp;Spring Android Core Module"><div class="titlepage"><div><div><h2 class="title"><a name="core"></a>4.&nbsp;Spring Android Core Module</h2></div></div></div>
+  
+
+  <div class="section" title="4.1&nbsp;Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="core-introduction"></a>4.1&nbsp;Introduction</h2></div></div></div>
+    
+    <p>
+		The spring-android-core module provides common functionality to the other Spring Android modules. It includes 
+		a subset of the functionality available in Spring Framework Core.
+    </p>
+  </div>
+
+  <div class="section" title="4.2&nbsp;How to get"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="core-howtoget"></a>4.2&nbsp;How to get</h2></div></div></div>
+    
+	<p>
+		Add the spring-android-core artifact to your classpath:
+		</p><pre class="programlisting">
+<span class="hl-tag">&lt;dependency&gt;</span>
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+<span class="hl-tag">&lt;/dependency&gt;</span>
+		</pre><p>
+	</p>
+  </div>
+
+</div>
+  <div class="chapter" title="5.&nbsp;Spring Android and Maven"><div class="titlepage"><div><div><h2 class="title"><a name="spring-android-maven"></a>5.&nbsp;Spring Android and Maven</h2></div></div></div>
+  
+
+  <div class="section" title="5.1&nbsp;Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="maven-example-introduction"></a>5.1&nbsp;Introduction</h2></div></div></div>
+	
+	<p>
+		An alternative to downloading the individual library JARs yourself is to use Maven for dependency management.
+		The <a class="ulink" href="http://code.google.com/p/maven-android-plugin" target="_top">Maven Android Plugin</a> allows 
+		developers to utilize Maven's dependency management capabilities within an Android application. Additionally, 
+		the <a class="ulink" href="http://code.google.com/a/eclipselabs.org/p/m2eclipse-android-integration/" target="_top">Maven Integration
+		for Android Development Tools</a> bridges the Maven Android Plugin and the 
+		<a class="ulink" href="http://developer.android.com/sdk/eclipse-adt.html" target="_top">Android Development Tools (ADT)</a> to
+		allow the use of dependency management within Eclipse.
+	</p>
+  </div>
+  <div class="section" title="5.2&nbsp;Example POM"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="maven-example-pom"></a>5.2&nbsp;Example POM</h2></div></div></div>
+	
+	<p>
+		The following 
+		<a class="ulink" href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html" target="_top">Maven POM file</a> 
+		from the Spring Android Showcase sample application, illustrates how to configure the 
+		<a class="ulink" href="http://code.google.com/p/maven-android-plugin" target="_top">Maven Android Plugin</a> and associated 
+		dependencies for use with Spring Android and Spring Social.
+	</p>
+	<pre class="programlisting">
+<span class="hl-tag">&lt;project</span> <span class="hl-attribute">xmlns</span>=<span class="hl-value">"http://maven.apache.org/POM/4.0.0"</span> <span class="hl-attribute">xmlns:xsi</span>=<span class="hl-value">"http://www.w3.org/2001/XMLSchema-instance"</span>
+  <span class="hl-attribute">xsi:schemaLocation</span>=<span class="hl-value">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;modelVersion&gt;</span>4.0.0<span class="hl-tag">&lt;/modelVersion&gt;</span>
+
+    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+    <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-showcase-client<span class="hl-tag">&lt;/artifactId&gt;</span>
+    <span class="hl-tag">&lt;version&gt;</span>1.0.0.BUILD-SNAPSHOT<span class="hl-tag">&lt;/version&gt;</span>
+    <span class="hl-tag">&lt;packaging&gt;</span>apk<span class="hl-tag">&lt;/packaging&gt;</span>
+    <span class="hl-tag">&lt;name&gt;</span>spring-android-showcase-client<span class="hl-tag">&lt;/name&gt;</span>
+    <span class="hl-tag">&lt;url&gt;</span>http://www.springsource.org<span class="hl-tag">&lt;/url&gt;</span> 
+    <span class="hl-tag">&lt;organization&gt;</span>
+        <span class="hl-tag">&lt;name&gt;</span>SpringSource<span class="hl-tag">&lt;/name&gt;</span>
+        <span class="hl-tag">&lt;url&gt;</span>http://www.springsource.org<span class="hl-tag">&lt;/url&gt;</span>
+    <span class="hl-tag">&lt;/organization&gt;</span>
+
+    <span class="hl-tag">&lt;properties&gt;</span> 
+        <span class="hl-tag">&lt;android-platform&gt;</span>7<span class="hl-tag">&lt;/android-platform&gt;</span>
+        <span class="hl-tag">&lt;android-emulator&gt;</span>7<span class="hl-tag">&lt;/android-emulator&gt;</span>
+        <span class="hl-tag">&lt;maven-android-plugin-version&gt;</span>2.8.4<span class="hl-tag">&lt;/maven-android-plugin-version&gt;</span>
+        <span class="hl-tag">&lt;maven-compiler-plugin-version&gt;</span>2.3.2<span class="hl-tag">&lt;/maven-compiler-plugin-version&gt;</span>
+        <span class="hl-tag">&lt;maven-eclipse-plugin-version&gt;</span>2.8<span class="hl-tag">&lt;/maven-eclipse-plugin-version&gt;</span>
+        <span class="hl-tag">&lt;android-version&gt;</span>2.1_r1<span class="hl-tag">&lt;/android-version&gt;</span>
+        <span class="hl-comment">&lt;!-- Available Android versions: 1.5_r3, 1.5_r4, 1.6_r2, 2.1.2, 2.1_r1, 2.2.1, 2.3.1, 2.3.3 --&gt;</span>
+        <span class="hl-tag">&lt;java-version&gt;</span>1.6<span class="hl-tag">&lt;/java-version&gt;</span>
+        <span class="hl-tag">&lt;spring-android-version&gt;</span>1.0.0.M4<span class="hl-tag">&lt;/spring-android-version&gt;</span>
+        <span class="hl-tag">&lt;spring-social-version&gt;</span>1.0.0.RC1<span class="hl-tag">&lt;/spring-social-version&gt;</span>
+        <span class="hl-tag">&lt;jackson-version&gt;</span>1.8.3<span class="hl-tag">&lt;/jackson-version&gt;</span>
+        <span class="hl-tag">&lt;gson-version&gt;</span>1.7.1<span class="hl-tag">&lt;/gson-version&gt;</span>
+        <span class="hl-tag">&lt;simple-version&gt;</span>2.6<span class="hl-tag">&lt;/simple-version&gt;</span>
+    <span class="hl-tag">&lt;/properties&gt;</span>
+
+    <span class="hl-tag">&lt;dependencies&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>com.google.android<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>android<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${android-version}<span class="hl-tag">&lt;/version&gt;</span>
+            <span class="hl-tag">&lt;scope&gt;</span>provided<span class="hl-tag">&lt;/scope&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-rest-template<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.android<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-android-auth<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${spring-android-version}<span class="hl-tag">&lt;/version&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.security<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-security-crypto<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>3.1.0.RC2.crypto<span class="hl-tag">&lt;/version&gt;</span>
+            <span class="hl-tag">&lt;exclusions&gt;</span>
+                <span class="hl-comment">&lt;!-- Exclude in favor of Spring Android Core --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>spring-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+            <span class="hl-tag">&lt;/exclusions&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-core<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+            <span class="hl-tag">&lt;exclusions&gt;</span>
+                <span class="hl-comment">&lt;!-- Exclude in favor of Spring Android RestTemplate --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>spring-web<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>org.springframework<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+                <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+            <span class="hl-tag">&lt;/exclusions&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-twitter<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+            <span class="hl-tag">&lt;exclusions&gt;</span>
+                <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+            <span class="hl-tag">&lt;/exclusions&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.springframework.social<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>spring-social-facebook<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${spring-social-version}<span class="hl-tag">&lt;/version&gt;</span>
+            <span class="hl-tag">&lt;exclusions&gt;</span>
+                <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>commons-logging<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>commons-logging<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+            <span class="hl-tag">&lt;/exclusions&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-comment">&lt;!-- Using Jackson for JSON marshaling --&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.codehaus.jackson<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>jackson-mapper-asl<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${jackson-version}<span class="hl-tag">&lt;/version&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-comment">&lt;!-- Using Gson for JSON marshaling --&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>com.google.code.gson<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>gson<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${gson-version}<span class="hl-tag">&lt;/version&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+        <span class="hl-tag">&lt;dependency&gt;</span>
+            <span class="hl-comment">&lt;!-- Using Simple for XML marshaling --&gt;</span>
+            <span class="hl-tag">&lt;groupId&gt;</span>org.simpleframework<span class="hl-tag">&lt;/groupId&gt;</span>
+            <span class="hl-tag">&lt;artifactId&gt;</span>simple-xml<span class="hl-tag">&lt;/artifactId&gt;</span>
+            <span class="hl-tag">&lt;version&gt;</span>${simple-version}<span class="hl-tag">&lt;/version&gt;</span>
+            <span class="hl-tag">&lt;exclusions&gt;</span>
+                <span class="hl-comment">&lt;!-- StAX is not available on Android --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>stax<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>stax<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>stax-api<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>stax<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+                <span class="hl-comment">&lt;!-- Provided by Android --&gt;</span>
+                <span class="hl-tag">&lt;exclusion&gt;</span>
+                    <span class="hl-tag">&lt;artifactId&gt;</span>xpp3<span class="hl-tag">&lt;/artifactId&gt;</span>
+                    <span class="hl-tag">&lt;groupId&gt;</span>xpp3<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;/exclusion&gt;</span>
+            <span class="hl-tag">&lt;/exclusions&gt;</span>
+        <span class="hl-tag">&lt;/dependency&gt;</span>
+    <span class="hl-tag">&lt;/dependencies&gt;</span>
+
+    <span class="hl-tag">&lt;build&gt;</span>
+        <span class="hl-tag">&lt;finalName&gt;</span>${project.artifactId}<span class="hl-tag">&lt;/finalName&gt;</span>
+        <span class="hl-tag">&lt;sourceDirectory&gt;</span>src<span class="hl-tag">&lt;/sourceDirectory&gt;</span>
+        <span class="hl-tag">&lt;plugins&gt;</span>
+            <span class="hl-tag">&lt;plugin&gt;</span>
+                <span class="hl-tag">&lt;groupId&gt;</span>com.jayway.maven.plugins.android.generation2<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;artifactId&gt;</span>maven-android-plugin<span class="hl-tag">&lt;/artifactId&gt;</span>
+                <span class="hl-tag">&lt;version&gt;</span>${maven-android-plugin-version}<span class="hl-tag">&lt;/version&gt;</span>
+                <span class="hl-tag">&lt;configuration&gt;</span>
+                    <span class="hl-tag">&lt;sdk&gt;</span>
+                        <span class="hl-tag">&lt;platform&gt;</span>${android-platform}<span class="hl-tag">&lt;/platform&gt;</span>
+                    <span class="hl-tag">&lt;/sdk&gt;</span>
+                    <span class="hl-tag">&lt;emulator&gt;</span>
+                        <span class="hl-tag">&lt;avd&gt;</span>${android-emulator}<span class="hl-tag">&lt;/avd&gt;</span>
+                    <span class="hl-tag">&lt;/emulator&gt;</span>
+                    <span class="hl-tag">&lt;deleteConflictingFiles&gt;</span>true<span class="hl-tag">&lt;/deleteConflictingFiles&gt;</span>
+                    <span class="hl-tag">&lt;undeployBeforeDeploy&gt;</span>true<span class="hl-tag">&lt;/undeployBeforeDeploy&gt;</span>
+                <span class="hl-tag">&lt;/configuration&gt;</span>
+                <span class="hl-tag">&lt;extensions&gt;</span>true<span class="hl-tag">&lt;/extensions&gt;</span>
+            <span class="hl-tag">&lt;/plugin&gt;</span>
+            <span class="hl-tag">&lt;plugin&gt;</span>
+                <span class="hl-tag">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="hl-tag">&lt;/artifactId&gt;</span>
+                <span class="hl-tag">&lt;version&gt;</span>${maven-compiler-plugin-version}<span class="hl-tag">&lt;/version&gt;</span>
+                <span class="hl-tag">&lt;configuration&gt;</span>
+                    <span class="hl-tag">&lt;source&gt;</span>${java-version}<span class="hl-tag">&lt;/source&gt;</span>
+                    <span class="hl-tag">&lt;target&gt;</span>${java-version}<span class="hl-tag">&lt;/target&gt;</span>
+                <span class="hl-tag">&lt;/configuration&gt;</span>
+            <span class="hl-tag">&lt;/plugin&gt;</span>
+            <span class="hl-tag">&lt;plugin&gt;</span>
+                <span class="hl-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="hl-tag">&lt;/groupId&gt;</span>
+                <span class="hl-tag">&lt;artifactId&gt;</span>maven-eclipse-plugin<span class="hl-tag">&lt;/artifactId&gt;</span>
+                <span class="hl-tag">&lt;version&gt;</span>${maven-eclipse-plugin-version}<span class="hl-tag">&lt;/version&gt;</span>
+                <span class="hl-tag">&lt;configuration&gt;</span>
+                    <span class="hl-tag">&lt;downloadSources&gt;</span>true<span class="hl-tag">&lt;/downloadSources&gt;</span>
+                    <span class="hl-tag">&lt;downloadJavadocs&gt;</span>true<span class="hl-tag">&lt;/downloadJavadocs&gt;</span>
+                <span class="hl-tag">&lt;/configuration&gt;</span>
+            <span class="hl-tag">&lt;/plugin&gt;</span>
+        <span class="hl-tag">&lt;/plugins&gt;</span>
+    <span class="hl-tag">&lt;/build&gt;</span>
+
+    <span class="hl-tag">&lt;repositories&gt;</span>
+        <span class="hl-comment">&lt;!-- For testing against latest Spring snapshots --&gt;</span>
+        <span class="hl-tag">&lt;repository&gt;</span>
+            <span class="hl-tag">&lt;id&gt;</span>org.springframework.maven.snapshot<span class="hl-tag">&lt;/id&gt;</span>
+            <span class="hl-tag">&lt;name&gt;</span>Spring Maven Snapshot Repository<span class="hl-tag">&lt;/name&gt;</span>
+            <span class="hl-tag">&lt;url&gt;</span>http://maven.springframework.org/snapshot<span class="hl-tag">&lt;/url&gt;</span>
+            <span class="hl-tag">&lt;releases&gt;</span><span class="hl-tag">&lt;enabled&gt;</span>false<span class="hl-tag">&lt;/enabled&gt;</span><span class="hl-tag">&lt;/releases&gt;</span>
+            <span class="hl-tag">&lt;snapshots&gt;</span><span class="hl-tag">&lt;enabled&gt;</span>true<span class="hl-tag">&lt;/enabled&gt;</span><span class="hl-tag">&lt;/snapshots&gt;</span>
+        <span class="hl-tag">&lt;/repository&gt;</span>
+        <span class="hl-comment">&lt;!-- For developing against latest Spring milestones --&gt;</span>
+        <span class="hl-tag">&lt;repository&gt;</span>
+            <span class="hl-tag">&lt;id&gt;</span>org.springframework.maven.milestone<span class="hl-tag">&lt;/id&gt;</span>
+            <span class="hl-tag">&lt;name&gt;</span>Spring Maven Milestone Repository<span class="hl-tag">&lt;/name&gt;</span>
+            <span class="hl-tag">&lt;url&gt;</span>http://maven.springframework.org/milestone<span class="hl-tag">&lt;/url&gt;</span>
+            <span class="hl-tag">&lt;snapshots&gt;</span><span class="hl-tag">&lt;enabled&gt;</span>false<span class="hl-tag">&lt;/enabled&gt;</span><span class="hl-tag">&lt;/snapshots&gt;</span>
+        <span class="hl-tag">&lt;/repository&gt;</span>
+    <span class="hl-tag">&lt;/repositories&gt;</span>
+
+<span class="hl-tag">&lt;/project&gt;</span>
+	</pre>
+  </div>
+
+  <div class="section" title="5.3&nbsp;Maven Commands"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="maven-commands"></a>5.3&nbsp;Maven Commands</h2></div></div></div>
+	
+	<p>
+		Once you have configured a Maven POM in your Android project you can use the following Maven command 
+		to clean and assemble your Android APK file.  
+		Additional <a class="ulink" href="http://maven-android-plugin-m2site.googlecode.com/svn/plugin-info.html" target="_top">goals</a>
+		are available for use with the Maven Android Plugin.
+	</p>
+	<pre class="programlisting">
+$ mvn clean install
+	</pre>
+	<p>
+		The following command starts the emulator specified in the Maven Android Plugin section of the POM file
+	</p>
+	<pre class="programlisting">
+$ mvn android:emulator-start
+	</pre>
+	<p>
+		Deploys the application package to the emulator
+	</p>
+	<pre class="programlisting">
+$ mvn android:deploy
+	</pre>
+  </div>
+
+</div>
+  
+</div><!--Begin LoopFuse code--><script src="http://loopfuse.net/webrecorder/js/listen.js" type="text/javascript"></script><script type="text/javascript">
+_lf_cid = "LF_48be82fa";
+_lf_remora();
+</script><!--End LoopFuse code--></body></html>
