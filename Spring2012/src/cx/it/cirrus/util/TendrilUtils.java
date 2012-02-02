@@ -36,13 +36,13 @@ public class TendrilUtils {
      * Public class variables
      */
     public static String APPLICATION_NAME = "TendrilManager";
-    public static String TENDRIL_BASE_URL = "http://";
+    public static String TENDRIL_BASE_URL = "http://dev.tendril.com";
 
     /*
      * Private class variables
      */
-    private static String CONSUMER_KEY = "";
-    private static String CONSUMER_SECRET = "";
+    private static String CONSUMER_KEY = "3adfd5634eddf49dcdbd2c4c130e1849";
+    private static String CONSUMER_SECRET = "4a4a4e73360d20497e68d1ab4815b490";
     private static String TENDRIL_REQUEST_TOKEN_URL = TENDRIL_BASE_URL + 
                                     "/oauth/request_token";
     private static String TENDRIL_ACCESS_TOKEN_URL = TENDRIL_BASE_URL +
