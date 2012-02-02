@@ -4,8 +4,10 @@
 
 package cx.it.cirrus.util;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
@@ -18,24 +20,34 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
+import oauth.signpost.OAuth;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.OAuthProvider;
+import oauth.signpost.commonshttp.*;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthProvider;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class TendrilUtils {
     
     /*
      * Public class variables
      */
-    public static final String APPLICATION_NAME = "TendrilManager";
-    public static final String TENDRIL_BASE_URL = "http://";
+    public static String APPLICATION_NAME = "TendrilManager";
+    public static String TENDRIL_BASE_URL = "http://";
 
     /*
      * Private class variables
      */
-    private static final String CONSUMER_KEY = "";
-    private static final String CONSUMER_SECRET = "";
-    private static final String TENDRIL_REQUEST_TOKEN_URL = TENDRIL_BASE_URL + 
+    private static String CONSUMER_KEY = "";
+    private static String CONSUMER_SECRET = "";
+    private static String TENDRIL_REQUEST_TOKEN_URL = TENDRIL_BASE_URL + 
                                     "/oauth/request_token";
-    private static final String TENDRIL_ACCESS_TOKEN_URL = TENDRIL_BASE_URL +
+    private static String TENDRIL_ACCESS_TOKEN_URL = TENDRIL_BASE_URL +
                                     "/oauth/acces_token";
-    private static final String TENDRIL_AUTHORIZE_URL = TENDRIL_BASE_URL + 
+    private static String TENDRIL_AUTHORIZE_URL = TENDRIL_BASE_URL + 
                                     "/oauth/authorize";
 
     /* 
@@ -54,21 +66,21 @@ public class TendrilUtils {
      *            String tokenSecret - the Token secret
      * Returns: The HTTP response
      */
-    public static response sendSignedRequest(request myRequest, 
+    public static HttpResponse sendSignedRequest(HttpUriRequest myRequest, 
                                              String accessToken,
                                              String tokenSecret){
         // create a consumer object and configure it with the access
         // token and token secret obtained from the service provider
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY,
                 CONSUMER_SECRET);
-        consumer.setTokenWithSecret(ACCESS_TOKEN, TOKEN_SECRET);
+        consumer.setTokenWithSecret(accessToken, tokenSecret);
 
         // sign the request
-        consumer.sign(request);
+        consumer.sign(myRequest);
 
         // send the request
         HttpClient httpClient = new DefaultHttpClient();
-        HttpResponse response = httpClient.execute(request);
+        HttpResponse response = httpClient.execute(myRequest);
         
         return response;
     }
@@ -88,7 +100,7 @@ public class TendrilUtils {
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY,
                 CONSUMER_SECRET);
 
-        OAuthProvider provider = new COmmonsHttpOAuthProvider(
+        OAuthProvider provider = new CommonsHttpOAuthProvider(
                                             TENDRIL_REQUEST_TOKEN_URL,
                                             TENDRIL_ACCESS_TOKEN_URL, 
                                             TENDRIL_AUTHORIZE_URL);
