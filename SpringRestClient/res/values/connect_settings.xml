@@ -7,4 +7,10 @@
     <string name="facebook_app_secret">473e66d79ddc0e360851dc512fe0fb1e</string>
     <string name="facebook_oauth_callback_url">https://www.facebook.com/connect/login_success.html</string>
     <string name="facebook_scope">"publish_stream,offline_access,read_stream,user_about_me,email"</string>
+    <string name="tendril_app_key">925272ee5d12eac858aeb81949671584</string>
+    <string name="tendril_app_secret">3230f8f0aa064bea145d425c57fe8679</string>
+    <string name="tendril_request_token_url">http://dev.tendrilinc.com/oauth/request_token</string>
+    <string name="tendril_authorize_url">http://dev.tendrilinc.com/oauth/authorize</string>
+    <string name="tendril_access_token_url">http://dev.tendrilinc.com/oauth/access_token</string>
+<!--     <string name="tendril_oauth_callback_url">x-org-springsource-android-showcase://tendril-oauth-response</string> -->
 </resources>

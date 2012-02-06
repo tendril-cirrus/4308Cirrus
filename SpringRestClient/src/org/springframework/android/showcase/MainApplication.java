@@ -1,5 +1,7 @@
 package org.springframework.android.showcase;
 
+import org.springframework.android.showcase.tendril.Tendril;
+import org.springframework.android.showcase.tendril.TendrilConnectionFactory;
 import org.springframework.security.crypto.encrypt.AndroidEncryptors;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.sqlite.SQLiteConnectionRepository;
@@ -28,7 +30,7 @@ public class MainApplication extends Application {
         connectionFactoryRegistry = new ConnectionFactoryRegistry();
         connectionFactoryRegistry.addConnectionFactory(new FacebookConnectionFactory(getFacebookAppId(), getFacebookAppSecret()));
         connectionFactoryRegistry.addConnectionFactory(new TwitterConnectionFactory(getTwitterConsumerToken(), getTwitterConsumerTokenSecret()));
-
+        connectionFactoryRegistry.addConnectionFactory(new TendrilConnectionFactory(getTendrilAppKey(), getTendrilAppSecret()));
         // set up the database and encryption
         repositoryHelper = new SQLiteConnectionRepositoryHelper(this);
         connectionRepository = new SQLiteConnectionRepository(repositoryHelper, connectionFactoryRegistry, AndroidEncryptors.text("password", "5c0744940b5c369b"));
@@ -52,6 +54,17 @@ public class MainApplication extends Application {
     private String getTwitterConsumerTokenSecret() {
         return getString(R.string.twitter_consumer_key_secret);
     }
+    
+    private String getTendrilAppKey() {
+    	return getString(R.string.tendril_app_key);
+    }
+    
+    private String getTendrilAppSecret(){
+    	return getString(R.string.tendril_app_secret);
+    	
+    }
+    
+    
 
     // ***************************************
     // Public methods
@@ -67,5 +80,10 @@ public class MainApplication extends Application {
     public TwitterConnectionFactory getTwitterConnectionFactory() {
         return (TwitterConnectionFactory) connectionFactoryRegistry.getConnectionFactory(Twitter.class);
     }
+
+	public TendrilConnectionFactory getTendrilConnectionFactory() {
+		return (TendrilConnectionFactory) connectionFactoryRegistry.getConnectionFactory(Tendril.class);
+		 
+	}
 
 }

@@ -19,6 +19,7 @@ import org.springframework.android.showcase.rest.HttpGetActivity;
 import org.springframework.android.showcase.rest.HttpPostActivity;
 import org.springframework.android.showcase.social.facebook.FacebookActivity;
 import org.springframework.android.showcase.social.twitter.TwitterActivity;
+import org.springframework.android.showcase.tendril.TendrilActivity;
 
 import android.content.Intent;
 import android.view.View;
@@ -62,6 +63,9 @@ public class MainActivity extends AbstractMenuActivity {
                 case 3:
                     cls = FacebookActivity.class;
                     break;
+                case 4:
+                	cls = TendrilActivity.class;
+                	break;
                 default:
                     break;
                 }

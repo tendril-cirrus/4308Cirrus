@@ -57,6 +57,7 @@
         <item>HTTP POST</item>
         <item>Twitter</item>
         <item>Facebook</item>
+        <item >Tendril</item>
     </string-array>
 
     <string-array name="http_get_activity_menu_items">
@@ -89,5 +90,6 @@
         <item>MultiValueMap</item>
         <item>Form Data</item>
     </string-array>
+    <string name="tendril_description">Connects to Tendril Developer Program Server</string>
 
 </resources>
