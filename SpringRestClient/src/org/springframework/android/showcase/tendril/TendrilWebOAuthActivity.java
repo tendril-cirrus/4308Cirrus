@@ -108,7 +108,6 @@ public class TendrilWebOAuthActivity extends AbstractWebViewActivity {
 		// params.add("state", "colorado");
 		String url = connectionFactory.getOAuthOperations().buildAuthorizeUrl(
 				GrantType.AUTHORIZATION_CODE, params);
-		System.err.println(url);
 		return url;
 	}
 
