@@ -83,7 +83,7 @@
 		    </activity>	
 
         <activity android:name="org.springframework.android.showcase.tendril.TendrilActivity" />
-    
+    	<activity android:name="org.springframework.android.showcase.tendril.UserProfileActivity" />
     </application>
 
 </manifest> 

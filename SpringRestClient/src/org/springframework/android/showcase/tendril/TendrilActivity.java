@@ -111,9 +111,8 @@ public class TendrilActivity extends AbstractAsyncActivity {
 					showConnectOption();
 					break;
 				case 1:
-					Toast.makeText(getApplicationContext(), "Get User Profile", Toast.LENGTH_LONG).show();
-					// startActivity(new Intent(parentView.getContext(),
-					//TwitterProfileActivity.class));
+					//Toast.makeText(getApplicationContext(), "Get User Profile", Toast.LENGTH_LONG).show();
+					startActivity(new Intent(parentView.getContext(), UserProfileActivity.class));
 					break;
 
 				default:
