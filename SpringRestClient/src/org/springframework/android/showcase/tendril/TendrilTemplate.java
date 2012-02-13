@@ -13,6 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
 import org.codehaus.jackson.map.type.TypeFactory;
 import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.android.showcase.R;
 import org.springframework.android.showcase.tendril.task.UserProfileTask;
 import org.springframework.http.HttpEntity;
@@ -147,10 +148,7 @@ public class TendrilTemplate extends AbstractOAuth2ApiBinding implements
 
 		String str = profile.getBody();
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		JsonParser jp = new JsonParser();
-		JsonElement je = jp.parse(str);
-		String prettyJsonString = gson.toJson(je);
+		String prettyJsonString = prettyize(str);
 
 		return prettyJsonString;
 	}
@@ -159,20 +157,29 @@ public class TendrilTemplate extends AbstractOAuth2ApiBinding implements
 		ResponseEntity<String> profile = getRestTemplate().exchange(
 				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
 				String.class);
-		String str = profile.getBody();
-		System.err.println(str);
+		return prettyize(profile.getBody());
+	}
 
+	
+
+	public String fetchPricingSchedule(DateTime from, DateTime to) {
+		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
+		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
+		System.err.println(fromString);
+
+		String[] vars = {fromString, toString};
+		ResponseEntity<String> profile = getRestTemplate().exchange(
+				GET_PRICING_SCHEDULE_URL, HttpMethod.GET, requestEntity,
+				String.class, vars);
+		return prettyize(profile.getBody());
+	}
+	
+	private String prettyize(String str) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonParser jp = new JsonParser();
 		JsonElement je = jp.parse(str);
 		String prettyJsonString = gson.toJson(je);
-
 		return prettyJsonString;
-	}
-
-	public String fetchPricingSchedule(DateTime start, DateTime end) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

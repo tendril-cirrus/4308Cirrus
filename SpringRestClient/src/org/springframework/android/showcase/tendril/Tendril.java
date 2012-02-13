@@ -13,7 +13,7 @@ import org.springframework.social.ApiBinding;
  */
 public interface Tendril extends ApiBinding{
 	String fetchUserInfo() throws InterruptedException, ExecutionException;
-	String fetchPricingSchedule(DateTime start, DateTime end);
+	String fetchPricingSchedule(DateTime from, DateTime to);
 	String fetchDeviceList();
 	
 

@@ -95,6 +95,7 @@
             </activity>
     	<activity android:name=".tendril.UserInfoActivity" />
     	<activity android:name=".tendril.DeviceListActivity"/>
+    	<activity android:name=".tendril.PricingScheduleActivity"/>
     </application>
 
 </manifest> 

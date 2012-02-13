@@ -80,7 +80,7 @@ public class TendrilActivity extends AbstractAsyncActivity {
 	}
 
 	private void showTendrilOptions() {
-		String[] options = { "Disconnect", "Get User Profile", "Get Device List" };
+		String[] options = { "Disconnect", "Get User Profile", "Get Device List", "Get Pricing Schedule" };
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this
@@ -100,6 +100,9 @@ public class TendrilActivity extends AbstractAsyncActivity {
 					break;
 				case 2:
 					startActivity(new Intent(parentView.getContext(), DeviceListActivity.class));
+					break;
+				case 3:
+					startActivity(new Intent(parentView.getContext(), PricingScheduleActivity.class));
 					break;
 				default:
 					break;
