@@ -1,17 +1,29 @@
 package org.springframework.android.showcase.tendril;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
 import org.codehaus.jackson.map.type.TypeFactory;
+import org.joda.time.DateTime;
+import org.springframework.android.showcase.R;
+import org.springframework.android.showcase.tendril.task.UserProfileTask;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.NotAuthorizedException;
 import org.springframework.social.UncategorizedApiException;
@@ -31,6 +43,7 @@ import org.springframework.social.facebook.api.UserOperations;
 import org.springframework.social.facebook.api.impl.json.FacebookModule;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
+import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Version;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.URIBuilder;
@@ -39,23 +52,52 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import android.content.Context;
+
 public class TendrilTemplate extends AbstractOAuth2ApiBinding implements
 		Tendril {
 
-	private ObjectMapper objectMapper;
+	private static final String BASE_URL = "http://dev.tendrilinc.com/connect/";
+	private static final String GET_USER_INFO_URL = BASE_URL
+			+ "user/current-user";
+	private static final String GET_USER_PROFILE_URL = BASE_URL
+			+ "user/current-user/profile";
+	private static final String GET_USER_LOCATION_PROFILE_URL = BASE_URL
+			+ "user/current-user/account/default-acccount/location/default-location/profile/household";
+	private static final String GET_USER_EXTERNAL_ACCOUNT_ID_URL = BASE_URL
+			+ "user/current-user/account/default-account";
+	private static final String GET_METER_READINGS_URL = BASE_URL
+			+ "meter/read;external-account-id={external-account-id};from={from};to={to};limit-to-latest={limit-to-latest};source={source}";
+	private static final String GET_HISTORICAL_COST_AND_CONSUMPTION_URL = BASE_URL
+			+ "user/current-user/account/default-account/consumption/{resolution};external-account-id={external-account-id};from={from};to={to};limit-to-latest={limit-to-latest};source={source}";
+	private static final String GET_PROJECTED_COST_AND_CONSUMPTION_URL = BASE_URL
+			+ "user/current-user/account/default-account/consumption/{resolution}/projection;source={source}";
+	private static final String GET_PRICING_PROGRAM_URL = BASE_URL
+			+ "user/current-user/account/default-account/current-pricing-program";
+	private static final String GET_PRICING_SCHEDULE_URL = BASE_URL
+			+ "account/default-account/pricing/schedule;from={from};to={to}";
+	private static final String GET_DEVICE_LIST_URL = BASE_URL
+			+ "user/current-user/account/default-account/location/default-location/network/default-network/device;include-extended-properties=true";
+	private static final String POST_DEVICE_ACTION_URL = BASE_URL
+			+ "device-action";
+	private static final String GET_COST_AND_CONSUMPTION_MY_NEIGHBORS_URL = BASE_URL
+			+ "user/current-user/account/default-account/comparison/myneighbors/{resolution};from={from};to={to}";
+	private static final String GET_COST_AND_CONSUMPTION_BASELINEACTUAL_URL = BASE_URL
+			+ "user/current-user/account/default-account/comparison/baselineactual/{resolution};asof={asof}";
+
+	// private ObjectMapper objectMapper;
+	private HttpEntity<?> requestEntity;
 
 	/**
-	 * Create a new instance of FacebookTemplate. This constructor creates a new
-	 * FacebookTemplate able to perform unauthenticated operations against
-	 * Facebook's Graph API. Some operations do not require OAuth
-	 * authentication. For example, retrieving a specified user's profile or
-	 * feed does not require authentication (although the data returned will be
-	 * limited to what is publicly available). A FacebookTemplate created with
-	 * this constructor will support those operations. Those operations
-	 * requiring authentication will throw {@link NotAuthorizedException}.
+	 * 
 	 */
 	public TendrilTemplate() {
-		initialize();
+		// initialize();
 	}
 
 	/**
@@ -68,25 +110,28 @@ public class TendrilTemplate extends AbstractOAuth2ApiBinding implements
 	 */
 	public TendrilTemplate(String accessToken) {
 		super(accessToken);
-		initialize();
+		// Set the Accept header for "application/json"
+		
+		//TODO: this should be handled by the previous statement- the restTemplate should
+		//deal with all auth issues..
+		setRequestEntity(accessToken);
 	}
 
-	@Override
-	public void setRequestFactory(ClientHttpRequestFactory requestFactory) {
-		// Wrap the request factory with a BufferingClientHttpRequestFactory so
-		// that the error handler can do repeat reads on the response.getBody()
-		super.setRequestFactory(ClientHttpRequestFactorySelector
-				.bufferRequests(requestFactory));
+	private void setRequestEntity(String accessToken) {
+		HttpHeaders requestHeaders = new HttpHeaders();
+		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+		requestHeaders.setAccept(acceptableMediaTypes);
+		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+		requestHeaders.set("access_token", accessToken);
+
+		// Populate the headers in an HttpEntity object to use for the
+		// request
+		this.requestEntity = new HttpEntity<Object>(requestHeaders);
 	}
 
 	public RestOperations restOperations() {
 		return getRestTemplate();
-	}
-
-	// AbstractOAuth2ApiBinding hooks
-	@Override
-	protected OAuth2Version getOAuth2Version() {
-		return OAuth2Version.DRAFT_10;
 	}
 
 	@Override
@@ -94,22 +139,40 @@ public class TendrilTemplate extends AbstractOAuth2ApiBinding implements
 		restTemplate.setErrorHandler(new TendrilErrorHandler());
 	}
 
-	@Override
-	protected MappingJacksonHttpMessageConverter getJsonMessageConverter() {
-		MappingJacksonHttpMessageConverter converter = super
-				.getJsonMessageConverter();
-		objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new FacebookModule());
-		converter.setObjectMapper(objectMapper);
-		return converter;
+	public String fetchUserInfo() throws InterruptedException,
+			ExecutionException {
+
+		ResponseEntity<String> profile = getRestTemplate().exchange(
+				GET_USER_INFO_URL, HttpMethod.GET, requestEntity, String.class);
+
+		String str = profile.getBody();
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonParser jp = new JsonParser();
+		JsonElement je = jp.parse(str);
+		String prettyJsonString = gson.toJson(je);
+
+		return prettyJsonString;
 	}
 
-	// private helpers
-	private void initialize() {
-		// Wrap the request factory with a BufferingClientHttpRequestFactory so
-		// that the error handler can do repeat reads on the response.getBody()
-		super.setRequestFactory(ClientHttpRequestFactorySelector
-				.bufferRequests(getRestTemplate().getRequestFactory()));
+	public String fetchDeviceList() {
+		ResponseEntity<String> profile = getRestTemplate().exchange(
+				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
+				String.class);
+		String str = profile.getBody();
+		System.err.println(str);
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonParser jp = new JsonParser();
+		JsonElement je = jp.parse(str);
+		String prettyJsonString = gson.toJson(je);
+
+		return prettyJsonString;
+	}
+
+	public String fetchPricingSchedule(DateTime start, DateTime end) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

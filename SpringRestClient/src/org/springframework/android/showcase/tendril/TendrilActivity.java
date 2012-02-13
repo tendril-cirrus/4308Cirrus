@@ -2,22 +2,8 @@ package org.springframework.android.showcase.tendril;
 
 import org.springframework.android.showcase.AbstractAsyncActivity;
 import org.springframework.android.showcase.R;
-import org.springframework.android.showcase.social.facebook.FacebookActivity;
-import org.springframework.android.showcase.social.facebook.FacebookHomeFeedActivity;
-import org.springframework.android.showcase.social.facebook.FacebookProfileActivity;
-import org.springframework.android.showcase.social.facebook.FacebookWallPostActivity;
-import org.springframework.android.showcase.social.facebook.FacebookWebOAuthActivity;
-import org.springframework.android.showcase.social.twitter.TwitterActivity;
-import org.springframework.android.showcase.social.twitter.TwitterDirectMessageActivity;
-import org.springframework.android.showcase.social.twitter.TwitterProfileActivity;
-import org.springframework.android.showcase.social.twitter.TwitterTimelineActivity;
-import org.springframework.android.showcase.social.twitter.TwitterTweetActivity;
-import org.springframework.android.showcase.social.twitter.TwitterWebOAuthActivity;
+import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class TendrilActivity extends AbstractAsyncActivity {
 
@@ -95,7 +80,7 @@ public class TendrilActivity extends AbstractAsyncActivity {
 	}
 
 	private void showTendrilOptions() {
-		String[] options = { "Disconnect", "Get User Profile" };
+		String[] options = { "Disconnect", "Get User Profile", "Get Device List" };
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this
@@ -111,10 +96,11 @@ public class TendrilActivity extends AbstractAsyncActivity {
 					showConnectOption();
 					break;
 				case 1:
-					//Toast.makeText(getApplicationContext(), "Get User Profile", Toast.LENGTH_LONG).show();
-					startActivity(new Intent(parentView.getContext(), UserProfileActivity.class));
+					startActivity(new Intent(parentView.getContext(), UserInfoActivity.class));
 					break;
-
+				case 2:
+					startActivity(new Intent(parentView.getContext(), DeviceListActivity.class));
+					break;
 				default:
 					break;
 				}

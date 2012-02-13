@@ -23,6 +23,8 @@ import org.springframework.social.connect.DuplicateConnectionException;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Parameters;
+import org.springframework.social.support.ParameterMap;
+import org.springframework.util.MultiValueMap;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,9 +41,8 @@ public class TendrilWebOAuthActivity extends AbstractWebViewActivity {
 
 	private static final String TAG = TendrilWebOAuthActivity.class
 			.getSimpleName();
-
+	private String redirectURI;
 	private ConnectionRepository connectionRepository;
-
 	private TendrilConnectionFactory connectionFactory;
 
 	// ***************************************
@@ -60,24 +61,36 @@ public class TendrilWebOAuthActivity extends AbstractWebViewActivity {
 				.getConnectionRepository();
 		this.connectionFactory = getApplicationContext()
 				.getTendrilConnectionFactory();
+		redirectURI = getString(R.string.tendril_oauth_callback_url);
+
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		
+
 		Uri uri = getIntent().getData();
 		if (uri != null) {
+			System.err.println(uri);
+			if (uri.getQueryParameters("access_token") != null)
+				displayTendrilOptions();
+
 			String code = uri.getQueryParameter("code");
 
 			if (code != null) {
 				
+				MultiValueMap<String, String> params = new OAuth2Parameters();
+				// String tendrilActivityURL =
+				// getString(R.string.tendril_activity);
 				
+				//FIXME: this doesn't work because Tendril uses a GET for the access token, 
+				// and the spec (and spring) use a POST.. 
+				// implement subclass of OAuth2Template to fix this..
+				AccessGrant accessGrant = connectionFactory
+						.getOAuthOperations().exchangeForAccess(code,
+								redirectURI, params);
 
-				// new TwitterPostConnectTask().execute(oauthVerifier);
-
-				// create the connection and persist it to the repository
-				AccessGrant accessGrant = new AccessGrant(code);
+				// AccessGrant accessGrant = new AccessGrant(accessToken);
 				Connection<Tendril> connection = connectionFactory
 						.createConnection(accessGrant);
 
@@ -87,7 +100,7 @@ public class TendrilWebOAuthActivity extends AbstractWebViewActivity {
 					// connection already exists in repository!
 				}
 
-				displayTendrilOptions();
+				//displayTendrilOptions();
 			}
 		} else {
 			getWebView().clearView();
@@ -101,13 +114,14 @@ public class TendrilWebOAuthActivity extends AbstractWebViewActivity {
 	// Private methods
 	// ***************************************
 	private String getAuthorizeUrl() {
-		String redirectUri = getString(R.string.tendril_oauth_callback_url);
+		// String redirectUri = getString(R.string.tendril_oauth_callback_url);
 		// String scope = getString(R.string.tendril_scope);
 		OAuth2Parameters params = new OAuth2Parameters();
-		params.setRedirectUri(redirectUri);
+		params.setRedirectUri(redirectURI);
 		// params.add("state", "colorado");
 		String url = connectionFactory.getOAuthOperations().buildAuthorizeUrl(
 				GrantType.AUTHORIZATION_CODE, params);
+
 		return url;
 	}
 
@@ -121,86 +135,86 @@ public class TendrilWebOAuthActivity extends AbstractWebViewActivity {
 	// ***************************************
 	// Private classes
 	// ***************************************
-//	private class TendrilOAuthWebViewClient extends WebViewClient {
-//
-//		/*
-//		 * The WebViewClient has another method called shouldOverridUrlLoading
-//		 * which does not capture the javascript redirect to the success page.
-//		 * So we're using onPageStarted to capture the url.
-//		 */
-//		@Override
-//		public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//			// parse the captured url
-//			Uri uri = Uri.parse(url);
-//
-//			Log.d(TAG, url);
-//
-//			/*
-//			 * The access token is returned in the URI fragment of the URL See
-//			 * the Desktop Apps section all the way at the bottom of this link:
-//			 * http://developers.tendril.com/docs/authentication/
-//			 * 
-//			 * The fragment will be formatted like this:
-//			 * 
-//			 * #access_token=A&expires_in=0
-//			 */
-//			String uriFragment = uri.getFragment();
-//
-//			// confirm we have the fragment, and it has an access_token
-//			// parameter
-//			if (uriFragment != null && uriFragment.startsWith("code=")) {
-//
-//				/*
-//				 * The fragment also contains an "expires_in" parameter. In this
-//				 * example we requested the offline_access permission, which
-//				 * basically means the access will not expire, so we're ignoring
-//				 * it here
-//				 */
-//				try {
-//					// split to get the two different parameters
-//					String[] params = uriFragment.split("&");
-//
-//					// split to get the access token parameter and value
-//					String[] accessTokenParam = params[0].split("=");
-//
-//					// get the access token value
-//					String accessToken = accessTokenParam[1];
-//
-//					// create the connection and persist it to the repository
-//					AccessGrant accessGrant = new AccessGrant(accessToken);
-//					Connection<Tendril> connection = connectionFactory
-//							.createConnection(accessGrant);
-//
-//					try {
-//						connectionRepository.addConnection(connection);
-//					} catch (DuplicateConnectionException e) {
-//						// connection already exists in repository!
-//					}
-//				} catch (Exception e) {
-//					// don't do anything if the parameters are not what is
-//					// expected
-//				}
-//
-//				displayTendrilOptions();
-//			}
-//
-//			/*
-//			 * if there was an error with the oauth process, return the error
-//			 * description
-//			 * 
-//			 * The error query string will look like this:
-//			 * 
-//			 * ?error_reason=user_denied&error=access_denied&error_description=The
-//			 * +user+denied+your+request
-//			 */
-//			if (uri.getQueryParameter("error") != null) {
-//				CharSequence errorReason = uri.getQueryParameter(
-//						"error_description").replace("+", " ");
-//				Toast.makeText(getApplicationContext(), errorReason,
-//						Toast.LENGTH_LONG).show();
-//				displayTendrilOptions();
-//			}
-//		}
-//	}
+	// private class TendrilOAuthWebViewClient extends WebViewClient {
+	//
+	// /*
+	// * The WebViewClient has another method called shouldOverridUrlLoading
+	// * which does not capture the javascript redirect to the success page.
+	// * So we're using onPageStarted to capture the url.
+	// */
+	// @Override
+	// public void onPageStarted(WebView view, String url, Bitmap favicon) {
+	// // parse the captured url
+	// Uri uri = Uri.parse(url);
+	//
+	// Log.d(TAG, url);
+	//
+	// /*
+	// * The access token is returned in the URI fragment of the URL See
+	// * the Desktop Apps section all the way at the bottom of this link:
+	// * http://developers.tendril.com/docs/authentication/
+	// *
+	// * The fragment will be formatted like this:
+	// *
+	// * #access_token=A&expires_in=0
+	// */
+	// String uriFragment = uri.getFragment();
+	//
+	// // confirm we have the fragment, and it has an access_token
+	// // parameter
+	// if (uriFragment != null && uriFragment.startsWith("code=")) {
+	//
+	// /*
+	// * The fragment also contains an "expires_in" parameter. In this
+	// * example we requested the offline_access permission, which
+	// * basically means the access will not expire, so we're ignoring
+	// * it here
+	// */
+	// try {
+	// // split to get the two different parameters
+	// String[] params = uriFragment.split("&");
+	//
+	// // split to get the access token parameter and value
+	// String[] accessTokenParam = params[0].split("=");
+	//
+	// // get the access token value
+	// String accessToken = accessTokenParam[1];
+	//
+	// // create the connection and persist it to the repository
+	// AccessGrant accessGrant = new AccessGrant(accessToken);
+	// Connection<Tendril> connection = connectionFactory
+	// .createConnection(accessGrant);
+	//
+	// try {
+	// connectionRepository.addConnection(connection);
+	// } catch (DuplicateConnectionException e) {
+	// // connection already exists in repository!
+	// }
+	// } catch (Exception e) {
+	// // don't do anything if the parameters are not what is
+	// // expected
+	// }
+	//
+	// displayTendrilOptions();
+	// }
+	//
+	// /*
+	// * if there was an error with the oauth process, return the error
+	// * description
+	// *
+	// * The error query string will look like this:
+	// *
+	// * ?error_reason=user_denied&error=access_denied&error_description=The
+	// * +user+denied+your+request
+	// */
+	// if (uri.getQueryParameter("error") != null) {
+	// CharSequence errorReason = uri.getQueryParameter(
+	// "error_description").replace("+", " ");
+	// Toast.makeText(getApplicationContext(), errorReason,
+	// Toast.LENGTH_LONG).show();
+	// displayTendrilOptions();
+	// }
+	// }
+	// }
 
 }

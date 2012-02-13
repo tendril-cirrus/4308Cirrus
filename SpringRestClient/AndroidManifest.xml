@@ -9,7 +9,9 @@
     
     <application
     	android:name=".MainApplication" 
-    	android:label="@string/app_name">
+    	android:label="@string/app_name"
+    	android:debuggable="true"
+    	>
         
         <activity 
         	android:name="org.springframework.android.showcase.MainActivity"
@@ -82,8 +84,17 @@
 			</intent-filter>
 		    </activity>	
 
-        <activity android:name="org.springframework.android.showcase.tendril.TendrilActivity" />
-    	<activity android:name="org.springframework.android.showcase.tendril.UserProfileActivity" />
+        <activity android:name="org.springframework.android.showcase.tendril.TendrilActivity">
+            <intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="x-org-springsource-android-showcase" android:host="tendril-activity" />
+			</intent-filter>
+            
+            </activity>
+    	<activity android:name=".tendril.UserInfoActivity" />
+    	<activity android:name=".tendril.DeviceListActivity"/>
     </application>
 
 </manifest> 
