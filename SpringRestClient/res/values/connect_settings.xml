@@ -12,5 +12,9 @@
     <string name="tendril_request_token_url">http://dev.tendrilinc.com/oauth/request_token</string>
     <string name="tendril_authorize_url">http://dev.tendrilinc.com/oauth/authorize</string>
     <string name="tendril_access_token_url">http://dev.tendrilinc.com/oauth/access_token</string>
-<!--     <string name="tendril_oauth_callback_url">x-org-springsource-android-showcase://tendril-oauth-response</string> -->
+    <string name="tendril_oauth_callback_url">x-org-springsource-android-showcase://tendril-oauth-response</string>
+	<string name="tendril_activity">x-org-springsource-android-showcase://tendril-activity</string>
+	<string name="tendril_user_info_url">"http://dev.tendrilinc.com/connect/user/current-user"</string>
+	
+
 </resources>
