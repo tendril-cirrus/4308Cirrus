@@ -2,7 +2,7 @@
  * Insert License Here
  */
 
-package edu.colorado.cs.cirrus.domain.model
+package edu.colorado.cs.cirrus.domain.model;
 
 public class ProjectedCostAndConsumption {
 
