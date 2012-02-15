@@ -2,7 +2,7 @@
  * Insert License Here
  */
 
-package edu.colorado.cs.cirrus.domain;
+package edu.colorado.cs.cirrus.domain.model
 
 import edu.colorado.cs.cirrus.domain.util.JSONUtils;
 
