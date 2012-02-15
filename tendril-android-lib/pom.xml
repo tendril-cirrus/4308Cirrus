@@ -5,11 +5,13 @@
 	<artifactId>tendril-android-lib</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tendril-android-lib</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>edu.colorado.cs.cirrus</groupId>
+			<artifactId>tendril-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
 </project>
-<dependencies>
-	<dependency>
-		<groupId>edu.colorado.cs.cirrus</groupId>
-		<artifactId>tendril-domain</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-</dependencies>
