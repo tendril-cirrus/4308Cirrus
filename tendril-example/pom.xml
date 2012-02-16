@@ -26,9 +26,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>edu.colorado.cs.cirrus.android</groupId>
-			<artifactId>tendril-android-lib</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>edu.colorado.cs.cirrus</groupId>
+	<artifactId>tendril-android-lib</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 

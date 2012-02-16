@@ -1,10 +1,11 @@
 package edu.colorado.cs.cirrus.android;
 
+import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class HelloAndroidActivity extends Activity {
+public class TendrilActivity extends Activity {
 
     private static String TAG = "tendril-example";
 
@@ -19,6 +20,13 @@ public class HelloAndroidActivity extends Activity {
         super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
         setContentView(R.layout.main);
+    }
+    
+    @Override
+    public void onStart(){
+    	ITendril tendril = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+    	
+    	
     }
 
 }
