@@ -15,7 +15,7 @@ public class Device {
 	public Device(String deviceId, String networkId, String category,
 			String name, String marketingName,
 			List<ExtendedProperty> extendedPropertyList,
-			List<String> supportedOperation) {
+			List<String> supportedOperationList) {
 		super();
 		this.deviceId = deviceId;
 		this.networkId = networkId;
@@ -23,7 +23,7 @@ public class Device {
 		this.name = name;
 		this.marketingName = marketingName;
 		this.extendedPropertyList = extendedPropertyList;
-		this.supportedOperation = supportedOperation;
+		this.supportedOperationList = supportedOperationList;
 	}
 
 	@Element
@@ -44,8 +44,8 @@ public class Device {
 	@ElementList(inline=true)
 	List<ExtendedProperty> extendedPropertyList;
 
-	@ElementList
-	List<String> supportedOperation;
+	@ElementList(inline=true, entry="supportedOperation", required=false)
+	List<String> supportedOperationList;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -95,13 +95,23 @@ public class Device {
 		this.extendedPropertyList = extendedPropertyList;
 	}
 
-	public List<String> getSupportedOperation() {
-		return supportedOperation;
+	public List<String> getSupportedOperationList() {
+		return supportedOperationList;
 	}
 
-	public void setSupportedOperation(List<String> supportedOperation) {
-		this.supportedOperation = supportedOperation;
+	public void setSupportedOperation(List<String> supportedOperationList) {
+		this.supportedOperationList = supportedOperationList;
 	}
+
+	@Override
+	public String toString() {
+		return "Device [deviceId=" + deviceId + ", networkId=" + networkId
+				+ ", category=" + category + ", name=" + name
+				+ ", marketingName=" + marketingName
+				+ ", extendedPropertyList=" + extendedPropertyList
+				+ ", supportedOperationList=" + supportedOperationList + "]";
+	}
+	
 	
 
 }

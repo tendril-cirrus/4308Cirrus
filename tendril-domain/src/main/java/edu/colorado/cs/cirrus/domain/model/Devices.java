@@ -30,4 +30,11 @@ public class Devices {
 		this.deviceList = device;
 	}
 
+	@Override
+	public String toString() {
+		return "Devices [deviceList=" + deviceList + "]";
+	}
+	
+	
+
 }
