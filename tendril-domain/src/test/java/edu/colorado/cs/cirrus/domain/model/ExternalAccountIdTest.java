@@ -8,16 +8,16 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 
-public class DevicesTest {
+public class ExternalAccountIdTest {
 
 	@Test
-	public void canDeserializeDevices() {
+	public void canDeserializeExternalAccountId() {
 		Serializer serializer = new Persister();
-		File source = new File("src/test/resources/Devices.xml");
+		File source = new File("src/test/resources/ExternalAccountId.xml");
 
 		try {
-			Devices exampleDevices = serializer.read(Devices.class, source);
-			System.err.println(exampleDevices);
+			ExternalAccountId externalAccountId = serializer.read(ExternalAccountId.class, source);
+			System.err.println(externalAccountId);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

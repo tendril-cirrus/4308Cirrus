@@ -12,20 +12,21 @@ public class ExtendedProperty {
 	public ExtendedProperty() {
 	}
 
-	public ExtendedProperty(String namespace, String name, List<String> valueList) {
+	public ExtendedProperty(String namespace, String name,
+			List<String> valueList) {
 		super();
 		this.namespace = namespace;
 		this.name = name;
 		this.valueList = valueList;
 	}
 
-	@Element(required=false)
+	@Element(required = false)
 	String namespace;
 
 	@Element
 	String name;
 
-	@ElementList(inline=true, entry="value")
+	@ElementList(inline = true, entry = "value")
 	List<String> valueList;
 
 	public String getNamespace() {
@@ -57,5 +58,4 @@ public class ExtendedProperty {
 		return "ExtendedProperty [namespace=" + namespace + ", name=" + name
 				+ ", valueList=" + valueList + "]";
 	}
-
 }
