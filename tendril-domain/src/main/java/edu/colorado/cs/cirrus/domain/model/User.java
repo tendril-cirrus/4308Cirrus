@@ -39,7 +39,7 @@ public class User {
 	@Element
 	boolean usingTemporaryPassword;
 
-	@Element
+	@Element (required=false)
 	String userName;
 
 	@Element

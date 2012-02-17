@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+  <user id="3">
+    <firstName>Jane</firstName>
+    <lastName>Doe</lastName>
+    <emailAddress>jane.doe@example.com</emailAddress>
+    <usingTemporaryPassword>false</usingTemporaryPassword>
+    <expert>false</expert>
+    <authorId>83612063-ba72-442c-8aa2-c2862df8b303</authorId>
+  </user>
+  <user id="659">
+    <firstName>John</firstName>
+    <lastName>Doe</lastName>
+    <emailAddress>john.doe@example.com</emailAddress>
+    <usingTemporaryPassword>false</usingTemporaryPassword>
+    <userName>eric3</userName>
+    <expert>false</expert>
+    <authorId>936b969d-3fa1-4f76-a99b-58fd20b166e5</authorId>
+  </user>
+</users>
