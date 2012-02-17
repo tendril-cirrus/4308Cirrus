@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<devices xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel">
+  <device>
+    <deviceId>001db7000002ba23</deviceId>
+    <networkId>rid_aw-aid_aw</networkId>
+    <category>Network Gateway</category>
+    <name>null</name>
+    <marketingName>Transport</marketingName>
+    <extendedProperty>
+      <namespace></namespace>
+      <name>specificDeviceCategory</name>
+      <value>Tendril Gateway</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>RunningFirmwareVersion</name>
+      <value>2.4.0d9956_ECC_TND</value>
+      <value>3593_ECC</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>HardwareVersion</name>
+      <value>GW-P4</value>
+      <value>CEL-ZALM-301</value>
+    </extendedProperty>
+  </device>
+  <device>
+    <deviceId>804f58aaaaaa0358</deviceId>
+    <networkId>rid_aw-aid_aw</networkId>
+    <category>Load Control</category>
+    <name>Andrews smart plug</name>
+    <marketingName>ThinkEco Modlet</marketingName>
+    <extendedProperty>
+      <namespace></namespace>
+      <name>specificDeviceCategory</name>
+      <value>ThinkEco Modlet</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Demand Response and Load Control</namespace>
+      <name>UtilityEnrollmentGroup</name>
+      <value>0</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Radio Firmware Status</namespace>
+      <name>HardwareVersion</name>
+      <value>1.0tm</value>
+      <value>EcoVolt-1.0</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Basic</namespace>
+      <name>ModelIdentifier</name>
+      <value>TEM-8-001</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Simple Metering</namespace>
+      <name>Multiplier</name>
+      <value>1</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Demand Response and Load Control</namespace>
+      <name>EndRandomizationMinutes</name>
+      <value>1</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Basic</namespace>
+      <name>ManufacturerName</name>
+      <value>Tendril</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>RunningFirmwareVersion</name>
+      <value>2.2.0v8784</value>
+      <value>4327</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Simple Metering</namespace>
+      <name>Divisor</name>
+      <value>1000</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>ProductID</name>
+      <value>176</value>
+      <value>58199</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Demand Response and Load Control</namespace>
+      <name>StartRandomizationMinutes</name>
+      <value>1</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>ManufacturerID</name>
+      <value>4124</value>
+      <value>4098</value>
+    </extendedProperty>
+    <supportedOperation>unregister</supportedOperation>
+    <supportedOperation>control</supportedOperation>
+    <supportedOperation>save</supportedOperation>
+  </device>
+  <device>
+    <deviceId>001e5e000000380f</deviceId>
+    <networkId>rid_aw-aid_aw</networkId>
+    <category>Thermostat</category>
+    <name>Andrews thermostat</name>
+    <marketingName>Set Point</marketingName>
+    <extendedProperty>
+      <namespace></namespace>
+      <name>specificDeviceCategory</name>
+      <value>Tendril Thermostat 218</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>HardwareVersion</name>
+      <value>CUT-80-001</value>
+      <value>CUT-em260</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>ProductID</name>
+      <value>129</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Basic</namespace>
+      <name>ManufacturerName</name>
+      <value>Tendril</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>RunningFirmwareVersion</name>
+      <value>2.1.0v7928</value>
+      <value>4327</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Demand Response and Load Control</namespace>
+      <name>UtilityEnrollmentGroup</name>
+      <value>0</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Basic</namespace>
+      <name>ModelIdentifier</name>
+      <value>SetPoint TST-08</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Demand Response and Load Control</namespace>
+      <name>StartRandomizationMinutes</name>
+      <value>1</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Host Firmware Status</namespace>
+      <name>ManufacturerID</name>
+      <value>4124</value>
+    </extendedProperty>
+    <extendedProperty>
+      <namespace>Demand Response and Load Control</namespace>
+      <name>EndRandomizationMinutes</name>
+      <value>1</value>
+    </extendedProperty>
+    <supportedOperation>unregister</supportedOperation>
+    <supportedOperation>control</supportedOperation>
+    <supportedOperation>save</supportedOperation>
+  </device>
+</devices>

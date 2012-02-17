@@ -159,17 +159,40 @@ public class TendrilTemplate implements ITendril{
 
 	public boolean logIn(String username, String Password) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.set("client_id", APP_KEY);
-		params.set("client_secret", APP_SECRET);
+		//params.set("client_id", APP_KEY);
+		//params.set("client_secret", APP_SECRET);
 	//	params.set("code", authorizationCode);
 	//	params.set("redirect_uri", redirectUri);
-		params.set("grant_type", "password");
-		params.set("scope", SCOPE);
+		//params.set("grant_type", "password");
+		//params.set("scope", SCOPE);
+		params.set("Accept", "application/json");
+		params.set("Content-Type", "application/x-www-form-urlencoded");
 		
 		
-		Map<String, Object> ag = restTemplate.postForObject(ACCESS_TOKEN_URL,  Map.class, null, params);
-		System.err.println(ag);
-		return false;
+		//Map<String, Object> ag = restTemplate.postForObject(ACCESS_TOKEN_URL,  Map.class, Map.class, params);
+		//System.err.println(ag);
+		//return false;
+		
+		//3 legged:
+
+		//TODO GET CODE:
+		
+		
+		
+		
+		//MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.set("client_id", APP_KEY);
+		params.set("client_secret", APP_SECRET);
+		//params.set("code", authorizationCode);
+		//params.set("redirect_uri", redirectUri);
+		//params.set("grant_type", "authorization_code");
+		//if (additionalParameters != null) {
+		//	params.putAll(additionalParameters);
+		//}
+		//return getForAccessGrant(accessTokenUrl, params);
+		
+		
+		
 	}
 	
 	
