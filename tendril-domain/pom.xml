@@ -7,13 +7,19 @@
 	<name>tendril-domain</name>
 	<description>Domain objects and utilities for Tendril App developer program</description>
 
+	<parent>
+		<groupId>edu.colorado.cs.cirrus</groupId>
+		<artifactId>tendril-android-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+
 	<properties>
 		<gson-version>2.0</gson-version>
 		<simple-version>2.6.2</simple-version>
 
 	</properties>
-
-
 
 	<dependencies>
 		<dependency>
@@ -52,8 +58,10 @@
 					<groupId>stax</groupId>
 				</exclusion>
 				<!-- Provided by Android -->
-				<!-- <exclusion> <artifactId>xpp3</artifactId> <groupId>xpp3</groupId> 
-					</exclusion> -->
+				<exclusion>
+					<artifactId>xpp3</artifactId>
+					<groupId>xpp3</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 

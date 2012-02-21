@@ -1,5 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>edu.colorado.cs.cirrus</groupId>
+		<artifactId>tendril-android-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.colorado.cs.cirrus</groupId>
 	<artifactId>tendril-android-lib</artifactId>
@@ -8,7 +18,7 @@
 	<properties>
 		<android-platform>8</android-platform>
 		<android-emulator>8</android-emulator>
-		<android-maven-plugin-version>3.0.2</android-maven-plugin-version>
+		<!-- <android-maven-plugin-version>3.0.2</android-maven-plugin-version> -->
 		<maven-compiler-plugin-version>2.3.2</maven-compiler-plugin-version>
 		<maven-eclipse-plugin-version>2.8</maven-eclipse-plugin-version>
 		<android-version>2.2.1</android-version>
@@ -21,10 +31,18 @@
 	</properties>
 
 	<dependencies>
+		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
+			<version>4.0-alpha4</version> </dependency> -->
 		<dependency>
 			<groupId>edu.colorado.cs.cirrus</groupId>
 			<artifactId>tendril-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.google.android</groupId>
@@ -32,40 +50,25 @@
 			<version>${android-version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-        <groupId>com.google.android</groupId>
-        <artifactId>android-test</artifactId>
-        <version>${android-version}</version>
-        <scope>provided</scope>
-      </dependency>
+		<!-- <dependency> <groupId>com.google.android</groupId> <artifactId>android-test</artifactId> 
+			<version>${android-version}</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.android</groupId>
 			<artifactId>spring-android-rest-template</artifactId>
 			<version>${spring-android-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.android</groupId>
-			<artifactId>spring-android-auth</artifactId>
-			<version>${spring-android-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-crypto</artifactId>
-			<version>${spring-security-crypto-version}</version>
-			<exclusions>
-				<!-- Exclude in favor of Spring Android Core -->
-				<exclusion>
-					<artifactId>spring-core</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- <dependency> <groupId>org.springframework.android</groupId> <artifactId>spring-android-auth</artifactId> 
+			<version>${spring-android-version}</version> </dependency> -->
+		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-crypto</artifactId> 
+			<version>${spring-security-crypto-version}</version> <exclusions> Exclude 
+			in favor of Spring Android Core <exclusion> <artifactId>spring-core</artifactId> 
+			<groupId>org.springframework</groupId> </exclusion> </exclusions> </dependency> -->
+		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+			<version>4.8.1</version> <scope>test</scope> </dependency> -->
+		<!-- for bypassing some ssl errors when connecting to Tendril -->
+		<!-- <dependency> <groupId>org.jsslutils</groupId> <artifactId>jsslutils</artifactId> 
+			<version>1.0.5</version> </dependency> -->
+
 		<!-- <dependency> <groupId>org.springframework.social</groupId> <artifactId>spring-social-core</artifactId> 
 			<version>${spring-social-version}</version> <exclusions> Exclude in favor 
 			of Spring Android RestTemplate <exclusion> <artifactId>spring-web</artifactId> 

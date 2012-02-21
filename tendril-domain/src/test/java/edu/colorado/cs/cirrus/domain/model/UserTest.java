@@ -16,7 +16,7 @@ public class UserTest {
 		File source = new File("src/test/resources/User.xml");
 
 		try {
-			User exampleUser = serializer.read(User.class, source);
+			UserInfo exampleUser = serializer.read(UserInfo.class, source);
 			
 			System.err.println(exampleUser);
 			

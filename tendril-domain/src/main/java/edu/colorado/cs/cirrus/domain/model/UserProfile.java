@@ -196,5 +196,14 @@ public class UserProfile{
         this.makeSavingsGoalPublic = makeSavingsGoalPublic;
     }
 
+	@Override
+	public String toString() {
+		return "UserProfile [displayName=" + displayName + ", aboutMe="
+				+ aboutMe + ", location=" + location + ", savingsGoal="
+				+ savingsGoal + ", picture=" + picture
+				+ ", makeHomeDetailPublic=" + makeHomeDetailPublic
+				+ ", makeSavingsGoalPublic=" + makeSavingsGoalPublic + "]";
+	}
+
 
 }

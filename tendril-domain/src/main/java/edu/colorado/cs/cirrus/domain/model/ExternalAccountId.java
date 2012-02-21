@@ -19,6 +19,7 @@ public class ExternalAccountId {
 	@Attribute
 	String externalAccountId;
 
+	//TODO: make sure this works since it really is called @id
 	@Attribute
 	String id;
 

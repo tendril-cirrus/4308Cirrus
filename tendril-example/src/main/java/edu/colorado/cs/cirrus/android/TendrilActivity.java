@@ -1,9 +1,11 @@
 package edu.colorado.cs.cirrus.android;
 
-import edu.colorado.cs.cirrus.domain.intf.ITendril;
+//import edu.colorado.cs.cirrus.domain.intf.ITendril;
+import org.joda.time.DateTime;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+
 
 public class TendrilActivity extends Activity {
 
@@ -24,8 +26,12 @@ public class TendrilActivity extends Activity {
     
     @Override
     public void onStart(){
-    	ITendril tendril = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+    	super.onStart();
+    	TendrilTemplate tendril = new TendrilTemplate("csci4138@tendrilinc.com", "password");
     	
+    	tendril.fetchUserInfo();
+    	
+    	System.err.println(tendril.fetchPricingProgram());
     	
     }
 
