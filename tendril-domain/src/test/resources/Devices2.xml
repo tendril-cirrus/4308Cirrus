@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<devices xmlns="http://platform.tendrilinc.com/tnop/extension/ems"
+	xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#"
+	xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup"
+	xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel">
+	<device>
+		<deviceId>001db7000001c8bf</deviceId>
+		<networkId>rid_dr-aid_dr</networkId>
+		<category>Network Gateway</category>
+		<name>null</name>
+		<marketingName>Transport</marketingName>
+		<extendedProperty>
+			<namespace></namespace>
+			<name>specificDeviceCategory</name>
+			<value>Tendril Gateway</value>
+		</extendedProperty>
+		<extendedProperty>
+			<namespace>Host Firmware Status</namespace>
+			<name>HardwareVersion</name>
+			<value>GW-P4</value>
+			<value>CEL-ZALM-301</value>
+		</extendedProperty>
+		<extendedProperty>
+			<namespace>Radio Firmware Status</namespace>
+			<name>RunningFirmwareVersion</name>
+			<value>3593_ECC</value>
+			<value>2.3.0v9958_ECC_TND</value>
+		</extendedProperty>
+	</device>
+</devices>

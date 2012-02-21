@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel" id="62">
+  <firstName>Andrew</firstName>
+  <lastName>Woody</lastName>
+  <emailAddress>andrew.wood@tendril.com</emailAddress>
+  <usingTemporaryPassword>false</usingTemporaryPassword>
+  <userName>Mother</userName>
+  <expert>false</expert>
+  <authorId>9a9768dc-8a53-42b0-b663-9f98a5a48795</authorId>
+</user>

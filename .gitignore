@@ -11,6 +11,10 @@
 # generated files
 bin/
 gen/
+*/target/*
+
+# swap files
+.*.swp
 
 # Local configuration file (sdk path, etc)
 local.properties
