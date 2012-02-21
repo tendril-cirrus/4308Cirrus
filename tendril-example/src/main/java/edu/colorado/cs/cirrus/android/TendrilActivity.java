@@ -2,15 +2,21 @@ package edu.colorado.cs.cirrus.android;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import org.joda.time.DateTime;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class TendrilActivity extends Activity {
 
 	
-    private static String TAG = "tendril-example";
+	protected static final String TAG = TendrilActivity.class.getSimpleName();
 
     /**
      * Called when the activity is first created.
@@ -22,21 +28,50 @@ public class TendrilActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
-		
-        setContentView(R.layout.main);
+		setContentView(R.layout.tendril_activity_layout);
+        //setContentView(R.layout.main);
     }
     
     @Override
     public void onStart(){
     	super.onStart();
-    	TendrilTemplate tendril = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+    	TendrilTemplate tendril = ((TendrilApplication) getApplication()).getTendril();
     	
-    	tendril.fetchUser();
-    	tendril.fetchDeviceList();
-    	
-    	System.err.println(tendril.fetchPricingProgram());
+    	showTendrilOptions();
+    	//tendril.fetchUser();
+    	//tendril.fetchDevices();
+    	//System.err.println(tendril.fetchPricingProgram());
     	//System.err.println(tendril.fetchPricingSchedule((new DateTime()).minusMonths(12), new DateTime()));
     }
+    
+    private void showTendrilOptions() {
+		String[] options = { "Get User Profile", "Get Device List", "Get Pricing Program" };
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, options);
+		ListView listView = (ListView) this
+				.findViewById(R.id.tendril_activity_options_list);
+		listView.setAdapter(arrayAdapter);
+
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parentView, View childView,
+					int position, long id) {
+				switch (position) {
+				
+				case 0:
+					startActivity(new Intent(parentView.getContext(), UserActivity.class));
+					break;
+				case 1:
+					startActivity(new Intent(parentView.getContext(), DevicesActivity.class));
+					break;
+				case 2:
+					startActivity(new Intent(parentView.getContext(), PricingProgramActivity.class));
+					break;
+				default:
+					break;
+				}
+			}
+		});
+	}
 
 }
 

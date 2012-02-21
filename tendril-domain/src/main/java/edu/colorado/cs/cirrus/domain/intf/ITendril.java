@@ -2,6 +2,9 @@ package edu.colorado.cs.cirrus.domain.intf;
 
 import org.joda.time.DateTime;
 
+import edu.colorado.cs.cirrus.domain.model.Devices;
+import edu.colorado.cs.cirrus.domain.model.User;
+
 /**
  * interface for specifying a set of operations for interacting with Tendril
  * 
@@ -32,10 +35,10 @@ public interface ITendril {
 	 */
 	boolean logIn(String username, String Password);
 	
-	String fetchUserInfo();
+	User fetchUser();
 
 	String fetchPricingSchedule(DateTime from, DateTime to);
 
-	String fetchDeviceList();
+	Devices fetchDevices();
 
 }

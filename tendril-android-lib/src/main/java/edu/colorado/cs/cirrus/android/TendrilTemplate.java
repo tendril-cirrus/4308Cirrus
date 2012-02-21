@@ -21,13 +21,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
-public class TendrilTemplate {
+public class TendrilTemplate implements ITendril{
 
 	private static final String BASE_URL = "http://dev.tendrilinc.com/connect/";
 	private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
@@ -109,9 +110,9 @@ public class TendrilTemplate {
 		this.requestEntity = new HttpEntity<Object>(requestHeaders);
 	}
 
-	public RestOperations restOperations() {
-		return getRestTemplate();
-	}
+//	public RestOperations restOperations() {
+//		return getRestTemplate();
+//	}
 
 	// protected void configureRestTemplate(RestTemplate restTemplate) {
 	// restTemplate.setErrorHandler(new TendrilErrorHandler());
@@ -148,9 +149,7 @@ public class TendrilTemplate {
 			return fetchUser();
 	}
 	
-	
-
-	public Devices fetchDeviceList() {
+	public Devices fetchDevices() {
 		ResponseEntity<Devices> devices = restTemplate.exchange(
 				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
 				Devices.class);
@@ -181,10 +180,10 @@ public class TendrilTemplate {
 
 	}
 
-	private RestOperations getRestTemplate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	private RestOperations getRestTemplate() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	// private String prettyize(String str) {
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -236,4 +235,5 @@ public class TendrilTemplate {
 		return true;
 	}
 
+	
 }

@@ -2,4 +2,6 @@
 <resources>
     <string name="hello">Hello tendril-example!</string>
     <string name="app_name">tendril-example</string>
+     <string name="tendril_description">Connects to Tendril App Developer Program Server</string>
+    
 </resources>

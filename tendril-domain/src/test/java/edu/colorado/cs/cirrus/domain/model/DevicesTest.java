@@ -13,7 +13,7 @@ public class DevicesTest {
 	@Test
 	public void canDeserializeDevices() {
 		Serializer serializer = new Persister();
-		File source = new File("src/test/resources/Devices.xml");
+		File source = new File("src/test/resources/Devices2.xml");
 
 		try {
 			Devices exampleDevices = serializer.read(Devices.class, source);
