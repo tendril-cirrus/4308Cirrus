@@ -5,12 +5,12 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root
-public class UserInfo {
+public class User {
 
-	public UserInfo() {
+	public User() {
 	}
 
-	public UserInfo(int id, String firstName, String lastName, String emailAddress,
+	public User(String id, String firstName, String lastName, String emailAddress,
 			boolean usingTemporaryPassword, String userName, boolean expert,
 			String authorId) {
 		super();
@@ -25,7 +25,7 @@ public class UserInfo {
 	}
 
 	@Attribute
-	int id;
+	String id;
 
 	@Element
 	String firstName;
@@ -48,11 +48,11 @@ public class UserInfo {
 	@Element
 	String authorId;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -114,7 +114,7 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		return "UserInfo [id=" + id + ", firstName=" + firstName + ", lastName="
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", emailAddress=" + emailAddress
 				+ ", usingTemporaryPassword=" + usingTemporaryPassword
 				+ ", userName=" + userName + ", expert=" + expert

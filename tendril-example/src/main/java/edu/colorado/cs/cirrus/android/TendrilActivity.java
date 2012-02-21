@@ -9,6 +9,7 @@ import android.util.Log;
 
 public class TendrilActivity extends Activity {
 
+	
     private static String TAG = "tendril-example";
 
     /**
@@ -21,6 +22,7 @@ public class TendrilActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
+		
         setContentView(R.layout.main);
     }
     
@@ -29,10 +31,11 @@ public class TendrilActivity extends Activity {
     	super.onStart();
     	TendrilTemplate tendril = new TendrilTemplate("csci4138@tendrilinc.com", "password");
     	
-    	tendril.fetchUserInfo();
+    	tendril.fetchUser();
+    	tendril.fetchDeviceList();
     	
     	System.err.println(tendril.fetchPricingProgram());
-    	
+    	//System.err.println(tendril.fetchPricingSchedule((new DateTime()).minusMonths(12), new DateTime()));
     }
 
 }

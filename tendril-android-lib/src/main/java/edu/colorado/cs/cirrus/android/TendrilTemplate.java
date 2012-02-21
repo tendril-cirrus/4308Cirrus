@@ -24,7 +24,7 @@ import com.google.gson.JsonParser;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
-import edu.colorado.cs.cirrus.domain.model.UserInfo;
+import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate {
@@ -50,9 +50,9 @@ public class TendrilTemplate {
 	private static final String GET_PROJECTED_COST_AND_CONSUMPTION_URL = BASE_URL
 			+ "user/current-user/account/default-account/consumption/{resolution}/projection;source={source}";
 	private static final String GET_PRICING_PROGRAM_URL = BASE_URL
-			+ "user/current-user/account/{account-id}/current-pricing-program";
+			+ "user/current-user/account/default-account/pricing/current-pricing-program";
 	private static final String GET_PRICING_SCHEDULE_URL = BASE_URL
-			+ "account/{account_id}/pricing/schedule;from={from};to={to}";
+			+ "pricing/schedule;external-account-id={external-account-id}from={from};to={to}";
 	private static final String GET_DEVICE_LIST_URL = BASE_URL
 			+ "user/current-user/account/default-account/location/default-location/network/default-network/device;include-extended-properties=true";
 	private static final String POST_DEVICE_ACTION_URL = BASE_URL
@@ -69,7 +69,7 @@ public class TendrilTemplate {
 	private long expiresIn = 0l;
 	private AccessGrant accessGrant;
 	private static final String TAG = "TendrilTemplate";
-	private UserInfo userInfo;
+	private User user;
 	private UserProfile userProfile;
 	private ExternalAccountId externalAccountId;
 
@@ -95,14 +95,13 @@ public class TendrilTemplate {
 		setRequestEntity();
 	}
 
-	// TODO make this work for dealing with xml
 	private void setRequestEntity() {
-		
+
 		HttpHeaders requestHeaders = new HttpHeaders();
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+		acceptableMediaTypes.add(MediaType.APPLICATION_XML);
 		requestHeaders.setAccept(acceptableMediaTypes);
-		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+		requestHeaders.setContentType(MediaType.APPLICATION_XML);
 		requestHeaders.set("access_token", accessToken);
 
 		// Populate the headers in an HttpEntity object to use for the
@@ -118,39 +117,49 @@ public class TendrilTemplate {
 	// restTemplate.setErrorHandler(new TendrilErrorHandler());
 	// }
 
-	public ExternalAccountId fetchExternalAccountId(){
-		ResponseEntity<ExternalAccountId> response = restTemplate.exchange(GET_USER_EXTERNAL_ACCOUNT_ID_URL
-				, HttpMethod.GET, requestEntity, ExternalAccountId.class);
+	public ExternalAccountId fetchExternalAccountId() {
+		ResponseEntity<ExternalAccountId> response = restTemplate.exchange(
+				GET_USER_EXTERNAL_ACCOUNT_ID_URL, HttpMethod.GET,
+				requestEntity, ExternalAccountId.class);
 		System.err.println(response.getBody());
 		this.externalAccountId = response.getBody();
 		return externalAccountId;
 	}
-	
-	public ExternalAccountId getExternalAccountId(){
+
+	public ExternalAccountId getExternalAccountId() {
 		if (this.externalAccountId != null)
 			return this.externalAccountId;
 		else
 			return fetchExternalAccountId();
 	}
-	
-	public UserInfo fetchUserInfo() {
-		ResponseEntity<UserInfo> response = restTemplate.exchange(
-				GET_USER_INFO_URL, HttpMethod.GET, requestEntity, UserInfo.class);
+
+	public User fetchUser() {
+		ResponseEntity<User> response = restTemplate.exchange(
+				GET_USER_INFO_URL, HttpMethod.GET, requestEntity, User.class);
 		System.err.println(response.getBody());
-		this.userInfo = response.getBody();
-		return userInfo;
+		this.user = response.getBody();
+		return user;
 	}
+	
+	public User getUser() {
+		if (this.user != null)
+			return this.user;
+		else
+			return fetchUser();
+	}
+	
 	
 
 	public Devices fetchDeviceList() {
 		ResponseEntity<Devices> devices = restTemplate.exchange(
 				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
 				Devices.class);
-		
+
 		System.err.println(devices.getBody());
 		return devices.getBody();
 	}
 
+	//FIXME: this does not currently work- API documentation is inconsistent
 	public String fetchPricingSchedule(DateTime from, DateTime to) {
 		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
 		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -160,17 +169,16 @@ public class TendrilTemplate {
 		ResponseEntity<String> profile = restTemplate.exchange(
 				GET_PRICING_SCHEDULE_URL, HttpMethod.GET, requestEntity,
 				String.class, vars);
-		return prettyize(profile.getBody());
+		return profile.getBody();
 	}
-	
-	public String fetchPricingProgram(){
-		Object[] vars = { getExternalAccountId().getId() };
+
+	public String fetchPricingProgram() {
+		// Object[] vars = { getExternalAccountId().getId() };
 		ResponseEntity<String> pricingSchedule = restTemplate.exchange(
 				GET_PRICING_PROGRAM_URL, HttpMethod.GET, requestEntity,
-				String.class, vars);
-		return prettyize(pricingSchedule.getBody());
-		
-		
+				String.class);
+		return pricingSchedule.getBody();
+
 	}
 
 	private RestOperations getRestTemplate() {
@@ -178,13 +186,13 @@ public class TendrilTemplate {
 		return null;
 	}
 
-	private String prettyize(String str) {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		JsonParser jp = new JsonParser();
-		JsonElement je = jp.parse(str);
-		String prettyJsonString = gson.toJson(je);
-		return prettyJsonString;
-	}
+	// private String prettyize(String str) {
+	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	// JsonParser jp = new JsonParser();
+	// JsonElement je = jp.parse(str);
+	// String prettyJsonString = gson.toJson(je);
+	// return prettyJsonString;
+	// }
 
 	public boolean isConnected() {
 		// TODO Auto-generated method stub
