@@ -82,11 +82,11 @@
 		<!-- SPRING-ANDROID OPTIONALLY REFERENCES ANDROID-ROME-FEAD-REEDER -->
 		<!-- 'mvn clean install' FAILS BECAUSE OF TRANSIENT DEPENDENCY LOOKUP -->
 		<!-- OPTIONAL DEPENDENCIES SHOULD NOT HAVE TO BE INCLUDED, OBVIOUSLY -->
-		<repository>
+		<!-- <repository>
 			<id>android-rome-feed-reader-repository</id>
 			<name>Android ROME Feed Reader Repository</name>
 			<url>https://android-rome-feed-reader.googlecode.com/svn/maven2/releases</url>
-		</repository>
+		</repository> -->
 		<!-- For testing against latest Spring snapshots -->
 		<repository>
 			<id>org.springframework.maven.snapshot</id>
