@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pricingSchedule xmlns="http://platform.tendrilinc.com/tnop/extension/ems"
+	xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#"
+	xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup"
+	xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel"
+	
+	accountId="aid_aw" 
+	endDate="2011-12-31T00:00:00Z" 
+	startDate="2011-12-30T00:00:00Z">
+	<effectivePriceRecords>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-30T00:00:00Z</effectiveDate>
+			<programName>Flat</programName>
+			<programDescription>Flat Rate Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Price</rateLabel>
+			<energyPrice>0.12000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_aw</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>1</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-31T00:00:00Z</endDate>
+			<id>862256569</id>
+		</effectivePriceRecord>
+	</effectivePriceRecords>
+</pricingSchedule>
