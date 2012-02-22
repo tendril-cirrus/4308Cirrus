@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pricingProgram xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel">
+  <name>Flat</name>
+  <id>3</id>
+  <description>Flat Rate Price Program</description>
+  <active>true</active>
+  <schedules>
+    <schedule>
+      <id>3</id>
+      <name>Flat Rate Program Schedule</name>
+      <effectiveDate>2009-01-01T00:00:00Z</effectiveDate>
+      <switchPointDefinition>
+        <content>
+          January,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          February,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          March,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          April,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          May,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          June,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          July,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          August,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          September,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          October,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          November,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          December,weekday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          January,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          February,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          March,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          April,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          May,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          June,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          July,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          August,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          September,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          October,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          November,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          December,weekend,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          January,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          February,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          March,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          April,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          May,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          June,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          July,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          August,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          September,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          October,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          November,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+          December,holiday,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A
+        </content>
+      </switchPointDefinition>
+      <scheduleRatesList>
+        <scheduleRates>
+          <id>3</id>
+          <scheduleName>Flat Rate Program Schedule</scheduleName>
+          <effectiveDate>2009-01-01T00:00:00Z</effectiveDate>
+          <consumptionBaseline>0</consumptionBaseline>
+          <rateList>
+            <rate key="A">
+              <label>Price</label>
+              <priceTier>
+                <energyPrice>0.12000</energyPrice>
+                <deliveryCharge>0.00000</deliveryCharge>
+              </priceTier>
+            </rate>
+          </rateList>
+        </scheduleRates>
+      </scheduleRatesList>
+    </schedule>
+  </schedules>
+  <holidays>
+    <holiday name="New Years Day">2011-01-11Z</holiday>
+    <holiday name="MLK, Jr. Day">2011-01-17Z</holiday>
+    <holiday name="Presidents Day">2011-02-21Z</holiday>
+    <holiday name="Patriots Day">2011-04-18Z</holiday>
+    <holiday name="Memorial Day">2011-05-30Z</holiday>
+    <holiday name="Independence Day">2011-07-04Z</holiday>
+    <holiday name="Labor Day">2011-09-05Z</holiday>
+    <holiday name="Columbus Day">2011-10-10Z</holiday>
+    <holiday name="Veterans Day">2011-11-11Z</holiday>
+    <holiday name="Thanksgiving Day">2011-11-24Z</holiday>
+    <holiday name="Day after Thanksgiving">2011-11-25Z</holiday>
+    <holiday name="Christmas Day">2011-12-26Z</holiday>
+  </holidays>
+</pricingProgram>

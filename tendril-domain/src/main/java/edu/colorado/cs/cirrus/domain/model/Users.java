@@ -1,4 +1,4 @@
-package edu.colorado.cs.cirrus.domain.model;
+ package edu.colorado.cs.cirrus.domain.model;
 
 import java.util.List;
 
