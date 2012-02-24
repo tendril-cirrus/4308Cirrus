@@ -24,7 +24,7 @@ public interface ITendril {
 	 * keep using the service. Returns success status of log out action.
 	 * @return
 	 */
-	boolean logOut();
+	void logOut();
 	
 	/**
 	 * Logs in using 'OAuthy' 0/1 legged authentication. Returns success status

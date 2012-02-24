@@ -32,6 +32,7 @@ public class DevicesActivity extends AbstractAsyncTendrilActivity {
 
 	@Override
 	public void onStart() {
+		
 		super.onStart();
 
 		if (isConnected()) {

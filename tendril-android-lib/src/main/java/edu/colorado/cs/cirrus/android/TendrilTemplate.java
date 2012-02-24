@@ -28,13 +28,15 @@ import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
-public class TendrilTemplate implements ITendril{
+public class TendrilTemplate implements ITendril {
 
 	private static final String BASE_URL = "http://dev.tendrilinc.com/connect/";
 	private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
 	private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
 	private static final String APP_SECRET = "3230f8f0aa064bea145d425c57fe8679";
 	private static final String SCOPE = "account, billing, consumption, greenbutton, device";
+	private static final String USERNAME = "csci4138@tendrilinc.com";
+	private static final String PASSWORD = "password";
 
 	private static final String GET_USER_INFO_URL = BASE_URL
 			+ "user/current-user";
@@ -65,8 +67,8 @@ public class TendrilTemplate implements ITendril{
 
 	private HttpEntity<?> requestEntity;
 	private RestTemplate restTemplate;
-	private String accessToken = "uninitialized";
-	private String refreshToken = "uninitialized";
+	// private String accessToken = "uninitialized";
+	// private String refreshToken = "uninitialized";
 	private long expiresIn = 0l;
 	private AccessGrant accessGrant;
 	private static final String TAG = "TendrilTemplate";
@@ -97,28 +99,39 @@ public class TendrilTemplate implements ITendril{
 	}
 
 	private void setRequestEntity() {
-
 		HttpHeaders requestHeaders = new HttpHeaders();
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 		acceptableMediaTypes.add(MediaType.APPLICATION_XML);
 		requestHeaders.setAccept(acceptableMediaTypes);
 		requestHeaders.setContentType(MediaType.APPLICATION_XML);
-		requestHeaders.set("access_token", accessToken);
+		requestHeaders.set("access_token", this.accessGrant.getAccess_token());
 
 		// Populate the headers in an HttpEntity object to use for the
 		// request
 		this.requestEntity = new HttpEntity<Object>(requestHeaders);
+
+		// public RestOperations restOperations() {
+		// return getRestTemplate();
+		// }
+
+		// protected void configureRestTemplate(RestTemplate restTemplate) {
+		// restTemplate.setErrorHandler(new TendrilErrorHandler());
+		// }
+
 	}
 
-//	public RestOperations restOperations() {
-//		return getRestTemplate();
-//	}
+	private String getPassword() {
+		return PASSWORD;
+	}
 
-	// protected void configureRestTemplate(RestTemplate restTemplate) {
-	// restTemplate.setErrorHandler(new TendrilErrorHandler());
-	// }
+	private String getUsername() {
+		return USERNAME;
+	}
 
 	public ExternalAccountId fetchExternalAccountId() {
+		if (!isConnected()) {
+			logIn(getUsername(), getPassword());
+		}
 		ResponseEntity<ExternalAccountId> response = restTemplate.exchange(
 				GET_USER_EXTERNAL_ACCOUNT_ID_URL, HttpMethod.GET,
 				requestEntity, ExternalAccountId.class);
@@ -141,14 +154,14 @@ public class TendrilTemplate implements ITendril{
 		this.user = response.getBody();
 		return user;
 	}
-	
+
 	public User getUser() {
 		if (this.user != null)
 			return this.user;
 		else
 			return fetchUser();
 	}
-	
+
 	public Devices fetchDevices() {
 		ResponseEntity<Devices> devices = restTemplate.exchange(
 				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
@@ -158,7 +171,7 @@ public class TendrilTemplate implements ITendril{
 		return devices.getBody();
 	}
 
-	//FIXME: this does not currently work- API documentation is inconsistent
+	// FIXME: this does not currently work- API documentation is inconsistent
 	public String fetchPricingSchedule(DateTime from, DateTime to) {
 		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
 		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -180,10 +193,10 @@ public class TendrilTemplate implements ITendril{
 
 	}
 
-//	private RestOperations getRestTemplate() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	// private RestOperations getRestTemplate() {
+	// // TODO Auto-generated method stub
+	// return null;
+	// }
 
 	// private String prettyize(String str) {
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -194,13 +207,15 @@ public class TendrilTemplate implements ITendril{
 	// }
 
 	public boolean isConnected() {
-		// TODO Auto-generated method stub
-		return false;
+		if (accessGrant == null)
+			return false;
+		else
+			return true;
 	}
 
-	public boolean logOut() {
-		// TODO Auto-generated method stub
-		return false;
+	public void logOut() {
+		if (isConnected())
+			accessGrant = null;
 	}
 
 	public boolean logIn(String username, String Password) {
@@ -230,10 +245,9 @@ public class TendrilTemplate implements ITendril{
 
 		System.err.println(response);
 		this.accessGrant = response.getBody();
-		this.accessToken = this.accessGrant.getAccess_token();
+		// this.accessToken = this.accessGrant.getAccess_token();
 
 		return true;
 	}
 
-	
 }
