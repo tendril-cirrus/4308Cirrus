@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:MeterReadings xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel">
+  <ns2:MeterReading>
+    <ns2:CustomerAgreement>
+      <ns2:mRID>aid_aw</ns2:mRID>
+    </ns2:CustomerAgreement>
+    <ns2:MeterAsset>
+      <ns2:mRID>rid_aw-aid_aw</ns2:mRID>
+    </ns2:MeterAsset>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T19:15:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49839.598</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T19:30:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49840.527</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T19:45:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49841.465</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T20:00:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49842.344</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T20:15:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49843.227</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T20:30:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49844.125</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T20:45:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49845.02</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T21:00:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49845.895</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T21:15:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49846.766</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T21:30:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49847.527</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T21:45:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49848.28</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T22:00:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.22</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T22:15:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.316</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T22:30:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.41</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T22:45:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.523</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T23:00:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.625</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T23:15:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.746</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T23:30:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.85</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-30T23:45:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49849.945</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+    <ns2:Readings>
+      <ns2:timeStamp>2011-12-31T00:00:00.000+00:00</ns2:timeStamp>
+      <ns2:value>49850.06</ns2:value>
+      <ns2:ReadingQualities>
+        <ns2:quality>1.4.0.0</ns2:quality>
+      </ns2:ReadingQualities>
+      <ns2:ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </ns2:Readings>
+  </ns2:MeterReading>
+  <ns2:ReadingType>
+    <ns2:mRID>2.1.1.1.0.4.0.0.224.3.72</ns2:mRID>
+    <ns2:aliasName>Raw</ns2:aliasName>
+    <ns2:channelNumber>0</ns2:channelNumber>
+    <ns2:defaultQuality>0.0.0</ns2:defaultQuality>
+    <ns2:intervalLength>900.0</ns2:intervalLength>
+    <ns2:kind>current</ns2:kind>
+    <ns2:multiplier>k</ns2:multiplier>
+    <ns2:name>Cumulative</ns2:name>
+    <ns2:unit>Wh</ns2:unit>
+  </ns2:ReadingType>
+</ns2:MeterReadings>

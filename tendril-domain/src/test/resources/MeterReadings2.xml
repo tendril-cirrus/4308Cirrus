@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MeterReadings xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel">
+   <MeterReading>
+	<CustomerAgreement>
+      <mRID>aid_aw</mRID>
+    </CustomerAgreement>
+    <MeterAsset>
+      <mRID>rid_aw-aid_aw</mRID>
+    </MeterAsset>
+    <Readings>
+      <timeStamp>2011-12-30T19:15:00.000+00:00</timeStamp>
+      <value>49839.598</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T19:30:00.000+00:00</timeStamp>
+      <value>49840.527</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T19:45:00.000+00:00</timeStamp>
+      <value>49841.465</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T20:00:00.000+00:00</timeStamp>
+      <value>49842.344</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T20:15:00.000+00:00</timeStamp>
+      <value>49843.227</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T20:30:00.000+00:00</timeStamp>
+      <value>49844.125</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T20:45:00.000+00:00</timeStamp>
+      <value>49845.02</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T21:00:00.000+00:00</timeStamp>
+      <value>49845.895</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T21:15:00.000+00:00</timeStamp>
+      <value>49846.766</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T21:30:00.000+00:00</timeStamp>
+      <value>49847.527</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T21:45:00.000+00:00</timeStamp>
+      <value>49848.28</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T22:00:00.000+00:00</timeStamp>
+      <value>49849.22</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T22:15:00.000+00:00</timeStamp>
+      <value>49849.316</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T22:30:00.000+00:00</timeStamp>
+      <value>49849.41</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T22:45:00.000+00:00</timeStamp>
+      <value>49849.523</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T23:00:00.000+00:00</timeStamp>
+      <value>49849.625</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T23:15:00.000+00:00</timeStamp>
+      <value>49849.746</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T23:30:00.000+00:00</timeStamp>
+      <value>49849.85</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-30T23:45:00.000+00:00</timeStamp>
+      <value>49849.945</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+    <Readings>
+      <timeStamp>2011-12-31T00:00:00.000+00:00</timeStamp>
+      <value>49850.06</value>
+      <ReadingQualities>
+        <quality>1.4.0.0</quality>
+      </ReadingQualities>
+      <ReadingType ref="2.1.1.1.0.4.0.0.224.3.72"/>
+    </Readings>
+  </MeterReading> 
+  <ReadingType>
+	<mRID>2.1.1.1.0.4.0.0.224.3.72</mRID>
+    <aliasName>Raw</aliasName>
+    <channelNumber>0</channelNumber>
+    <defaultQuality>0.0.0</defaultQuality>
+    <intervalLength>900.0</intervalLength>
+    <kind>current</kind>
+    <multiplier>k</multiplier>
+    <name>Cumulative</name>
+    <unit>Wh</unit>
+  </ReadingType>
+</MeterReadings>
