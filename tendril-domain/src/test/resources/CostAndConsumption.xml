@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<costAndConsumption xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel" accountId="aid_aw" toDate="2011-12-31T00:00:00.000+00:00" fromDate="2011-07-01T00:00:00.000+00:00">
+  <cost>799.71</cost>
+  <consumption>6664.17000</consumption>
+  <conversionFactorList>
+    <conversionFactor>
+      <unitName>lbs of CO2</unitName>
+      <factor>1.29300</factor>
+    </conversionFactor>
+  </conversionFactorList>
+  <component actualReadingsCount="24" toDate="2011-07-01T06:00:00.000+00:00" fromDate="2011-07-01T00:00:00.000+00:00">
+    <cost>0.31</cost>
+    <consumption>2.58600</consumption>
+    <component peak="false" rateKey="A">
+      <cost>0.31</cost>
+      <consumption>2.58600</consumption>
+    </component>
+  </component>
+  <component actualReadingsCount="2976" toDate="2011-08-01T06:00:00.000+00:00" fromDate="2011-07-01T06:00:00.000+00:00">
+    <cost>136.01</cost>
+    <consumption>1133.38600</consumption>
+    <component peak="false" rateKey="A">
+      <cost>136.01</cost>
+      <consumption>1133.38600</consumption>
+    </component>
+  </component>
+  <component actualReadingsCount="2976" toDate="2011-09-01T06:00:00.000+00:00" fromDate="2011-08-01T06:00:00.000+00:00">
+    <cost>135.33</cost>
+    <consumption>1127.72800</consumption>
+    <component peak="false" rateKey="A">
+      <cost>135.33</cost>
+      <consumption>1127.72800</consumption>
+    </component>
+  </component>
+  <component actualReadingsCount="2880" toDate="2011-10-01T06:00:00.000+00:00" fromDate="2011-09-01T06:00:00.000+00:00">
+    <cost>130.64</cost>
+    <consumption>1088.68600</consumption>
+    <component peak="false" rateKey="A">
+      <cost>130.64</cost>
+      <consumption>1088.68600</consumption>
+    </component>
+  </component>
+  <component actualReadingsCount="2976" toDate="2011-11-01T06:00:00.000+00:00" fromDate="2011-10-01T06:00:00.000+00:00">
+    <cost>135.61</cost>
+    <consumption>1130.04900</consumption>
+    <component peak="false" rateKey="A">
+      <cost>135.61</cost>
+      <consumption>1130.04900</consumption>
+    </component>
+  </component>
+  <component actualReadingsCount="2884" toDate="2011-12-01T07:00:00.000+00:00" fromDate="2011-11-01T06:00:00.000+00:00">
+    <cost>131.51</cost>
+    <consumption>1095.91600</consumption>
+    <component peak="false" rateKey="A">
+      <cost>131.51</cost>
+      <consumption>1095.91600</consumption>
+    </component>
+  </component>
+  <component actualReadingsCount="2852" toDate="2011-12-31T00:00:00.000+00:00" fromDate="2011-12-01T07:00:00.000+00:00">
+    <cost>130.30</cost>
+    <consumption>1085.81900</consumption>
+    <component peak="false" rateKey="A">
+      <cost>130.30</cost>
+      <consumption>1085.81900</consumption>
+    </component>
+  </component>
+  <subMeteringDetails>
+    <deviceCostAndConsumption deviceId="804f58aaaaaa0358">
+      <cost>0.00</cost>
+      <consumption>0.00000</consumption>
+    </deviceCostAndConsumption>
+  </subMeteringDetails>
+</costAndConsumption>
