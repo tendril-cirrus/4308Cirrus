@@ -3,6 +3,7 @@ package edu.colorado.cs.cirrus.domain.intf;
 import org.joda.time.DateTime;
 
 import edu.colorado.cs.cirrus.domain.model.Devices;
+import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 import edu.colorado.cs.cirrus.domain.model.User;
 
 /**
@@ -39,7 +40,7 @@ public interface ITendril {
 	
 	User fetchUser();
 
-	String fetchPricingSchedule(DateTime from, DateTime to);
+	PricingSchedule fetchPricingSchedule(DateTime from, DateTime to);
 
 	Devices fetchDevices();
 

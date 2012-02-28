@@ -24,6 +24,7 @@
         <activity android:name="edu.colorado.cs.cirrus.android.UserActivity" />
         <activity android:name="edu.colorado.cs.cirrus.android.PricingProgramActivity" />
         <activity android:name="edu.colorado.cs.cirrus.android.DevicesActivity" />
+    	<activity android:name="edu.colorado.cs.cirrus.android.PricingScheduleActivity" />
     </application>
 
 </manifest>

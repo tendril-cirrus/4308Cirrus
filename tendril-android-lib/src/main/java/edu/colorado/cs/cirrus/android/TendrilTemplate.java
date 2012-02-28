@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,9 +24,13 @@ import com.google.gson.JsonParser;
 
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
+import edu.colorado.cs.cirrus.domain.model.Data;
+import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
+import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
+import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
@@ -38,6 +43,7 @@ public class TendrilTemplate implements ITendril {
 	private static final String SCOPE = "account, billing, consumption, greenbutton, device";
 	private static final String USERNAME = "csci4138@tendrilinc.com";
 	private static final String PASSWORD = "password";
+	private static final String THERMOSTAT_CATEGORY = "Thermostat";
 
 	private static final String GET_USER_INFO_URL = BASE_URL
 			+ "user/current-user";
@@ -56,7 +62,7 @@ public class TendrilTemplate implements ITendril {
 	private static final String GET_PRICING_PROGRAM_URL = BASE_URL
 			+ "user/current-user/account/default-account/pricing/current-pricing-program";
 	private static final String GET_PRICING_SCHEDULE_URL = BASE_URL
-			+ "pricing/schedule;external-account-id={external-account-id}from={from};to={to}";
+			+ "pricing/schedule;external-account-id={external-account-id}";
 	private static final String GET_DEVICE_LIST_URL = BASE_URL
 			+ "user/current-user/account/default-account/location/default-location/network/default-network/device;include-extended-properties=true";
 	private static final String POST_DEVICE_ACTION_URL = BASE_URL
@@ -76,6 +82,8 @@ public class TendrilTemplate implements ITendril {
 	private User user;
 	private UserProfile userProfile;
 	private ExternalAccountId externalAccountId;
+	private Devices devices;
+	private Device tstat;
 
 	/**
 	 * Create a new instance of TendrilTemplate. This constructor creates the
@@ -128,82 +136,6 @@ public class TendrilTemplate implements ITendril {
 	private String getUsername() {
 		return USERNAME;
 	}
-
-	public ExternalAccountId fetchExternalAccountId() {
-
-		ResponseEntity<ExternalAccountId> response = restTemplate.exchange(
-				GET_USER_EXTERNAL_ACCOUNT_ID_URL, HttpMethod.GET,
-				requestEntity, ExternalAccountId.class);
-		System.err.println(response.getBody());
-		this.externalAccountId = response.getBody();
-		return externalAccountId;
-	}
-
-	public ExternalAccountId getExternalAccountId() {
-		if (this.externalAccountId != null)
-			return this.externalAccountId;
-		else
-			return fetchExternalAccountId();
-	}
-
-	public User fetchUser() {
-		ResponseEntity<User> response = restTemplate.exchange(
-				GET_USER_INFO_URL, HttpMethod.GET, requestEntity, User.class);
-		System.err.println(response.getBody());
-		this.user = response.getBody();
-		return user;
-	}
-
-	public User getUser() {
-		if (this.user != null)
-			return this.user;
-		else
-			return fetchUser();
-	}
-
-	public Devices fetchDevices() {
-		ResponseEntity<Devices> devices = restTemplate.exchange(
-				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
-				Devices.class);
-
-		System.err.println(devices.getBody());
-		return devices.getBody();
-	}
-
-	// FIXME: this does not currently work- API documentation is inconsistent
-	public String fetchPricingSchedule(DateTime from, DateTime to) {
-		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
-		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
-		System.err.println(fromString);
-
-		Object[] vars = { getExternalAccountId().getId(), fromString, toString };
-		ResponseEntity<String> profile = restTemplate.exchange(
-				GET_PRICING_SCHEDULE_URL, HttpMethod.GET, requestEntity,
-				String.class, vars);
-		return profile.getBody();
-	}
-
-	public PricingProgram fetchPricingProgram() {
-		// Object[] vars = { getExternalAccountId().getId() };
-		ResponseEntity<PricingProgram> pricingSchedule = restTemplate.exchange(
-				GET_PRICING_PROGRAM_URL, HttpMethod.GET, requestEntity,
-				PricingProgram.class);
-		return pricingSchedule.getBody();
-
-	}
-
-	// private RestOperations getRestTemplate() {
-	// // TODO Auto-generated method stub
-	// return null;
-	// }
-
-	// private String prettyize(String str) {
-	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	// JsonParser jp = new JsonParser();
-	// JsonElement je = jp.parse(str);
-	// String prettyJsonString = gson.toJson(je);
-	// return prettyJsonString;
-	// }
 
 	public boolean isConnected() {
 		DateTime now = new DateTime();
@@ -276,4 +208,110 @@ public class TendrilTemplate implements ITendril {
 		return true;
 	}
 
+	public ExternalAccountId fetchExternalAccountId() {
+
+		ResponseEntity<ExternalAccountId> response = restTemplate.exchange(
+				GET_USER_EXTERNAL_ACCOUNT_ID_URL, HttpMethod.GET,
+				requestEntity, ExternalAccountId.class);
+		System.err.println(response.getBody());
+		this.externalAccountId = response.getBody();
+		return externalAccountId;
+	}
+
+	public ExternalAccountId getExternalAccountId() {
+		if (this.externalAccountId != null)
+			return this.externalAccountId;
+		else
+			return fetchExternalAccountId();
+	}
+
+	public User fetchUser() {
+		ResponseEntity<User> response = restTemplate.exchange(
+				GET_USER_INFO_URL, HttpMethod.GET, requestEntity, User.class);
+		System.err.println(response.getBody());
+		this.user = response.getBody();
+		return user;
+	}
+
+	public User getUser() {
+		if (this.user != null)
+			return this.user;
+		else
+			return fetchUser();
+	}
+
+	public Devices fetchDevices() {
+		ResponseEntity<Devices> devices = restTemplate.exchange(
+				GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
+				Devices.class);
+
+		System.err.println(devices.getBody());
+		return devices.getBody();
+	}
+
+	public Devices getDevices() {
+		if (devices != null)
+			return devices;
+		else
+			return getDevices();
+	}
+
+	public Device getTstat() {
+		if (tstat == null) {
+			for (Device d : getDevices().getDevice()) {
+				if (d.getCategory().equalsIgnoreCase(THERMOSTAT_CATEGORY)) {
+					tstat = d;
+					System.err.println("tstat: " + tstat);
+					break;
+				}
+			}
+		}
+		return tstat;
+	}
+	
+	public boolean setTstatSetpoint(Float setpoint){
+		SetThermostatDataRequest stdr = new SetThermostatDataRequest();
+		stdr.setDeviceId(getTstat().getDeviceId());
+		//TODO Figure out how to get LocationId
+		stdr.setLocationId("????");
+		Data data = new Data();
+		data.setMode("Heat");
+		data.setSetpoint(setpoint.toString());
+		data.setTemperatureScale("Fahrenheit");
+		
+		stdr.setData(data);
+		
+		
+		
+		
+		
+		return true;
+	}
+	
+	
+
+	// FIXME: this does not currently work- API documentation is inconsistent
+	public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) {
+		// String fromString =
+		// from.toString(ISODateTimeFormat.dateTimeNoMillis());
+		// String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
+		// System.err.println(fromString);
+
+		Object[] vars = { getExternalAccountId().getId() };
+		ResponseEntity<PricingSchedule> profile = restTemplate.exchange(
+				GET_PRICING_SCHEDULE_URL, HttpMethod.GET, requestEntity,
+				PricingSchedule.class, vars);
+		return profile.getBody();
+	}
+
+	public PricingProgram fetchPricingProgram() {
+		// Object[] vars = { getExternalAccountId().getId() };
+		ResponseEntity<PricingProgram> pricingSchedule = restTemplate.exchange(
+				GET_PRICING_PROGRAM_URL, HttpMethod.GET, requestEntity,
+				PricingProgram.class);
+		return pricingSchedule.getBody();
+
+	}
+
+	
 }
