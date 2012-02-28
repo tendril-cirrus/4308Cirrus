@@ -5,5 +5,5 @@
 package edu.colorado.cs.cirrus.domain.model;
 
 public class DeviceActionQuery {
-
+	
 }

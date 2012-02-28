@@ -1,7 +1,3 @@
-/*
- * Insert License Here
- */
-
 package edu.colorado.cs.cirrus.domain.model;
 
 import java.util.List;
@@ -11,58 +7,63 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root
-public class CostAndConsumption {
+@Root(name = "component")
+public class CostAndConsumptionComponent {
     
     /**
      * Constructs a new instance.
      */
-    public CostAndConsumption() {
+    public CostAndConsumptionComponent() {
     }
     
     /**
      * Constructs a new instance.
      * 
-     * @param accountId
-     *            The accountId for this instance.
+     * @param actualReadingsCount
+     *            The actualReadingsCount for this instance.
      * @param toDate
      *            The toDate for this instance.
      * @param fromDate
      *            The fromDate for this instance.
+     * @param peak
+     *            The peak for this instance.
+     * @param rateKey
+     *            The rateKey for this instance.
      * @param cost
      *            The cost for this instance.
      * @param consumption
      *            The consumption for this instance.
-     * @param conversionFactorList
-     *            The conversionFactorList for this instance.
      * @param componentList
      *            The componentList for this instance.
-     * @param deviceCostAndConsumptionList
-     *            The deviceCostAndConsumptionList for this instance.
      */
-    public CostAndConsumption(String accountId, String toDate, String fromDate,
+    public CostAndConsumptionComponent(String actualReadingsCount,
+            String toDate, String fromDate, String peak, String rateKey,
             float cost, float consumption,
-            List<ConversionFactor> conversionFactorList,
-            List<CostAndConsumptionComponent> componentList,
-            List<DeviceCostAndConsumption> deviceCostAndConsumptionList) {
-        this.accountId = accountId;
+            List<CostAndConsumptionComponent> componentList) {
+        this.actualReadingsCount = actualReadingsCount;
         this.toDate = toDate;
         this.fromDate = fromDate;
+        this.peak = peak;
+        this.rateKey = rateKey;
         this.cost = cost;
         this.consumption = consumption;
-        this.conversionFactorList = conversionFactorList;
         this.componentList = componentList;
-        this.deviceCostAndConsumptionList = deviceCostAndConsumptionList;
     }
     
-    @Attribute
-    private String accountId;
+    @Attribute(required = false)
+    private String actualReadingsCount;
     
-    @Attribute
+    @Attribute(required = false)
     private String toDate;
     
-    @Attribute
+    @Attribute(required = false)
     private String fromDate;
+    
+    @Attribute(required = false)
+    private String peak;
+    
+    @Attribute(required = false)
+    private String rateKey;
     
     @Element
     private float cost;
@@ -70,32 +71,26 @@ public class CostAndConsumption {
     @Element
     private float consumption;
     
-    @ElementList
-    private List<ConversionFactor> conversionFactorList;
-    
-    @ElementList(name = "component", inline = true)
+    @ElementList(name = "component", required = false, inline = true)
     private List<CostAndConsumptionComponent> componentList;
     
-    @ElementList(name = "subMeteringDetails")
-    private List<DeviceCostAndConsumption> deviceCostAndConsumptionList;
-    
     /**
-     * Gets the accountId for this instance.
+     * Gets the actualReadingsCount for this instance.
      * 
-     * @return The accountId.
+     * @return The actualReadingsCount.
      */
-    public String getAccountId() {
-        return this.accountId;
+    public String getActualReadingsCount() {
+        return this.actualReadingsCount;
     }
     
     /**
-     * Sets the accountId for this instance.
+     * Sets the actualReadingsCount for this instance.
      * 
-     * @param accountId
-     *            The accountId.
+     * @param actualReadingsCount
+     *            The actualReadingsCount.
      */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
+    public void setActualReadingsCount(String actualReadingsCount) {
+        this.actualReadingsCount = actualReadingsCount;
     }
     
     /**
@@ -137,6 +132,44 @@ public class CostAndConsumption {
     }
     
     /**
+     * Gets the peak for this instance.
+     * 
+     * @return The peak.
+     */
+    public String getPeak() {
+        return this.peak;
+    }
+    
+    /**
+     * Sets the peak for this instance.
+     * 
+     * @param peak
+     *            The peak.
+     */
+    public void setPeak(String peak) {
+        this.peak = peak;
+    }
+    
+    /**
+     * Gets the rateKey for this instance.
+     * 
+     * @return The rateKey.
+     */
+    public String getRateKey() {
+        return this.rateKey;
+    }
+    
+    /**
+     * Sets the rateKey for this instance.
+     * 
+     * @param rateKey
+     *            The rateKey.
+     */
+    public void setRateKey(String rateKey) {
+        this.rateKey = rateKey;
+    }
+    
+    /**
      * Gets the cost for this instance.
      * 
      * @return The cost.
@@ -175,26 +208,6 @@ public class CostAndConsumption {
     }
     
     /**
-     * Gets the conversionFactorList for this instance.
-     * 
-     * @return The conversionFactorList.
-     */
-    public List<ConversionFactor> getConversionFactorList() {
-        return this.conversionFactorList;
-    }
-    
-    /**
-     * Sets the conversionFactorList for this instance.
-     * 
-     * @param conversionFactorList
-     *            The conversionFactorList.
-     */
-    public void setConversionFactorList(
-            List<ConversionFactor> conversionFactorList) {
-        this.conversionFactorList = conversionFactorList;
-    }
-    
-    /**
      * Gets the componentList for this instance.
      * 
      * @return The componentList.
@@ -213,36 +226,14 @@ public class CostAndConsumption {
         this.componentList = componentList;
     }
     
-    /**
-     * Gets the deviceCostAndConsumptionList for this instance.
-     * 
-     * @return The deviceCostAndConsumptionList.
-     */
-    public List<DeviceCostAndConsumption> getDeviceCostAndConsumptionList() {
-        return this.deviceCostAndConsumptionList;
-    }
-    
-    /**
-     * Sets the deviceCostAndConsumptionList for this instance.
-     * 
-     * @param deviceCostAndConsumptionList
-     *            The deviceCostAndConsumptionList.
-     */
-    public void setDeviceCostAndConsumptionList(
-            List<DeviceCostAndConsumption> deviceCostAndConsumptionList) {
-        this.deviceCostAndConsumptionList = deviceCostAndConsumptionList;
-    }
-    
     @Override
     public String toString() {
         
-        return "CostAndConsumption [accountId=" + accountId + ", toDate="
-                + toDate + ", fromDate=" + fromDate + ", cost=" + cost
-                + ", consumption=" + consumption + ", conversionFactorList="
-                + conversionFactorList + ", componentList=" + componentList
-                + ", deviceCostAndConsumptionList="
-                + deviceCostAndConsumptionList + "]";
-        
+        return "CostAndConsumptionComponent [actualReadingsCount="
+                + actualReadingsCount + ", toDate=" + toDate + ", fromDate="
+                + fromDate + ", peak=" + peak + ", rateKey=" + rateKey
+                + ", cost=" + cost + ", consumption=" + consumption
+                + ", componentList=" + componentList + "]";
     }
     
 }

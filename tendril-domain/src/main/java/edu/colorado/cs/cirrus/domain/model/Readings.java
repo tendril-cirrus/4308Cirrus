@@ -8,7 +8,7 @@ import org.simpleframework.xml.Root;
 //child of MeterReading
 //@Namespace(reference="http://iec.ch/TC57/2009/MeterReadings#",prefix="ns2")
 public class Readings{
-	@Element(required=false)//(name="timeStamp")
+	@Element//(required=false)//(name="timeStamp")
 	private String timeStamp;
 	
 	@Element
