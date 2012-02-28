@@ -218,7 +218,7 @@ public class TendrilTemplate implements ITendril {
 			accessGrant = null;
 	}
 
-	public boolean logIn(String username, String Password) {
+	public boolean logIn(String username, String password) {
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.set("Accept", "application/json");
@@ -229,7 +229,7 @@ public class TendrilTemplate implements ITendril {
 		formData.add("client_secret", APP_SECRET);
 		formData.add("grant_type", "password");
 		formData.add("username", username);
-		formData.add("password", "password");
+		formData.add("password", password);
 
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
