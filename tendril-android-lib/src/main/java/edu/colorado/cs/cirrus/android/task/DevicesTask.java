@@ -7,13 +7,14 @@ import edu.colorado.cs.cirrus.domain.model.Devices;
 
 import android.os.AsyncTask;
 
-
 public class DevicesTask extends AsyncTask<TendrilTemplate, Void, Devices> {
 
 	@Override
 	protected Devices doInBackground(TendrilTemplate... params) {
 		try {
-			return params[0].fetchDevices();
+			TendrilTemplate tendril = params[0];
+			if (tendril.isConnected())
+				return tendril.fetchDevices();
 
 		} catch (Exception e) {
 			e.printStackTrace();

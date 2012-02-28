@@ -3,6 +3,7 @@ package edu.colorado.cs.cirrus.android;
 import java.util.concurrent.ExecutionException;
 
 import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
+import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -11,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
-	protected static final String TAG = PricingProgramActivity.class.getSimpleName();
-
+	protected static final String TAG = PricingProgramActivity.class
+			.getSimpleName();
 
 	// ***************************************
 	// Activity methods
@@ -28,31 +29,24 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 	public void onStart() {
 		super.onStart();
 
-		if (isConnected()) {
-			System.err.println("Is Connected..");
-			String program = "empty";
-			try {
-				program = (new PricingProgramTask()).execute(tendril).get();
-				TextView textView = (TextView) findViewById(R.id.textView1);
-				textView.setText(program);
+		PricingProgram program = null;
+		try {
+			program = (new PricingProgramTask()).execute(tendril).get();
+			TextView textView = (TextView) findViewById(R.id.textView1);
+			textView.setText(program.toString());
 
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			// String profile = new UserProfileTask().execute("").get();
-			System.err.println(program);
-
-			// String profile = task.execute();
-		} else {
-			Toast.makeText(getApplicationContext(), "Not Connected!",
-					Toast.LENGTH_SHORT).show();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		// String profile = new UserProfileTask().execute("").get();
+		System.err.println(program);
+
+		// String profile = task.execute();
+
 	}
 
-	private boolean isConnected() {
-		return true;	}
 }

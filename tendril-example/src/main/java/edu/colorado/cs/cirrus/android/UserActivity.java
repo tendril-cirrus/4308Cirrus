@@ -27,29 +27,21 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 	public void onStart() {
 		super.onStart();
 
-		if (isConnected()) {
-			System.err.println("Is Connected..");
-			User user = null;
-			try {
-				user = (new UserTask()).execute(tendril).get();
-				TextView textView = (TextView) findViewById(R.id.textView1);
-				textView.setText(user.toString());
+		User user = null;
+		try {
+			user = (new UserTask()).execute(tendril).get();
+			TextView textView = (TextView) findViewById(R.id.textView1);
+			textView.setText(user.toString());
 
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			// String profile = new UserProfileTask().execute("").get();
-			System.err.println(user);
-
-			// String profile = task.execute();
-		} else {
-			Toast.makeText(getApplicationContext(), "Not Connected!",
-					Toast.LENGTH_SHORT).show();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		// String profile = new UserProfileTask().execute("").get();
+		System.err.println(user);
 	}
 
 	private boolean isConnected() {

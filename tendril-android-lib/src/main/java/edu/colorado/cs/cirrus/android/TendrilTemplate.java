@@ -25,6 +25,7 @@ import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
+import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
@@ -94,7 +95,7 @@ public class TendrilTemplate implements ITendril {
 				.setRequestFactory(new HttpComponentsClientHttpRequestFactory(
 						HttpUtils.getNewHttpClient()));
 
-		logIn(login, password);
+		logIn();
 		setRequestEntity();
 	}
 
@@ -129,9 +130,7 @@ public class TendrilTemplate implements ITendril {
 	}
 
 	public ExternalAccountId fetchExternalAccountId() {
-		if (!isConnected()) {
-			logIn(getUsername(), getPassword());
-		}
+
 		ResponseEntity<ExternalAccountId> response = restTemplate.exchange(
 				GET_USER_EXTERNAL_ACCOUNT_ID_URL, HttpMethod.GET,
 				requestEntity, ExternalAccountId.class);
@@ -184,11 +183,11 @@ public class TendrilTemplate implements ITendril {
 		return profile.getBody();
 	}
 
-	public String fetchPricingProgram() {
+	public PricingProgram fetchPricingProgram() {
 		// Object[] vars = { getExternalAccountId().getId() };
-		ResponseEntity<String> pricingSchedule = restTemplate.exchange(
+		ResponseEntity<PricingProgram> pricingSchedule = restTemplate.exchange(
 				GET_PRICING_PROGRAM_URL, HttpMethod.GET, requestEntity,
-				String.class);
+				PricingProgram.class);
 		return pricingSchedule.getBody();
 
 	}
@@ -207,30 +206,56 @@ public class TendrilTemplate implements ITendril {
 	// }
 
 	public boolean isConnected() {
-		if (accessGrant == null)
-			return false;
-		else
-			return true;
+		DateTime now = new DateTime();
+		if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
+			if (now.isBefore(accessGrant.getExpirationDateTime()
+					.minusMinutes(5))) {
+				System.err
+						.println("isConnected(): Valid access token! expires: "
+								+ accessGrant.getExpirationDateTime());
+				return true;
+			} else {
+				return refreshToken();
+			}
+		} else {
+			return logIn();
+		}
 	}
 
-	public void logOut() {
-		if (isConnected())
-			accessGrant = null;
+	public boolean logOut() {
+		// TODO: actually log out of Tendril server
+		accessGrant = null;
+		return true;
+
 	}
 
-	public boolean logIn(String username, String password) {
+	public boolean logIn() {
+		return authorize(false);
+	}
 
+	private boolean refreshToken() {
+		return authorize(true);
+	}
+
+	private boolean authorize(boolean refresh) {
+
+		DateTime expiration = new DateTime();
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.set("Accept", "application/json");
 		params.set("Content-Type", "application/x-www-form-urlencoded");
 
 		MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
-		formData.add("client_id", APP_KEY);
-		formData.add("client_secret", APP_SECRET);
-		formData.add("grant_type", "password");
-		formData.add("username", username);
-		formData.add("password", password);
 
+		if (refresh) {
+			formData.add("grant_type", "refresh_token");
+			formData.add("refresh_token", accessGrant.getRefresh_token());
+		} else {
+			formData.add("client_id", APP_KEY);
+			formData.add("client_secret", APP_SECRET);
+			formData.add("grant_type", "password");
+			formData.add("username", getUsername());
+			formData.add("password", getPassword());
+		}
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		requestHeaders.set("Accept", "application/json");
@@ -244,8 +269,9 @@ public class TendrilTemplate implements ITendril {
 				AccessGrant.class);
 
 		System.err.println(response);
-		this.accessGrant = response.getBody();
-		// this.accessToken = this.accessGrant.getAccess_token();
+		accessGrant = response.getBody();
+		accessGrant.setExpirationDateTime(expiration
+				.plusSeconds((int) accessGrant.getExpires_in()));
 
 		return true;
 	}

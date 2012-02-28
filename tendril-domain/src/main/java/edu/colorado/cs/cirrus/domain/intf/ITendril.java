@@ -20,11 +20,13 @@ public interface ITendril {
 	boolean isConnected();
 	
 	/**
-	 * Deletes access token, requiring user to log in again in order to 
-	 * keep using the service. Returns success status of log out action.
+	 * Deletes local access token and attempts to log out of Tendril server, 
+	 * requiring user to log in again in order to 
+	 * keep using the service. Returns success status of log out action. 
+	 * Local access token is deleted regardless of return value.
 	 * @return
 	 */
-	void logOut();
+	boolean logOut();
 	
 	/**
 	 * Logs in using 'OAuthy' 0/1 legged authentication. Returns success status
@@ -33,7 +35,7 @@ public interface ITendril {
 	 * @param Password
 	 * @return
 	 */
-	boolean logIn(String username, String Password);
+	boolean logIn();
 	
 	User fetchUser();
 

@@ -12,7 +12,7 @@ public class ScheduleRates {
 	public ScheduleRates() {
 	}
 
-	public ScheduleRates(int id, String scheduleName, DateTime effectiveDate,
+	public ScheduleRates(int id, String scheduleName, String effectiveDate,
 			int consumptionBaseline, List<Rate> rateList) {
 		super();
 		this.id = id;
@@ -29,7 +29,7 @@ public class ScheduleRates {
 	private String scheduleName;
 
 	@Element
-	private DateTime effectiveDate;
+	private String effectiveDate;
 
 	@Element
 	private int consumptionBaseline;
@@ -53,11 +53,11 @@ public class ScheduleRates {
 		this.scheduleName = scheduleName;
 	}
 
-	public DateTime getEffectiveDate() {
+	public String getEffectiveDate() {
 		return effectiveDate;
 	}
 
-	public void setEffectiveDate(DateTime effectiveDate) {
+	public void setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
 

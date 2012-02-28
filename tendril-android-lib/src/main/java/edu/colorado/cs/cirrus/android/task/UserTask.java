@@ -8,13 +8,14 @@ import edu.colorado.cs.cirrus.domain.model.User;
 
 import android.os.AsyncTask;
 
-
 public class UserTask extends AsyncTask<TendrilTemplate, Void, User> {
 
 	@Override
 	protected User doInBackground(TendrilTemplate... params) {
 		try {
-			return params[0].fetchUser();
+			TendrilTemplate tendril = params[0];
+			if (tendril.isConnected())
+				return tendril.fetchUser();
 
 		} catch (Exception e) {
 			e.printStackTrace();

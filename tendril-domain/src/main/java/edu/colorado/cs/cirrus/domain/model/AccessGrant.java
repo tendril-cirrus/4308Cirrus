@@ -1,5 +1,7 @@
 package edu.colorado.cs.cirrus.domain.model;
 
+import org.joda.time.DateTime;
+
 public class AccessGrant {
 
 	private String access_token;
@@ -7,6 +9,7 @@ public class AccessGrant {
 	private long expires_in;
 	private String refresh_token;
 	private String route;
+	private DateTime expirationDateTime;
 
 	public AccessGrant() {
 	}
@@ -59,6 +62,14 @@ public class AccessGrant {
 
 	public void setRoute(String route) {
 		this.route = route;
+	}
+	
+	public DateTime getExpirationDateTime() {
+		return expirationDateTime;
+	}
+
+	public void setExpirationDateTime(DateTime expirationDateTime) {
+		this.expirationDateTime = expirationDateTime;
 	}
 
 	@Override
