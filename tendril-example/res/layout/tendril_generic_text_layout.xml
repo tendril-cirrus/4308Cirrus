@@ -11,11 +11,15 @@
         android:orientation="vertical" >
     </LinearLayout>
 
-    <TextView
+    <ScrollView
+         android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+        >
+        <TextView
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+	</ScrollView>
 </LinearLayout>
