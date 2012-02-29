@@ -70,13 +70,13 @@ public class CostAndConsumption {
     @Element
     private float consumption;
     
-    @ElementList
+    @ElementList(required=false)
     private List<ConversionFactor> conversionFactorList;
     
-    @ElementList(name = "component", inline = true)
+    @ElementList(name = "component", inline = true, required=false)
     private List<CostAndConsumptionComponent> componentList;
     
-    @ElementList(name = "subMeteringDetails")
+    @ElementList(name = "subMeteringDetails", required=false)
     private List<DeviceCostAndConsumption> deviceCostAndConsumptionList;
     
     /**

@@ -19,7 +19,7 @@ public class SetThermostatDataRequest {
 	private String requestId;
 
 	@Element
-	private Data data;
+	private DeviceData data;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -45,11 +45,11 @@ public class SetThermostatDataRequest {
 		this.requestId = requestId;
 	}
 
-	public Data getData() {
+	public DeviceData getData() {
 		return data;
 	}
 
-	public void setData(Data data) {
+	public void setData(DeviceData data) {
 		this.data = data;
 	}
 

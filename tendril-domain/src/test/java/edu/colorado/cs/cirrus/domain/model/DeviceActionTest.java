@@ -11,7 +11,7 @@ import org.simpleframework.xml.core.Persister;
 public class DeviceActionTest {
 
 	@Test
-	public void canDeserializeUser() {
+	public void canDeserializeDeviceAction() {
 		Serializer serializer = new Persister();
 		File source = new File("src/test/resources/DeviceAction.xml");
 

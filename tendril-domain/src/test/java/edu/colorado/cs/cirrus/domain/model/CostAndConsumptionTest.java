@@ -19,6 +19,9 @@ public class CostAndConsumptionTest {
             CostAndConsumption exampleCostAndConsumption = serializer.read(
                     CostAndConsumption.class, source);
             System.err.println(exampleCostAndConsumption);
+            assertNotNull(exampleCostAndConsumption.getComponentList());
+            assertNotNull(exampleCostAndConsumption.getConversionFactorList());
+            assertNotNull(exampleCostAndConsumption.getDeviceCostAndConsumptionList());
 
         } catch (Exception e) {
             e.printStackTrace();
