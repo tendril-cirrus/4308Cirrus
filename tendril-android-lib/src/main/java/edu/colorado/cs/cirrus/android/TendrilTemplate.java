@@ -25,7 +25,7 @@ import com.google.gson.JsonParser;
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
-import edu.colorado.cs.cirrus.domain.model.Data;
+import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
@@ -275,7 +275,7 @@ public class TendrilTemplate implements ITendril {
 		stdr.setDeviceId(getTstat().getDeviceId());
 		// TODO Figure out how to get LocationId
 		stdr.setLocationId("????");
-		Data data = new Data();
+		DeviceData data = new DeviceData();
 		data.setMode("Heat");
 		data.setSetpoint(setpoint.toString());
 		data.setTemperatureScale("Fahrenheit");
