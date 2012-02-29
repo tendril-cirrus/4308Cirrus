@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<getVoltDataRequest xmlns="http://platform.tendrilinc.com/tnop/extension/ems"
+  xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" deviceId="001db700000246ad"
+  locationId="1" requestId="a3a3eb69-73c3-4abe-af19-0e8c18c277dd">
+  <requestState>Completed</requestState>
+  <completionStatus>Succeeded</completionStatus>
+  <result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:type="onOffData" networkId="01_0001-1234">
+    <mode>Off</mode>
+    <loadControlEvent>
+      <loadControlEventActive>false</loadControlEventActive>
+      <loadControlEventMandatory>false</loadControlEventMandatory>
+      <loadControlEventDutyCycling>false</loadControlEventDutyCycling>
+      <loadControlEventOptedOut>true</loadControlEventOptedOut>
+      <loadControlEventReturnMode>Off</loadControlEventReturnMode>
+      <loadControlEventId>0</loadControlEventId>
+    </loadControlEvent>
+  </result>
+</getVoltDataRequest>

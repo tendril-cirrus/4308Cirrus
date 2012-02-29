@@ -1,0 +1,11 @@
+<getDiagnosticLogRequest requestId="83727535-bc9f-4287-91a5-94de2e8dd59c" 
+  locationId="1" deviceId="001db700000246ad"
+  xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup"
+  xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#"
+  xmlns="http://platform.tendrilinc.com/tnop/extension/ems">
+  <requestState>Completed</requestState>
+  <completionStatus>Succeeded</completionStatus>
+  <result xsi:type="diagnosticLogDataRaw" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <log>This is the gateway's diagnostic log result. Its a plain text because its in the 'diagnosticLogDataRaw' format</log>
+  </result>
+</getDiagnosticLogRequest>

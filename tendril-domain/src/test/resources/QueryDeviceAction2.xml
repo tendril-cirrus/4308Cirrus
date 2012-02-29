@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SetVoltDataRequest
+  xmlns:ems="http://platform.tendrilinc.com/tnop/extension/ems"
+  xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" deviceId="001e5e000000000a"
+  locationId="25" requestId="66429da9-2d5d-4aef-96e3-5821aec0b5d1">
+  <requestState>Completed</requestState>
+  <completionStatus>Succeeded</completionStatus>
+</SetVoltDataRequest>
