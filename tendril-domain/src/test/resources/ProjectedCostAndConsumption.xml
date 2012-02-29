@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<costAndConsumption xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel" accountId="aid_aw" toDate="2012-03-01T07:00:00.000+00:00" fromDate="2012-02-01T07:00:00.000+00:00">
+  <cost>127.06</cost>
+  <consumption>1058.84510</consumption>
+</costAndConsumption>
