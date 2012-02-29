@@ -3,6 +3,8 @@ package edu.colorado.cs.cirrus.android;
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import org.joda.time.DateTime;
 
+import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +52,7 @@ public class TendrilActivity extends Activity {
 
 	private void showTendrilOptions() {
 		String[] options = { "Get User Profile", "Get Device List",
-				"Get Pricing Program", "Get Pricing Schedule" };
+				"Get Pricing Program", "Get Pricing Schedule", "Get Historical Cost and Consumption Range" };
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this
@@ -80,6 +82,9 @@ public class TendrilActivity extends Activity {
 					toast.show();
 					// startActivity(new Intent(parentView.getContext(),
 					// PricingScheduleActivity.class));
+					break;
+				case 4:
+					startActivity(new Intent(parentView.getContext(), CostAndConsumptionActivity.class));
 					break;
 				default:
 					break;

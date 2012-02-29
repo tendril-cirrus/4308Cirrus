@@ -76,7 +76,7 @@ public class CostAndConsumption {
     @ElementList(name = "component", inline = true)
     private List<CostAndConsumptionComponent> componentList;
     
-    @ElementList(name = "subMeteringDetails")
+    @ElementList(name = "subMeteringDetails",required=false)
     private List<DeviceCostAndConsumption> deviceCostAndConsumptionList;
     
     /**
