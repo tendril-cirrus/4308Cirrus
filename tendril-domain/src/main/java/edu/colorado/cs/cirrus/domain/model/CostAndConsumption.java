@@ -76,7 +76,11 @@ public class CostAndConsumption {
     @ElementList(name = "component", inline = true, required=false)
     private List<CostAndConsumptionComponent> componentList;
     
+<<<<<<< HEAD
     @ElementList(name = "subMeteringDetails", required=false)
+=======
+    @ElementList(name = "subMeteringDetails",required=false)
+>>>>>>> 8d20565b9075ee4dc1cd59755ebb16282e281a85
     private List<DeviceCostAndConsumption> deviceCostAndConsumptionList;
     
     /**

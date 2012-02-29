@@ -24,6 +24,7 @@ import com.google.gson.JsonParser;
 
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
+import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
 import edu.colorado.cs.cirrus.domain.model.Data;
 import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
@@ -56,7 +57,7 @@ public class TendrilTemplate implements ITendril {
 	private static final String GET_METER_READINGS_URL = BASE_URL
 			+ "meter/read;external-account-id={external-account-id};from={from};to={to};limit-to-latest={limit-to-latest};source={source}";
 	private static final String GET_HISTORICAL_COST_AND_CONSUMPTION_URL = BASE_URL
-			+ "user/current-user/account/default-account/consumption/{resolution};external-account-id={external-account-id};from={from};to={to};limit-to-latest={limit-to-latest};source={source}";
+			+ "user/current-user/account/default-account/consumption/{resolution};from={from};to={to};limit-to-latest={limit-to-latest}";
 	private static final String GET_PROJECTED_COST_AND_CONSUMPTION_URL = BASE_URL
 			+ "user/current-user/account/default-account/consumption/{resolution}/projection;source={source}";
 	private static final String GET_PRICING_PROGRAM_URL = BASE_URL
@@ -268,27 +269,21 @@ public class TendrilTemplate implements ITendril {
 		}
 		return tstat;
 	}
-	
-	public boolean setTstatSetpoint(Float setpoint){
+
+	public boolean setTstatSetpoint(Float setpoint) {
 		SetThermostatDataRequest stdr = new SetThermostatDataRequest();
 		stdr.setDeviceId(getTstat().getDeviceId());
-		//TODO Figure out how to get LocationId
+		// TODO Figure out how to get LocationId
 		stdr.setLocationId("????");
 		Data data = new Data();
 		data.setMode("Heat");
 		data.setSetpoint(setpoint.toString());
 		data.setTemperatureScale("Fahrenheit");
-		
+
 		stdr.setData(data);
-		
-		
-		
-		
-		
+
 		return true;
 	}
-	
-	
 
 	// FIXME: this does not currently work- API documentation is inconsistent
 	public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) {
@@ -313,5 +308,29 @@ public class TendrilTemplate implements ITendril {
 
 	}
 
+	public CostAndConsumption fetchCostAndConsumptionRange(DateTime from,
+			DateTime to) {
+		
+		// String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
+		// System.err.println(fromString);
+		return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
+
+	}
+
+	private CostAndConsumption fetchCostAndConsumption(Resolution resolution,
+			DateTime from, DateTime to, Integer limitToLatest) {
+		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
+		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
+		System.err.println(fromString);
 	
+		Object[] vars = { resolution, fromString, toString, limitToLatest };
+
+		ResponseEntity<CostAndConsumption> costAndConsumption = restTemplate
+				.exchange(GET_HISTORICAL_COST_AND_CONSUMPTION_URL, HttpMethod.GET,
+						requestEntity, CostAndConsumption.class, vars);
+		System.err.println(costAndConsumption.getBody());
+		return costAndConsumption.getBody();
+
+	}
+
 }
