@@ -14,6 +14,8 @@
     <ScrollView
          android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
+    	android:layout_marginLeft="7dp"
+    	android:layout_marginRight="7dp"
         >
         <TextView
         android:id="@+id/textView1"

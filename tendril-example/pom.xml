@@ -32,6 +32,13 @@
 			<simple-version>2.6.2</simple-version> -->
 	</properties>
 
+	<repositories> 
+		<repository> 
+		    <id>jakewharton</id> 
+		    <url>http://r.jakewharton.com/maven/release/</url> 
+		</repository> 
+    </repositories> 
+
 	<dependencies>
 		<dependency>
 			<groupId>edu.colorado.cs.cirrus</groupId>
@@ -65,6 +72,14 @@
 			<version>${spring-android-version}</version> </dependency> <dependency> <groupId>org.springframework.android</groupId> 
 			<artifactId>spring-android-auth</artifactId> <version>${spring-android-version}</version> 
 			</dependency> -->
+			
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>library</artifactId>
+			<version>3.5.1</version>
+			<type>apklib</type>
+		</dependency>
+			
 	</dependencies>
 
 
