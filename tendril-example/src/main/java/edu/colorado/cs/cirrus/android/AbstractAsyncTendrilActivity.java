@@ -15,15 +15,15 @@
  */
 package edu.colorado.cs.cirrus.android;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 /**
  * @author Roy Clarkson
  * @author Pierre-Yves Ricau
  */
-public abstract class AbstractAsyncTendrilActivity extends FragmentActivity implements AsyncActivity {
+public abstract class AbstractAsyncTendrilActivity extends Activity implements AsyncActivity {
 
     protected static final String TAG = AbstractAsyncTendrilActivity.class.getSimpleName();
 

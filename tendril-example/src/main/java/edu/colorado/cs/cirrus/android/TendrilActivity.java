@@ -1,9 +1,13 @@
 package edu.colorado.cs.cirrus.android;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
+import org.joda.time.DateTime;
+
+import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class TendrilActivity extends FragmentActivity {
+public class TendrilActivity extends Activity {
 
 	protected static final String TAG = TendrilActivity.class.getSimpleName();
 
