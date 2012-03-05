@@ -1,5 +1,6 @@
 package edu.colorado.cs.cirrus.domain.model;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -62,63 +63,81 @@ public class DeviceActionQueryTest {
 		}
 	}
 	
-	@Ignore("not ready yet")
+	//@Ignore("not ready yet")
 	@Test
 	public void canDeserializeDeviceActionQuery5() {
 		Serializer serializer = new Persister();
 		File source = new File("src/test/resources/QueryDeviceAction5.xml");
 		try {
-			DeviceActionQuery exampleUser = serializer.read(DeviceActionQuery.class, source);
-			System.err.println(exampleUser);
+			DeviceActionQuery q = serializer.read(DeviceActionQuery.class, source);
+			System.err.println(q);
+			assertNotNull(q.getResult());
+			assertNotNull(q.getResult().getType());
+			assertNotNull(q.getResult().getTemperatureScale());
+			assertNotNull(q.getResult().getSetpoint());
+			assertNotNull(q.getResult().getMode());
+			assertNotNull(q.getResult().getCurrentTemp());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 	
-	@Ignore("not ready yet")
+	//@Ignore("not ready yet")
 	@Test
 	public void canDeserializeDeviceActionQuery6() {
 		Serializer serializer = new Persister();
 		File source = new File("src/test/resources/QueryDeviceAction6.xml");
 		try {
-			DeviceActionQuery exampleUser = serializer.read(DeviceActionQuery.class, source);
-			System.err.println(exampleUser);
+			DeviceActionQuery q = serializer.read(DeviceActionQuery.class, source);
+			System.err.println(q);
+			assertNotNull(q.getResult());
+			assertNotNull(q.getResult().getNetworkId());
+			assertNotNull(q.getResult().getLoadControlEvent());
+			assertNotNull(q.getResult().getLoadControlEvent().getLoadControlEventId());
+			assertNotNull(q.getResult().getLoadControlEvent().getLoadControlEventReturnMode());
+			assertNotNull(q.getResult().getLoadControlEvent().isLoadControlEventActive());
+			assertNotNull(q.getResult().getLoadControlEvent().isLoadControlEventDutyCycling());
+			assertNotNull(q.getResult().getLoadControlEvent().isLoadControlEventMandatory());
+			assertNotNull(q.getResult().getLoadControlEvent().isLoadControlEventOptedOut());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 	
-	@Ignore("not ready yet")
+	@Ignore("waiting on Tendril for response about incorrect xml")
 	@Test
 	public void canDeserializeDeviceActionQuery7() {
 		Serializer serializer = new Persister();
 		File source = new File("src/test/resources/QueryDeviceAction7.xml");
 		try {
-			DeviceActionQuery exampleUser = serializer.read(DeviceActionQuery.class, source);
-			System.err.println(exampleUser);
+			DeviceActionQuery q = serializer.read(DeviceActionQuery.class, source);
+			System.err.println(q);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 	
-	@Ignore("not ready yet")
+	@Ignore("waiting on Tendril for response about incorrect xml")
 	@Test
 	public void canDeserializeDeviceActionQuery8() {
 		Serializer serializer = new Persister();
 		File source = new File("src/test/resources/QueryDeviceAction8.xml");
 		try {
-			DeviceActionQuery exampleUser = serializer.read(DeviceActionQuery.class, source);
-			System.err.println(exampleUser);
+			DeviceActionQuery q = serializer.read(DeviceActionQuery.class, source);
+			System.err.println(q);
+			assertNotNull(q.getResult());
+			assertNotNull(q.getResult().getHoldStatus());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 	
-	@Ignore("not ready yet")
+	@Ignore("Looks like tendril dropped this one")
 	@Test
 	public void canDeserializeDeviceActionQuery9() {
 		Serializer serializer = new Persister();
