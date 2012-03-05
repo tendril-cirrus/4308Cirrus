@@ -14,6 +14,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,7 +42,7 @@ public class TendrilTemplate implements ITendril {
 	private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
 	private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
 	private static final String APP_SECRET = "3230f8f0aa064bea145d425c57fe8679";
-	private static final String SCOPE = "account, billing, consumption, greenbutton, device";
+	private static final String SCOPE = "account, billing, consumption, greenbutton, device,offline_access";
 	private static final String USERNAME = "csci4138@tendrilinc.com";
 	private static final String PASSWORD = "password";
 	private static final String THERMOSTAT_CATEGORY = "Thermostat";
@@ -74,17 +75,23 @@ public class TendrilTemplate implements ITendril {
 			+ "user/current-user/account/default-account/comparison/baselineactual/{resolution};asof={asof}";
 
 	private HttpEntity<?> requestEntity;
+	private HttpHeaders requestHeaders;
 	private RestTemplate restTemplate;
 	// private String accessToken = "uninitialized";
 	// private String refreshToken = "uninitialized";
 	private long expiresIn = 0l;
-	private AccessGrant accessGrant;
-	private static final String TAG = "TendrilTemplate";
-	private User user;
-	private UserProfile userProfile;
-	private ExternalAccountId externalAccountId;
-	private Devices devices;
-	private Device tstat;
+	private AccessGrant accessGrant = null;
+	// private static final String TAG = "TendrilTemplate";
+	private User user = null;
+	private UserProfile userProfile = null;
+	private ExternalAccountId externalAccountId = null;
+	private Devices devices = null;
+	private Device tstat = null;
+
+	/**
+	 * This is the same as User id
+	 */
+	private String locationId = null;
 
 	/**
 	 * Create a new instance of TendrilTemplate. This constructor creates the
@@ -105,20 +112,20 @@ public class TendrilTemplate implements ITendril {
 						HttpUtils.getNewHttpClient()));
 
 		logIn();
-		setRequestEntity();
-	}
 
-	private void setRequestEntity() {
-		HttpHeaders requestHeaders = new HttpHeaders();
 		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 		acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+		requestHeaders = new HttpHeaders();
 		requestHeaders.setAccept(acceptableMediaTypes);
 		requestHeaders.setContentType(MediaType.APPLICATION_XML);
 		requestHeaders.set("access_token", this.accessGrant.getAccess_token());
+		this.requestEntity = new HttpEntity<Object>(requestHeaders);
+	}
+
+	private void setRequestEntity() {
 
 		// Populate the headers in an HttpEntity object to use for the
 		// request
-		this.requestEntity = new HttpEntity<Object>(requestHeaders);
 
 		// public RestOperations restOperations() {
 		// return getRestTemplate();
@@ -138,6 +145,8 @@ public class TendrilTemplate implements ITendril {
 		return USERNAME;
 	}
 
+	// TODO: now that we are getting 2 year tokens, maybe we should just
+	// wait for an error connecting before checking expiration time
 	public boolean isConnected() {
 		DateTime now = new DateTime();
 		if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
@@ -227,18 +236,19 @@ public class TendrilTemplate implements ITendril {
 	}
 
 	public User fetchUser() {
+
 		ResponseEntity<User> response = restTemplate.exchange(
 				GET_USER_INFO_URL, HttpMethod.GET, requestEntity, User.class);
 		System.err.println(response.getBody());
-		this.user = response.getBody();
+		user = response.getBody();
+		setLocationId(user.getId());
 		return user;
 	}
 
 	public User getUser() {
-		if (this.user != null)
-			return this.user;
-		else
-			return fetchUser();
+		if (this.user == null)
+			this.user = fetchUser();
+		return this.user;
 	}
 
 	public Devices fetchDevices() {
@@ -251,10 +261,9 @@ public class TendrilTemplate implements ITendril {
 	}
 
 	public Devices getDevices() {
-		if (devices != null)
-			return devices;
-		else
-			return getDevices();
+		if (devices == null)
+			devices = fetchDevices();
+		return devices;
 	}
 
 	public Device getTstat() {
@@ -270,11 +279,11 @@ public class TendrilTemplate implements ITendril {
 		return tstat;
 	}
 
-	public boolean setTstatSetpoint(Float setpoint) {
+	public SetThermostatDataRequest setTstatSetpoint(Float setpoint) {
 		SetThermostatDataRequest stdr = new SetThermostatDataRequest();
 		stdr.setDeviceId(getTstat().getDeviceId());
-		// TODO Figure out how to get LocationId
-		stdr.setLocationId("????");
+		stdr.setLocationId(getLocationId());
+		stdr.setRequestId("none");
 		DeviceData data = new DeviceData();
 		data.setMode("Heat");
 		data.setSetpoint(setpoint.toString());
@@ -282,7 +291,22 @@ public class TendrilTemplate implements ITendril {
 
 		stdr.setData(data);
 
-		return true;
+		System.err.println("Request: " + stdr.toString());
+		HttpEntity<SetThermostatDataRequest> requestEntity = new HttpEntity<SetThermostatDataRequest>(
+				stdr, requestHeaders);
+		SetThermostatDataRequest stdrResponse = null;
+		try {
+			ResponseEntity<SetThermostatDataRequest> response = restTemplate
+					.exchange(POST_DEVICE_ACTION_URL, HttpMethod.POST,
+							requestEntity, SetThermostatDataRequest.class);
+
+			stdrResponse = response.getBody();
+			System.err.println(stdrResponse);
+		} catch (HttpClientErrorException e) {
+			e.printStackTrace();
+			System.err.println(e.getResponseBodyAsString());
+		}
+		return stdrResponse;
 	}
 
 	// FIXME: this does not currently work- API documentation is inconsistent
@@ -310,7 +334,7 @@ public class TendrilTemplate implements ITendril {
 
 	public CostAndConsumption fetchCostAndConsumptionRange(DateTime from,
 			DateTime to) {
-		
+
 		// String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
 		// System.err.println(fromString);
 		return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
@@ -322,15 +346,26 @@ public class TendrilTemplate implements ITendril {
 		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
 		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
 		System.err.println(fromString);
-	
+
 		Object[] vars = { resolution, fromString, toString, limitToLatest };
 
 		ResponseEntity<CostAndConsumption> costAndConsumption = restTemplate
-				.exchange(GET_HISTORICAL_COST_AND_CONSUMPTION_URL, HttpMethod.GET,
-						requestEntity, CostAndConsumption.class, vars);
+				.exchange(GET_HISTORICAL_COST_AND_CONSUMPTION_URL,
+						HttpMethod.GET, requestEntity,
+						CostAndConsumption.class, vars);
 		System.err.println(costAndConsumption.getBody());
 		return costAndConsumption.getBody();
 
+	}
+
+	private String getLocationId() {
+		if (locationId == null)
+			fetchUser();
+		return locationId;
+	}
+
+	private void setLocationId(String locationId) {
+		this.locationId = locationId;
 	}
 
 }

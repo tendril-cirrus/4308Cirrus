@@ -43,6 +43,8 @@ public class TendrilActivity extends Activity {
 				.getTendril();
 
 		showTendrilOptions();
+		
+		//
 		// tendril.fetchUser();
 		// tendril.fetchDevices();
 		// System.err.println(tendril.fetchPricingProgram());
@@ -52,7 +54,9 @@ public class TendrilActivity extends Activity {
 
 	private void showTendrilOptions() {
 		String[] options = { "Get User Profile", "Get Device List",
-				"Get Pricing Program", "Get Pricing Schedule", "Get Historical Cost and Consumption Range" };
+				"Get Pricing Program", "Get Pricing Schedule",
+				"Get Historical Cost and Consumption Range",
+				"Set Thermostat to 80" };
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this
@@ -63,14 +67,15 @@ public class TendrilActivity extends Activity {
 			public void onItemClick(AdapterView<?> parentView, View childView,
 					int position, long id) {
 				switch (position) {
-
 				case 0:
+
 					startActivity(new Intent(parentView.getContext(),
 							UserActivity.class));
 					break;
 				case 1:
 					startActivity(new Intent(parentView.getContext(),
 							DevicesActivity.class));
+					
 					break;
 				case 2:
 					startActivity(new Intent(parentView.getContext(),
@@ -84,7 +89,12 @@ public class TendrilActivity extends Activity {
 					// PricingScheduleActivity.class));
 					break;
 				case 4:
-					startActivity(new Intent(parentView.getContext(), CostAndConsumptionActivity.class));
+					startActivity(new Intent(parentView.getContext(),
+							CostAndConsumptionActivity.class));
+					break;
+				case 5:
+					startActivity(new Intent(parentView.getContext(),
+							SetThermostatActivity.class));
 					break;
 				default:
 					break;

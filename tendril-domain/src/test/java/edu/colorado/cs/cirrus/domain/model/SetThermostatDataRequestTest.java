@@ -27,5 +27,12 @@ public class SetThermostatDataRequestTest {
 
 		}
 	}
+	
+	@Test
+	public void canSerializeSetThermostatData(){
+	//	Deserializer deserializer = new SetThermostatDataRequestTest()
+		
+		
+	}
 
 }
