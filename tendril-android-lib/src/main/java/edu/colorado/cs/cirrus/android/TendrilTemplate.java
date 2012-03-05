@@ -23,6 +23,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import android.R.string;
+
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
@@ -30,6 +32,7 @@ import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
+import edu.colorado.cs.cirrus.domain.model.MeterReading;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
@@ -368,4 +371,25 @@ public class TendrilTemplate implements ITendril {
 		this.locationId = locationId;
 	}
 
+    public MeterReading fetchMeterReadingRange(DateTime from, DateTime to) {
+        return fetchMeterReading(from, to, 100, Source.ACTUAL);
+    }
+    
+    private MeterReading fetchMeterReading(DateTime from, DateTime to,
+            Integer limitToLatest, Source source) {
+        
+        String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
+        String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
+        
+        Object[] vars = { getUser().getId(), toString, fromString,
+                limitToLatest, source };
+        
+        ResponseEntity<MeterReading> meterReading = restTemplate.exchange(
+                GET_METER_READINGS_URL, HttpMethod.GET, requestEntity,
+                MeterReading.class, vars);
+        System.err.println(meterReading.getBody());
+        return meterReading.getBody();
+
+    }
+    
 }
