@@ -1,10 +1,9 @@
 <setThermostatDataRequest
-  xmlns:ems="http://platform.tendrilinc.com/tnop/extension/ems"
-  xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" deviceId="101e5e000000000a"
-  locationId="25" requestId="66429da9-2d5d-4aef-96e3-5821aec0b5d1">
-  <data>
-    <setpoint>70</setpoint>
-    <mode>Heat</mode>
-    <temperatureScale>Fahrenheit</temperatureScale>
-  </data>
+	xmlns="http://platform.tendrilinc.com/tnop/extension/ems" deviceId="db700000246f5"
+	locationId="74">
+	<data>
+		<setpoint>70</setpoint>
+		<mode>Heat</mode>
+		<temperatureScale>Fahrenheit</temperatureScale>
+	</data>
 </setThermostatDataRequest>

@@ -27,6 +27,9 @@
     	<activity android:name="edu.colorado.cs.cirrus.android.PricingScheduleActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.CostAndConsumptionActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.MeterReadingActivity" />
+    	<activity android:name="edu.colorado.cs.cirrus.android.SetThermostatActivity" />
+    	
+    
     </application>
 
 </manifest>

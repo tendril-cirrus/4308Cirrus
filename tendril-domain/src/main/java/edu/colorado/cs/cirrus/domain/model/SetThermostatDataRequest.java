@@ -2,9 +2,11 @@ package edu.colorado.cs.cirrus.domain.model;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 
-@Root
+@Root(name="setThermostatDataRequest")
+@Namespace(reference="http://platform.tendrilinc.com/tnop/extension/ems")
 public class SetThermostatDataRequest {
 	public SetThermostatDataRequest() {
 	}
