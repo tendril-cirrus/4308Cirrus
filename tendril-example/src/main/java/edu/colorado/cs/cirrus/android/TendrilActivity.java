@@ -52,7 +52,7 @@ public class TendrilActivity extends Activity {
 
 	private void showTendrilOptions() {
 		String[] options = { "Get User Profile", "Get Device List",
-				"Get Pricing Program", "Get Pricing Schedule", "Get Historical Cost and Consumption Range" };
+				"Get Pricing Program", "Get Pricing Schedule", "Get Historical Cost and Consumption Range" , "Get Meter Reading Range"};
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, options);
 		ListView listView = (ListView) this
@@ -85,6 +85,9 @@ public class TendrilActivity extends Activity {
 					break;
 				case 4:
 					startActivity(new Intent(parentView.getContext(), CostAndConsumptionActivity.class));
+					break;
+				case 5:
+					startActivity(new Intent(parentView.getContext(), MeterReadingActivity.class));
 					break;
 				default:
 					break;
