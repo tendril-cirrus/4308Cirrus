@@ -21,18 +21,33 @@ public class SetThermostatDataRequestTest {
 					.read(SetThermostatDataRequest.class, source);
 			System.err.println(exampleSetThermostatDataRequest);
 
+			// serialize:
+
+			SetThermostatDataRequest stdr = new SetThermostatDataRequest();
+			stdr.setDeviceId("deviceId");
+			stdr.setLocationId("locationId");
+			stdr.setRequestId("none");
+			DeviceData data = new DeviceData();
+			data.setMode("Heat");
+			data.setSetpoint("77.0");
+			data.setTemperatureScale("Fahrenheit");
+
+			stdr.setData(data);
+			
+			serializer.write(stdr, new File(
+					"target/serialized.xml"));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 
 		}
 	}
-	
+
 	@Test
-	public void canSerializeSetThermostatData(){
-	//	Deserializer deserializer = new SetThermostatDataRequestTest()
-		
-		
+	public void canSerializeSetThermostatData() {
+		Serializer serializer = new Persister();
+
 	}
 
 }
