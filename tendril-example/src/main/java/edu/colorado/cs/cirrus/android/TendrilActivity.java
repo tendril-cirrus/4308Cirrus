@@ -68,20 +68,26 @@ public class TendrilActivity extends Activity {
 			public void onItemClick(AdapterView<?> parentView, View childView,
 					int position, long id) {
 				switch (position) {
+				
+				// Get User Profile
 				case 0:
-
 					startActivity(new Intent(parentView.getContext(),
 							UserActivity.class));
 					break;
+				
+				// Get Device List	
 				case 1:
 					startActivity(new Intent(parentView.getContext(),
 							DevicesActivity.class));
-					
 					break;
+				
+				// Get Pricing Program
 				case 2:
 					startActivity(new Intent(parentView.getContext(),
 							PricingProgramActivity.class));
 					break;
+					
+				// Get Pricing Schedule
 				case 3:
 					Toast toast = Toast.makeText(parentView.getContext(),
 							"Not yet implemented", Toast.LENGTH_SHORT);
@@ -89,14 +95,20 @@ public class TendrilActivity extends Activity {
 					// startActivity(new Intent(parentView.getContext(),
 					// PricingScheduleActivity.class));
 					break;
+					
+				// Get historical cost and consumption
 				case 4:
 					startActivity(new Intent(parentView.getContext(),
 							CostAndConsumptionActivity.class));
 					break;
+					
+				// Get Meter Reading Range
 				case 5:
 					startActivity(new Intent(parentView.getContext(), 
                                 MeterReadingActivity.class));
 					break;
+					
+				// Set Thermostat to 80	
 				case 6:
 					startActivity(new Intent(parentView.getContext(),
 							SetThermostatActivity.class));

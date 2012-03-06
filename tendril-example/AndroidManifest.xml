@@ -14,7 +14,9 @@
         android:name=".TendrilApplication"
         android:debuggable="true"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        android:theme="@android:style/Theme.Light.NoTitleBar" 
+        android:icon="@drawable/ic_launcher" 
+        >
         <activity android:name=".TendrilActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
