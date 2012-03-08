@@ -6,6 +6,15 @@
     android:layout_centerVertical="true"
     >
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/cirrus_logo_header" />
+
     <TextView
         android:id="@+id/text_view_description"
         android:text="@string/tendril_description"
@@ -15,17 +24,9 @@
         android:padding="10dip"
         />
     
-    <AbsoluteLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
-        
-        <ListView
-            android:id="@+id/tendril_activity_options_list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            />
-
-    </AbsoluteLayout>
+     <ListView
+         android:id="@+id/tendril_activity_options_list"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent" />
     
 </LinearLayout>
