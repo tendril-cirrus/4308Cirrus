@@ -90,11 +90,12 @@ public class DeviceActionQuery {
 	public void setResult(DeviceActionQueryResult result) {
 		this.result = result;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "DeviceActionQuery [requestId=" + requestId + ", deviceId="
 				+ deviceId + ", locationId=" + locationId + ", requestState="
-				+ requestState + ", completionStatus=" + completionStatus + "]";
+				+ requestState + ", completionStatus=" + completionStatus
+				+ ", result=" + result + "]";
 	}
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<GetThermostatProgramHoldStatusRequest xmlns="http://platform.tendrilinc.com/tnop/extension/ems"
-  xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" deviceId="001db700000246ad"
-  locationId="1" requestId="2da3fc18-6bfe-4eaa-9fd6-b215ab817b69">
+<getThermostatProgramHoldStatusRequest xmlns="http://platform.tendrilinc.com/tnop/extension/ems"
+  deviceId="001db700000246ad" locationId="1" requestId="2da3fc18-6bfe-4eaa-9fd6-b215ab817b69">
   <requestState>Completed</requestState>
   <completionStatus>Succeeded</completionStatus>
   <result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:type="programHoldStatusData" />
+    xsi:type="programHoldStatusData">
     <holdStatus>PERMANENT HOLD</holdStatus>
   </result>
-</GetThermostatProgramHoldStatusRequest>
+</getThermostatProgramHoldStatusRequest>

@@ -122,6 +122,15 @@ public class DeviceActionQueryResult {
 	public void setLoadControlEvent(LoadControlEvent loadControlEvent) {
 		this.loadControlEvent = loadControlEvent;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "DeviceActionQueryResult [type=" + type + ", networkId="
+				+ networkId + ", loadControlEvent=" + loadControlEvent
+				+ ", setpoint=" + setpoint + ", mode=" + mode
+				+ ", temperatureScale=" + temperatureScale + ", currentTemp="
+				+ currentTemp + ", activeLoadControlEvent="
+				+ activeLoadControlEvent + ", thermostatProgram="
+				+ thermostatProgram + ", holdStatus=" + holdStatus + "]";
+	}
 }
