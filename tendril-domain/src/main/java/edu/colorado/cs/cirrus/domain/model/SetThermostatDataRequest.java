@@ -11,6 +11,16 @@ public class SetThermostatDataRequest {
 	public SetThermostatDataRequest() {
 	}
 
+	
+	public SetThermostatDataRequest(String deviceId, String locationId,
+			String requestId, DeviceData data) {
+		super();
+		this.deviceId = deviceId;
+		this.locationId = locationId;
+		this.requestId = requestId;
+		this.data = data;
+	}
+
 	@Attribute
 	private String deviceId;
 

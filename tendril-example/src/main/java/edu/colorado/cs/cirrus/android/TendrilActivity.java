@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class TendrilActivity extends Activity {
+	
 
 	protected static final String TAG = TendrilActivity.class.getSimpleName();
 
@@ -27,11 +28,15 @@ public class TendrilActivity extends Activity {
 	 *            shut down then this Bundle contains the data it most recently
 	 *            supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it
 	 *            is null.</b>
+	 *            
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
+		
+		
+		
 		setContentView(R.layout.tendril_activity_layout);
 		// setContentView(R.layout.main);
 	}
@@ -43,6 +48,8 @@ public class TendrilActivity extends Activity {
 				.getTendril();
 
 		showTendrilOptions();
+		
+		
 		
 		//
 		// tendril.fetchUser();

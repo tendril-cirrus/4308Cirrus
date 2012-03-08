@@ -8,9 +8,12 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.CommonsClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -41,11 +44,11 @@ import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
 
-	private static final String BASE_URL = "http://dev.tendrilinc.com/connect/";
+	private static final String BASE_URL = "https://dev.tendrilinc.com/connect/";
 	private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
 	private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
 	private static final String APP_SECRET = "3230f8f0aa064bea145d425c57fe8679";
-	private static final String SCOPE = "account, billing, consumption, greenbutton, device,offline_access";
+	private static final String SCOPE = "offline_access";
 	private static final String USERNAME = "csci4138@tendrilinc.com";
 	private static final String PASSWORD = "password";
 	private static final String THERMOSTAT_CATEGORY = "Thermostat";
@@ -122,7 +125,7 @@ public class TendrilTemplate implements ITendril {
 		requestHeaders.setAccept(acceptableMediaTypes);
 		requestHeaders.setContentType(MediaType.APPLICATION_XML);
 		requestHeaders.set("access_token", this.accessGrant.getAccess_token());
-		this.requestEntity = new HttpEntity<Object>(requestHeaders);
+		requestEntity = new HttpEntity<Object>(requestHeaders);
 	}
 
 	private void setRequestEntity() {
@@ -190,10 +193,12 @@ public class TendrilTemplate implements ITendril {
 		params.set("Content-Type", "application/x-www-form-urlencoded");
 
 		MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
+		formData.add("scope", SCOPE);
 
 		if (refresh) {
 			formData.add("grant_type", "refresh_token");
 			formData.add("refresh_token", accessGrant.getRefresh_token());
+
 		} else {
 			formData.add("client_id", APP_KEY);
 			formData.add("client_secret", APP_SECRET);
@@ -293,18 +298,58 @@ public class TendrilTemplate implements ITendril {
 		data.setTemperatureScale("Fahrenheit");
 
 		stdr.setData(data);
+		System.err.println("Request: " + stdr);
 
-		System.err.println("Request: " + stdr.toString());
+		List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+		acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+
+		requestHeaders = new HttpHeaders();
+		requestHeaders.setAccept(acceptableMediaTypes);
+		requestHeaders.setContentType(MediaType.APPLICATION_XML);
+		requestHeaders.set("access_token", this.accessGrant.getAccess_token());
+		// requestEntity = new
+		// HttpEntity<SetThermostatDataRequest>(requestHeaders);
+
+		/*
+		 * String request =
+		 * "<setThermostatDataRequest deviceId=\"001db700000246f5\" locationId=\"74\" requestId=\"none\" xmlns=\"http://platform.tendrilinc.com/tnop/extension/ems\"><data><setpoint>77.0</setpoint><mode>Heat</mode>"
+		 * +
+		 * "<temperatureScale>Fahrenheit</temperatureScale></data></setThermostatDataRequest>"
+		 * ;
+		 */
+
 		HttpEntity<SetThermostatDataRequest> requestEntity = new HttpEntity<SetThermostatDataRequest>(
 				stdr, requestHeaders);
+
 		SetThermostatDataRequest stdrResponse = null;
 		try {
-			ResponseEntity<SetThermostatDataRequest> response = restTemplate
-					.exchange(POST_DEVICE_ACTION_URL, HttpMethod.POST,
-							requestEntity, SetThermostatDataRequest.class);
+			// List<HttpMessageConverter<?>> mcList = ;
 
-			stdrResponse = response.getBody();
-			System.err.println(stdrResponse);
+			for (HttpMessageConverter<?> hmc : restTemplate
+					.getMessageConverters()) {
+				if (hmc.canWrite(SetThermostatDataRequest.class,
+						MediaType.APPLICATION_XML)) {
+					System.err.println("canWrite: " + hmc.getClass());
+					// HttpOutputMessage outputMessage = new
+					// CommonsClientHttpRequestFactory().createRequest(uri,
+					// httpMethod);
+					// hmc.write(stdr, MediaType.APPLICATION_XML, outputMessage
+					// )
+				}
+				if (hmc.canRead(SetThermostatDataRequest.class,
+						MediaType.APPLICATION_XML)) {
+					System.err.println("canRead: " + hmc.getClass());
+
+				}
+
+			}
+
+			ResponseEntity<String> response = restTemplate.exchange(
+					POST_DEVICE_ACTION_URL, HttpMethod.POST, requestEntity,
+					String.class);
+
+			// stdrResponse = response.getBody();
+			System.err.println(response.getBody());
 		} catch (HttpClientErrorException e) {
 			e.printStackTrace();
 			System.err.println(e.getResponseBodyAsString());
@@ -371,25 +416,25 @@ public class TendrilTemplate implements ITendril {
 		this.locationId = locationId;
 	}
 
-    public MeterReading fetchMeterReadingRange(DateTime from, DateTime to) {
-        return fetchMeterReading(from, to, 100, Source.ACTUAL);
-    }
-    
-    private MeterReading fetchMeterReading(DateTime from, DateTime to,
-            Integer limitToLatest, Source source) {
-        
-        String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
-        String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
-        
-        Object[] vars = { getUser().getId(), toString, fromString,
-                limitToLatest, source };
-        
-        ResponseEntity<MeterReading> meterReading = restTemplate.exchange(
-                GET_METER_READINGS_URL, HttpMethod.GET, requestEntity,
-                MeterReading.class, vars);
-        System.err.println(meterReading.getBody());
-        return meterReading.getBody();
+	public MeterReading fetchMeterReadingRange(DateTime from, DateTime to) {
+		return fetchMeterReading(from, to, 100, Source.ACTUAL);
+	}
 
-    }
-    
+	private MeterReading fetchMeterReading(DateTime from, DateTime to,
+			Integer limitToLatest, Source source) {
+
+		String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
+		String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
+
+		Object[] vars = { getUser().getId(), toString, fromString,
+				limitToLatest, source };
+
+		ResponseEntity<MeterReading> meterReading = restTemplate.exchange(
+				GET_METER_READINGS_URL, HttpMethod.GET, requestEntity,
+				MeterReading.class, vars);
+		System.err.println(meterReading.getBody());
+		return meterReading.getBody();
+
+	}
+
 }
