@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.CommonsClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -288,6 +289,11 @@ public class TendrilTemplate implements ITendril {
 	}
 
 	public SetThermostatDataRequest setTstatSetpoint(Float setpoint) {
+	    restTemplate = new RestTemplate();
+	    List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+        messageConverters.add(new SimpleXmlHttpMessageConverter());
+	    restTemplate.setMessageConverters(messageConverters);
+	    
 		SetThermostatDataRequest stdr = new SetThermostatDataRequest();
 		stdr.setDeviceId(getTstat().getDeviceId());
 		stdr.setLocationId(getLocationId());
