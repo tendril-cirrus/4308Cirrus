@@ -258,6 +258,21 @@ public class TendrilTemplate implements ITendril {
 			this.user = fetchUser();
 		return this.user;
 	}
+	
+	//FIXME: throws a 404 even for current-user. See Tendril's "try it" page
+	public UserProfile fetchUserProfile(){
+		ResponseEntity<UserProfile> response = restTemplate.exchange(
+				GET_USER_PROFILE_URL, HttpMethod.GET, requestEntity, UserProfile.class);
+		System.err.println(response.getBody());
+		userProfile = response.getBody();
+		return userProfile;
+	}
+	
+	public UserProfile getUserProfile(){
+		if(this.userProfile == null){
+			this.userProfile = fetchUserProfile();
+		}return this.userProfile;
+	}
 
 	public Devices fetchDevices() {
 		ResponseEntity<Devices> devices = restTemplate.exchange(
