@@ -7,13 +7,14 @@
 	<artifactId>library</artifactId>
 	<name>ActionBarSherlock</name>
 	<packaging>apklib</packaging>
-
+<!--
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
 		<artifactId>parent</artifactId>
 		<version>3.5.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	-->
 	
 	<dependencies>
 		<dependency>

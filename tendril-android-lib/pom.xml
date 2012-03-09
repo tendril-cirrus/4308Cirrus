@@ -16,12 +16,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tendril-android-lib</name>
 	<properties>
-		<android-platform>8</android-platform>
-		<android-emulator>8</android-emulator>
+		<android-platform>14</android-platform>
+		<android-emulator>14</android-emulator>
 		<!-- <android-maven-plugin-version>3.0.2</android-maven-plugin-version> -->
 		<maven-compiler-plugin-version>2.3.2</maven-compiler-plugin-version>
 		<maven-eclipse-plugin-version>2.8</maven-eclipse-plugin-version>
-		<android-version>2.2.1</android-version>
+		<android-version>4.0.1.2</android-version>
 		<spring-android-version>1.0.0.M4</spring-android-version>
 		<spring-social-version>1.0.2.RELEASE</spring-social-version>
 		<spring-security-crypto-version>3.1.0.RELEASE</spring-security-crypto-version>
