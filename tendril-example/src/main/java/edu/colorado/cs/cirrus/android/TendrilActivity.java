@@ -61,7 +61,7 @@ public class TendrilActivity extends FragmentActivity {
 	}
 
 	private void showTendrilOptions() {
-		String[] options = { "Get User Profile", "Get Device List",
+		String[] options = { "Get User Info", "Get User Profile", "Get Device List",
 				"Get Pricing Program", "Get Pricing Schedule",
 				"Get Historical Cost and Consumption Range",
                 "Get Meter Reading Range",
@@ -77,26 +77,32 @@ public class TendrilActivity extends FragmentActivity {
 					int position, long id) {
 				switch (position) {
 				
-				// Get User Profile
+				// Get User
 				case 0:
 					startActivity(new Intent(parentView.getContext(),
 							UserActivity.class));
 					break;
 				
-				// Get Device List	
+				//Get User Profile
 				case 1:
+					startActivity(new Intent(parentView.getContext(),
+							UserProfileActivity.class));
+					break;
+				
+				// Get Device List	
+				case 2:
 					startActivity(new Intent(parentView.getContext(),
 							DevicesActivity.class));
 					break;
 				
 				// Get Pricing Program
-				case 2:
+				case 3:
 					startActivity(new Intent(parentView.getContext(),
 							PricingProgramActivity.class));
 					break;
 					
 				// Get Pricing Schedule
-				case 3:
+				case 4:
 					Toast toast = Toast.makeText(parentView.getContext(),
 							"Not yet implemented", Toast.LENGTH_SHORT);
 					toast.show();
@@ -105,19 +111,19 @@ public class TendrilActivity extends FragmentActivity {
 					break;
 					
 				// Get historical cost and consumption
-				case 4:
+				case 5:
 					startActivity(new Intent(parentView.getContext(),
 							CostAndConsumptionActivity.class));
 					break;
 					
 				// Get Meter Reading Range
-				case 5:
+				case 6:
 					startActivity(new Intent(parentView.getContext(), 
                                 MeterReadingActivity.class));
 					break;
 					
 				// Set Thermostat to 80	
-				case 6:
+				case 7:
 					startActivity(new Intent(parentView.getContext(),
 							SetThermostatActivity.class));
 					break;

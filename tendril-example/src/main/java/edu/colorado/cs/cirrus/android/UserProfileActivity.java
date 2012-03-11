@@ -2,8 +2,10 @@ package edu.colorado.cs.cirrus.android;
 
 import java.util.concurrent.ExecutionException;
 
+import edu.colorado.cs.cirrus.android.task.UserProfileTask;
 import edu.colorado.cs.cirrus.android.task.UserTask;
 import edu.colorado.cs.cirrus.domain.model.User;
+import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -11,8 +13,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserActivity extends AbstractAsyncTendrilActivity {
-	protected static final String TAG = UserActivity.class.getSimpleName();
+public class UserProfileActivity extends AbstractAsyncTendrilActivity {
+	protected static final String TAG = UserProfileActivity.class.getSimpleName();
 
 	// ***************************************
 	// Activity methods
@@ -28,11 +30,15 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 	public void onStart() {
 		super.onStart();
 
-		User user = null;
+		UserProfile profile = null;
 		try {
-			user = (new UserTask()).execute(tendril).get();
+			profile = (new UserProfileTask()).execute(tendril).get();
 			TextView textView = (TextView) findViewById(R.id.textView1);
-			textView.setText(user.toString());
+			if(profile != null){
+				textView.setText(profile.toString());
+			}else{
+				textView.setText("NULL profile returned!");
+			}
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -42,6 +48,6 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 			e.printStackTrace();
 		}
 		// String profile = new UserProfileTask().execute("").get();
-		System.err.println(user);
+		System.err.println(profile);
 	}
 }

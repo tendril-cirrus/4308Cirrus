@@ -3,6 +3,7 @@ package edu.colorado.cs.cirrus.domain.model;
 import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.io.File;
 
 import org.junit.Ignore;
@@ -106,7 +107,7 @@ public class DeviceActionQueryTest {
 		}
 	}
 	
-	@Ignore("waiting on Tendril for response about incorrect xml")
+	//@Ignore("waiting on Tendril for response about incorrect xml")
 	@Test
 	public void canDeserializeDeviceActionQuery7() {
 		Serializer serializer = new Persister();
@@ -114,14 +115,30 @@ public class DeviceActionQueryTest {
 		try {
 			DeviceActionQuery q = serializer.read(DeviceActionQuery.class, source);
 			System.err.println(q);
-			
+			assertNotNull(q.getResult().getThermostatProgram());
+			assertNotNull(q.getResult().getThermostatProgram().getProgramID());
+			List<ProgramDays> pd=q.getResult().getThermostatProgram().getProgramDays();
+			for(ProgramDays d:pd){
+				assertNotNull(d);
+				assertNotNull(d.getDayOfWeek());
+				List<ProgramSegment> ps=d.getProgramSegment();
+				assertNotNull(ps);
+				for(ProgramSegment s:ps){
+					assertNotNull(s);
+					assertNotNull(s.getCoolingSetPoint());
+					assertNotNull(s.getHeatingSetPoint());
+					assertNotNull(s.getName());
+					assertNotNull(s.getTimeOfDay());
+				}
+			}
+			assertNotNull(pd);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 	
-	@Ignore("waiting on Tendril for response about incorrect xml")
+	//@Ignore("waiting on Tendril for response about incorrect xml")
 	@Test
 	public void canDeserializeDeviceActionQuery8() {
 		Serializer serializer = new Persister();
