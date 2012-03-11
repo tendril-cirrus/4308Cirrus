@@ -29,7 +29,17 @@
 			<spring-security-crypto-version>3.1.0.RELEASE</spring-security-crypto-version> 
 			<jackson-version>1.9.2</jackson-version> <gson-version>2.0</gson-version> 
 			<simple-version>2.6.2</simple-version> -->
+			
+		<abs.version>4.0.0</abs.version>
+		
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>jakewharton</id>
+			<url>http://r.jakewharton.com/maven/release</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -49,12 +59,7 @@
 
 
 		</dependency>
-		<dependency>
-			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
-			<version>4.0.0</version>
-			<type>apklib</type>
-		</dependency>
+		
 
 		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
 			<version>2.0</version> </dependency> -->
@@ -62,23 +67,36 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>${android-version}</version>
 			<scope>provided</scope>
+			<version>${android-version}</version>
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework.android</groupId> <artifactId>spring-android-rest-template</artifactId> 
 			<version>${spring-android-version}</version> </dependency> <dependency> <groupId>org.springframework.android</groupId> 
 			<artifactId>spring-android-auth</artifactId> <version>${spring-android-version}</version> 
 			</dependency> -->
+			
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>library</artifactId>
+			<version>${abs.version}</version>
+			<type>apklib</type>
+		</dependency> 
+		<dependency>
+            <groupId>com.actionbarsherlock</groupId>
+            <artifactId>library</artifactId>
+            <version>${abs.version}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- DONT THINK WE NEED THIS
+        <dependency>
+            <groupId>com.actionbarsherlock</groupId>
+            <artifactId>plugin-support-lib</artifactId>
+            <version>4.0.0-RC1</version>
+        </dependency> -->	
+			
 	</dependencies>
-<repositories>
-<repository>
-<id>jakewharton</id>
-<url>http://r.jakewharton.com/maven/release</url>
-</repository>
-
-
-</repositories>
-
 
 
 	<build>
