@@ -20,8 +20,10 @@
         android:theme="@style/Theme.Sherlock.Light"
         android:icon="@drawable/ic_launcher" 
         >
+       
+        <!-- android:theme="@style/Theme.Sherlock" -->
+        
         <activity android:name=".TendrilActivity" >
-            <!-- android:theme="@style/Theme.Sherlock" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 				

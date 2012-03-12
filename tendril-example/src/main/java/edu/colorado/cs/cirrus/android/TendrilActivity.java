@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.actionbarsherlock;
+import com.actionbarsherlock.app.SherlockActivity;
 
 public class TendrilActivity extends SherlockActivity {
 //	public class TendrilActivity extends FragmentActivity {
