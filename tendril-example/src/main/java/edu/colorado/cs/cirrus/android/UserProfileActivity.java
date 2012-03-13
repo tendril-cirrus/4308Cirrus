@@ -8,7 +8,6 @@ import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
