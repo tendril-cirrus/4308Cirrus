@@ -21,7 +21,7 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.tendril_generic_text_layout);
+		setContentView(R.layout.tendril_userprofile_layout);
 	}
 
 	@Override
@@ -32,8 +32,15 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 		try {
 			//user = (new UserTask()).execute(tendril).get();
 			user=tendril.asyncGetUser();
-			TextView textView = (TextView) findViewById(R.id.textView1);
-			textView.setText(user.toString());
+			
+			TextView username = (TextView) findViewById(R.id.user_profile_username);
+			username.setText(user.getUserName().toString());
+			
+			TextView nameFirstLast = (TextView) findViewById(R.id.user_profile_name);
+			nameFirstLast.setText(user.getFirstName()+ " " +user.getLastName());
+			
+			TextView userEmail = (TextView) findViewById(R.id.user_profile_email);
+			userEmail.setText(user.getEmailAddress());
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
