@@ -1,14 +1,16 @@
 package edu.colorado.cs.cirrus.domain.model;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Order;
 
+@Order(elements={"setpoint", "mode", "temperatureScale"})
 public class DeviceData {
-	@Element
+    @Element
 	String setpoint;
-	
+    
 	@Element
 	String mode;
-	
+    
 	@Element
 	String temperatureScale;
 

@@ -1,10 +1,13 @@
 package edu.colorado.cs.cirrus.domain.model;
 
 import org.simpleframework.xml.Attribute;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
+import org.simpleframework.xml.Order;
 import org.simpleframework.xml.Root;
 
+@Order
 @Root(name="setThermostatDataRequest")
 @Namespace(reference="http://platform.tendrilinc.com/tnop/extension/ems")
 public class SetThermostatDataRequest {
@@ -21,15 +24,19 @@ public class SetThermostatDataRequest {
 		this.data = data;
 	}
 
+	@Order
 	@Attribute
 	private String deviceId;
 
+	@Order
 	@Attribute
 	private String locationId;
 
+	@Order
 	@Attribute(required=false)
 	private String requestId;
 
+	@Order
 	@Element
 	private DeviceData data;
 

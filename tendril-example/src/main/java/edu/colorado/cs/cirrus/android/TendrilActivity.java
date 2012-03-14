@@ -113,14 +113,20 @@ public class TendrilActivity extends SherlockActivity {
 					
 				// Get historical cost and consumption
 				case 5:
-					startActivity(new Intent(parentView.getContext(),
-							CostAndConsumptionActivity.class));
+				    toast = Toast.makeText(parentView.getContext(),
+                            "Not yet implemented", Toast.LENGTH_SHORT);
+                    toast.show();
+//					startActivity(new Intent(parentView.getContext(),
+//							CostAndConsumptionActivity.class));
 					break;
 					
 				// Get Meter Reading Range
 				case 6:
-					startActivity(new Intent(parentView.getContext(), 
-                                MeterReadingActivity.class));
+				    toast = Toast.makeText(parentView.getContext(),
+                            "Not yet implemented", Toast.LENGTH_SHORT);
+                    toast.show();
+//					startActivity(new Intent(parentView.getContext(), 
+//                                MeterReadingActivity.class));
 					break;
 					
 				// Set Thermostat to 80	

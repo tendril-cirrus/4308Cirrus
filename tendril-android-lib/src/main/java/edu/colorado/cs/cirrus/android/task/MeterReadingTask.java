@@ -16,7 +16,7 @@ public class MeterReadingTask extends AsyncTask<TendrilTemplate, Void, MeterRead
 		try {
 			TendrilTemplate tendril = params[0];
 			if (tendril.isConnected())
-				return tendril.fetchMeterReadingRange(new DateTime("2011-01-01T00:00:00-07:00"), (new DateTime()).minusDays(1));
+				return tendril.fetchMeterReadingRange(new DateTime("2012-03-01T00:00:00-07:00"), (new DateTime()).minusDays(1));
 
 		} catch (Exception e) {
 			e.printStackTrace();
