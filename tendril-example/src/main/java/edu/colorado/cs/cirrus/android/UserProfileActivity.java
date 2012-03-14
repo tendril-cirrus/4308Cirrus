@@ -2,15 +2,11 @@ package edu.colorado.cs.cirrus.android;
 
 import java.util.concurrent.ExecutionException;
 
-import edu.colorado.cs.cirrus.android.task.UserProfileTask;
-import edu.colorado.cs.cirrus.android.task.UserTask;
-import edu.colorado.cs.cirrus.domain.model.User;
-import edu.colorado.cs.cirrus.domain.model.UserProfile;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
+import edu.colorado.cs.cirrus.android.task.UserProfileTask;
+
+import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 	protected static final String TAG = UserProfileActivity.class.getSimpleName();
@@ -25,10 +21,10 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 		setContentView(R.layout.tendril_generic_text_layout);
 	}
 
+	
 	@Override
 	public void onStart() {
 		super.onStart();
-
 		UserProfile profile = null;
 		try {
 			//profile = (new UserProfileTask()).execute(tendril).get();

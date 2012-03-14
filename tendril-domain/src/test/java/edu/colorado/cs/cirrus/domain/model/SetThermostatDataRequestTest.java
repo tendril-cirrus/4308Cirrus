@@ -13,6 +13,7 @@ public class SetThermostatDataRequestTest {
 	@Test
 	public void canDeserializeSetThermostatDataRequest() {
 		Serializer serializer = new Persister();
+		
 		File source = new File(
 				"src/test/resources/SetThermostatDataRequest.xml");
 
