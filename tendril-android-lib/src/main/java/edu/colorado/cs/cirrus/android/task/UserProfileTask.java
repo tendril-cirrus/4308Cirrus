@@ -8,7 +8,7 @@ public class UserProfileTask extends AsyncTask<TendrilTemplate, Void, UserProfil
 	@Override
 	protected UserProfile doInBackground(TendrilTemplate... params) {
 		try {
-			TendrilTemplate tendril = params[0];
+			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
 				return tendril.fetchUserProfile();
 

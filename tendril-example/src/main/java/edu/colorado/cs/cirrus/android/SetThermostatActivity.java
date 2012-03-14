@@ -35,7 +35,8 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
 
 		SetThermostatDataRequest stdr = null;
 		try {
-			stdr = (new SetThermostatTask()).execute(tendril).get();
+			//stdr = (new SetThermostatTask()).execute(tendril).get();
+			stdr = tendril.asyncSetThermostat();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			textView.setText(stdr.toString());
 

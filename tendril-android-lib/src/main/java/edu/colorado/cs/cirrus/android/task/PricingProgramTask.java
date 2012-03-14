@@ -14,7 +14,7 @@ public class PricingProgramTask extends
 	@Override
 	protected PricingProgram doInBackground(TendrilTemplate... params) {
 		try {
-			TendrilTemplate tendril = params[0];
+			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
 				return tendril.fetchPricingProgram();
 

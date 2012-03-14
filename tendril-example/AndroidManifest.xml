@@ -14,13 +14,13 @@
     </uses-permission>
 
     <application
-        android:name=".TendrilApplication"
         android:debuggable="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.Sherlock.Light"
         android:icon="@drawable/ic_launcher" 
         >
-       
+        
+        <!-- android:name=".TendrilApplication" -->
         <!-- android:theme="@style/Theme.Sherlock" -->
         
         <activity android:name=".TendrilActivity" >

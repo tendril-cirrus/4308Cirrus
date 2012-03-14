@@ -46,8 +46,8 @@ public class TendrilActivity extends SherlockActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		TendrilTemplate tendril = ((TendrilApplication) getApplication())
-				.getTendril();
+		//TendrilTemplate tendril = ((TendrilApplication) getApplication()).getTendril();
+		TendrilTemplate tendril = TendrilTemplate.get();
 
 		showTendrilOptions();
 		

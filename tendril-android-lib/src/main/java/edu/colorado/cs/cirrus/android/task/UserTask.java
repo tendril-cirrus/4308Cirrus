@@ -13,7 +13,7 @@ public class UserTask extends AsyncTask<TendrilTemplate, Void, User> {
 	@Override
 	protected User doInBackground(TendrilTemplate... params) {
 		try {
-			TendrilTemplate tendril = params[0];
+			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
 				return tendril.fetchUser();
 

@@ -33,7 +33,8 @@ public class MeterReadingActivity extends AbstractAsyncTendrilActivity {
 		
 		MeterReading meterReading = null;
 		try {
-			meterReading = (new MeterReadingTask()).execute(tendril).get();
+			//meterReading = (new MeterReadingTask()).execute(tendril).get();
+			meterReading=tendril.asyncGetMeterReading();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			
 			

@@ -14,7 +14,7 @@ public class SetThermostatTask extends
 	@Override
 	protected SetThermostatDataRequest doInBackground(TendrilTemplate... params) {
 		try {
-			TendrilTemplate tendril = params[0];
+			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
 				return tendril.setTstatSetpoint(81.0f);
 

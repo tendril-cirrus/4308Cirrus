@@ -2,6 +2,7 @@ package edu.colorado.cs.cirrus.android;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
@@ -18,6 +19,14 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
+import edu.colorado.cs.cirrus.android.task.DevicesTask;
+import edu.colorado.cs.cirrus.android.task.MeterReadingTask;
+import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
+import edu.colorado.cs.cirrus.android.task.PricingScheduleTask;
+import edu.colorado.cs.cirrus.android.task.SetThermostatTask;
+import edu.colorado.cs.cirrus.android.task.UserProfileTask;
+import edu.colorado.cs.cirrus.android.task.UserTask;
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
@@ -33,7 +42,9 @@ import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
-
+	
+	private static TendrilTemplate instance;
+	
 	private static final String BASE_URL = "https://dev.tendrilinc.com/connect/";
 	private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
 	private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
@@ -92,7 +103,7 @@ public class TendrilTemplate implements ITendril {
 	 * @param login
 	 * @param password
 	 **/
-	public TendrilTemplate(String login, String password) {
+	private TendrilTemplate(String login, String password) {
 		System.err.println("Initializing TendrilTemplate1");
 
 		this.restTemplate = new RestTemplate();
@@ -111,6 +122,13 @@ public class TendrilTemplate implements ITendril {
 		requestHeaders.setContentType(MediaType.APPLICATION_XML);
 		requestHeaders.set("access_token", this.accessGrant.getAccess_token());
 		requestEntity = new HttpEntity<Object>(requestHeaders);
+	}
+	
+	public static TendrilTemplate get(){
+		if(instance==null){
+			instance=new TendrilTemplate("csci4138@tendrilinc.com", "password");
+		}
+		return instance;
 	}
 
 	private boolean authorize(boolean refresh) {
@@ -434,5 +452,36 @@ public class TendrilTemplate implements ITendril {
 		}
 		return stdrResponse;
 	}
-
+	
+	public UserProfile asyncGetUserProfile() throws InterruptedException, ExecutionException{
+		return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public User asyncGetUser() throws InterruptedException, ExecutionException{
+		return (new UserTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public SetThermostatDataRequest asyncSetThermostat() throws InterruptedException, ExecutionException{
+		return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public PricingSchedule asyncGetPricingSchedule() throws InterruptedException, ExecutionException{
+		return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public PricingProgram asyncGetPricingProgram() throws InterruptedException, ExecutionException{
+		return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public MeterReading asyncGetMeterReading() throws InterruptedException, ExecutionException{
+		return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public Devices asyncGetDevices() throws InterruptedException, ExecutionException{
+		return (new DevicesTask()).execute(TendrilTemplate.get()).get();
+	}
+	
+	public CostAndConsumption asyncGetCostAndConsumption() throws InterruptedException, ExecutionException{
+		return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
+	}
 }

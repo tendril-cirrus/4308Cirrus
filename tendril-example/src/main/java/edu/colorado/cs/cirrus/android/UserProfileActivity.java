@@ -31,7 +31,8 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 
 		UserProfile profile = null;
 		try {
-			profile = (new UserProfileTask()).execute(tendril).get();
+			//profile = (new UserProfileTask()).execute(tendril).get();
+			profile=tendril.asyncGetUserProfile();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			if(profile != null){
 				textView.setText(profile.toString());

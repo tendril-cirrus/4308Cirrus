@@ -33,7 +33,8 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
 		
 		CostAndConsumption program = null;
 		try {
-			program = (new CostAndConsumptionTask()).execute(tendril).get();
+			//program = (new CostAndConsumptionTask()).execute(tendril).get();
+			program=tendril.asyncGetCostAndConsumption();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			
 			

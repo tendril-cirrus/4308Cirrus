@@ -30,7 +30,8 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 
 		User user = null;
 		try {
-			user = (new UserTask()).execute(tendril).get();
+			//user = (new UserTask()).execute(tendril).get();
+			user=tendril.asyncGetUser();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			textView.setText(user.toString());
 

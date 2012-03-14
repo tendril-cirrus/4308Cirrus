@@ -13,7 +13,7 @@ public class PricingScheduleTask extends
 	@Override
 	protected PricingSchedule doInBackground(TendrilTemplate... params) {
 		try {
-			TendrilTemplate tendril = params[0];
+			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
 				return tendril.fetchPricingSchedule(null, null);
 

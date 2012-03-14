@@ -31,7 +31,8 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 
 		PricingProgram program = null;
 		try {
-			program = (new PricingProgramTask()).execute(tendril).get();
+			//program = (new PricingProgramTask()).execute(tendril).get();
+			program=tendril.asyncGetPricingProgram();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			textView.setText(program.toString());
 

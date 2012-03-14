@@ -33,7 +33,8 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 
 		PricingSchedule schedule = null;
 		try {
-			schedule = (new PricingScheduleTask()).execute(tendril).get();
+			//schedule = (new PricingScheduleTask()).execute(tendril).get();
+			schedule = tendril.asyncGetPricingSchedule();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			textView.setText(schedule.toString());
 

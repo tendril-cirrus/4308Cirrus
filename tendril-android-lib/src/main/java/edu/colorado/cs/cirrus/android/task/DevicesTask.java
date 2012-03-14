@@ -12,7 +12,7 @@ public class DevicesTask extends AsyncTask<TendrilTemplate, Void, Devices> {
 	@Override
 	protected Devices doInBackground(TendrilTemplate... params) {
 		try {
-			TendrilTemplate tendril = params[0];
+			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
 				return tendril.fetchDevices();
 

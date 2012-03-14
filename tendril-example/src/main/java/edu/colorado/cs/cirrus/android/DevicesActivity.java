@@ -36,7 +36,8 @@ public class DevicesActivity extends AbstractAsyncTendrilActivity {
 
 		Devices devices = null;
 		try {
-			devices = (new DevicesTask()).execute(tendril).get();
+			//devices = (new DevicesTask()).execute(tendril).get();
+			devices=tendril.asyncGetDevices();
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			textView.setText(devices.toString());
 

@@ -47,7 +47,7 @@ public abstract class AbstractAsyncTendrilActivity extends SherlockActivity impl
 
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	this.tendril = ((TendrilApplication) getApplication()).getTendril();
+    	this.tendril = TendrilTemplate.get();
     }
 
     @Override
