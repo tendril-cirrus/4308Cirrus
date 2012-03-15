@@ -44,6 +44,9 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		// String profile = new UserProfileTask().execute("").get();
 		System.err.println(schedule);

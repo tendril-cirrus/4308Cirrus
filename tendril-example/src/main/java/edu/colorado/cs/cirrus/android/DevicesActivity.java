@@ -47,6 +47,9 @@ public class DevicesActivity extends AbstractAsyncTendrilActivity {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		System.err.println(devices.toString());
 

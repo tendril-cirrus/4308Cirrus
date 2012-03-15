@@ -46,7 +46,7 @@ import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
 	
-	private static TendrilTemplate instance;
+	private static TendrilTemplate instance;//this is the single instance of TendrilTemplate allowed
 
     private static final String BASE_URL = "https://dev.tendrilinc.com/connect/";
     private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
@@ -103,7 +103,7 @@ public class TendrilTemplate implements ITendril {
      * @param login
      * @param password
      **/
-    public TendrilTemplate(String login, String password) {
+    private TendrilTemplate(String login, String password) {
         System.err.println("Initializing TendrilTemplate1");
 
         this.restTemplate = new RestTemplate();
@@ -449,35 +449,69 @@ public class TendrilTemplate implements ITendril {
         return stdrResponse;
     }
     
-    public UserProfile asyncGetUserProfile() throws InterruptedException, ExecutionException{
-		return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+    public UserProfile asyncGetUserProfile() throws Exception{
+		try{
+			return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public User asyncGetUser() throws InterruptedException, ExecutionException{
-		return (new UserTask()).execute(TendrilTemplate.get()).get();
+	public User asyncGetUser() throws Exception{
+		try{
+			return (new UserTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public SetThermostatDataRequest asyncSetThermostat() throws InterruptedException, ExecutionException{
-		return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
+	public SetThermostatDataRequest asyncSetThermostat() throws Exception{
+		try{
+			return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public PricingSchedule asyncGetPricingSchedule() throws InterruptedException, ExecutionException{
-		return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
+	public PricingSchedule asyncGetPricingSchedule() throws Exception{
+		try{
+			return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public PricingProgram asyncGetPricingProgram() throws InterruptedException, ExecutionException{
-		return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
+	public PricingProgram asyncGetPricingProgram() throws Exception{
+		try{
+			return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public MeterReading asyncGetMeterReading() throws InterruptedException, ExecutionException{
-		return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+	public MeterReading asyncGetMeterReading() throws Exception{
+		try{
+			return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public Devices asyncGetDevices() throws InterruptedException, ExecutionException{
-		return (new DevicesTask()).execute(TendrilTemplate.get()).get();
+	public Devices asyncGetDevices() throws Exception{
+		try{
+			return (new DevicesTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
 	}
 	
-	public CostAndConsumption asyncGetCostAndConsumption() throws InterruptedException, ExecutionException{
-		return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
+	public CostAndConsumption asyncGetCostAndConsumption() throws Exception{
+		try{
+			return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
+		}catch(Exception e){asyncHandleException(e);}
+		return null;
+	}
+	
+	private void asyncHandleException(Exception e) throws Exception{
+		//throw different Tendril exceptions depending on the type of exception we get
+		Exception toThrow = e;//if we don't change e, it will be re-thrown
+		//if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
+		
+		//TODO: change e when need be. currently any exception will just be re-thrown
+		
+		throw e;
 	}
 }
