@@ -43,6 +43,7 @@ import edu.colorado.cs.cirrus.domain.model.MeterReading;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
+import edu.colorado.cs.cirrus.domain.model.TendrilErrorResponse;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
@@ -84,6 +85,12 @@ public class TendrilTemplate implements ITendril {
     private static final String GET_COST_AND_CONSUMPTION_BASELINEACTUAL_URL = BASE_URL
             + "user/current-user/account/default-account/comparison/baselineactual/{resolution};asof={asof}";
 
+    public static TendrilTemplate get() {
+        if (instance == null) {
+            instance = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+        }
+        return instance;
+    }
     private HttpEntity<?> requestEntity;
     private HttpHeaders requestHeaders;
     private RestTemplate restTemplate;
@@ -96,6 +103,7 @@ public class TendrilTemplate implements ITendril {
     private UserProfile userProfile = null;
     private ExternalAccountId externalAccountId = null;
     private Devices devices = null;
+
     private Device tstat = null;
 
     /**
@@ -125,11 +133,169 @@ public class TendrilTemplate implements ITendril {
         requestEntity = new HttpEntity<Object>(requestHeaders);
     }
 
-    public static TendrilTemplate get() {
-        if (instance == null) {
-            instance = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+    public CostAndConsumption asyncGetCostAndConsumption() throws Exception{
+        try{
+            return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+
+    public Devices asyncGetDevices() throws Exception{
+        try{
+            return (new DevicesTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+
+    public MeterReading asyncGetMeterReading() throws Exception{
+        try{
+            return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+
+    public PricingProgram asyncGetPricingProgram() throws Exception{
+        try{
+            return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+
+    public PricingSchedule asyncGetPricingSchedule() throws Exception{
+        try{
+            return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+
+    public User asyncGetUser() throws Exception{
+        try{
+            return (new UserTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+    
+    public String asyncGetThermostatData() throws Exception {
+        try {
+            return (new GetThermostatDataTask()).execute(TendrilTemplate.get()).get();
+            
         }
-        return instance;
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+    /*
+
+    public UserProfile asyncGetUserProfile() throws Exception {
+        try {
+            return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public User asyncGetUser() throws Exception {
+        try {
+            return (new UserTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+   
+
+    public PricingSchedule asyncGetPricingSchedule() throws Exception {
+        try {
+            return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+   
+
+    public PricingProgram asyncGetPricingProgram() throws Exception {
+        try {
+            return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public MeterReading asyncGetMeterReading() throws Exception {
+        try {
+            return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public Devices asyncGetDevices() throws Exception {
+        try {
+            return (new DevicesTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public CostAndConsumption asyncGetCostAndConsumption() throws Exception {
+        try {
+            return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    private void asyncHandleException(Exception e) throws Exception {
+        // throw different Tendril exceptions depending on the type of exception we get
+        Exception toThrow = e;// if we don't change e, it will be re-thrown
+        // if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
+
+        // TODO: change e when need be. currently any exception will just be re-thrown
+
+        throw e;
+    }
+
+=======
+    */
+    public UserProfile asyncGetUserProfile() throws Exception{
+        try{
+            return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
+    }
+
+    private void asyncHandleException(Exception e) throws Exception{
+        //throw different Tendril exceptions depending on the type of exception we get
+        Exception toThrow = e;//if we don't change e, it will be re-thrown
+        //if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
+        
+        //change e when need be. currently any exception will just be re-thrown
+        toThrow=transformException(e);
+        System.out.println("Transforming exceptions from async tasks");
+        throw toThrow;
+    }
+
+    public SetThermostatDataRequest asyncSetThermostat() throws Exception{
+        try{
+            return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
+        }catch(Exception e){asyncHandleException(e);}
+        return null;
     }
 
     private boolean authorize(boolean refresh) {
@@ -256,6 +422,41 @@ public class TendrilTemplate implements ITendril {
         return profile.getBody();
     }
 
+    private String fetchThermostatDeviceRequestId() {
+        GetThermostatDataRequest gtdr = new GetThermostatDataRequest();
+        gtdr.setDeviceId(getTstat().getDeviceId());
+        gtdr.setLocationId(getLocationId());
+        try {
+            Thread.sleep(10000);
+        }
+        catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        String gtdrString = "<getThermostatDataRequest xmlns=\"http://platform.tendrilinc.com/tnop/extension/ems\"" + 
+                " deviceId=\"001db700000246f5\"" + 
+                " locationId=\"74\">" + 
+              "</getThermostatDataRequest>";
+        
+        System.err.println("gtdr: " + gtdrString);
+        HttpEntity<String> requestEntity = new HttpEntity<String>(gtdrString,
+                requestHeaders);
+
+        GetThermostatDataRequest gtdrResponse = null;
+        try {
+            ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(POST_DEVICE_ACTION_URL,
+                    HttpMethod.POST, requestEntity, GetThermostatDataRequest.class);
+
+            gtdrResponse = response.getBody();
+            System.err.println(gtdrResponse);
+        }
+        catch (HttpClientErrorException e) {
+            e.printStackTrace();
+            System.err.println(e.getResponseBodyAsString());
+        }
+        return gtdrResponse.getRequestId();
+    }
+
     public User fetchUser() {
         ResponseEntity<User> response = restTemplate.exchange(GET_USER_INFO_URL, HttpMethod.GET, requestEntity,
                 User.class);
@@ -291,119 +492,6 @@ public class TendrilTemplate implements ITendril {
     private String getPassword() {
         return PASSWORD;
     }
-
-    public Device getTstat() {
-        if (tstat == null) {
-            for (Device d : getDevices().getDevice()) {
-                if (d.getCategory().equalsIgnoreCase(THERMOSTAT_CATEGORY)) {
-                    tstat = d;
-                    System.err.println("tstat: " + tstat);
-                    break;
-                }
-            }
-        }
-        return tstat;
-    }
-
-    public User getUser() {
-        if (user == null) fetchUser();
-        return user;
-    }
-
-    private String getUsername() {
-        return USERNAME;
-    }
-
-    public UserProfile getUserProfile() {
-        if (this.userProfile == null) {
-            this.userProfile = fetchUserProfile();
-        }
-        return this.userProfile;
-    }
-
-    // TODO: now that we are getting 2 year tokens, maybe we should just
-    // wait for an error connecting before checking expiration time
-    public boolean isConnected() {
-        DateTime now = new DateTime();
-        if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
-            if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
-                System.err
-                        .println("isConnected(): Valid access token! expires: " + accessGrant.getExpirationDateTime());
-                return true;
-            }
-            else {
-                return refreshToken();
-            }
-        }
-        else {
-            return logIn();
-        }
-    }
-
-    public boolean logIn() {
-        return authorize(false);
-    }
-
-    public boolean logOut() {
-        // TODO: actually log out of Tendril server
-        accessGrant = null;
-        return true;
-
-    }
-
-    private boolean refreshToken() {
-        return authorize(true);
-    }
-
-    private void setRequestEntity() {
-
-        // Populate the headers in an HttpEntity object to use for the
-        // request
-
-        // public RestOperations restOperations() {
-        // return getRestTemplate();
-        // }
-
-        // protected void configureRestTemplate(RestTemplate restTemplate) {
-        // restTemplate.setErrorHandler(new TendrilErrorHandler());
-        // }
-
-    }
-
-    private String fetchThermostatDeviceRequestId() {
-        GetThermostatDataRequest gtdr = new GetThermostatDataRequest();
-        gtdr.setDeviceId(getTstat().getDeviceId());
-        gtdr.setLocationId(getLocationId());
-        try {
-            Thread.sleep(10000);
-        }
-        catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        String gtdrString = "<getThermostatDataRequest xmlns=\"http://platform.tendrilinc.com/tnop/extension/ems\"" + 
-                " deviceId=\"001db700000246f5\"" + 
-                " locationId=\"74\">" + 
-              "</getThermostatDataRequest>";
-        
-        System.err.println("gtdr: " + gtdrString);
-        HttpEntity<String> requestEntity = new HttpEntity<String>(gtdrString,
-                requestHeaders);
-
-        GetThermostatDataRequest gtdrResponse = null;
-        try {
-            ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(POST_DEVICE_ACTION_URL,
-                    HttpMethod.POST, requestEntity, GetThermostatDataRequest.class);
-
-            gtdrResponse = response.getBody();
-            System.err.println(gtdrResponse);
-        }
-        catch (HttpClientErrorException e) {
-            e.printStackTrace();
-            System.err.println(e.getResponseBodyAsString());
-        }
-        return gtdrResponse.getRequestId();
-    }
     
     public String getThermostatData(){
         Object[] vars = { fetchThermostatDeviceRequestId()};
@@ -427,6 +515,83 @@ public class TendrilTemplate implements ITendril {
         return null;
     }
 
+    public Device getTstat() {
+        if (tstat == null) {
+            for (Device d : getDevices().getDevice()) {
+                if (d.getCategory().equalsIgnoreCase(THERMOSTAT_CATEGORY)) {
+                    tstat = d;
+                    System.err.println("tstat: " + tstat);
+                    break;
+                }
+            }
+        }
+        return tstat;
+    }
+public User getUser() {
+        if (user == null) fetchUser();
+        return user;
+    }
+    
+    private String getUsername() {
+        return USERNAME;
+    }
+    
+    public UserProfile getUserProfile() {
+        if (this.userProfile == null) {
+            this.userProfile = fetchUserProfile();
+        }
+        return this.userProfile;
+    }
+    
+    // TODO: now that we are getting 2 year tokens, maybe we should just
+    // wait for an error connecting before checking expiration time
+    public boolean isConnected() {
+        DateTime now = new DateTime();
+        if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
+            if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
+                System.err
+                        .println("isConnected(): Valid access token! expires: " + accessGrant.getExpirationDateTime());
+                return true;
+            }
+            else {
+                return refreshToken();
+            }
+        }
+        else {
+            return logIn();
+        }
+    }
+    
+    public boolean logIn() {
+        return authorize(false);
+    }
+    
+    public boolean logOut() {
+        // TODO: actually log out of Tendril server
+        accessGrant = null;
+        return true;
+
+    }
+    
+    private boolean refreshToken() {
+        return authorize(true);
+    }
+    
+    private void setRequestEntity() {
+
+        // Populate the headers in an HttpEntity object to use for the
+        // request
+
+        // public RestOperations restOperations() {
+        // return getRestTemplate();
+        // }
+
+        // protected void configureRestTemplate(RestTemplate restTemplate) {
+        // restTemplate.setErrorHandler(new TendrilErrorHandler());
+        // }
+
+    }
+    
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) {
         // restTemplate = new RestTemplate();
         // List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
@@ -463,106 +628,25 @@ public class TendrilTemplate implements ITendril {
         }
         return stdrResponse;
     }
-
-    public UserProfile asyncGetUserProfile() throws Exception {
-        try {
-            return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+    
+    private Exception transformException(Exception e){
+        Exception toThrow=e;
+        if(e instanceof HttpClientErrorException){
+            String xml = ((HttpClientErrorException) e).getResponseBodyAsString();
+            Serializer serializer = new Persister();
+            try{
+                TendrilErrorResponse res=serializer.read(TendrilErrorResponse.class, xml);
+                toThrow=new TendrilException(e,res);
+            }catch(Exception r){
+                toThrow=new TendrilException(e);
+            }
+        }else if(e instanceof RuntimeException){
+            Exception tmp=(Exception) e.getCause();
+            toThrow=transformException(tmp);
+        }else if(e instanceof ExecutionException){
+            Exception tmp=(Exception) e.getCause();
+            toThrow=transformException(tmp);
         }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
+        return toThrow;
     }
-
-    public User asyncGetUser() throws Exception {
-        try {
-            return (new UserTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public SetThermostatDataRequest asyncSetThermostat() throws Exception {
-        try {
-            return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public PricingSchedule asyncGetPricingSchedule() throws Exception {
-        try {
-            return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public String asyncGetThermostatData() throws Exception {
-        try {
-            return (new GetThermostatDataTask()).execute(TendrilTemplate.get()).get();
-            
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public PricingProgram asyncGetPricingProgram() throws Exception {
-        try {
-            return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public MeterReading asyncGetMeterReading() throws Exception {
-        try {
-            return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public Devices asyncGetDevices() throws Exception {
-        try {
-            return (new DevicesTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    public CostAndConsumption asyncGetCostAndConsumption() throws Exception {
-        try {
-            return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            asyncHandleException(e);
-        }
-        return null;
-    }
-
-    private void asyncHandleException(Exception e) throws Exception {
-        // throw different Tendril exceptions depending on the type of exception we get
-        Exception toThrow = e;// if we don't change e, it will be re-thrown
-        // if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
-
-        // TODO: change e when need be. currently any exception will just be re-thrown
-
-        throw e;
-    }
-
 }
