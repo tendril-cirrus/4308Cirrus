@@ -41,6 +41,7 @@ import edu.colorado.cs.cirrus.domain.model.MeterReading;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
+import edu.colorado.cs.cirrus.domain.model.TendrilErrorResponse;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
@@ -510,8 +511,30 @@ public class TendrilTemplate implements ITendril {
 		Exception toThrow = e;//if we don't change e, it will be re-thrown
 		//if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
 		
-		//TODO: change e when need be. currently any exception will just be re-thrown
-		
-		throw e;
+		//change e when need be. currently any exception will just be re-thrown
+		toThrow=transformException(e);
+		System.out.println("Transforming exceptions from async tasks");
+		throw toThrow;
+	}
+	
+	private Exception transformException(Exception e){
+		Exception toThrow=e;
+		if(e instanceof HttpClientErrorException){
+			String xml = ((HttpClientErrorException) e).getResponseBodyAsString();
+			Serializer serializer = new Persister();
+			try{
+				TendrilErrorResponse res=serializer.read(TendrilErrorResponse.class, xml);
+				toThrow=new TendrilException(e,res);
+			}catch(Exception r){
+				toThrow=new TendrilException(e);
+			}
+		}else if(e instanceof RuntimeException){
+			Exception tmp=(Exception) e.getCause();
+			toThrow=transformException(tmp);
+		}else if(e instanceof ExecutionException){
+			Exception tmp=(Exception) e.getCause();
+			toThrow=transformException(tmp);
+		}
+		return toThrow;
 	}
 }

@@ -7,17 +7,13 @@ import edu.colorado.cs.cirrus.domain.model.UserProfile;
 public class UserProfileTask extends AsyncTask<TendrilTemplate, Void, UserProfile> {
 	@Override
 	protected UserProfile doInBackground(TendrilTemplate... params) {
-		try {
-			TendrilTemplate tendril = TendrilTemplate.get();
-			if (tendril.isConnected())
-				return tendril.fetchUserProfile();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			// Log.e(TAG, e.getMessage(), e);
+		TendrilTemplate tendril = TendrilTemplate.get();
+		if (tendril.isConnected()){
+			return tendril.fetchUserProfile();
 		}
 		
-		System.err.println("UserProfileTask returning NULL (not logged in)!");
+		//System.err.println("UserProfileTask returning NULL (not logged in)!");
 		return null;
 	}
 }

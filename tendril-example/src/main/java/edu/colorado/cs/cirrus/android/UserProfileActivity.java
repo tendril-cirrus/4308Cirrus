@@ -26,27 +26,23 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 	public void onStart() {
 		super.onStart();
 		UserProfile profile = null;
+		TextView textView= (TextView) findViewById(R.id.textView1);
 		try {
-			//profile = (new UserProfileTask()).execute(tendril).get();
 			profile=tendril.asyncGetUserProfile();
-			TextView textView = (TextView) findViewById(R.id.textView1);
-			if(profile != null){
+			//if(profile != null){
 				textView.setText(profile.toString());
-			}else{
-				textView.setText("NULL profile returned!");
-			}
+			//}else{
+			//	textView.setText("NULL profile returned!");
+			//}
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		}catch(TendrilException e){
 			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			textView.setText(e.getTendrilResponse().toString());
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			textView.setText(e.getStackTrace().toString());
 		}
 		// String profile = new UserProfileTask().execute("").get();
-		System.err.println(profile);
+		//System.err.println(profile);
 	}
 }

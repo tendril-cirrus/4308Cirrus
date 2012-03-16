@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<apiError xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#" xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup" xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel" reason="Not Found">
+  <details>User 62 does not have a user profile.</details>
+</apiError>
