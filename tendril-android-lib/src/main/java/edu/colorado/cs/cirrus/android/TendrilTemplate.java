@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
 import edu.colorado.cs.cirrus.android.task.DevicesTask;
+import edu.colorado.cs.cirrus.android.task.GetThermostatDataTask;
 import edu.colorado.cs.cirrus.android.task.MeterReadingTask;
 import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
 import edu.colorado.cs.cirrus.android.task.PricingScheduleTask;
@@ -37,6 +38,7 @@ import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
+import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.MeterReading;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
@@ -45,8 +47,8 @@ import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
-	
-	private static TendrilTemplate instance;//this is the single instance of TendrilTemplate allowed
+
+    private static TendrilTemplate instance;// this is the single instance of TendrilTemplate allowed
 
     private static final String BASE_URL = "https://dev.tendrilinc.com/connect/";
     private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
@@ -75,6 +77,7 @@ public class TendrilTemplate implements ITendril {
             + "pricing/schedule;external-account-id={external-account-id}";
     private static final String GET_DEVICE_LIST_URL = BASE_URL
             + "user/current-user/account/default-account/location/default-location/network/default-network/device;include-extended-properties=true";
+   private static final String GET_DEVICE_ACTION_DATA = BASE_URL + "device-action/{requestId}";
     private static final String POST_DEVICE_ACTION_URL = BASE_URL + "device-action";
     private static final String GET_COST_AND_CONSUMPTION_MY_NEIGHBORS_URL = BASE_URL
             + "user/current-user/account/default-account/comparison/myneighbors/{resolution};from={from};to={to}";
@@ -104,7 +107,7 @@ public class TendrilTemplate implements ITendril {
      * @param password
      **/
     private TendrilTemplate(String login, String password) {
-        System.err.println("Initializing TendrilTemplate1");
+        System.err.println("Initializing TendrilTemplate");
 
         this.restTemplate = new RestTemplate();
         // The HttpComponentsClientHttpRequestFactory uses the
@@ -121,13 +124,13 @@ public class TendrilTemplate implements ITendril {
         requestHeaders.set("access_token", this.accessGrant.getAccess_token());
         requestEntity = new HttpEntity<Object>(requestHeaders);
     }
-    
-    public static TendrilTemplate get(){
-		if(instance==null){
-			instance=new TendrilTemplate("csci4138@tendrilinc.com", "password");
-		}
-		return instance;
-	}
+
+    public static TendrilTemplate get() {
+        if (instance == null) {
+            instance = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+        }
+        return instance;
+    }
 
     private boolean authorize(boolean refresh) {
 
@@ -367,6 +370,63 @@ public class TendrilTemplate implements ITendril {
 
     }
 
+    private String fetchThermostatDeviceRequestId() {
+        GetThermostatDataRequest gtdr = new GetThermostatDataRequest();
+        gtdr.setDeviceId(getTstat().getDeviceId());
+        gtdr.setLocationId(getLocationId());
+        try {
+            Thread.sleep(10000);
+        }
+        catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        String gtdrString = "<getThermostatDataRequest xmlns=\"http://platform.tendrilinc.com/tnop/extension/ems\"" + 
+                " deviceId=\"001db700000246f5\"" + 
+                " locationId=\"74\">" + 
+              "</getThermostatDataRequest>";
+        
+        System.err.println("gtdr: " + gtdrString);
+        HttpEntity<String> requestEntity = new HttpEntity<String>(gtdrString,
+                requestHeaders);
+
+        GetThermostatDataRequest gtdrResponse = null;
+        try {
+            ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(POST_DEVICE_ACTION_URL,
+                    HttpMethod.POST, requestEntity, GetThermostatDataRequest.class);
+
+            gtdrResponse = response.getBody();
+            System.err.println(gtdrResponse);
+        }
+        catch (HttpClientErrorException e) {
+            e.printStackTrace();
+            System.err.println(e.getResponseBodyAsString());
+        }
+        return gtdrResponse.getRequestId();
+    }
+    
+    public String getThermostatData(){
+        Object[] vars = { fetchThermostatDeviceRequestId()};
+        GetThermostatDataRequest gtdrResponse = null;
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(GET_DEVICE_ACTION_DATA,
+                    HttpMethod.GET, requestEntity, String.class, vars);
+
+            //gtdrResponse = response.getBody();
+            System.err.println(response.getBody());
+            return response.getBody();
+        }
+        
+        //TODO: get object, if still in progress, wait and get it again until status is complete.
+        
+        catch (HttpClientErrorException e) {
+            e.printStackTrace();
+            System.err.println(e.getResponseBodyAsString());
+        }
+        
+        return null;
+    }
+
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) {
         // restTemplate = new RestTemplate();
         // List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
@@ -383,59 +443,14 @@ public class TendrilTemplate implements ITendril {
         data.setTemperatureScale("Fahrenheit");
 
         stdr.setData(data);
+
        
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        Serializer ser = new Persister();
-//        try {
-//            ser.write(stdr, baos);
-//        }
-//        catch (Exception e1) {
-//            // TODO Auto-generated catch block
-//            e1.printStackTrace();
-//        }
-//
-//        System.err.println("Request: " + baos.toString());
-
-        // List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-        // acceptableMediaTypes.add(MediaType.APPLICATION_XML);
-        //
-        // requestHeaders = new HttpHeaders();
-        // requestHeaders.setAccept(acceptableMediaTypes);
-        // requestHeaders.setContentType(MediaType.APPLICATION_XML);
-        // requestHeaders.set("access_token", this.accessGrant.getAccess_token());
-
-        // requestEntity = new
-        // HttpEntity<SetThermostatDataRequest>(requestHeaders);
-
-        /*
-         * String request =
-         * "<setThermostatDataRequest deviceId=\"001db700000246f5\" locationId=\"74\" requestId=\"none\" xmlns=\"http://platform.tendrilinc.com/tnop/extension/ems\"><data><setpoint>77.0</setpoint><mode>Heat</mode>"
-         * + "<temperatureScale>Fahrenheit</temperatureScale></data></setThermostatDataRequest>" ;
-         */
-
         HttpEntity<SetThermostatDataRequest> requestEntity = new HttpEntity<SetThermostatDataRequest>(stdr,
                 requestHeaders);
 
         SetThermostatDataRequest stdrResponse = null;
         try {
-            // List<HttpMessageConverter<?>> mcList = ;
-            //
-            // for (HttpMessageConverter<?> hmc : restTemplate.getMessageConverters()) {
-            // if (hmc.canWrite(SetThermostatDataRequest.class, MediaType.APPLICATION_XML)) {
-            // System.err.println("canWrite: " + hmc.getClass());
-            // // HttpOutputMessage outputMessage = new
-            // // CommonsClientHttpRequestFactory().createRequest(uri,
-            // // httpMethod);
-            // // hmc.write(stdr, MediaType.APPLICATION_XML, outputMessage
-            // // )
-            // }
-            // if (hmc.canRead(SetThermostatDataRequest.class, MediaType.APPLICATION_XML)) {
-            // System.err.println("canRead: " + hmc.getClass());
-            //
-            // }
-            //
-            // }
-
+         
             ResponseEntity<SetThermostatDataRequest> response = restTemplate.exchange(POST_DEVICE_ACTION_URL,
                     HttpMethod.POST, requestEntity, SetThermostatDataRequest.class);
 
@@ -448,70 +463,106 @@ public class TendrilTemplate implements ITendril {
         }
         return stdrResponse;
     }
-    
-    public UserProfile asyncGetUserProfile() throws Exception{
-		try{
-			return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public User asyncGetUser() throws Exception{
-		try{
-			return (new UserTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public SetThermostatDataRequest asyncSetThermostat() throws Exception{
-		try{
-			return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public PricingSchedule asyncGetPricingSchedule() throws Exception{
-		try{
-			return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public PricingProgram asyncGetPricingProgram() throws Exception{
-		try{
-			return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public MeterReading asyncGetMeterReading() throws Exception{
-		try{
-			return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public Devices asyncGetDevices() throws Exception{
-		try{
-			return (new DevicesTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	public CostAndConsumption asyncGetCostAndConsumption() throws Exception{
-		try{
-			return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
-		}catch(Exception e){asyncHandleException(e);}
-		return null;
-	}
-	
-	private void asyncHandleException(Exception e) throws Exception{
-		//throw different Tendril exceptions depending on the type of exception we get
-		Exception toThrow = e;//if we don't change e, it will be re-thrown
-		//if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
-		
-		//TODO: change e when need be. currently any exception will just be re-thrown
-		
-		throw e;
-	}
+
+    public UserProfile asyncGetUserProfile() throws Exception {
+        try {
+            return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public User asyncGetUser() throws Exception {
+        try {
+            return (new UserTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public SetThermostatDataRequest asyncSetThermostat() throws Exception {
+        try {
+            return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public PricingSchedule asyncGetPricingSchedule() throws Exception {
+        try {
+            return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public String asyncGetThermostatData() throws Exception {
+        try {
+            return (new GetThermostatDataTask()).execute(TendrilTemplate.get()).get();
+            
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public PricingProgram asyncGetPricingProgram() throws Exception {
+        try {
+            return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public MeterReading asyncGetMeterReading() throws Exception {
+        try {
+            return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public Devices asyncGetDevices() throws Exception {
+        try {
+            return (new DevicesTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    public CostAndConsumption asyncGetCostAndConsumption() throws Exception {
+        try {
+            return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
+        }
+        catch (Exception e) {
+            asyncHandleException(e);
+        }
+        return null;
+    }
+
+    private void asyncHandleException(Exception e) throws Exception {
+        // throw different Tendril exceptions depending on the type of exception we get
+        Exception toThrow = e;// if we don't change e, it will be re-thrown
+        // if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
+
+        // TODO: change e when need be. currently any exception will just be re-thrown
+
+        throw e;
+    }
+
 }

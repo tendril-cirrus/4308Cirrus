@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <getThermostatDataRequest
-  xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#"
-  deviceId="001e5e000000000a" locationId="1"
-  requestId="23b8fc0e-295a-475a-8f40-01206c3c4503">
-  <requestState>Completed</requestState>
-  <completionStatus>Succeeded</completionStatus>
-  <result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:type="getThermostatData">
-    <setpoint>75.20</setpoint>
-    <mode>Cool</mode>
-    <temperatureScale>Fahrenheit</temperatureScale>
-    <currentTemp>67.28</currentTemp>
-    <activeLoadControlEvent>false</activeLoadControlEvent>
-  </result>
+	xmlns="http://platform.tendrilinc.com/tnop/extension/ems" xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#"
+	xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup"
+	xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel"
+	deviceId="001db700000246f5" locationId="74"
+	requestId="2e47e869-10af-4d44-b1ae-1bfa5d753b36">
+	<requestState>Completed</requestState>
+	<completionStatus>Succeeded</completionStatus>
+	<result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:type="getThermostatData">
+		<setpoint>81.02</setpoint>
+		<mode>Heat</mode>
+		<temperatureScale>Fahrenheit</temperatureScale>
+		<currentTemp>72.68</currentTemp>
+		<activeLoadControlEvent>false</activeLoadControlEvent>
+	</result>
 </getThermostatDataRequest>

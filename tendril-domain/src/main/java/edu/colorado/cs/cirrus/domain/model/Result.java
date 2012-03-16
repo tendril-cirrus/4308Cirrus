@@ -2,7 +2,9 @@ package edu.colorado.cs.cirrus.domain.model;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Order;
 
+@Order(elements={"setpoint",  "mode", "temperatureScale", "currentTemp", "activeLoadControlEvent"})
 public class Result {
 	
 	public Result(){}
@@ -10,8 +12,6 @@ public class Result {
 	@Attribute
 	private String type;
 	
-	
-
 	@Element
 	private String setpoint;
 
