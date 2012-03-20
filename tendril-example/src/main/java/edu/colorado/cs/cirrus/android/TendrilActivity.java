@@ -57,7 +57,7 @@ public class TendrilActivity extends SherlockActivity {
     private void showTendrilOptions() {
         String[] options = { "Get User Info", "Get User Profile", "Get Device List", "Get Pricing Program",
                 "Get Pricing Schedule", "Get Historical Cost and Consumption Range", "Get Meter Reading Range",
-                "Set Thermostat to 80", "Get Thermostat Data" };
+                "Set Thermostat to 80", "Get Thermostat Data", "Preferences" };
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
         ListView listView = (ListView) this.findViewById(R.id.tendril_activity_options_list);
         listView.setAdapter(arrayAdapter);
@@ -116,6 +116,9 @@ public class TendrilActivity extends SherlockActivity {
                     break;
                 case 8:
                     startActivity(new Intent(parentView.getContext(), GetThermostatDataActivity.class));
+                    break;
+                case 9:
+                    startActivity(new Intent(parentView.getContext(), CirrusPreferenceActivity.class));
                     break;
                 default:
                     break;
