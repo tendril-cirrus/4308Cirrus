@@ -70,8 +70,8 @@ public class CirrusPreferenceActivity extends PreferenceActivity {
         super.onResume();
 
         //Do work for restoring saved prefs
-        //getPrefs();
-        
+        customCirrusPrefs = getSharedPreferences(                                                "customCirrusPrefs", Activity.MODE_PRIVATE);
+
         //Start polling for GPS information every 2 seconds
         locManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 2000, 0, locListener);
