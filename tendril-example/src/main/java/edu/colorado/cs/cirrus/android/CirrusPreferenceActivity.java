@@ -129,14 +129,12 @@ public class CirrusPreferenceActivity extends PreferenceActivity {
     }
 
     class MyLocationListener implements LocationListener {
-        @Override
         public void onLocationChanged(Location loc) {
             //Just update latitude and longitude
             latitude = loc.getLatitude();
             longitude = loc.getLongitude();
         }
 
-        @Override
         public void onProviderDisabled(String provider) {
             Toast.makeText(getBaseContext(), "GPS Disabled", 
                 Toast.LENGTH_SHORT).show();
@@ -144,14 +142,12 @@ public class CirrusPreferenceActivity extends PreferenceActivity {
         }
 
         
-        @Override
         public void onProviderEnabled(String provider) {
             Toast.makeText(getBaseContext(), "GPS Enabled", 
                 Toast.LENGTH_SHORT).show();
 
         }
 
-        @Override
         public void onStatusChanged(String provider, int status,
                 Bundle extras) {
 
