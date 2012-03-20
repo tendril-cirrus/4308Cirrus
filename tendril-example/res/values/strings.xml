@@ -6,5 +6,6 @@
      <string name="user_profile_title">User Profile Info:</string>
      <string name="device_list_title">List of Devices:</string>
      <string name="device_detail_title">Detailed Device Info:</string>
+     <string name="pricingprogram_title">Pricing Program Details:</string>
     
 </resources>

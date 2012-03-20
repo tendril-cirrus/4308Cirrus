@@ -21,7 +21,7 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tendril_generic_text_layout);
+		setContentView(R.layout.tendril_pricingprogram_layout);
 
 	}
 
@@ -33,8 +33,16 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 		try {
 			//program = (new PricingProgramTask()).execute(tendril).get();
 			program=tendril.asyncGetPricingProgram();
-			TextView textView = (TextView) findViewById(R.id.textView1);
-			textView.setText(program.toString());
+			
+			
+			TextView programName = (TextView) findViewById(R.id.pricingprogram_name);
+			programName.setText(program.getName());
+			
+			TextView programDescription = (TextView) findViewById(R.id.pricingprogram_description);
+			programDescription.setText(program.getDescription());
+			
+			TextView programSchedule = (TextView) findViewById(R.id.pricingprogram_schedule);
+			programSchedule.setText(program.getSchedules().toString());
 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
