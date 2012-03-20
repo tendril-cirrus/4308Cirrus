@@ -55,8 +55,18 @@ public class UserProfile{
 
     @Element
     private boolean makeSavingsGoalPublic;
+    
+    private Exception ex;//this should only be set when fetching the user profile throws an exception
 
-    /**
+    public Exception getException() {
+		return ex;
+	}
+
+	public void setException(Exception ex) {
+		this.ex = ex;
+	}
+
+	/**
      * Gets the displayName for this instance.
      *
      * @return The displayName.

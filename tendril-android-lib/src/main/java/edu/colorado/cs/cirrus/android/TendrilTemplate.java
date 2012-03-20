@@ -274,20 +274,36 @@ public class TendrilTemplate implements ITendril {
 =======
     */
     public UserProfile asyncGetUserProfile() throws Exception{
-        try{
-            return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
-        }catch(Exception e){asyncHandleException(e);}
-        return null;
+        //try{
+        //    return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+        //}catch(Exception e){asyncHandleException(e);}
+    	UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+    	if(profile == null){
+    		System.err.println("NULL profile returned - shouldnt happen");
+    		asyncHandleException(new TendrilException("NULL UserProfile returned"));
+    	}else if(profile.getException() != null){
+    		asyncHandleException(profile.getException());
+    	}
+        return profile;
     }
 
     private void asyncHandleException(Exception e) throws Exception{
-        //throw different Tendril exceptions depending on the type of exception we get
+        //throw Tendril exceptions depending on the type of exception we get
         Exception toThrow = e;//if we don't change e, it will be re-thrown
         //if we get exceptions due to tendril's response (like a 404), make e a new TendrilException
         
-        //change e when need be. currently any exception will just be re-thrown
+        //change e when need be.
         toThrow=transformException(e);
         System.out.println("Transforming exceptions from async tasks");
+        
+        if(e instanceof TendrilException){
+        	if(((TendrilException) e).getTendrilResponse() == null){
+	        	TendrilErrorResponse re=new TendrilErrorResponse();
+	        	re.setReason("No reason given - unhandled tendril response error");
+	        	((TendrilException) e).setTendrilResponse(re);
+        	}
+        }
+        
         throw toThrow;
     }
 
@@ -465,7 +481,7 @@ public class TendrilTemplate implements ITendril {
         return user;
     }
 
-    // FIXME: throws a 404 even for current-user. See Tendril's "try it" page
+    //throws a 404 even for current-user. See Tendril's "try it" page
     public UserProfile fetchUserProfile() {
         ResponseEntity<UserProfile> response = restTemplate.exchange(GET_USER_PROFILE_URL, HttpMethod.GET,
                 requestEntity, UserProfile.class);
@@ -646,6 +662,8 @@ public User getUser() {
         }else if(e instanceof ExecutionException){
             Exception tmp=(Exception) e.getCause();
             toThrow=transformException(tmp);
+        }else if(e instanceof NullPointerException){ 
+        	toThrow=new TendrilException(e);
         }
         return toThrow;
     }

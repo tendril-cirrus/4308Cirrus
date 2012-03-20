@@ -49,7 +49,7 @@ public class TendrilException extends Exception {
 		return response;
 	}
 
-	private void setTendrilResponse(TendrilErrorResponse response) {
+	public void setTendrilResponse(TendrilErrorResponse response) {
 		this.response = response;
 	}
 
