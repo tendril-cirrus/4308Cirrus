@@ -6,9 +6,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
-import android.preference.ListPreference;
-import android.preference.PreferenceManager;
-
 import edu.colorado.cs.cirrus.android.R;
 
 import android.app.Activity;
