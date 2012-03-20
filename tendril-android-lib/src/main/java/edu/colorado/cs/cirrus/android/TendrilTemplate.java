@@ -296,11 +296,11 @@ public class TendrilTemplate implements ITendril {
         toThrow=transformException(e);
         System.out.println("Transforming exceptions from async tasks");
         
-        if(e instanceof TendrilException){
-        	if(((TendrilException) e).getTendrilResponse() == null){
+        if(toThrow instanceof TendrilException){
+        	if(((TendrilException) toThrow).getTendrilResponse() == null){
 	        	TendrilErrorResponse re=new TendrilErrorResponse();
 	        	re.setReason("No reason given - unhandled tendril response error");
-	        	((TendrilException) e).setTendrilResponse(re);
+	        	((TendrilException) toThrow).setTendrilResponse(re);
         	}
         }
         
