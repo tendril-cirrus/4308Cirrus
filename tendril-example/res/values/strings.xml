@@ -5,5 +5,6 @@
      <string name="tendril_description">Connects to Tendril App Developer Program Server</string>
      <string name="user_profile_title">User Profile Info:</string>
      <string name="device_list_title">List of Devices:</string>
+     <string name="device_detail_title">Detailed Device Info:</string>
     
 </resources>
