@@ -39,7 +39,7 @@ public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
 			//stdr = (new SetThermostatTask()).execute(tendril).get();
 			//gtdr = tendril.asyncGetThermostatData();
 			TextView textView = (TextView) findViewById(R.id.textView1);
-			textView.setText(tendril.asyncGetThermostatData());
+			textView.setText(tendril.asyncGetThermostatData().toString());
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

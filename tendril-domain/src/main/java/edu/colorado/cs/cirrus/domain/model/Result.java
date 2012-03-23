@@ -9,22 +9,22 @@ public class Result {
 	
 	public Result(){}
 	
-	@Attribute
+	@Attribute(required=false)
 	private String type;
 	
-	@Element
+	@Element(required=false)
 	private String setpoint;
 
-	@Element
+	@Element(required=false)
 	private String mode;
 
-	@Element
+	@Element(required=false)
 	private String temperatureScale;
 	
-	@Element
+	@Element(required=false)
 	private String currentTemp;
 	
-	@Element
+	@Element(required=false)
 	private boolean activeLoadControlEvent;
 	
 	public String getSetpoint() {

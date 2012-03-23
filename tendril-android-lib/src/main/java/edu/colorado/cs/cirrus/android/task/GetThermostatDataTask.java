@@ -10,10 +10,10 @@ import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
 import android.os.AsyncTask;
 
 public class GetThermostatDataTask extends
-		AsyncTask<TendrilTemplate, Void, String> {
+		AsyncTask<TendrilTemplate, Void, GetThermostatDataRequest> {
 
 	@Override
-	protected String doInBackground(TendrilTemplate... params) {
+	protected GetThermostatDataRequest doInBackground(TendrilTemplate... params) {
 		try {
 			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
