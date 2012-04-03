@@ -1,6 +1,5 @@
 package edu.colorado.cs.cirrus.android;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -15,15 +14,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.xml.SimpleXmlHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import android.util.Log;
 
 import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
 import edu.colorado.cs.cirrus.android.task.DevicesTask;
@@ -37,8 +31,8 @@ import edu.colorado.cs.cirrus.android.task.UserTask;
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
-import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Device;
+import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
 import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
@@ -98,8 +92,6 @@ public class TendrilTemplate implements ITendril {
     private HttpEntity<?> requestEntity;
     private HttpHeaders requestHeaders;
     private RestTemplate restTemplate;
-    // private String accessToken = "uninitialized";
-    // private String refreshToken = "uninitialized";
     private long expiresIn = 0l;
     private AccessGrant accessGrant = null;
     // private static final String TAG = "TendrilTemplate";
@@ -209,9 +201,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     public UserProfile asyncGetUserProfile() throws Exception {
-        // try{
-        // return (new UserProfileTask()).execute(TendrilTemplate.get()).get();
-        // }catch(Exception e){asyncHandleException(e);}
         UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
         if (profile == null) {
             System.err.println("NULL profile returned - shouldnt happen");
@@ -310,9 +299,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) {
-
-        // String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
-        // System.err.println(fromString);
         return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
 
     }
@@ -357,7 +343,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     public PricingProgram fetchPricingProgram() {
-        // Object[] vars = { getExternalAccountId().getId() };
         ResponseEntity<PricingProgram> pricingSchedule = restTemplate.exchange(GET_PRICING_PROGRAM_URL, HttpMethod.GET,
                 requestEntity, PricingProgram.class);
         return pricingSchedule.getBody();
@@ -366,12 +351,7 @@ public class TendrilTemplate implements ITendril {
 
     // FIXME: this does not currently work- API documentation is inconsistent
     public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) {
-        // String fromString =
-        // from.toString(ISODateTimeFormat.dateTimeNoMillis());
-        // String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
-        // System.err.println(fromString);
-
-        Object[] vars = { getExternalAccountId() }; // IS this the right param?
+        Object[] vars = { getExternalAccountId() };
         ResponseEntity<PricingSchedule> profile = restTemplate.exchange(GET_PRICING_SCHEDULE_URL, HttpMethod.GET,
                 requestEntity, PricingSchedule.class, vars);
         return profile.getBody();
@@ -382,7 +362,7 @@ public class TendrilTemplate implements ITendril {
         gtdr.setDeviceId(getTstat().getDeviceId());
         gtdr.setLocationId(getLocationId());
         try {
-            Thread.sleep(10000);
+            Thread.sleep(2000);
         }
         catch (InterruptedException e1) {
             // TODO Auto-generated catch block
@@ -448,8 +428,8 @@ public class TendrilTemplate implements ITendril {
     public GetThermostatDataRequest getThermostatData() {
         Object[] vars = { fetchThermostatDeviceRequestId() };
         GetThermostatDataRequest gtdrResponse = null;
-       String requestState = "In Progress";
-       boolean firstTry = true;
+        String requestState = "In Progress";
+        boolean firstTry = true;
         while (requestState.equals("In Progress")) {
             try {
                 if (!firstTry) {
@@ -457,8 +437,8 @@ public class TendrilTemplate implements ITendril {
                     Thread.sleep(2000);
                 }
                 firstTry = false;
-                ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(GET_DEVICE_ACTION_DATA, HttpMethod.GET,
-                        requestEntity, GetThermostatDataRequest.class, vars);
+                ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(GET_DEVICE_ACTION_DATA,
+                        HttpMethod.GET, requestEntity, GetThermostatDataRequest.class, vars);
 
                 gtdrResponse = response.getBody();
                 System.err.println(response.getBody());
@@ -474,7 +454,7 @@ public class TendrilTemplate implements ITendril {
                 e.printStackTrace();
             }
         }
-        return gtdrResponse ;
+        return gtdrResponse;
     }
 
     public Device getTstat() {
@@ -540,27 +520,7 @@ public class TendrilTemplate implements ITendril {
         return authorize(true);
     }
 
-    private void setRequestEntity() {
-
-        // Populate the headers in an HttpEntity object to use for the
-        // request
-
-        // public RestOperations restOperations() {
-        // return getRestTemplate();
-        // }
-
-        // protected void configureRestTemplate(RestTemplate restTemplate) {
-        // restTemplate.setErrorHandler(new TendrilErrorHandler());
-        // }
-
-    }
-
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) {
-        // restTemplate = new RestTemplate();
-        // List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
-        // messageConverters.add(new SimpleXmlHttpMessageConverter());
-        // restTemplate.setMessageConverters(messageConverters);
-
         SetThermostatDataRequest stdr = new SetThermostatDataRequest();
         stdr.setDeviceId(getTstat().getDeviceId());
         stdr.setLocationId(getLocationId());
