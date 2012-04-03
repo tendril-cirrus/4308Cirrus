@@ -1,0 +1,24 @@
+<getThermostatProgramRequest xmlns="http://platform.tendrilinc.com/tnop/extension/ems"
+  deviceId="001db700000246ad" locationId="1" requestId="2da3fc18-6bfe-4eaa-9fd6-b215ab817b69">
+  <requestState>Completed</requestState>
+  <completionStatus>Succeeded</completionStatus>
+  <result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:type="thermostatProgramData">
+    <thermostatProgram programId="0">
+      <programDays dayOfWeek="SUN">
+        <programSegment>
+          <heatingSetPoint>22.0</heatingSetPoint>
+          <coolingSetPoint>22.0</coolingSetPoint>
+          <timeOfDay>09:00:00</timeOfDay>
+          <name>WakeUp</name>
+        </programSegment>
+        <programSegment>
+          <heatingSetPoint>22.0</heatingSetPoint>
+          <coolingSetPoint>22.0</coolingSetPoint>
+          <timeOfDay>13:00:00</timeOfDay>
+          <name>Away</name>
+        </programSegment>
+      </programDays>
+    </thermostatProgram>
+  </result>
+</getThermostatProgramRequest>

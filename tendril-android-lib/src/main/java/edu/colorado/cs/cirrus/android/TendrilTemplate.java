@@ -278,7 +278,7 @@ public class TendrilTemplate implements ITendril {
         System.err.println(response);
         accessGrant = response.getBody();
         accessGrant.setExpirationDateTime(expiration.plusSeconds((int) accessGrant.getExpires_in()));
-
+        System.err.println(accessGrant);
         return true;
     }
 
@@ -493,7 +493,7 @@ public class TendrilTemplate implements ITendril {
         if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
             if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
                 System.err
-                        .println("isConnected(): Valid access token! expires: " + accessGrant.getExpirationDateTime());
+                        .println("isConnected(): Valid access token: " + accessGrant.getAccess_token() + " expires: " + accessGrant.getExpirationDateTime());
                 return true;
             }
             else {
@@ -576,5 +576,9 @@ public class TendrilTemplate implements ITendril {
             toThrow = new TendrilException(e);
         }
         return toThrow;
+    }
+    
+    protected RestTemplate getRestTemplate(){
+        return restTemplate;
     }
 }
