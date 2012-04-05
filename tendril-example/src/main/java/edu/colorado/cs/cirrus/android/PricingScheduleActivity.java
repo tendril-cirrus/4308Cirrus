@@ -2,6 +2,8 @@ package edu.colorado.cs.cirrus.android;
 
 import java.util.concurrent.ExecutionException;
 
+import org.joda.time.DateTime;
+
 import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
 import edu.colorado.cs.cirrus.android.task.PricingScheduleTask;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
@@ -23,7 +25,7 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tendril_generic_text_layout);
+		setContentView(R.layout.tendril_pricingschedule_layout);
 
 	}
 
@@ -34,16 +36,33 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 		PricingSchedule schedule = null;
 		try {
 			//schedule = (new PricingScheduleTask()).execute(tendril).get();
-			schedule = tendril.asyncGetPricingSchedule();
-			TextView textView = (TextView) findViewById(R.id.textView1);
-			textView.setText(schedule.toString());
+			
+			DateTime startDate = new DateTime().withDate(2012, 3, 1).withTimeAtStartOfDay();
+			DateTime endDate = new DateTime().withDate(2012, 3, 31).withTimeAtStartOfDay();
+			
+			
+			schedule = tendril.fetchPricingSchedule(startDate, endDate);
+			
+			TextView test = (TextView) findViewById(R.id.textView1);
+			TextView accountID = (TextView) findViewById(R.id.pricingschedule_accountid);
+			TextView effectiveDate = (TextView) findViewById(R.id.pricingschedule_effective_date);
+			TextView programName = (TextView) findViewById(R.id.pricingschedule_programname);
+			TextView rateKey = (TextView) findViewById(R.id.pricingschedule_rate_key);
+			TextView energyPrice = (TextView) findViewById(R.id.pricingschedule_energy_price);
+			
+			test.setText(schedule.getEffectivePriceRecords().toString());
+			accountID.setText(schedule.getAccountId().toString());
+			effectiveDate.setText(schedule.getEffectivePriceRecords().get(0).getEffectiveDate().toString());
+			programName.setText(schedule.getEffectivePriceRecords().get(0).getProgramName().toString());
+			rateKey.setText(schedule.getEffectivePriceRecords().get(0).getRateKey().toString());
+			energyPrice.setText(schedule.getEffectivePriceRecords().get(0).getEnergyPrice().toString());
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
