@@ -88,10 +88,10 @@ public class TendrilActivity extends SherlockActivity {
 
                 // Get Pricing Schedule
                 case 4:
-                    Toast toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
-                    toast.show();
-                    // startActivity(new Intent(parentView.getContext(),
-                    // PricingScheduleActivity.class));
+//                    Toast toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
+//                    toast.show();
+                     startActivity(new Intent(parentView.getContext(),
+                     PricingScheduleActivity.class));
                     break;
 
                 // Get historical cost and consumption

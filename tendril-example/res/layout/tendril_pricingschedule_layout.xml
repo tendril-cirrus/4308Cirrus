@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:background="@drawable/backrepeat" >
+
+	    <TextView
+	        android:id="@+id/TitleText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="7dp"
+	        android:layout_marginTop="5dp"
+	        android:text="@string/pricingschedule_title"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
+	    android:stretchColumns="1" >
+	    
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Schedule ID:"
+	 		    android:textColor="@color/tendril_green" />
+	    
+		    <TextView
+		        android:id="@+id/pricingschedule_accountid"
+		        android:layout_gravity="left"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </TableRow>
+	    
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Effective Date:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/pricingschedule_effective_date"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+		
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Program Name:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/pricingschedule_programname"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+		
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Rate Key:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/pricingschedule_rate_key"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+		
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Energy Price:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/pricingschedule_energy_price"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="TextView" />
+
+	    <DatePicker
+	        android:id="@+id/datePicker1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+    
+	</TableLayout>
+
+</LinearLayout>

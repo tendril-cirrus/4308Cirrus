@@ -7,5 +7,6 @@
      <string name="device_list_title">List of Devices:</string>
      <string name="device_detail_title">Detailed Device Info:</string>
      <string name="pricingprogram_title">Pricing Program Details:</string>
+     <string name="pricingschedule_title">Pricing Schedule Details:</string>
     
 </resources>
