@@ -16,7 +16,7 @@ public class SetThermostatTask extends
 		try {
 			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
-				return tendril.setTstatSetpoint(81.0f);
+				return tendril.setTstatSetpoint(80.0f);
 
 		} catch (Exception e) {
 			e.printStackTrace();

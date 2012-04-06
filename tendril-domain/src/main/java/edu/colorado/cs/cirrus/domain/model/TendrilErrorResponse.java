@@ -17,7 +17,10 @@ public class TendrilErrorResponse {
 		this.details = details;
 	}
 	
-	public TendrilErrorResponse() {}
+	public TendrilErrorResponse() {
+		reason="";
+		details="";
+	}
 
 	public String getReason() {
 		return reason;

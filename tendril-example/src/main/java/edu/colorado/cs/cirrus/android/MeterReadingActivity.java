@@ -40,13 +40,6 @@ public class MeterReadingActivity extends AbstractAsyncTendrilActivity {
 			
 			textView.setText(meterReading.toString());
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

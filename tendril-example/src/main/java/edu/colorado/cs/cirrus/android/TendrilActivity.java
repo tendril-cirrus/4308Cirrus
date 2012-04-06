@@ -88,26 +88,25 @@ public class TendrilActivity extends SherlockActivity {
 
                 // Get Pricing Schedule
                 case 4:
-                    Toast toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
-                    toast.show();
-                    // startActivity(new Intent(parentView.getContext(),
-                    // PricingScheduleActivity.class));
+//                    Toast toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
+//                    toast.show();
+                     startActivity(new Intent(parentView.getContext(),
+                     PricingScheduleActivity.class));
                     break;
 
                 // Get historical cost and consumption
                 case 5:
-                    toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
-                    toast.show();
-                    // startActivity(new Intent(parentView.getContext(),
-                    // CostAndConsumptionActivity.class));
+//                    toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
+//                    toast.show();
+                     startActivity(new Intent(parentView.getContext(),
+                     CostAndConsumptionActivity.class));
                     break;
 
                 // Get Meter Reading Range
                 case 6:
-                    toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
-                    toast.show();
-                    // startActivity(new Intent(parentView.getContext(),
-                    // MeterReadingActivity.class));
+                    // toast = Toast.makeText(parentView.getContext(), "Not yet implemented", Toast.LENGTH_SHORT);
+                    // toast.show();
+                    startActivity(new Intent(parentView.getContext(), MeterReadingActivity.class));
                     break;
 
                 // Set Thermostat to 80
