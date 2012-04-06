@@ -39,12 +39,6 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
 			TextView textView = (TextView) findViewById(R.id.textView1);
 			textView.setText(stdr.toString());
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

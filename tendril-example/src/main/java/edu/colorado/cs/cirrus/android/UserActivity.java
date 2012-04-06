@@ -42,12 +42,6 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 			TextView userEmail = (TextView) findViewById(R.id.user_profile_email);
 			userEmail.setText(user.getEmailAddress());
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

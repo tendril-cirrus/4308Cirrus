@@ -44,12 +44,6 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 			TextView programSchedule = (TextView) findViewById(R.id.pricingprogram_schedule);
 			programSchedule.setText(program.getSchedules().toString());
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
