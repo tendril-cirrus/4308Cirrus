@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello tendril-example!</string>
+    <string name="app_name">tendril-example</string>
+     <string name="tendril_description">Connects to Tendril App Developer Program Server</string>
+     <string name="user_profile_title">User Profile Info:</string>
+     <string name="device_list_title">List of Devices:</string>
+     <string name="device_detail_title">Detailed Device Info:</string>
+     <string name="pricingprogram_title">Pricing Program Details:</string>
+     <string name="loginTitle">Login to Tendril Services:</string>
+     <string name="email">Email:</string>
+     <string name="password">Password:</string>
+     <string name="cancel">Cancel</string>
+     <string name="submit">Submit</string>
+    
+</resources>

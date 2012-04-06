@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:background="@drawable/backrepeat" >
+
+	    <TextView
+	        android:id="@+id/TitleText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="7dp"
+	        android:layout_marginTop="5dp"
+	        android:text="@string/device_detail_title"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
+	    android:stretchColumns="1" >
+	    
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Device Name:"
+	 		    android:textColor="@color/tendril_green" />
+	    
+		    <TextView
+		        android:id="@+id/device_name"
+		        android:layout_gravity="left"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </TableRow>
+	    
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Device ID:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/device_id"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+		
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Marketing Name:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/device_marketing_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+		
+	    <TableRow >
+
+	 		<TextView
+	 		    android:layout_column="1"
+	 		    android:padding="3dip"
+	 		    android:text="Network ID:"
+	 		    android:textColor="@color/tendril_green" />
+   
+		    <TextView
+		        android:id="@+id/device_network_id"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Medium Text"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		</TableRow>
+    
+	</TableLayout>
+
+</LinearLayout>
