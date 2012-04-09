@@ -25,7 +25,7 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tendril_generic_text_layout);
+		setContentView(R.layout.tendril_set_thermostat_layout);
 
 	}
 
@@ -36,9 +36,16 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
 		SetThermostatDataRequest stdr = null;
 		try {
 			stdr = tendril.asyncSetThermostat();
-			TextView textView = (TextView) findViewById(R.id.textView1);
-			textView.setText(stdr.toString());
-
+			TextView thermDeviceId = (TextView) findViewById(R.id.thermostat_device_id);
+			TextView thermRequestId = (TextView) findViewById(R.id.thermostat_request_id);
+			TextView thermSetPoint = (TextView) findViewById(R.id.thermostat_setpoint);
+			TextView thermMode = (TextView) findViewById(R.id.thermostat_mode);
+			
+			thermDeviceId.setText(stdr.getDeviceId());
+			thermRequestId.setText(stdr.getRequestId());
+			thermSetPoint.setText(stdr.getData().getSetpoint());
+			thermMode.setText(stdr.getData().getMode());
+			
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
