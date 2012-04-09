@@ -8,5 +8,5 @@
      <string name="device_detail_title">Detailed Device Info:</string>
      <string name="pricingprogram_title">Pricing Program Details:</string>
      <string name="pricingschedule_title">Pricing Schedule Details:</string>
-    
+     <string name="getthermostatdata_title">Thermostat Data:</string>
 </resources>

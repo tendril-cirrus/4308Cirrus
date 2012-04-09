@@ -5,24 +5,15 @@
     android:orientation="vertical"
 	android:background="@drawable/backrepeat" >
 
-    <TextView
-        android:id="@+id/TitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/pricingschedule_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <TextView android:id="@+id/dateDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
-    <Button android:id="@+id/pickDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change the date"/>
+	    <TextView
+	        android:id="@+id/TitleText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="7dp"
+	        android:layout_marginTop="5dp"
+	        android:text="@string/getthermostatdata_title"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	    
 	<TableLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,11 +28,11 @@
 	 		<TextView
 	 		    android:layout_column="1"
 	 		    android:padding="3dip"
-	 		    android:text="Schedule ID:"
+	 		    android:text="device_id:"
 	 		    android:textColor="@color/tendril_green" />
 	    
 		    <TextView
-		        android:id="@+id/pricingschedule_accountid"
+		        android:id="@+id/thermostat_device_id"
 		        android:layout_gravity="left"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -54,11 +45,11 @@
 	 		<TextView
 	 		    android:layout_column="1"
 	 		    android:padding="3dip"
-	 		    android:text="Effective Date:"
+	 		    android:text="Setpoint:"
 	 		    android:textColor="@color/tendril_green" />
    
 		    <TextView
-		        android:id="@+id/pricingschedule_effective_date"
+		        android:id="@+id/thermostat_setpoint"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Medium Text"
@@ -70,11 +61,11 @@
 	 		<TextView
 	 		    android:layout_column="1"
 	 		    android:padding="3dip"
-	 		    android:text="Program Name:"
+	 		    android:text="Mode:"
 	 		    android:textColor="@color/tendril_green" />
    
 		    <TextView
-		        android:id="@+id/pricingschedule_programname"
+		        android:id="@+id/thermostat_mode"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Medium Text"
@@ -86,38 +77,16 @@
 	 		<TextView
 	 		    android:layout_column="1"
 	 		    android:padding="3dip"
-	 		    android:text="Rate Key:"
+	 		    android:text="Current Temp:"
 	 		    android:textColor="@color/tendril_green" />
    
 		    <TextView
-		        android:id="@+id/pricingschedule_rate_key"
+		        android:id="@+id/thermostat_current_temp"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Medium Text"
 		        android:textAppearance="?android:attr/textAppearanceMedium" />
 		</TableRow>
-		
-	    <TableRow >
-
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="Energy Price:"
-	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/pricingschedule_energy_price"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		</TableRow>
-
-	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="TextView" />
     
 	</TableLayout>
 
