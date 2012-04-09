@@ -11,5 +11,6 @@
 		<module>tendril-domain</module>
 		<module>tendril-android-lib</module>
 		<module>tendril-example</module>
+        <module>tendril-cirrus</module>
 	</modules>
 </project>
