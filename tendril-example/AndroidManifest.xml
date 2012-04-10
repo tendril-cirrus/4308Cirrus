@@ -40,7 +40,7 @@
         <activity android:name="edu.colorado.cs.cirrus.android.DeviceDetailActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.PricingScheduleActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.CostAndConsumptionActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.MeterReadingActivity" />
+    	<activity android:name=".MeterReadingsActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.SetThermostatActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.GetThermostatDataActivity" />
     	<activity android:name="edu.colorado.cs.cirrus.android.CirrusPreferenceActivity" />

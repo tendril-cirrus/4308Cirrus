@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
 import edu.colorado.cs.cirrus.android.task.DevicesTask;
 import edu.colorado.cs.cirrus.android.task.GetThermostatDataTask;
-import edu.colorado.cs.cirrus.android.task.MeterReadingTask;
+import edu.colorado.cs.cirrus.android.task.MeterReadingsTask;
 import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
 import edu.colorado.cs.cirrus.android.task.PricingScheduleTask;
 import edu.colorado.cs.cirrus.android.task.SetThermostatTask;
@@ -38,6 +38,7 @@ import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
 import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.MeterReading;
+import edu.colorado.cs.cirrus.domain.model.MeterReadings;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
@@ -136,9 +137,9 @@ public class TendrilTemplate implements ITendril {
             return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     public Devices asyncGetDevices() throws TendrilException {
@@ -146,19 +147,19 @@ public class TendrilTemplate implements ITendril {
             return (new DevicesTask()).execute(TendrilTemplate.get()).get();
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
-    public MeterReading asyncGetMeterReading() throws TendrilException {
+    public MeterReadings asyncGetMeterReadings() throws TendrilException {
         try {
-            return (new MeterReadingTask()).execute(TendrilTemplate.get()).get();
+            return (new MeterReadingsTask()).execute(TendrilTemplate.get()).get();
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     public PricingProgram asyncGetPricingProgram() throws TendrilException {
@@ -166,9 +167,9 @@ public class TendrilTemplate implements ITendril {
             return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     public PricingSchedule asyncGetPricingSchedule() throws TendrilException {
@@ -176,9 +177,9 @@ public class TendrilTemplate implements ITendril {
             return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     public User asyncGetUser() throws TendrilException {
@@ -186,9 +187,9 @@ public class TendrilTemplate implements ITendril {
             return (new UserTask()).execute(TendrilTemplate.get()).get();
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     public GetThermostatDataRequest asyncGetThermostatData() throws TendrilException {
@@ -197,24 +198,25 @@ public class TendrilTemplate implements ITendril {
 
         }
         catch (Exception e) {
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     public UserProfile asyncGetUserProfile() throws Exception {
-        try{
-	    	UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
-	        if (profile == null) {
-	            System.err.println("NULL profile returned - shouldnt happen");
-	            throw new TendrilException("NULL UserProfile returned");
-	        }
-	        else if (profile.getException() != null) {
-	        	throw new TendrilException(profile.getException());
-	        }
-	        return profile;
-        }catch(Exception e){
-        	throw new TendrilException(e);
+        try {
+            UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
+            if (profile == null) {
+                System.err.println("NULL profile returned - shouldnt happen");
+                throw new TendrilException("NULL UserProfile returned");
+            }
+            else if (profile.getException() != null) {
+                throw new TendrilException(profile.getException());
+            }
+            return profile;
+        }
+        catch (Exception e) {
+            throw new TendrilException(e);
         }
     }
 
@@ -225,7 +227,7 @@ public class TendrilTemplate implements ITendril {
         catch (Exception e) {
             throw new TendrilException(e);
         }
-        //return null;
+        // return null;
     }
 
     private boolean authorize(boolean refresh) {
@@ -305,7 +307,7 @@ public class TendrilTemplate implements ITendril {
     }
 
     // Tendril's API is not working consistently enough to test this
-    private MeterReading fetchMeterReading(DateTime from, DateTime to, Integer limitToLatest, Source source) {
+    private MeterReadings fetchMeterReadings(DateTime from, DateTime to, Integer limitToLatest, Source source) {
 
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
         String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -315,19 +317,19 @@ public class TendrilTemplate implements ITendril {
         for (Object o : vars) {
             System.err.println(o.toString());
         }
-        //ResponseEntity<MeterReading> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
-          //      requestEntity, MeterReading.class, vars);
-        ResponseEntity<String> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
-                requestEntity, String.class, vars);
-        
-        
-        System.err.println(meterReading.getBody());
-        //return meterReading.getBody();
-return null;
+        ResponseEntity<MeterReadings> meterReadings = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
+                requestEntity, MeterReadings.class, vars);
+        // ResponseEntity<String> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
+        // requestEntity, String.class, vars);
+        // Serializer serializer = new Persister();
+        // return serializer.read(MeterReadings.class, meterReading.getBody());
+
+        System.err.println(meterReadings.getBody());
+        return meterReadings.getBody();
     }
 
-    public MeterReading fetchMeterReadingRange(DateTime from, DateTime to) {
-        return fetchMeterReading(from, to, 100, Source.ACTUAL);
+    public MeterReadings fetchMeterReadingsRange(DateTime from, DateTime to) {
+        return fetchMeterReadings(from, to, 100, Source.ACTUAL);
     }
 
     public PricingProgram fetchPricingProgram() {
@@ -480,8 +482,8 @@ return null;
         DateTime now = new DateTime();
         if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
             if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
-                System.err
-                        .println("isConnected(): Valid access token: " + accessGrant.getAccess_token() + " expires: " + accessGrant.getExpirationDateTime());
+                System.err.println("isConnected(): Valid access token: " + accessGrant.getAccess_token() + " expires: "
+                        + accessGrant.getExpirationDateTime());
                 return true;
             }
             else {
@@ -538,8 +540,8 @@ return null;
         }
         return stdrResponse;
     }
-    
-    protected RestTemplate getRestTemplate(){
+
+    protected RestTemplate getRestTemplate() {
         return restTemplate;
     }
 }
