@@ -11,4 +11,5 @@
      <string name="getthermostatdata_title">Thermostat Data:</string>
      <string name="setthermostatdata_title">Set Thermostat:</string>
      <string name="meter_reading_title">Meter Reading Details:</string>
+     <string name="cost_consumption_title">Cost and Consumption:</string>
 </resources>
