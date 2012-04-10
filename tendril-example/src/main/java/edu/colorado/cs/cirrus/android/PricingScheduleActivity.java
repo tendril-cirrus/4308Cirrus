@@ -73,11 +73,12 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 		try {
 			//schedule = (new PricingScheduleTask()).execute(tendril).get();
 			
-			DateTime startDate = new DateTime().withDate(2012, 3, 1).withTimeAtStartOfDay();
-			DateTime endDate = new DateTime().withDate(2012, 3, 31).withTimeAtStartOfDay();
+			DateTime startDate = new DateTime().withDate(2011, 3, 1).withTimeAtStartOfDay();
+			DateTime endDate = new DateTime().withDate(2011, 3, 31).withTimeAtStartOfDay();
 			
 			
 			schedule = tendril.fetchPricingSchedule(startDate, endDate);
+			//schedule = tendril.asyncGetPricingSchedule();
 			
 			TextView test = (TextView) findViewById(R.id.textView1);
 			TextView accountID = (TextView) findViewById(R.id.pricingschedule_accountid);

@@ -20,7 +20,7 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tendril_generic_text_layout);
+		setContentView(R.layout.tendril_cost_consumption_layout);
 
 	}
 
@@ -35,10 +35,22 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
 		try {
 			//program = (new CostAndConsumptionTask()).execute(tendril).get();
 			program=tendril.asyncGetCostAndConsumption();
-			TextView textView = (TextView) findViewById(R.id.textView1);
 			
+			TextView fromDateView = (TextView) findViewById(R.id.from_date);
+			TextView toDateView = (TextView) findViewById(R.id.to_date);
+			TextView costView = (TextView) findViewById(R.id.cost);
+			TextView consumptionView = (TextView) findViewById(R.id.consumption);
+			TextView consumptionData = (TextView) findViewById(R.id.textView1);
+
+			toDateView.setText(program.getToDate());
+			fromDateView.setText(program.getFromDate());
+			Float costFloat = program.getCost();
+			costView.setText(costFloat.toString());
+			Float consumptionFloat = program.getConsumption();
+			consumptionView.setText(consumptionFloat.toString());
+			consumptionData.setText(program.getComponentList().toString());
+
 			
-			textView.setText(program.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

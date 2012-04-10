@@ -18,7 +18,7 @@
 	<TableLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
+	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="5dp"
 	    android:layout_marginRight="5dp"
 	    android:stretchColumns="1" >
@@ -55,25 +55,31 @@
 		        android:text="Medium Text"
 		        android:textAppearance="?android:attr/textAppearanceMedium" />
 		</TableRow>
-		
-	    <TableRow >
-
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="Schedules:"
-	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/pricingprogram_schedule"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		</TableRow>
-		
-	    
     
 	</TableLayout>
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="5dp"
+	    android:padding="3dip"
+	    android:text="Schedules:"
+	    android:textColor="@color/tendril_green" />
+	
+	<ScrollView
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent" >
+	        
+	        <TextView
+	            android:id="@+id/pricingprogram_schedule"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="top"
+	            android:layout_marginLeft="5dp"
+	            android:layout_marginRight="5dp"
+	            android:text="Medium Text"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+		</ScrollView>
 
 </LinearLayout>
