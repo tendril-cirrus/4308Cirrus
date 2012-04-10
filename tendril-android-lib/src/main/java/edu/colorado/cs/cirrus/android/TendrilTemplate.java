@@ -269,11 +269,12 @@ public class TendrilTemplate implements ITendril {
     }
 
     // TENDRIL's API is not working well- some date ranges return 500 error for no known reason
-    private CostAndConsumption fetchCostAndConsumption(Resolution resolution, DateTime from, DateTime to,
+    private CostAndConsumption fetchCostAndConsumption(String resolution, DateTime from, DateTime to,
             Integer limitToLatest) {
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
         String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
         System.err.println(fromString);
+        System.err.println(toString);
 
         Object[] vars = { resolution, fromString, toString, limitToLatest };
 
@@ -285,7 +286,7 @@ public class TendrilTemplate implements ITendril {
     }
 
     public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) {
-        return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
+        return fetchCostAndConsumption("RANGE", from, to, 1);
 
     }
 

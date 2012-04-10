@@ -17,7 +17,7 @@ public class CostAndConsumptionTask extends AsyncTask<TendrilTemplate, Void, Cos
             TendrilTemplate tendril = TendrilTemplate.get();
             if (tendril.isConnected())
                 return tendril.fetchCostAndConsumptionRange(new DateTime("2011-01-01T00:00:00-07:00"),
-                        (new DateTime()).minusDays(1));
+                        new DateTime("2011-12-31T00:00:00-07:00"));
 
         }
         catch (Exception e) {
