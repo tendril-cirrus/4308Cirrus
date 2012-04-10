@@ -27,7 +27,7 @@
 	<TableLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
+	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="5dp"
 	    android:layout_marginRight="5dp"
 	    android:stretchColumns="1" >
@@ -112,13 +112,23 @@
 		        android:text="Medium Text"
 		        android:textAppearance="?android:attr/textAppearanceMedium" />
 		</TableRow>
-
-	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="TextView" />
     
 	</TableLayout>
+	
+	<ScrollView
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent" >
+	        
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="top"
+	            android:layout_marginLeft="5dp"
+	            android:layout_marginRight="5dp"
+	            android:text="Medium Text"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+		</ScrollView>
 
 </LinearLayout>
