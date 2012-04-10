@@ -10,4 +10,5 @@
      <string name="pricingschedule_title">Pricing Schedule Details:</string>
      <string name="getthermostatdata_title">Thermostat Data:</string>
      <string name="setthermostatdata_title">Set Thermostat:</string>
+     <string name="meter_reading_title">Meter Reading Details:</string>
 </resources>

@@ -20,7 +20,7 @@ public class MeterReadingsActivity extends AbstractAsyncTendrilActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tendril_generic_text_layout);
+        setContentView(R.layout.tendril_meter_reading_layout);
 
     }
 
@@ -33,9 +33,14 @@ public class MeterReadingsActivity extends AbstractAsyncTendrilActivity {
         try {
             // meterReading = (new MeterReadingTask()).execute(tendril).get();
             meterReadings = tendril.asyncGetMeterReadings();
-            TextView textView = (TextView) findViewById(R.id.textView1);
-
-            textView.setText(meterReadings.toString());
+            
+            TextView meterReadingsData = (TextView) findViewById(R.id.textView1);
+            TextView customerAgreement = (TextView) findViewById(R.id.meter_reading_agreement);
+            TextView meterAsset = (TextView) findViewById(R.id.meter_asset);
+            
+            customerAgreement.setText(meterReadings.getMeterReading().getCustomerAgreement().getmRID());
+            meterAsset.setText(meterReadings.getMeterReading().getMeterAsset().getmRID());
+            meterReadingsData.setText(meterReadings.getMeterReading().getReadings().toString());
 
         }
         catch (Exception e) {
