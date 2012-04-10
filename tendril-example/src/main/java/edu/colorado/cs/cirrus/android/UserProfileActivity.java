@@ -37,7 +37,7 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 
 		}catch(TendrilException e){
 			e.printStackTrace();
-			textView.setText(e.getTendrilResponse().toString());
+			textView.setText(e.toString());
 		}catch (Exception e) {
 			e.printStackTrace();
 			textView.setText(e.toString());

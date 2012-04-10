@@ -1,10 +1,9 @@
 package edu.colorado.cs.cirrus.android;
 
-import java.util.concurrent.ExecutionException;
-
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import edu.colorado.cs.cirrus.domain.model.TendrilErrorResponse;
 
@@ -57,40 +56,44 @@ public class TendrilException extends Exception {
 	
 	private void setExtraInfo(Throwable e){
 		if (e instanceof HttpClientErrorException) {
-            String xml = ((HttpClientErrorException) e).getResponseBodyAsString();
-            Serializer serializer = new Persister();
-            try {
-				setTendrilResponse(serializer.read(TendrilErrorResponse.class, xml));
+			String xml = ((HttpClientErrorException) e).getResponseBodyAsString();
+			Serializer serializer = new Persister();
+			TendrilErrorResponse r=new TendrilErrorResponse("Unknown Client Error (4xx error code)","None given");
+			try {
+				r=serializer.read(TendrilErrorResponse.class, xml);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-        }
+			
+			if(r.getDetails()==null || r.getDetails().isEmpty()){
+				r.setDetails("Unknown Client Error (4xx error code)");
+			}
+			if(r.getReason()==null || r.getReason().isEmpty()){
+				r.setDetails("None given");
+			}
+			setTendrilResponse(r);
+		}else if(e instanceof HttpServerErrorException){
+			String xml = ((HttpServerErrorException) e).getResponseBodyAsString();
+			Serializer serializer = new Persister();
+			TendrilErrorResponse r=new TendrilErrorResponse("Unknown Server Error (5xx error code)","None given");
+			try {
+				r=serializer.read(TendrilErrorResponse.class, xml);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
+			if(r.getDetails()==null || r.getDetails().isEmpty()){
+				r.setDetails("Unknown Server Error (5xx error code)");
+			}
+			if(r.getReason()==null || r.getReason().isEmpty()){
+				r.setDetails("None given");
+			}
+			setTendrilResponse(r);
+		}
 	}
-	
-	/*private Exception transformException(Exception e) {
-        Exception toThrow = e;
-        if (e instanceof HttpClientErrorException) {
-            String xml = ((HttpClientErrorException) e).getResponseBodyAsString();
-            Serializer serializer = new Persister();
-            try {
-                TendrilErrorResponse res = serializer.read(TendrilErrorResponse.class, xml);
-                toThrow = new TendrilException(e, res);
-            }
-            catch (Exception r) {
-                toThrow = new TendrilException(e);
-            }
-        }
-        else if (e instanceof RuntimeException) {
-            Exception tmp = (Exception) e.getCause();
-            toThrow = transformException(tmp);
-        }
-        else if (e instanceof ExecutionException) {
-            Exception tmp = (Exception) e.getCause();
-            toThrow = transformException(tmp);
-        }
-        else if (e instanceof NullPointerException) {
-            toThrow = new TendrilException(e);
-        }
-        return toThrow;
-    }*/
+
+	@Override
+	public String toString() {
+		return super.toString()+" [response=" + response + "]";
+	}
 }

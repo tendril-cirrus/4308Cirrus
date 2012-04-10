@@ -203,7 +203,7 @@ public class TendrilTemplate implements ITendril {
         // return null;
     }
 
-    public UserProfile asyncGetUserProfile() throws Exception {
+    public UserProfile asyncGetUserProfile() throws TendrilException {
         try {
             UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
             if (profile == null) {
@@ -216,7 +216,11 @@ public class TendrilTemplate implements ITendril {
             return profile;
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            if(e instanceof TendrilException){
+            	throw (TendrilException)e;
+            }else{
+            	throw new TendrilException(e);
+            }
         }
     }
 
