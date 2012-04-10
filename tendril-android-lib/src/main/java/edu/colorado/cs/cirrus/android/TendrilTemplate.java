@@ -74,7 +74,7 @@ public class TendrilTemplate implements ITendril {
     private static final String GET_PRICING_PROGRAM_URL = BASE_URL
             + "user/current-user/account/default-account/pricing/current-pricing-program";
     private static final String GET_PRICING_SCHEDULE_URL = BASE_URL
-            + "pricing/schedule;external-account-id={external-account-id}";
+            + "account/default-account/pricing/schedule;from={from};to={to}";
     private static final String GET_DEVICE_LIST_URL = BASE_URL
             + "user/current-user/account/default-account/location/default-location/network/default-network/device;include-extended-properties=true";
     private static final String GET_DEVICE_ACTION_DATA = BASE_URL + "device-action/{requestId}";
@@ -342,10 +342,12 @@ public class TendrilTemplate implements ITendril {
 
     // FIXME: this does not currently work- API documentation is inconsistent
     public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) {
-        Object[] vars = { getExternalAccountId() };
-        ResponseEntity<PricingSchedule> profile = restTemplate.exchange(GET_PRICING_SCHEDULE_URL, HttpMethod.GET,
+        Object[] vars = { from.toString(ISODateTimeFormat.dateTimeNoMillis()),
+                to.toString(ISODateTimeFormat.dateTimeNoMillis()) };
+        ResponseEntity<PricingSchedule> response = restTemplate.exchange(GET_PRICING_SCHEDULE_URL, HttpMethod.GET,
                 requestEntity, PricingSchedule.class, vars);
-        return profile.getBody();
+        System.err.println(response.getBody());
+        return response.getBody();
     }
 
     private String fetchThermostatDeviceRequestId() {

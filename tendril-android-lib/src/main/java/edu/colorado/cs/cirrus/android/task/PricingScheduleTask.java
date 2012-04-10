@@ -15,7 +15,7 @@ public class PricingScheduleTask extends
 		try {
 			TendrilTemplate tendril = TendrilTemplate.get();
 			if (tendril.isConnected())
-				return tendril.fetchPricingSchedule(null, null);
+				return tendril.fetchPricingSchedule(new DateTime("2011-03-02T00:00:00-07:00"), new DateTime("2011-12-31T00:00:00-07:00"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

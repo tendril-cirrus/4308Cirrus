@@ -3,27 +3,942 @@
 	xmlns:ns2="http://iec.ch/TC57/2009/MeterReadings#"
 	xmlns:ns3="http://platform.tendrilinc.com/tnop/extension/ems/logicalgroup"
 	xmlns:ns4="http://platform.tendrilinc.com/tnop/extension/ems/buildingmodel"
-	
-	accountId="aid_aw" 
-	endDate="2011-12-31T00:00:00Z" 
-	startDate="2011-12-30T00:00:00Z">
+	accountId="aid_dr" endDate="2011-12-31T00:00:00Z" startDate="2011-12-11T00:00:00Z">
 	<effectivePriceRecords>
 		<effectivePriceRecord>
-			<effectiveDate>2011-12-30T00:00:00Z</effectiveDate>
-			<programName>Flat</programName>
-			<programDescription>Flat Rate Price Program</programDescription>
+			<effectiveDate>2011-12-11T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
 			<scheduleName>PENDING!</scheduleName>
 			<rateKey>A</rateKey>
-			<rateLabel>Price</rateLabel>
-			<energyPrice>0.12000</energyPrice>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
 			<deliveryCharge>0.00000</deliveryCharge>
-			<accountId>aid_aw</accountId>
+			<accountId>aid_dr</accountId>
 			<priceIndex>1</priceIndex>
 			<registerIndex>1</registerIndex>
-			<numberOfRates>1</numberOfRates>
+			<numberOfRates>3</numberOfRates>
 			<peak>false</peak>
-			<endDate>2011-12-31T00:00:00Z</endDate>
-			<id>862256569</id>
+			<endDate>2011-12-12T10:00:00-07:00</endDate>
+			<id>1946885995768</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-12T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-12T13:00:00-07:00</endDate>
+			<id>1962619400748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-12T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-12T17:00:00-07:00</endDate>
+			<id>1952236756716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-13T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-12T19:00:00-07:00</endDate>
+			<id>1938402200748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-13T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-13T10:00:00-07:00</endDate>
+			<id>1931486375688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-13T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-13T13:00:00-07:00</endDate>
+			<id>1879589000748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-13T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-13T17:00:00-07:00</endDate>
+			<id>1869206356716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-14T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-13T19:00:00-07:00</endDate>
+			<id>1855371800748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-14T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-14T10:00:00-07:00</endDate>
+			<id>1848455975688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-14T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-14T13:00:00-07:00</endDate>
+			<id>1796558600748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-14T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-14T17:00:00-07:00</endDate>
+			<id>1786175956716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-15T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-14T19:00:00-07:00</endDate>
+			<id>1772341400748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-15T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-15T10:00:00-07:00</endDate>
+			<id>1765425575688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-15T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-15T13:00:00-07:00</endDate>
+			<id>1713528200748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-15T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-15T17:00:00-07:00</endDate>
+			<id>1703145556716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-16T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-15T19:00:00-07:00</endDate>
+			<id>1689311000748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-16T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-16T10:00:00-07:00</endDate>
+			<id>1682395175688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-16T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-16T13:00:00-07:00</endDate>
+			<id>1630497800748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-16T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-16T17:00:00-07:00</endDate>
+			<id>1620115156716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-17T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-16T19:00:00-07:00</endDate>
+			<id>1606280600748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-17T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-19T10:00:00-07:00</endDate>
+			<id>1599364775688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-19T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-19T13:00:00-07:00</endDate>
+			<id>1381406600748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-19T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-19T17:00:00-07:00</endDate>
+			<id>1371023956716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-20T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-19T19:00:00-07:00</endDate>
+			<id>1357189400748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-20T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-20T10:00:00-07:00</endDate>
+			<id>1350273575688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-20T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-20T13:00:00-07:00</endDate>
+			<id>1298376200748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-20T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-20T17:00:00-07:00</endDate>
+			<id>1287993556716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-21T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-20T19:00:00-07:00</endDate>
+			<id>1274159000748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-21T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-21T10:00:00-07:00</endDate>
+			<id>1267243175688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-21T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-21T13:00:00-07:00</endDate>
+			<id>1215345800748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-21T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-21T17:00:00-07:00</endDate>
+			<id>1204963156716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-22T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-21T19:00:00-07:00</endDate>
+			<id>1191128600748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-22T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-22T10:00:00-07:00</endDate>
+			<id>1184212775688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-22T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-22T13:00:00-07:00</endDate>
+			<id>1132315400748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-22T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-22T17:00:00-07:00</endDate>
+			<id>1121932756716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-23T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-22T19:00:00-07:00</endDate>
+			<id>1108098200748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-23T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-23T10:00:00-07:00</endDate>
+			<id>1101182375688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-23T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-23T13:00:00-07:00</endDate>
+			<id>1049285000748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-23T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-23T17:00:00-07:00</endDate>
+			<id>1038902356716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-24T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-23T19:00:00-07:00</endDate>
+			<id>1025067800748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-24T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-27T10:00:00-07:00</endDate>
+			<id>1018151975688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-27T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-27T13:00:00-07:00</endDate>
+			<id>717163400748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-27T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-27T17:00:00-07:00</endDate>
+			<id>706780756716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-28T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-27T19:00:00-07:00</endDate>
+			<id>692946200748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-28T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-28T10:00:00-07:00</endDate>
+			<id>686030375688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-28T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-28T13:00:00-07:00</endDate>
+			<id>634133000748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-28T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-28T17:00:00-07:00</endDate>
+			<id>623750356716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-29T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-28T19:00:00-07:00</endDate>
+			<id>609915800748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-29T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-29T10:00:00-07:00</endDate>
+			<id>602999975688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-29T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-29T13:00:00-07:00</endDate>
+			<id>551102600748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-29T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-29T17:00:00-07:00</endDate>
+			<id>540719956716</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-30T00:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-29T19:00:00-07:00</endDate>
+			<id>526885400748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-30T02:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>A</rateKey>
+			<rateLabel>Off Peak</rateLabel>
+			<energyPrice>0.08000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>1</priceIndex>
+			<registerIndex>1</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>false</peak>
+			<endDate>2011-12-30T10:00:00-07:00</endDate>
+			<id>519969575688</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-30T17:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>B</rateKey>
+			<rateLabel>Shoulder</rateLabel>
+			<energyPrice>0.11000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>2</priceIndex>
+			<registerIndex>2</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-30T13:00:00-07:00</endDate>
+			<id>468072200748</id>
+		</effectivePriceRecord>
+		<effectivePriceRecord>
+			<effectiveDate>2011-12-30T20:00:00Z</effectiveDate>
+			<programName>Time Of Use</programName>
+			<programDescription>Time Of Use Price Program</programDescription>
+			<scheduleName>PENDING!</scheduleName>
+			<rateKey>C</rateKey>
+			<rateLabel>On Peak</rateLabel>
+			<energyPrice>0.15000</energyPrice>
+			<deliveryCharge>0.00000</deliveryCharge>
+			<accountId>aid_dr</accountId>
+			<priceIndex>3</priceIndex>
+			<registerIndex>3</registerIndex>
+			<numberOfRates>3</numberOfRates>
+			<peak>true</peak>
+			<endDate>2011-12-30T17:00:00-07:00</endDate>
+			<id>457689556716</id>
 		</effectivePriceRecord>
 	</effectivePriceRecords>
 </pricingSchedule>
