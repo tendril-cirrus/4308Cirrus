@@ -1,6 +1,5 @@
 package edu.colorado.cs.cirrus.domain.model;
 
-import org.joda.time.DateTime;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -13,7 +12,7 @@ public class EffectivePriceRecord {
 	
 
 	@Element
-	private DateTime effectiveDate;
+	private String effectiveDate;
 	
 	@Element
 	private String programName;
@@ -52,16 +51,16 @@ public class EffectivePriceRecord {
 	private boolean peak;
 	
 	@Element
-	private DateTime endDate;
+	private String endDate;
 	
 	@Element
 	private long id;
 
-	public DateTime getEffectiveDate() {
+	public String getEffectiveDate() {
 		return effectiveDate;
 	}
 
-	public void setEffectiveDate(DateTime effectiveDate) {
+	public void setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
 
@@ -161,11 +160,11 @@ public class EffectivePriceRecord {
 		this.peak = peak;
 	}
 
-	public DateTime getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(DateTime endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

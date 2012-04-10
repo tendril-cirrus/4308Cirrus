@@ -11,7 +11,7 @@ import org.simpleframework.xml.core.Persister;
 public class PricingScheduleTest {
 
 	@Test
-	public void canDeserializeUser() {
+	public void canDeserializePricingSchedule() {
 		Serializer serializer = new Persister();
 		File source = new File("src/test/resources/PricingSchedule.xml");
 
