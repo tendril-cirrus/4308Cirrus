@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
@@ -84,7 +85,7 @@ public class TendrilTemplate implements ITendril {
 
     public static TendrilTemplate get() {
         if (instance == null) {
-            instance = new TendrilTemplate("csci4138@tendrilinc.com", "password");
+            instance = new TendrilTemplate(USERNAME, PASSWORD);
         }
         return instance;
     }
@@ -114,6 +115,7 @@ public class TendrilTemplate implements ITendril {
         System.err.println("Initializing TendrilTemplate");
 
         this.restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
         // The HttpComponentsClientHttpRequestFactory uses the
         // org.apache.http package to make network requests
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(HttpUtils.getNewHttpClient()));
@@ -227,7 +229,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     private boolean authorize(boolean refresh) {
-
         DateTime expiration = new DateTime();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.set("Accept", "application/json");
@@ -239,7 +240,6 @@ public class TendrilTemplate implements ITendril {
         if (refresh) {
             formData.add("grant_type", "refresh_token");
             formData.add("refresh_token", accessGrant.getRefresh_token());
-
         }
         else {
             formData.add("client_id", APP_KEY);
@@ -315,11 +315,15 @@ public class TendrilTemplate implements ITendril {
         for (Object o : vars) {
             System.err.println(o.toString());
         }
-        ResponseEntity<MeterReading> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
-                requestEntity, MeterReading.class, vars);
+        //ResponseEntity<MeterReading> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
+          //      requestEntity, MeterReading.class, vars);
+        ResponseEntity<String> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
+                requestEntity, String.class, vars);
+        
+        
         System.err.println(meterReading.getBody());
-        return meterReading.getBody();
-
+        //return meterReading.getBody();
+return null;
     }
 
     public MeterReading fetchMeterReadingRange(DateTime from, DateTime to) {
