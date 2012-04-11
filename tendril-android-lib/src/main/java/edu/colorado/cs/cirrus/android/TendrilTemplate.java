@@ -55,8 +55,8 @@ public class TendrilTemplate implements ITendril {
     private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
     private static final String APP_SECRET = "3230f8f0aa064bea145d425c57fe8679";
     private static final String SCOPE = "offline_access";
-    private static final String USERNAME = "csci4138@tendrilinc.com";
-    private static final String PASSWORD = "password";
+    //private static final String USERNAME = "csci4138@tendrilinc.com";
+    //private static final String PASSWORD = "password";
     private static final String THERMOSTAT_CATEGORY = "Thermostat";
 
     private static final String GET_USER_INFO_URL = BASE_URL + "user/current-user";
@@ -86,7 +86,7 @@ public class TendrilTemplate implements ITendril {
 
     public static TendrilTemplate get() {
         if (instance == null) {
-            instance = new TendrilTemplate(USERNAME, PASSWORD);
+            instance = new TendrilTemplate();
         }
         return instance;
     }
@@ -108,11 +108,8 @@ public class TendrilTemplate implements ITendril {
      * Create a new instance of TendrilTemplate. This constructor creates the TendrilTemplate using a username and
      * password.
      * 
-     * 
-     * @param login
-     * @param password
      **/
-    private TendrilTemplate(String login, String password) {
+    private TendrilTemplate() {
         System.err.println("Initializing TendrilTemplate");
 
         this.restTemplate = new RestTemplate();
@@ -121,7 +118,10 @@ public class TendrilTemplate implements ITendril {
         // org.apache.http package to make network requests
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(HttpUtils.getNewHttpClient()));
 
-        logIn();
+    }
+
+    public String logIn(String userName, String password) {
+        authorize(false, userName, password);
 
         List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
         acceptableMediaTypes.add(MediaType.APPLICATION_XML);
@@ -130,6 +130,22 @@ public class TendrilTemplate implements ITendril {
         requestHeaders.setContentType(MediaType.APPLICATION_XML);
         requestHeaders.set("access_token", this.accessGrant.getAccess_token());
         requestEntity = new HttpEntity<Object>(requestHeaders);
+        
+        return this.accessGrant.getAccess_token();
+    }
+    
+    public void useAccessToken(String accessToken) {
+        accessGrant = new AccessGrant();
+        accessGrant.setAccess_token(accessToken);
+        List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+        acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+        requestHeaders = new HttpHeaders();
+        requestHeaders.setAccept(acceptableMediaTypes);
+        requestHeaders.setContentType(MediaType.APPLICATION_XML);
+        requestHeaders.set("access_token", accessToken);
+        requestEntity = new HttpEntity<Object>(requestHeaders);
+        //TODO: check validity of access token
+        
     }
 
     public CostAndConsumption asyncGetCostAndConsumption() throws TendrilException {
@@ -216,10 +232,11 @@ public class TendrilTemplate implements ITendril {
             return profile;
         }
         catch (Exception e) {
-            if(e instanceof TendrilException){
-            	throw (TendrilException)e;
-            }else{
-            	throw new TendrilException(e);
+            if (e instanceof TendrilException) {
+                throw (TendrilException) e;
+            }
+            else {
+                throw new TendrilException(e);
             }
         }
     }
@@ -234,7 +251,7 @@ public class TendrilTemplate implements ITendril {
         // return null;
     }
 
-    private boolean authorize(boolean refresh) {
+    private boolean authorize(boolean refresh, String userName, String password) {
         DateTime expiration = new DateTime();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.set("Accept", "application/json");
@@ -251,8 +268,8 @@ public class TendrilTemplate implements ITendril {
             formData.add("client_id", APP_KEY);
             formData.add("client_secret", APP_SECRET);
             formData.add("grant_type", "password");
-            formData.add("username", getUsername());
-            formData.add("password", getPassword());
+            formData.add("username", userName);
+            formData.add("password", password);
         }
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -462,9 +479,9 @@ public class TendrilTemplate implements ITendril {
         return user.getId();
     }
 
-    private String getPassword() {
-        return PASSWORD;
-    }
+//    private String getPassword() {
+//        return PASSWORD;
+//    }
 
     public GetThermostatDataRequest getThermostatData() throws TendrilException {
         Object[] vars = { fetchThermostatDeviceRequestId() };
@@ -516,9 +533,9 @@ public class TendrilTemplate implements ITendril {
         return user;
     }
 
-    private String getUsername() {
-        return USERNAME;
-    }
+//    private String getUsername() {
+//        return USERNAME;
+//    }
 
     public UserProfile getUserProfile() throws TendrilException {
         if (this.userProfile == null) {
@@ -531,24 +548,24 @@ public class TendrilTemplate implements ITendril {
     // wait for an error connecting before checking expiration time
     public boolean isConnected() {
         DateTime now = new DateTime();
-        if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
-            if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
-                System.err.println("isConnected(): Valid access token: " + accessGrant.getAccess_token() + " expires: "
-                        + accessGrant.getExpirationDateTime());
-                return true;
-            }
-            else {
-                return refreshToken();
-            }
-        }
-        else {
-            return logIn();
-        }
+        
+        return true;
+        //THIS WILL NOT WORK
+//        if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
+//            if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
+//                System.err.println("isConnected(): Valid access token: " + accessGrant.getAccess_token() + " expires: "
+//                        + accessGrant.getExpirationDateTime());
+//                return true;
+//            }
+//            else {
+//                return refreshToken();
+//            }
+//        }
+//        else {
+//            return false;
+//        }
     }
 
-    public boolean logIn() {
-        return authorize(false);
-    }
 
     public boolean logOut() {
         // TODO: actually log out of Tendril server
@@ -558,7 +575,7 @@ public class TendrilTemplate implements ITendril {
     }
 
     private boolean refreshToken() {
-        return authorize(true);
+        return authorize(true, null, null);
     }
 
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) throws TendrilException {

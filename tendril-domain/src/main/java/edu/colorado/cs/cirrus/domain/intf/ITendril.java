@@ -37,7 +37,7 @@ public interface ITendril {
 	 * @param Password
 	 * @return
 	 */
-	boolean logIn();
+	//boolean logIn();
 	
 	//User fetchUser() throws TendrilException;
 
