@@ -2,6 +2,7 @@ package edu.colorado.cs.cirrus.domain.intf;
 
 import org.joda.time.DateTime;
 
+//import edu.colorado.cs.cirrus.android.TendrilException;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 import edu.colorado.cs.cirrus.domain.model.User;
@@ -38,10 +39,10 @@ public interface ITendril {
 	 */
 	boolean logIn();
 	
-	User fetchUser();
+	//User fetchUser() throws TendrilException;
 
-	PricingSchedule fetchPricingSchedule(DateTime from, DateTime to);
+	//PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) throws TendrilException;
 
-	Devices fetchDevices();
+	//Devices fetchDevices() throws TendrilException;
 
 }

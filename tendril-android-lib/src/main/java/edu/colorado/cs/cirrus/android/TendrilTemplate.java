@@ -274,45 +274,60 @@ public class TendrilTemplate implements ITendril {
 
     // TENDRIL's API is not working well- some date ranges return 500 error for no known reason
     private CostAndConsumption fetchCostAndConsumption(String resolution, DateTime from, DateTime to,
-            Integer limitToLatest) {
+            Integer limitToLatest) throws TendrilException {
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
         String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
         System.err.println(fromString);
         System.err.println(toString);
 
         Object[] vars = { resolution, fromString, toString, limitToLatest };
+        ResponseEntity<CostAndConsumption> costAndConsumption;
 
-        ResponseEntity<CostAndConsumption> costAndConsumption = restTemplate.exchange(
+        try{
+        	costAndConsumption = restTemplate.exchange(
                 GET_HISTORICAL_COST_AND_CONSUMPTION_URL, HttpMethod.GET, requestEntity, CostAndConsumption.class, vars);
-        System.err.println(costAndConsumption.getBody());
+        }catch(Exception e){
+        	throw new TendrilException(e);
+        }
+        //System.err.println(costAndConsumption.getBody());
         return costAndConsumption.getBody();
 
     }
 
-    public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) {
+    public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) throws TendrilException {
         return fetchCostAndConsumption("RANGE", from, to, 1);
 
     }
 
-    public Devices fetchDevices() {
-        ResponseEntity<Devices> devices = restTemplate.exchange(GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
-                Devices.class);
-
-        System.err.println(devices.getBody());
+    public Devices fetchDevices() throws TendrilException {
+    	ResponseEntity<Devices> devices;
+    	try{
+    		devices = restTemplate.exchange(GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,Devices.class);
+    	}catch(Exception e){
+    		throw new TendrilException(e);
+    	}
+    	
+        //System.err.println(devices.getBody());
         return devices.getBody();
     }
 
-    public ExternalAccountId fetchExternalAccountId() {
-
-        ResponseEntity<ExternalAccountId> response = restTemplate.exchange(GET_USER_EXTERNAL_ACCOUNT_ID_URL,
+    public ExternalAccountId fetchExternalAccountId() throws TendrilException {
+    	
+    	ResponseEntity<ExternalAccountId> response;
+    	
+        try{
+        	response = restTemplate.exchange(GET_USER_EXTERNAL_ACCOUNT_ID_URL,
                 HttpMethod.GET, requestEntity, ExternalAccountId.class);
-        System.err.println(response.getBody());
+        }catch(Exception e){
+    		throw new TendrilException(e);
+    	}
+        //System.err.println(response.getBody());
         this.externalAccountId = response.getBody();
         return externalAccountId;
     }
 
     // Tendril's API is not working consistently enough to test this
-    private MeterReadings fetchMeterReadings(DateTime from, DateTime to, Integer limitToLatest, Source source) {
+    private MeterReadings fetchMeterReadings(DateTime from, DateTime to, Integer limitToLatest, Source source) throws TendrilException {
 
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
         String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -322,8 +337,14 @@ public class TendrilTemplate implements ITendril {
         for (Object o : vars) {
             System.err.println(o.toString());
         }
-        ResponseEntity<MeterReadings> meterReadings = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
+        
+        ResponseEntity<MeterReadings> meterReadings;
+        try{
+        	meterReadings = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
                 requestEntity, MeterReadings.class, vars);
+        }catch(Exception e){
+        	throw new TendrilException(e);
+        }
         // ResponseEntity<String> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
         // requestEntity, String.class, vars);
         // Serializer serializer = new Persister();
@@ -333,28 +354,40 @@ public class TendrilTemplate implements ITendril {
         return meterReadings.getBody();
     }
 
-    public MeterReadings fetchMeterReadingsRange(DateTime from, DateTime to) {
+    public MeterReadings fetchMeterReadingsRange(DateTime from, DateTime to) throws TendrilException {
         return fetchMeterReadings(from, to, 100, Source.ACTUAL);
     }
 
-    public PricingProgram fetchPricingProgram() {
-        ResponseEntity<PricingProgram> pricingSchedule = restTemplate.exchange(GET_PRICING_PROGRAM_URL, HttpMethod.GET,
+    public PricingProgram fetchPricingProgram() throws TendrilException {
+        
+    	ResponseEntity<PricingProgram> pricingSchedule;
+    	try{
+    	pricingSchedule = restTemplate.exchange(GET_PRICING_PROGRAM_URL, HttpMethod.GET,
                 requestEntity, PricingProgram.class);
+    	}catch(Exception e){
+    		throw new TendrilException(e);
+    	}
         return pricingSchedule.getBody();
 
     }
 
     // FIXME: this does not currently work- API documentation is inconsistent
-    public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) {
+    public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) throws TendrilException {
         Object[] vars = { from.toString(ISODateTimeFormat.dateTimeNoMillis()),
                 to.toString(ISODateTimeFormat.dateTimeNoMillis()) };
-        ResponseEntity<PricingSchedule> response = restTemplate.exchange(GET_PRICING_SCHEDULE_URL, HttpMethod.GET,
+        
+        ResponseEntity<PricingSchedule> response;
+        try{
+        	response = restTemplate.exchange(GET_PRICING_SCHEDULE_URL, HttpMethod.GET,
                 requestEntity, PricingSchedule.class, vars);
-        System.err.println(response.getBody());
+        }catch(Exception e){
+        	throw new TendrilException(e);
+        }
+        //System.err.println(response.getBody());
         return response.getBody();
     }
 
-    private String fetchThermostatDeviceRequestId() {
+    private String fetchThermostatDeviceRequestId() throws TendrilException {
         GetThermostatDataRequest gtdr = new GetThermostatDataRequest();
         gtdr.setDeviceId(getTstat().getDeviceId());
         gtdr.setLocationId(getLocationId());
@@ -379,41 +412,52 @@ public class TendrilTemplate implements ITendril {
             gtdrResponse = response.getBody();
             System.err.println(gtdrResponse);
         }
-        catch (HttpClientErrorException e) {
-            e.printStackTrace();
-            System.err.println(e.getResponseBodyAsString());
+        catch (Exception e) {
+            //e.printStackTrace();
+            //System.err.println(e.getResponseBodyAsString());
+        	throw new TendrilException(e);
         }
         return gtdrResponse.getRequestId();
     }
 
-    public User fetchUser() {
-        ResponseEntity<User> response = restTemplate.exchange(GET_USER_INFO_URL, HttpMethod.GET, requestEntity,
-                User.class);
-        System.err.println(response.getBody());
+    public User fetchUser() throws TendrilException {
+    	ResponseEntity<User> response;
+    	try{
+    		response = restTemplate.exchange(GET_USER_INFO_URL, HttpMethod.GET, requestEntity,User.class);
+    	}catch(Exception e){
+    		throw new TendrilException(e);
+    	}
+        //System.err.println(response.getBody());
         user = response.getBody();
         return user;
     }
 
     // throws a 404 even for current-user. See Tendril's "try it" page
-    public UserProfile fetchUserProfile() {
-        ResponseEntity<UserProfile> response = restTemplate.exchange(GET_USER_PROFILE_URL, HttpMethod.GET,
+    public UserProfile fetchUserProfile() throws TendrilException {
+        
+    	ResponseEntity<UserProfile> response;
+    	try{
+    		response = restTemplate.exchange(GET_USER_PROFILE_URL, HttpMethod.GET,
                 requestEntity, UserProfile.class);
+    	}catch(Exception e){
+    		throw new TendrilException(e);
+    	}
         System.err.println(response.getBody());
         userProfile = response.getBody();
         return userProfile;
     }
 
-    public Devices getDevices() {
+    public Devices getDevices() throws TendrilException {
         if (devices == null) devices = fetchDevices();
         return devices;
     }
 
-    public String getExternalAccountId() {
+    public String getExternalAccountId() throws TendrilException {
         if (this.externalAccountId == null) fetchExternalAccountId();
         return externalAccountId.getExternalAccountId();
     }
 
-    private String getLocationId() {
+    private String getLocationId() throws TendrilException {
         if (user == null) fetchUser();
         return user.getId();
     }
@@ -422,7 +466,7 @@ public class TendrilTemplate implements ITendril {
         return PASSWORD;
     }
 
-    public GetThermostatDataRequest getThermostatData() {
+    public GetThermostatDataRequest getThermostatData() throws TendrilException {
         Object[] vars = { fetchThermostatDeviceRequestId() };
         GetThermostatDataRequest gtdrResponse = null;
         String requestState = "In Progress";
@@ -454,7 +498,7 @@ public class TendrilTemplate implements ITendril {
         return gtdrResponse;
     }
 
-    public Device getTstat() {
+    public Device getTstat() throws TendrilException {
         if (tstat == null) {
             for (Device d : getDevices().getDevice()) {
                 if (d.getCategory().equalsIgnoreCase(THERMOSTAT_CATEGORY)) {
@@ -467,7 +511,7 @@ public class TendrilTemplate implements ITendril {
         return tstat;
     }
 
-    public User getUser() {
+    public User getUser() throws TendrilException {
         if (user == null) fetchUser();
         return user;
     }
@@ -476,7 +520,7 @@ public class TendrilTemplate implements ITendril {
         return USERNAME;
     }
 
-    public UserProfile getUserProfile() {
+    public UserProfile getUserProfile() throws TendrilException {
         if (this.userProfile == null) {
             this.userProfile = fetchUserProfile();
         }
@@ -517,7 +561,7 @@ public class TendrilTemplate implements ITendril {
         return authorize(true);
     }
 
-    public SetThermostatDataRequest setTstatSetpoint(Float setpoint) {
+    public SetThermostatDataRequest setTstatSetpoint(Float setpoint) throws TendrilException {
         SetThermostatDataRequest stdr = new SetThermostatDataRequest();
         stdr.setDeviceId(getTstat().getDeviceId());
         stdr.setLocationId(getLocationId());
