@@ -147,7 +147,8 @@ public class TendrilTemplate implements ITendril {
         //TODO: check validity of access token
         
     }
-
+    
+    @Deprecated
     public CostAndConsumption asyncGetCostAndConsumption() throws TendrilException {
         try {
             return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
@@ -157,7 +158,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public Devices asyncGetDevices() throws TendrilException {
         try {
             return (new DevicesTask()).execute(TendrilTemplate.get()).get();
@@ -167,7 +169,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public MeterReadings asyncGetMeterReadings() throws TendrilException {
         try {
             return (new MeterReadingsTask()).execute(TendrilTemplate.get()).get();
@@ -177,7 +180,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public PricingProgram asyncGetPricingProgram() throws TendrilException {
         try {
             return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
@@ -187,7 +191,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public PricingSchedule asyncGetPricingSchedule() throws TendrilException {
         try {
             return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
@@ -197,7 +202,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public User asyncGetUser() throws TendrilException {
         try {
             return (new UserTask()).execute(TendrilTemplate.get()).get();
@@ -207,7 +213,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public GetThermostatDataRequest asyncGetThermostatData() throws TendrilException {
         try {
             return (new GetThermostatDataTask()).execute(TendrilTemplate.get()).get();
@@ -218,7 +225,8 @@ public class TendrilTemplate implements ITendril {
         }
         // return null;
     }
-
+    
+    @Deprecated
     public UserProfile asyncGetUserProfile() throws TendrilException {
         try {
             UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
@@ -240,7 +248,8 @@ public class TendrilTemplate implements ITendril {
             }
         }
     }
-
+    
+    @Deprecated
     public SetThermostatDataRequest asyncSetThermostat() throws TendrilException {
         try {
             return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
