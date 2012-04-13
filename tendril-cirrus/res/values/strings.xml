@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello tendril-example!</string>
-    <string name="app_name">tendril-example</string>
+    <string name="hello">hello</string>
+    <string name="app_name">tendril-cirrus</string>
      <string name="tendril_description">Connects to Tendril App Developer Program Server</string>
      <string name="user_profile_title">User Profile Info:</string>
      <string name="device_list_title">List of Devices:</string>
@@ -12,5 +12,9 @@
      <string name="password">Password:</string>
      <string name="cancel">Cancel</string>
      <string name="submit">Submit</string>
+     <string name="about">About</string>
+     <string name="login">Login</string>
+     <string name="aboutTitle">About Tendril-Cirrus</string>
+     <string name="aboutDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.</string>
     
 </resources>

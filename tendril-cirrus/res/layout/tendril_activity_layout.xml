@@ -26,6 +26,34 @@
         />
     
     <LinearLayout 
+        android:id="@+id/MainMenu"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" 
+        android:orientation="vertical" 
+        android:visibility="gone"
+        android:layout_marginTop="20dip">
+        <Button
+            android:id="@+id/LoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="160dip"
+            android:layout_span="2"
+            android:text="@string/login"
+            android:enabled="true">
+        </Button>
+        <Button
+            android:id="@+id/AboutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="160dip"
+            android:layout_span="2"
+            android:text="@string/about"
+            android:enabled="true">
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout 
         android:id="@+id/LoginMenu"
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content"

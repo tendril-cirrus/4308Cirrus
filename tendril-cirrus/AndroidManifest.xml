@@ -33,18 +33,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.colorado.cs.cirrus.android.UserActivity" />
-        <activity android:name="edu.colorado.cs.cirrus.android.UserProfileActivity" />
-        <activity android:name="edu.colorado.cs.cirrus.android.PricingProgramActivity" />
-        <activity android:name="edu.colorado.cs.cirrus.android.DevicesActivity" />
-        <activity android:name="edu.colorado.cs.cirrus.android.DeviceDetailActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.PricingScheduleActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.CostAndConsumptionActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.MeterReadingActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.SetThermostatActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.GetThermostatDataActivity" />
-    	<activity android:name="edu.colorado.cs.cirrus.android.CirrusPreferenceActivity" />
-    	
+
+        <activity android:name=".AboutActivity" >
+            <intent-filter>
+                <action android:name="edu.colorado.cs.cirrus.android.AboutActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     
     </application>
 

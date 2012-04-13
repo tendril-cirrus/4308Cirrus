@@ -44,13 +44,6 @@ public abstract class AbstractAsyncTendrilActivity extends SherlockActivity impl
 //    }
     
     @Override
-
-    public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
-    	this.tendril = TendrilTemplate.get();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         destroyed = true;

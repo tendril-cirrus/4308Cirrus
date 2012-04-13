@@ -1,42 +1,38 @@
 package edu.colorado.cs.cirrus.android;
 
-import org.joda.time.DateTime;
-
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
-import android.preference.PreferenceManager;
+import android.view.View.OnClickListener;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-import com.actionbarsherlock.app.SherlockActivity;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
 
-public class TendrilActivity extends SherlockActivity {
-    // public class TendrilActivity extends FragmentActivity {
+public class TendrilActivity extends AbstractAsyncTendrilActivity {
 
-    private TendrilTemplate tendril;
-    private String rememberToken;
+    private String accessToken;
     private static SharedPreferences customCirrusPrefs;
     private LinearLayout loginMenu;
+    private LinearLayout mainMenu;
 
-    private Button loginButton;
+
     private Button loginSubmitButton;
-    private Button loginCancelButton;
+    private Button loginCancelButton;;
+    private Button loginButton;
+    private Button aboutButton;
 
+    private EditText emailInput;
+    private EditText passwordInput;
+
+    private simpleListener mySimpleListener = new simpleListener();
 
     protected static final String TAG = TendrilActivity.class.getSimpleName();
 
@@ -44,8 +40,10 @@ public class TendrilActivity extends SherlockActivity {
      * Called when the activity is first created.
      * 
      * @param savedInstanceState
-     *            If the activity is being re-initialized after previously being shut down then this Bundle contains the
-     *            data it most recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
+     *            If the activity is being re-initialized after previously being
+     *            shut down then this Bundle contains the data it most recently
+     *            supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it
+     *            is null.</b>
      * 
      */
     @Override
@@ -53,6 +51,7 @@ public class TendrilActivity extends SherlockActivity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
 
+        tendril = TendrilTemplate.get();
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
     }
@@ -60,16 +59,29 @@ public class TendrilActivity extends SherlockActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // TendrilTemplate tendril = ((TendrilApplication) getApplication()).getTendril();
+        // TendrilTemplate tendril = ((TendrilApplication)
+        // getApplication()).getTendril();
         tendril = TendrilTemplate.get();
 
-
-        //Grab layouts and buttons
+        // Grab layouts and buttons
+        loginButton = (Button) findViewById(R.id.LoginButton);
         loginSubmitButton = (Button) findViewById(R.id.LoginSubmitButton);
         loginCancelButton = (Button) findViewById(R.id.LoginCancelButton);
+        aboutButton = (Button) findViewById(R.id.AboutButton);
+        
 
         loginMenu = (LinearLayout) findViewById(R.id.LoginMenu);
+        mainMenu = (LinearLayout) findViewById(R.id.MainMenu);
 
+        // Grab inputs
+        emailInput = (EditText) findViewById(R.id.EmailInput);
+        passwordInput = (EditText) findViewById(R.id.PasswordInput);
+
+        // Set onClickListeners
+        loginButton.setOnClickListener(mySimpleListener);
+        loginSubmitButton.setOnClickListener(mySimpleListener);
+        loginCancelButton.setOnClickListener(mySimpleListener);
+        aboutButton.setOnClickListener(mySimpleListener);
 
     }
 
@@ -77,26 +89,72 @@ public class TendrilActivity extends SherlockActivity {
     public void onResume() {
         super.onResume();
 
-        customCirrusPrefs = getSharedPreferences("customCirrusPrefs", 
+        customCirrusPrefs = getSharedPreferences("customCirrusPrefs",
                 Activity.MODE_PRIVATE);
 
-        // Recover our rememberToken if set, or null if not set
-        rememberToken = customCirrusPrefs.getString("rememberToken", null);
-        
-        if ( rememberToken == null ){
-            //Show login Menu
+        // Recover our accessToken if set, or null if not set
+        accessToken = customCirrusPrefs.getString("accessToken", null);
+
+        if (accessToken == null) {
+            // Show login Menu
             // 8 visibility = gone
             // 4 visibility = invisible
             // 0 visibility = visible
-
             loginMenu.setVisibility(0);
 
         } else {
-            //TODO go to next activity
 
         }
 
     }
 
+    private class simpleListener implements OnClickListener {
+        // 8 visibility = gone
+        // 4 visibility = invisible
+        // 0 visibility = visible
+        public void onClick(View v) {
+            if (v.equals(loginSubmitButton)) {
+                loginClicked(v);
+            }
+            else if(v.equals(loginCancelButton)){
+                //Hide loginMenu
+                loginMenu.setVisibility(8);
+                //Show mainMenu
+                mainMenu.setVisibility(0);
+            }
+            else if(v.equals(loginButton)){
+                //Hide mainMenu
+                mainMenu.setVisibility(8);
+                //Show loginMenu
+                loginMenu.setVisibility(0);
+            }
+            else if (v.equals(aboutButton)) {
+                Intent aboutIntent = new Intent(v.getContext(),
+                        AboutActivity.class);
+                startActivityForResult(aboutIntent, 0);
+            }
+
+        }
+
+    }
+
+    // What to do on login
+    private void loginClicked(View v) {
+        try {
+            accessToken = tendril.logIn(emailInput.getText().toString(),
+                    passwordInput.getText().toString());
+
+            // Save accessToken
+            SharedPreferences.Editor editor = customCirrusPrefs.edit();
+            editor.putString("accessToken", accessToken);
+            editor.commit();
+
+            ToastFactory.showToast(v.getContext(), customCirrusPrefs.getString(
+                    "accessToken", new String("none")));
+
+        } catch (Exception e) {
+            ToastFactory.showToast(v.getContext(), e.toString());
+        }
+    }
 
 }
