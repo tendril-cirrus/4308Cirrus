@@ -10,29 +10,30 @@
   		android:orientation="horizontal" 
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
-  		android:layout_marginTop="10dip" 
-  		android:layout_gravity="center" >
+  		android:layout_marginTop="10dip"  >
+
   		<TextView
-  			android:layout_height="wrap_content"
-  			android:layout_width="wrap_content" 
-  			android:layout_gravity="center" 
-  			android:text="@string/aboutTitle" 
-  			android:textSize="22sp"/>	
+  		    android:layout_width="wrap_content"
+  		    android:layout_height="wrap_content"
+  		    android:layout_marginLeft="5dp"
+  		    android:text="@string/about_title"
+  		    android:textColor="@color/tendril_green"
+  		    android:textSize="22sp" />
+	
   	</LinearLayout>
   	
     <LinearLayout 
   		android:id="@+id/AboutMenu"
   		android:layout_width="wrap_content" 
-  		android:layout_height="wrap_content"
-  		android:layout_gravity="center" 
+  		android:layout_height="wrap_content" 
   		android:orientation="vertical" 
-  		android:layout_marginTop="20dip" 
+  		android:layout_marginTop="10dip" 
   		android:visibility="visible">
   		<TextView 
   			android:layout_height="wrap_content"
   			android:layout_width="wrap_content" 
-  			android:layout_gravity="center" 
-  			android:text="@string/aboutDesc" 
+  			android:layout_marginLeft="5dp"
+  			android:text="@string/about_desc" 
   			android:textSize="12sp" 
   			android:layout_marginTop="5dip"/>
   	</LinearLayout>
