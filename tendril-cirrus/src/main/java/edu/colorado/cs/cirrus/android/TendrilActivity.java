@@ -101,6 +101,7 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             // 4 visibility = invisible
             // 0 visibility = visible
             loginMenu.setVisibility(0);
+            mainMenu.setVisibility(8);
 
         } else {
 
