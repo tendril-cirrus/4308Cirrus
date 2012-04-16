@@ -67,44 +67,56 @@
             android:layout_gravity="center" 
             android:text="@string/loginTitle" 
             android:textSize="18sp"/>
-        <LinearLayout 
-            android:orientation="horizontal" 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+
+        <LinearLayout
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dip">
-            <TextView 
+            android:layout_marginTop="8dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"  
-                android:text="@string/email" 
-                android:textSize="12sp" 
-                android:layout_marginTop="0dip"/>
-            <EditText 
+                android:layout_marginTop="0dip"
+                android:gravity="right"
+                android:text="@string/email"
+                android:textSize="12sp" />
+
+            <EditText
                 android:id="@+id/EmailInput"
-                android:minWidth="150dip"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"/>
+                android:layout_marginLeft="10dip"
+                android:lines="1"
+                android:minWidth="150dip" />
+
         </LinearLayout>
-        <LinearLayout 
-            android:orientation="horizontal" 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+
+        <LinearLayout
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dip">
-            <TextView 
+            android:layout_marginTop="8dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content" 
-                android:text="@string/password" 
-                android:textSize="12sp" 
-                android:layout_marginTop="0dip"/>
-            <EditText 
+                android:layout_marginTop="0dip"
+                android:gravity="right"
+                android:text="@string/password"
+                android:textSize="12sp" />
+
+            <EditText
                 android:id="@+id/PasswordInput"
-                android:minWidth="150dip"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:lines="1"
                 android:inputType="textPassword"
-                android:layout_marginLeft="13dip"/>
+                android:minWidth="150dip" />
+
         </LinearLayout>
 
         <LinearLayout 

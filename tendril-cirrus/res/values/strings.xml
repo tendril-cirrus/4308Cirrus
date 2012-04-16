@@ -15,6 +15,10 @@
      <string name="about">About</string>
      <string name="login">Login</string>
      <string name="about_title">About Tendril-Cirrus</string>
-     <string name="about_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.</string>
-	 <string name="about_howto">How to:</string>
+     <string name="about_desc">This is an application built to demonstrate some of the interesting things that are possible with the Tendril API.</string>
+     <string name="about_school">University of Colorado at Boulder: Computer Science Senior Project</string>
+	 <string name="about_team_name">Team Cirrus:</string>
+	 <string name="about_team_contributors">Dylan Canfield, Katie Hegarty, Tyler Howarth, Will McNeill, Dan Richelson</string>
+	 <string name="about_more_info">Cirrus on Github:</string>
+	 <string name="about_github_link">https://github.com/drichelson/4308Cirrus</string>
 </resources>
