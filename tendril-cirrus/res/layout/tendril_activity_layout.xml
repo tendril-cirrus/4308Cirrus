@@ -89,6 +89,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:lines="1"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext|flagNoEnterAction"
+                android:hint="Enter email address"
                 android:minWidth="150dip" />
 
         </LinearLayout>
@@ -115,6 +118,8 @@
                 android:layout_marginLeft="10dip"
                 android:lines="1"
                 android:inputType="textPassword"
+                android:imeOptions="actionGo|flagNoEnterAction"
+                android:hint="Enter password"
                 android:minWidth="150dip" />
 
         </LinearLayout>

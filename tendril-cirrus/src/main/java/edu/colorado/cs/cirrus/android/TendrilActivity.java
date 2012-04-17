@@ -1,9 +1,16 @@
 package edu.colorado.cs.cirrus.android;
 
+//import android.R;
+import edu.colorado.cs.cirrus.android.R;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.view.KeyEvent;
+
 import android.view.View.OnClickListener;
+
+import android.view.inputmethod.EditorInfo;
 
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +20,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import android.widget.TextView;
+
+import android.widget.TextView.OnEditorActionListener;
+
+import edu.colorado.cs.cirrus.android.TendrilActivity;
+import edu.colorado.cs.cirrus.android.TendrilActivity;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
 
@@ -82,6 +96,10 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         loginSubmitButton.setOnClickListener(mySimpleListener);
         loginCancelButton.setOnClickListener(mySimpleListener);
         aboutButton.setOnClickListener(mySimpleListener);
+
+        // Set action for when enter is pressed on the passwordInput field
+        passwordInput.setOnEditorActionListener(new myEditorActionListener()); 
+
 
     }
 
@@ -156,6 +174,19 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         } catch (Exception e) {
             ToastFactory.showToast(v.getContext(), e.toString());
         }
+    }
+
+    // What to do for actionGo
+    private class myEditorActionListener implements OnEditorActionListener {
+        public boolean onEditorAction(TextView v, int actionId,
+                KeyEvent event ) {
+
+            if (actionId == EditorInfo.IME_NULL) {
+                mySimpleListener.onClick(loginSubmitButton);
+            }
+            return false;
+        }
+
     }
 
 }
