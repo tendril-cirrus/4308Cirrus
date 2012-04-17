@@ -14,6 +14,7 @@
                     android:summary="@string/smartHeat_desc"
                     android:key="smartHeat"
                     android:defaultValue="true"
+                    android:persistent="true"
                 />
 
             <EditTextPreference
@@ -21,6 +22,7 @@
                     android:summary="@string/homeTemp_desc"
                     android:key="homeTemp"
                     android:defaultValue="70"
+                    android:persistent="true"
                     android:dependency="smartHeat" />
 
             <EditTextPreference
@@ -28,6 +30,7 @@
                     android:summary="@string/awayTemp_desc"
                     android:key="awayTemp"
                     android:defaultValue="60"
+                    android:persistent="true"
                     android:dependency="smartHeat" />
 
             <ListPreference
@@ -37,6 +40,7 @@
                     android:dependency="smartHeat"
                     android:defaultValue="Auto"
                     android:entries="@array/gpsFreqListArray"
+                    android:persistent="true"
                     android:entryValues="@array/gpsFreqListValues" />
                 
             <Preference
