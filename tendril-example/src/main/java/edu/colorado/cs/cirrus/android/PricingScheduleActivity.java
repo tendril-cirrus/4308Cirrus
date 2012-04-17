@@ -76,8 +76,9 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 			DateTime startDate = new DateTime().withDate(2011, 3, 1).withTimeAtStartOfDay();
 			DateTime endDate = new DateTime().withDate(2011, 3, 31).withTimeAtStartOfDay();
 			
-			
+			this.showLoadingProgressDialog();
 			schedule = tendril.fetchPricingSchedule(startDate, endDate);
+			this.dismissProgressDialog();
 			//schedule = tendril.asyncGetPricingSchedule();
 			
 			TextView test = (TextView) findViewById(R.id.textView1);
@@ -96,8 +97,10 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 
 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}finally{
+			this.dismissProgressDialog();
 		}
 		// String profile = new UserProfileTask().execute("").get();
 		System.err.println(schedule);

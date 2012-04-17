@@ -62,15 +62,20 @@ public class TendrilException extends Exception {
 			try {
 				r=serializer.read(TendrilErrorResponse.class, xml);
 			} catch (Exception e1) {
+				//System.err.println(xml);
 				e1.printStackTrace();
+				if(xml!=null){
+					r.setDetails(xml);
+					r.setReason(xml);
+				}
 			}
 			
-			if(r.getDetails()==null || r.getDetails().isEmpty()){
+			/*if(r.getDetails()==null || r.getDetails().isEmpty()){
 				r.setDetails("Unknown Client Error (4xx error code)");
 			}
 			if(r.getReason()==null || r.getReason().isEmpty()){
 				r.setDetails("None given");
-			}
+			}*/
 			setTendrilResponse(r);
 		}else if(e instanceof HttpServerErrorException){
 			String xml = ((HttpServerErrorException) e).getResponseBodyAsString();
@@ -79,15 +84,20 @@ public class TendrilException extends Exception {
 			try {
 				r=serializer.read(TendrilErrorResponse.class, xml);
 			} catch (Exception e1) {
+				//System.err.println(xml);
 				e1.printStackTrace();
+				if(xml!=null){
+					r.setDetails(xml);
+					r.setReason(xml);
+				}
 			}
 			
-			if(r.getDetails()==null || r.getDetails().isEmpty()){
+			/*if(r.getDetails()==null || r.getDetails().isEmpty()){
 				r.setDetails("Unknown Server Error (5xx error code)");
 			}
 			if(r.getReason()==null || r.getReason().isEmpty()){
 				r.setDetails("None given");
-			}
+			}*/
 			setTendrilResponse(r);
 		}
 	}

@@ -32,7 +32,10 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 		PricingProgram program = null;
 		try {
 			//program = (new PricingProgramTask()).execute(tendril).get();
-			program=tendril.asyncGetPricingProgram();
+			//program=tendril.asyncGetPricingProgram();
+			this.showLoadingProgressDialog();
+			program=tendril.fetchPricingProgram();
+			this.dismissProgressDialog();
 			
 			
 			TextView programName = (TextView) findViewById(R.id.pricingprogram_name);
@@ -45,8 +48,10 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 			programSchedule.setText(program.getSchedules().toString());
 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}finally{
+			this.dismissProgressDialog();
 		}
 		// String profile = new UserProfileTask().execute("").get();
 		System.err.println(program);
