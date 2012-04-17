@@ -21,4 +21,14 @@
 	 <string name="about_team_contributors">Dylan Canfield, Katie Hegarty, Tyler Howarth, Will McNeill, Dan Richelson</string>
 	 <string name="about_more_info">Cirrus on Github:</string>
 	 <string name="about_github_link">https://github.com/drichelson/4308Cirrus</string>
+     <string name="smartHeat_title">SmartHeat</string>
+     <string name="smartHeat_desc">Enable the use of GPS for controlling your home\'s thermostat</string>
+     <string name="gpsFreq_title">GPS Polling Frequency</string>
+     <string name="gpsFreq_desc">This setting controlls how often the application polls for location changes</string>
+     <string name="setHome_title">Set home location</string>
+     <string name="setHome_desc">Use current location as home location</string>
+     <string name="homeTemp_title">At Home Temp</string>
+     <string name="homeTemp_desc">Set the thermostat to this temp when at or near home</string>
+     <string name="awayTemp_title">Away from Home Temp</string>
+     <string name="awayTemp_desc">Set the thermostat to this temp when away from home</string>
 </resources>

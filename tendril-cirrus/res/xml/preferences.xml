@@ -8,18 +8,41 @@
     >
     
     <PreferenceCategory
-            android:title="GPS Preferences">
+            android:title="Tentril-Cirrus preferences">
+            <CheckBoxPreference
+                    android:title="@string/smartHeat_title"
+                    android:summary="@string/smartHeat_desc"
+                    android:key="smartHeat"
+                    android:defaultValue="true"
+                />
+
+            <EditTextPreference
+                    android:title="@string/homeTemp_title"
+                    android:summary="@string/homeTemp_desc"
+                    android:key="homeTemp"
+                    android:defaultValue="70"
+                    android:dependency="smartHeat" />
+
+            <EditTextPreference
+                    android:title="@string/awayTemp_title"
+                    android:summary="@string/awayTemp_desc"
+                    android:key="awayTemp"
+                    android:defaultValue="60"
+                    android:dependency="smartHeat" />
+
             <ListPreference
-                    android:title="GPS polling freqency"
-                    android:summary="This setting controlls how often the application polls for location changes"
+                    android:title="@string/gpsFreq_title"
+                    android:summary="@string/gpsFreq_desc"
                     android:key="gpsFreqPref"
+                    android:dependency="smartHeat"
                     android:defaultValue="Auto"
                     android:entries="@array/gpsFreqListArray"
                     android:entryValues="@array/gpsFreqListValues" />
                 
             <Preference
-                    android:title="Set home location"
-                    android:summary="Use current location as home location"
+                    android:title="@string/setHome_title"
+                    android:dependency="smartHeat"
+                    android:summary="@string/setHome_desc"
                     android:key="setHomeLocPref" />
     </PreferenceCategory>
 

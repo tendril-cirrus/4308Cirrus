@@ -6,6 +6,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
+import android.preference.EditTextPreference;
+
+import android.text.method.DigitsKeyListener;
+
+import android.widget.EditText;
+
 import edu.colorado.cs.cirrus.android.R;
 
 import android.app.Activity;
@@ -27,6 +33,9 @@ public class CirrusPreferenceActivity extends PreferenceActivity {
 
     private Preference setHomeLocPref;
     private Preference gpsFreqPref;
+    private Preference smartHeatPref;
+    private EditTextPreference homeTempPref;
+    private EditTextPreference awayTempPref;
 
     private LocationManager locManager;
     private LocationListener locListener;
@@ -48,9 +57,26 @@ public class CirrusPreferenceActivity extends PreferenceActivity {
         //Attach to the Preferences from the layout
         setHomeLocPref = (Preference) findPreference("setHomeLocPref");
         gpsFreqPref = (Preference) findPreference("gpsFreqPref");
+        smartHeatPref = (Preference) findPreference("smartHeat");
+        homeTempPref = (EditTextPreference) findPreference("homeTemp");
+        awayTempPref = (EditTextPreference) findPreference("awayTemp");
 
         //Set on click listener
         setHomeLocPref.setOnPreferenceClickListener(myPreferenceClickListener);
+        gpsFreqPref.setOnPreferenceClickListener(myPreferenceClickListener);
+        smartHeatPref.setOnPreferenceClickListener(myPreferenceClickListener);
+        homeTempPref.setOnPreferenceClickListener(myPreferenceClickListener);
+        awayTempPref.setOnPreferenceClickListener(myPreferenceClickListener);
+
+
+        // Force homeTempPref and awayTempPref to take numbers
+        EditText homeTempEditText = (EditText)homeTempPref.getEditText();
+        homeTempEditText.setKeyListener(DigitsKeyListener.
+                getInstance(false,true));
+
+        EditText awayTempEditText = (EditText)awayTempPref.getEditText();
+        awayTempEditText.setKeyListener(DigitsKeyListener.
+                getInstance(false,true));
 
         // Setup the location stuff
         locManager = (LocationManager) getSystemService(
@@ -111,12 +137,6 @@ public class CirrusPreferenceActivity extends PreferenceActivity {
                         + ", Longitude: " + longitude,
                         Toast.LENGTH_SHORT).show();
 
-            } else if ( preference.equals(gpsFreqPref) ) {
-
-                editor.putString("gpsFreq", gpsFreqPref.getKey());
-
-                Toast.makeText(getBaseContext(), "gpsFreq: " 
-                        + gpsFreqPref.getKey(), Toast.LENGTH_SHORT).show();
             }
 
             //Actually do the saving

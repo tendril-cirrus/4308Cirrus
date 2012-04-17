@@ -1,6 +1,5 @@
 package edu.colorado.cs.cirrus.android;
 
-//import android.R;
 import edu.colorado.cs.cirrus.android.R;
 
 import android.content.Intent;
@@ -122,6 +121,9 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             mainMenu.setVisibility(8);
 
         } else {
+            Intent preferenceIntent = new Intent(this,
+                    CirrusPreferenceActivity.class);
+            startActivityForResult(preferenceIntent, 0);
 
         }
 
@@ -168,8 +170,9 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             editor.putString("accessToken", accessToken);
             editor.commit();
 
-            ToastFactory.showToast(v.getContext(), customCirrusPrefs.getString(
-                    "accessToken", new String("none")));
+            Intent preferenceIntent = new Intent(this,
+                    CirrusPreferenceActivity.class);
+            startActivityForResult(preferenceIntent, 0);
 
         } catch (Exception e) {
             ToastFactory.showToast(v.getContext(), e.toString());
