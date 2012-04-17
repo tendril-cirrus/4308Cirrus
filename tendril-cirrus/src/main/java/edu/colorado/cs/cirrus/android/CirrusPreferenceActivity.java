@@ -1,33 +1,22 @@
 package edu.colorado.cs.cirrus.android;
 
+import android.app.Activity;
 import android.content.Context;
-
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-
-import android.preference.EditTextPreference;
-
-import android.text.method.DigitsKeyListener;
-
-import android.widget.EditText;
-
-import edu.colorado.cs.cirrus.android.R;
-
-import android.app.Activity;
-
-import android.content.SharedPreferences;
-
 import android.os.Bundle;
-
+import android.preference.EditTextPreference;
 import android.preference.Preference;
-
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
-
+import android.text.method.DigitsKeyListener;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class CirrusPreferenceActivity extends PreferenceActivity {
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+
+public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
     private SharedPreferences customCirrusPrefs;
 

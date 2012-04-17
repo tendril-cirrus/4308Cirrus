@@ -124,6 +124,10 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             Intent preferenceIntent = new Intent(this,
                     CirrusPreferenceActivity.class);
             startActivityForResult(preferenceIntent, 0);
+            
+//            Intent usageIntent = new Intent(this,
+//                    UsageActivity.class);
+//            startActivityForResult(usageIntent, 0);
 
         }
 
