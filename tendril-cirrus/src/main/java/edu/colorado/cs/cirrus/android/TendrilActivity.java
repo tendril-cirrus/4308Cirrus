@@ -1,5 +1,6 @@
 package edu.colorado.cs.cirrus.android;
 
+
 import edu.colorado.cs.cirrus.android.R;
 
 import android.content.Intent;
@@ -67,6 +68,8 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         tendril = TendrilTemplate.get();
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
+        
+        startService(new Intent(this, TendrilLocationService.class));
     }
 
     @Override
