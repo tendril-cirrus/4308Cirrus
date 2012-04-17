@@ -40,7 +40,6 @@ public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
 			//gtdr = tendril.asyncGetThermostatData();
 			this.showLoadingProgressDialog();
 			gtdr=tendril.getThermostatData();
-			this.dismissProgressDialog();
 			
 			TextView therm_device_id = (TextView) findViewById(R.id.thermostat_device_id);
 			TextView therm_mode = (TextView) findViewById(R.id.thermostat_mode);
