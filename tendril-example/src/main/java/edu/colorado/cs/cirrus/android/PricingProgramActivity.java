@@ -35,8 +35,6 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 			//program=tendril.asyncGetPricingProgram();
 			this.showLoadingProgressDialog();
 			program=tendril.fetchPricingProgram();
-			this.dismissProgressDialog();
-			
 			
 			TextView programName = (TextView) findViewById(R.id.pricingprogram_name);
 			programName.setText(program.getName());

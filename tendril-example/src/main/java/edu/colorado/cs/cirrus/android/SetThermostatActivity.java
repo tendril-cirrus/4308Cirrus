@@ -38,7 +38,6 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
 			//stdr = tendril.asyncSetThermostat();
 			this.showLoadingProgressDialog();
 			stdr = tendril.setTstatSetpoint(80.0f);
-			this.dismissProgressDialog();
 			
 			TextView thermDeviceId = (TextView) findViewById(R.id.thermostat_device_id);
 			TextView thermRequestId = (TextView) findViewById(R.id.thermostat_request_id);

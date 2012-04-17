@@ -41,7 +41,6 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
 			this.showLoadingProgressDialog();
 			program=tendril.fetchCostAndConsumptionRange(new DateTime("2011-01-01T00:00:00-07:00"),
 					new DateTime("2011-12-31T00:00:00-07:00"));
-			this.dismissProgressDialog();
 			
 			TextView fromDateView = (TextView) findViewById(R.id.from_date);
 			TextView toDateView = (TextView) findViewById(R.id.to_date);

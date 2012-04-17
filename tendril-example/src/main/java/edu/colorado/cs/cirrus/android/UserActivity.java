@@ -34,7 +34,6 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 			//user=tendril.asyncGetUser();
 			this.showLoadingProgressDialog();
 			user=tendril.fetchUser();
-			this.dismissProgressDialog();
 			
 			TextView username = (TextView) findViewById(R.id.user_profile_username);
 			username.setText(user.getUserName().toString());

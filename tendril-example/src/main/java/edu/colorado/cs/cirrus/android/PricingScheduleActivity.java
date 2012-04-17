@@ -78,7 +78,6 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 			
 			this.showLoadingProgressDialog();
 			schedule = tendril.fetchPricingSchedule(startDate, endDate);
-			this.dismissProgressDialog();
 			//schedule = tendril.asyncGetPricingSchedule();
 			
 			TextView test = (TextView) findViewById(R.id.textView1);

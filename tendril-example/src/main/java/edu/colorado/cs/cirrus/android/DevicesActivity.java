@@ -44,7 +44,6 @@ public class DevicesActivity extends AbstractAsyncTendrilActivity {
 			//devices=tendril.asyncGetDevices();
 			this.showLoadingProgressDialog();
 			devices=tendril.fetchDevices();
-			this.dismissProgressDialog();
 			
 			
 			ListView devicesList = (ListView) findViewById(R.id.devicesList);

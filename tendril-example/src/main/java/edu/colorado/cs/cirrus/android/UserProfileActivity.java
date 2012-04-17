@@ -33,7 +33,6 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 			
 			this.showLoadingProgressDialog();
 			profile=tendril.fetchUserProfile();
-			this.dismissProgressDialog();
 			
 			//if(profile != null){
 				textView.setText(profile.toString());

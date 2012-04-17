@@ -38,7 +38,6 @@ public class MeterReadingsActivity extends AbstractAsyncTendrilActivity {
             //meterReadings = tendril.asyncGetMeterReadings();
         	this.showLoadingProgressDialog();
         	meterReadings=tendril.fetchMeterReadingsRange(new DateTime("2012-03-01T00:00:00-07:00"), (new DateTime()).minusDays(1));
-        	this.dismissProgressDialog();
             
             TextView meterReadingsData = (TextView) findViewById(R.id.textView1);
             TextView customerAgreement = (TextView) findViewById(R.id.meter_reading_agreement);
