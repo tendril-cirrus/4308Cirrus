@@ -48,6 +48,11 @@
                     android:dependency="smartHeat"
                     android:summary="@string/setHome_desc"
                     android:key="setHomeLocPref" />
+
+            <Preference
+                    android:title="@string/logout_title"
+                    android:key="logout" />
+                />
     </PreferenceCategory>
 
 </PreferenceScreen>

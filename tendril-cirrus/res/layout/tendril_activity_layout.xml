@@ -75,14 +75,6 @@
             android:layout_marginTop="8dip"
             android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dip"
-                android:gravity="right"
-                android:text="@string/email"
-                android:textSize="12sp" />
-
             <EditText
                 android:id="@+id/EmailInput"
                 android:layout_width="match_parent"
@@ -102,14 +94,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dip"
             android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dip"
-                android:gravity="right"
-                android:text="@string/password"
-                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/PasswordInput"

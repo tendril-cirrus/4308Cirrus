@@ -166,8 +166,13 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
     // What to do on login
     private void loginClicked(View v) {
         try {
+
+            showProgressDialog("Working...");
+
             accessToken = tendril.logIn(emailInput.getText().toString(),
                     passwordInput.getText().toString());
+
+            dismissProgressDialog();
 
             // Save accessToken
             SharedPreferences.Editor editor = customCirrusPrefs.edit();

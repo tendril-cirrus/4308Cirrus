@@ -23,6 +23,9 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
     private Preference setHomeLocPref;
     private Preference gpsFreqPref;
     private Preference smartHeatPref;
+    private Preference logoutPref;
+
+
     private EditTextPreference homeTempPref;
     private EditTextPreference awayTempPref;
 
@@ -49,6 +52,7 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         smartHeatPref = (Preference) findPreference("smartHeat");
         homeTempPref = (EditTextPreference) findPreference("homeTemp");
         awayTempPref = (EditTextPreference) findPreference("awayTemp");
+        logoutPref = (Preference) findPreference("logout");
 
         //Set on click listener
         setHomeLocPref.setOnPreferenceClickListener(myPreferenceClickListener);
@@ -56,6 +60,7 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         smartHeatPref.setOnPreferenceClickListener(myPreferenceClickListener);
         homeTempPref.setOnPreferenceClickListener(myPreferenceClickListener);
         awayTempPref.setOnPreferenceClickListener(myPreferenceClickListener);
+        logoutPref.setOnPreferenceClickListener(myPreferenceClickListener);
 
 
         // Force homeTempPref and awayTempPref to take numbers
@@ -126,6 +131,9 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
                         + ", Longitude: " + longitude,
                         Toast.LENGTH_SHORT).show();
 
+            } else if (preference.equals(logoutPref)) {
+                editor.remove("accessToken");
+                finish();
             }
 
             //Actually do the saving

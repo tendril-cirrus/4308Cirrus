@@ -31,4 +31,6 @@
      <string name="homeTemp_desc">Set the thermostat to this temp when at or near home</string>
      <string name="awayTemp_title">Away from Home Temp</string>
      <string name="awayTemp_desc">Set the thermostat to this temp when away from home</string>
+     <string name="logout_title">Logout</string>
+     <string name="logout_desc">Delete access token and logout</string>
 </resources>
