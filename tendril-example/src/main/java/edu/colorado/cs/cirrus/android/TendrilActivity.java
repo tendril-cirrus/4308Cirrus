@@ -20,6 +20,8 @@ public class TendrilActivity extends SherlockActivity {
     // public class TendrilActivity extends FragmentActivity {
 
     protected static final String TAG = TendrilActivity.class.getSimpleName();
+    private String USERNAME = "csci4138@tendrilinc.com";
+    private String PASSWORD = "password";
 
     /**
      * Called when the activity is first created.
@@ -33,6 +35,8 @@ public class TendrilActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
+        TendrilTemplate tendril = TendrilTemplate.get();
+        tendril.logIn(USERNAME, PASSWORD);
 
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
@@ -42,16 +46,8 @@ public class TendrilActivity extends SherlockActivity {
     public void onStart() {
         super.onStart();
         // TendrilTemplate tendril = ((TendrilApplication) getApplication()).getTendril();
-        TendrilTemplate tendril = TendrilTemplate.get();
-
+        
         showTendrilOptions();
-
-        //
-        // tendril.fetchUser();
-        // tendril.fetchDevices();
-        // System.err.println(tendril.fetchPricingProgram());
-        // System.err.println(tendril.fetchPricingSchedule((new
-        // DateTime()).minusMonths(12), new DateTime()));
     }
 
     private void showTendrilOptions() {
