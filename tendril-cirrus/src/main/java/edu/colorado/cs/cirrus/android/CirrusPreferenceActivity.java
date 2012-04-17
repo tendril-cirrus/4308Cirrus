@@ -1,8 +1,6 @@
 package edu.colorado.cs.cirrus.android;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,7 +16,7 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
 public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
-    private SharedPreferences customCirrusPrefs;
+    private PreferenceUtils cirrusPrefs;
 
     private Preference setHomeLocPref;
     private Preference gpsFreqPref;
@@ -78,6 +76,8 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
         locListener = new MyLocationListener();
 
+        // Grab custom prefs
+        cirrusPrefs = new PreferenceUtils(this);
 
     }
 
@@ -85,9 +85,6 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        //Do work for restoring saved prefs
-        customCirrusPrefs = getSharedPreferences(                                                "customCirrusPrefs", Activity.MODE_PRIVATE);
 
         //Start polling for GPS information every 2 seconds
         locManager.requestLocationUpdates(
@@ -111,9 +108,6 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
         public boolean onPreferenceClick(Preference preference) {
 
-            // Get ready to edit the saved preferences
-            SharedPreferences.Editor editor = customCirrusPrefs.edit();               
-
             if ( preference.equals(setHomeLocPref) ){
                 Toast.makeText(getBaseContext(), "Setting home location",
                     Toast.LENGTH_SHORT).show();
@@ -124,20 +118,20 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
                     return false;
                 }
 
-                editor.putFloat("homeLatitude", (float) latitude);
-                editor.putFloat("homeLongitude", (float) longitude);
+                cirrusPrefs.setHomeLatitude( (float) latitude);
+                cirrusPrefs.setHomeLongitude( (float) longitude);
     
                 Toast.makeText(getBaseContext(), "Latitude: " + latitude
                         + ", Longitude: " + longitude,
                         Toast.LENGTH_SHORT).show();
 
             } else if (preference.equals(logoutPref)) {
-                editor.remove("accessToken");
+                cirrusPrefs.removeAccessToken();
                 finish();
             }
 
-            //Actually do the saving
-            return editor.commit();
+            return true;
+
         }
 
     }

@@ -36,6 +36,11 @@ public class PreferenceUtils {
         editor.commit();
     }
 
+    protected void removeAccessToken(){
+        editor.remove(ACCESSTOKEN);
+        editor.commit();
+    }
+
     protected float getHomeLatitude() {
         return customCirrusPrefs.getFloat(HOMELAT, 0);
     }
