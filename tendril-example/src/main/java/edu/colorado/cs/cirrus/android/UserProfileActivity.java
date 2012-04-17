@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutionException;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.colorado.cs.cirrus.android.task.UserProfileTask;
 
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
@@ -28,19 +29,23 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 		UserProfile profile = null;
 		TextView textView= (TextView) findViewById(R.id.textView1);
 		try {
-			profile=tendril.asyncGetUserProfile();
+			//profile=tendril.asyncGetUserProfile();
+			
+			this.showLoadingProgressDialog();
+			profile=tendril.fetchUserProfile();
+			this.dismissProgressDialog();
+			
 			//if(profile != null){
 				textView.setText(profile.toString());
 			//}else{
 			//	textView.setText("NULL profile returned!");
 			//}
 
-		}catch(TendrilException e){
-			e.printStackTrace();
-			textView.setText(e.toString());
 		}catch (Exception e) {
 			e.printStackTrace();
-			textView.setText(e.toString());
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}finally{
+			this.dismissProgressDialog();
 		}
 		// String profile = new UserProfileTask().execute("").get();
 		//System.err.println(profile);

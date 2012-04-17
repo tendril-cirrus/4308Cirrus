@@ -31,7 +31,10 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 		User user = null;
 		try {
 			//user = (new UserTask()).execute(tendril).get();
-			user=tendril.asyncGetUser();
+			//user=tendril.asyncGetUser();
+			this.showLoadingProgressDialog();
+			user=tendril.fetchUser();
+			this.dismissProgressDialog();
 			
 			TextView username = (TextView) findViewById(R.id.user_profile_username);
 			username.setText(user.getUserName().toString());
@@ -43,8 +46,10 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 			userEmail.setText(user.getEmailAddress());
 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}finally{
+			this.dismissProgressDialog();
 		}
 		// String profile = new UserProfileTask().execute("").get();
 		System.err.println(user);

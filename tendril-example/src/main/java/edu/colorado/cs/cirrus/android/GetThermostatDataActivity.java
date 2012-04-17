@@ -37,7 +37,11 @@ public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
 		GetThermostatDataRequest gtdr = null;
 		try {
 			//stdr = (new SetThermostatTask()).execute(tendril).get();
-			gtdr = tendril.asyncGetThermostatData();
+			//gtdr = tendril.asyncGetThermostatData();
+			this.showLoadingProgressDialog();
+			gtdr=tendril.getThermostatData();
+			this.dismissProgressDialog();
+			
 			TextView therm_device_id = (TextView) findViewById(R.id.thermostat_device_id);
 			TextView therm_mode = (TextView) findViewById(R.id.thermostat_mode);
 			TextView therm_setpoint = (TextView) findViewById(R.id.thermostat_setpoint);
@@ -49,8 +53,10 @@ public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
 			therm_current_temp.setText(gtdr.getResult().getCurrentTemp());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}finally{
+			this.dismissProgressDialog();
 		}
 		// String profile = new UserProfileTask().execute("").get();
 		System.err.println(gtdr);

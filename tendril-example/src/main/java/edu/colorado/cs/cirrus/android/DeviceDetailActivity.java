@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutionException;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 
@@ -37,7 +38,10 @@ public class DeviceDetailActivity extends AbstractAsyncTendrilActivity {
 		
 		try {
 			//devices = (new DevicesTask()).execute(tendril).get();
-			devices=tendril.asyncGetDevices();
+			//devices=tendril.asyncGetDevices();
+			this.showLoadingProgressDialog();
+			devices=tendril.fetchDevices();
+			this.dismissProgressDialog();
 			
 			Device targetDevice = devices.getDevice().get(deviceNumber);
 			
@@ -56,10 +60,12 @@ public class DeviceDetailActivity extends AbstractAsyncTendrilActivity {
 			
 
 		}catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}finally{
+			this.dismissProgressDialog();
 		}
-		System.err.println(devices.toString());
+		//System.err.println(devices.toString());
 
 	}
 
