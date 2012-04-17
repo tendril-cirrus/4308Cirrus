@@ -4,7 +4,6 @@ package edu.colorado.cs.cirrus.android;
 import edu.colorado.cs.cirrus.android.R;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import android.view.KeyEvent;
 
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +31,6 @@ import edu.colorado.cs.cirrus.android.TendrilActivity;
 public class TendrilActivity extends AbstractAsyncTendrilActivity {
 
     private String accessToken;
-    private static SharedPreferences customCirrusPrefs;
     private LinearLayout loginMenu;
     private LinearLayout mainMenu;
 
@@ -47,6 +44,8 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
     private EditText passwordInput;
 
     private simpleListener mySimpleListener = new simpleListener();
+
+    private PreferenceUtils cirrusPrefs;
 
     protected static final String TAG = TendrilActivity.class.getSimpleName();
 
@@ -68,6 +67,8 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         tendril = TendrilTemplate.get();
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
+        
+        cirrusPrefs = new PreferenceUtils(this);
         
         startService(new Intent(this, TendrilLocationService.class));
     }
@@ -109,11 +110,8 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
     public void onResume() {
         super.onResume();
 
-        customCirrusPrefs = getSharedPreferences("customCirrusPrefs",
-                Activity.MODE_PRIVATE);
-
         // Recover our accessToken if set, or null if not set
-        accessToken = customCirrusPrefs.getString("accessToken", null);
+        accessToken = cirrusPrefs.getAccessToken();
 
         if (accessToken == null) {
             // Show login Menu
@@ -175,12 +173,9 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             accessToken = tendril.logIn(emailInput.getText().toString(),
                     passwordInput.getText().toString());
 
-            dismissProgressDialog();
 
             // Save accessToken
-            SharedPreferences.Editor editor = customCirrusPrefs.edit();
-            editor.putString("accessToken", accessToken);
-            editor.commit();
+            cirrusPrefs.setAccessToken(accessToken);
 
             Intent preferenceIntent = new Intent(this,
                     CirrusPreferenceActivity.class);
@@ -188,6 +183,8 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
 
         } catch (Exception e) {
             ToastFactory.showToast(v.getContext(), e.toString());
+        } finally {
+            dismissProgressDialog();
         }
     }
 
