@@ -103,4 +103,9 @@ public class TendrilException extends Exception {
 	public String toString() {
 		return super.toString()+" [response=" + response + "]";
 	}
+	
+	public String getComprehensiveString(){
+		return "Tendril Exception: \nCause=\""+this.getCause().getClass().getName()+
+				"\" \nCode="+code+" \nReason=\""+response.getReason()+"\" \nDetails=\""+response.getDetails()+"\"";
+	}
 }
