@@ -1,6 +1,7 @@
 package edu.colorado.cs.cirrus.android;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -34,6 +35,8 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
     private double latitude = 0.0;
     private double longitude = 0.0;
+
+    private String bestProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -70,14 +73,11 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         awayTempEditText.setKeyListener(DigitsKeyListener.
                 getInstance(false,true));
 
-        // Setup the location stuff
-        locManager = (LocationManager) getSystemService(
-                Context.LOCATION_SERVICE);
-
-        locListener = new MyLocationListener();
-
         // Grab custom prefs
         cirrusPrefs = new PreferenceUtils(this);
+        
+        // Start Location stuff
+        startLocationStuff();
 
     }
 
@@ -86,9 +86,9 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
     protected void onResume() {
         super.onResume();
 
-        //Start polling for GPS information every 2 seconds
+        //Start polling for GPS information every 15 seconds
         locManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 2000, 0, locListener);
+                bestProvider, 15000, 0, locListener);
 
 
     }
@@ -161,6 +161,28 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
 
         }
+    }
+    
+    private void startLocationStuff() {
+
+
+        // Setup the location stuff
+        locManager = (LocationManager) getSystemService(
+                Context.LOCATION_SERVICE);
+
+        locListener = new MyLocationListener();
+
+
+        final Criteria criteria = new Criteria();
+
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+
+        bestProvider = locManager.getBestProvider(criteria, true);
+
     }
 
 
