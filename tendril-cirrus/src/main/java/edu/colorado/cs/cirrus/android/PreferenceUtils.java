@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 public class PreferenceUtils {
 
-    private static final String AUTHTOKEN = "authToken";
+    private static final String ACCESSTOKEN = "accessToken";
     private static final String HOMELAT = "homeLatitude";
     private static final String HOMELONG = "homeLongitude";
     private static final String GPSFREQ = "gpsFrequency";
@@ -27,12 +27,17 @@ public class PreferenceUtils {
         this.editor = customCirrusPrefs.edit();
     }
 
-    protected String getAuthToken() {
-       return customCirrusPrefs.getString(AUTHTOKEN, null); 
+    protected String getAccessToken() {
+       return customCirrusPrefs.getString(ACCESSTOKEN, null); 
     }
 
-    protected void setAuthToken(String authToken) {
-        editor.putString(AUTHTOKEN, authToken);
+    protected void setAccessToken(String accessToken) {
+        editor.putString(ACCESSTOKEN, accessToken);
+        editor.commit();
+    }
+
+    protected void removeAccessToken(){
+        editor.remove(ACCESSTOKEN);
         editor.commit();
     }
 
