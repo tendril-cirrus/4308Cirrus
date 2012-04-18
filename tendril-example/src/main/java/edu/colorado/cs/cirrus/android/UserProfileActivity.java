@@ -40,9 +40,10 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 			//	textView.setText("NULL profile returned!");
 			//}
 
-		}catch (Exception e) {
+		}catch (TendrilException e) {
 			e.printStackTrace();
 			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+			textView.setText(e.getStatusCode()+" "+e.getTendrilResponse().toString());
 		}finally{
 			this.dismissProgressDialog();
 		}

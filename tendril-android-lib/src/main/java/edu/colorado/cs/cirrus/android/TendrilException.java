@@ -11,6 +11,8 @@ public class TendrilException extends Exception {
 
 	private TendrilErrorResponse response=new TendrilErrorResponse("Not Given","Not Given");
 	
+	private int code=-1;
+	
 	public TendrilException(String arg0){
 		super(arg0);
 	}
@@ -45,6 +47,10 @@ public class TendrilException extends Exception {
 	public TendrilException(TendrilErrorResponse res) {
 		setTendrilResponse(res);
 	}
+	
+	public int getStatusCode(){
+		return code;
+	}
 
 	public TendrilErrorResponse getTendrilResponse() {
 		return response;
@@ -70,12 +76,8 @@ public class TendrilException extends Exception {
 				}
 			}
 			
-			/*if(r.getDetails()==null || r.getDetails().isEmpty()){
-				r.setDetails("Unknown Client Error (4xx error code)");
-			}
-			if(r.getReason()==null || r.getReason().isEmpty()){
-				r.setDetails("None given");
-			}*/
+			code=((HttpClientErrorException) e).getStatusCode().value();
+			
 			setTendrilResponse(r);
 		}else if(e instanceof HttpServerErrorException){
 			String xml = ((HttpServerErrorException) e).getResponseBodyAsString();
@@ -92,12 +94,7 @@ public class TendrilException extends Exception {
 				}
 			}
 			
-			/*if(r.getDetails()==null || r.getDetails().isEmpty()){
-				r.setDetails("Unknown Server Error (5xx error code)");
-			}
-			if(r.getReason()==null || r.getReason().isEmpty()){
-				r.setDetails("None given");
-			}*/
+			code = ((HttpServerErrorException) e).getStatusCode().value();
 			setTendrilResponse(r);
 		}
 	}
