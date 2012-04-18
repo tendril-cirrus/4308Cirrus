@@ -33,4 +33,5 @@
      <string name="awayTemp_desc">Set the thermostat to this temp when away from home</string>
      <string name="logout_title">Logout</string>
      <string name="logout_desc">Delete access token and logout</string>
+     <string name="settings">Settings</string>
 </resources>

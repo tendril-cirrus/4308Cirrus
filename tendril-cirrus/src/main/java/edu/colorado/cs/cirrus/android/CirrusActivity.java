@@ -3,14 +3,19 @@ package edu.colorado.cs.cirrus.android;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import android.content.Intent;
+
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentTransaction;
 
 import android.widget.LinearLayout;
 
-public class CirrusActivity extends AbstractAsyncTendrilActivity 
-    implements ActionBar.TabListener { 
+public class CirrusActivity extends AbstractAsyncTendrilActivity implements
+        ActionBar.TabListener {
 
     private LinearLayout costLayout;
     private LinearLayout consumptionLayout;
@@ -29,10 +34,9 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity
         costLayout = (LinearLayout) findViewById(R.id.cost);
         consumptionLayout = (LinearLayout) findViewById(R.id.consumption);
         thermostatLayout = (LinearLayout) findViewById(R.id.thermostat);
-        
+
         // Setup actionbar
-        getSupportActionBar().setNavigationMode(
-                ActionBar.NAVIGATION_MODE_TABS);
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // costTab setup
         costTab = getSupportActionBar().newTab();
@@ -52,7 +56,6 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity
         thermostatTab.setTabListener(this);
         getSupportActionBar().addTab(thermostatTab);
 
-
         // Set Consumption Layout as default
         consumptionTab.select();
     }
@@ -70,16 +73,38 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity
         thermostatLayout.setVisibility(8);
 
         // Determine which layout to make visible
-        if(tab.equals(costTab))
+        if (tab.equals(costTab))
             costLayout.setVisibility(0);
-        else if(tab.equals(consumptionTab))
+        else if (tab.equals(consumptionTab))
             consumptionLayout.setVisibility(0);
-        else if(tab.equals(thermostatTab))
+        else if (tab.equals(thermostatTab))
             thermostatLayout.setVisibility(0);
     }
 
     public void onTabUnselected(Tab tab, FragmentTransaction transaction) {
         // Stop any async tasks.... If we can even do that
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Add icon for getting to the settings menu
+        menu.add("Settings").setIcon(R.drawable.settingsicon)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Open the settings activity
+        if (item.getTitle() == "Settings") {
+            Intent intent = new Intent(this, CirrusPreferenceActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+
+        }
+        return false;
+
     }
 
 }
