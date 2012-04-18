@@ -123,7 +123,7 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
 
         } else {
             Intent preferenceIntent = new Intent(this,
-                    CirrusPreferenceActivity.class);
+                    CirrusActivity.class);
             startActivityForResult(preferenceIntent, 0);
             
 //            Intent usageIntent = new Intent(this,
@@ -178,7 +178,7 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             cirrusPrefs.setAccessToken(accessToken);
 
             Intent preferenceIntent = new Intent(this,
-                    CirrusPreferenceActivity.class);
+                    CirrusActivity.class);
             startActivityForResult(preferenceIntent, 0);
 
         } catch (Exception e) {

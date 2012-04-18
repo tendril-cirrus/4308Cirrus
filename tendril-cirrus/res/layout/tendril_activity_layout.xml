@@ -84,6 +84,7 @@
                 android:inputType="textEmailAddress"
                 android:imeOptions="actionNext|flagNoEnterAction"
                 android:hint="Enter email address"
+                android:text="csci4138@tendrilinc.com"
                 android:minWidth="150dip" />
 
         </LinearLayout>
@@ -104,6 +105,7 @@
                 android:inputType="textPassword"
                 android:imeOptions="actionGo|flagNoEnterAction"
                 android:hint="Enter password"
+                android:text="password"
                 android:minWidth="150dip" />
 
         </LinearLayout>

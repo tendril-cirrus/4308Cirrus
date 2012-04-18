@@ -48,6 +48,13 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".CirrusActivity">
+            <intent-filter>
+                <action android:name="edu.colorado.cs.cirrus.android.CirrusPreferenceActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
         <activity android:name=".UsageActivity">
             <intent-filter>
                 <action android:name="edu.colorado.cs.cirrus.android.UsageActivity" />
