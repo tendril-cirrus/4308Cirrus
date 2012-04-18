@@ -127,6 +127,7 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
             } else if (preference.equals(logoutPref)) {
                 cirrusPrefs.removeAccessToken();
+                setResult(-1, null);
                 finish();
             }
 

@@ -99,11 +99,22 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity implements
         if (item.getTitle() == "Settings") {
             Intent intent = new Intent(this, CirrusPreferenceActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivityForResult(intent, 0);
             return true;
 
         }
         return false;
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, 
+            Intent data) {
+        if (requestCode == 0) {
+            if (resultCode == -1) {
+                // We are logged out, return to main menu
+                finish();
+            }
+        }
 
     }
 
