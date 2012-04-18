@@ -64,7 +64,6 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
 
-        tendril = TendrilTemplate.get();
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
         
@@ -78,7 +77,6 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         super.onStart();
         // TendrilTemplate tendril = ((TendrilApplication)
         // getApplication()).getTendril();
-        tendril = TendrilTemplate.get();
 
         // Grab layouts and buttons
         loginButton = (Button) findViewById(R.id.LoginButton);
@@ -122,9 +120,9 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             mainMenu.setVisibility(8);
 
         } else {
-            Intent preferenceIntent = new Intent(this,
+            Intent intent = new Intent(this,
                     CirrusActivity.class);
-            startActivityForResult(preferenceIntent, 0);
+            startActivityForResult(intent, 0);
             
 //            Intent usageIntent = new Intent(this,
 //                    UsageActivity.class);
@@ -170,6 +168,7 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
 
             showProgressDialog("Working...");
 
+            tendril = TendrilTemplate.get();
             accessToken = tendril.logIn(emailInput.getText().toString(),
                     passwordInput.getText().toString());
 
@@ -177,9 +176,9 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
             // Save accessToken
             cirrusPrefs.setAccessToken(accessToken);
 
-            Intent preferenceIntent = new Intent(this,
+            Intent intent = new Intent(this,
                     CirrusActivity.class);
-            startActivityForResult(preferenceIntent, 0);
+            startActivityForResult(intent, 0);
 
         } catch (Exception e) {
             ToastFactory.showToast(v.getContext(), e.toString());
