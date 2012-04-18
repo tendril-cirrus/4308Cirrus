@@ -36,7 +36,7 @@
             <ListPreference
                     android:title="@string/gpsFreq_title"
                     android:summary="@string/gpsFreq_desc"
-                    android:key="gpsFreqPref"
+                    android:key="gpsFrequency"
                     android:dependency="smartHeat"
                     android:defaultValue="Auto"
                     android:entries="@array/gpsFreqListArray"

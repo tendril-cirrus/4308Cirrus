@@ -46,7 +46,7 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         
         //Attach to the Preferences from the layout
         setHomeLocPref = (Preference) findPreference("setHomeLocPref");
-        gpsFreqPref = (Preference) findPreference("gpsFreqPref");
+        gpsFreqPref = (Preference) findPreference("gpsFrequency");
         smartHeatPref = (Preference) findPreference("smartHeat");
         homeTempPref = (EditTextPreference) findPreference("homeTemp");
         awayTempPref = (EditTextPreference) findPreference("awayTemp");

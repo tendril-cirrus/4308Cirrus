@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import android.preference.PreferenceManager;
+
 public class PreferenceUtils {
 
     private static final String ACCESSTOKEN = "accessToken";
@@ -14,7 +16,6 @@ public class PreferenceUtils {
     private static final String SMARTHEAT = "smartHeat";
     private static final String HOMETEMP = "homeTemp";
     private static final String AWAYTEMP = "awayTemp";
-    private static final String CUSTOMPREFS = "customCirrusPrefs";
 
     private static final int DEFAULT_AWAYTEMP = 60;
     private static final int DEFAULT_HOMETEMP = 70;
@@ -23,7 +24,7 @@ public class PreferenceUtils {
     private SharedPreferences.Editor editor;
 
     public PreferenceUtils(Context context){
-        this.customCirrusPrefs = context.getSharedPreferences(CUSTOMPREFS, Activity.MODE_PRIVATE);
+        this.customCirrusPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.editor = customCirrusPrefs.edit();
     }
 
