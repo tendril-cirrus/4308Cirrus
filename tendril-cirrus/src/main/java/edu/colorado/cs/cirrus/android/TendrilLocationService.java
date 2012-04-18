@@ -60,7 +60,7 @@ public class TendrilLocationService extends Service implements LocationListener 
 		
 		String message = String.format("Longitude: %1$.6f \n Latitude: %2$.6f \n \n",
     			loc.getLongitude(), loc.getLatitude());
-		Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+		//Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
 		
 	}
 
