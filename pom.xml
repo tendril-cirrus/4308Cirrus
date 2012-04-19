@@ -7,10 +7,20 @@
 	<name>tendril-android-parent</name>
 	<packaging>pom</packaging>
 
+<properties>
+			
+</properties>
+
+
 	<modules>
 		<module>tendril-domain</module>
 		<module>tendril-android-lib</module>
 		<module>tendril-example</module>
         <module>tendril-cirrus</module>
 	</modules>
+	<build>
+    <plugins>
+      
+    </plugins>
+</build>
 </project>

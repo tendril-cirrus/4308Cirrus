@@ -4,6 +4,7 @@
 
 package edu.colorado.cs.cirrus.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
@@ -13,6 +14,22 @@ import org.simpleframework.xml.Root;
 
 @Root
 public class CostAndConsumption {
+    public static final String RANGE = "RANGE";
+    public static final String HOURLY = "HOURLY";
+    public static final String DAILY = "DAILY";
+    public static final String MONTHLY = "MONTHLY";
+    private static final List<String> resolutions = new ArrayList<String>();
+    
+    static{
+        resolutions.add(RANGE);
+        resolutions.add(HOURLY);
+        resolutions.add(DAILY);
+        resolutions.add(MONTHLY);
+    }
+   
+    public static List<String> getResolutions(){
+        return resolutions;
+    }
     
     /**
      * Constructs a new instance.

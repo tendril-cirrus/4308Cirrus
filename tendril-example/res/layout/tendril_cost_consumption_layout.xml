@@ -30,64 +30,40 @@
 	 		    android:padding="3dip"
 	 		    android:text="From:"
 	 		    android:textColor="@color/tendril_green" />
-	    
-		    <TextView
-		        android:id="@+id/from_date"
-		        android:layout_gravity="left"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	 		<Button
+	 		    android:id="@+id/startPickDate"
+	 		    android:layout_width="wrap_content"
+	 		    android:layout_height="wrap_content"
+	 		    android:text="Change the date" />
+
 	    </TableRow>
 	    
 	    <TableRow >
-
 	 		<TextView
 	 		    android:layout_column="1"
 	 		    android:padding="3dip"
 	 		    android:text="To:"
 	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/to_date"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
+	 		<Button
+	 		    android:id="@+id/endPickDate"
+	 		    android:layout_width="wrap_content"
+	 		    android:layout_height="wrap_content"
+	 		    android:text="Change the date" />
 		</TableRow>
-		
-	    <TableRow >
-
-	 		<TextView
+		<TableRow>
+		    <TextView
 	 		    android:layout_column="1"
 	 		    android:padding="3dip"
-	 		    android:text="Cost:"
+	 		    android:text="Resolution:"
 	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/cost"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		</TableRow>
-		
-	    <TableRow >
 
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="Consumption:"
-	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/consumption"
+		    <Spinner
+		        android:id="@+id/resolutionSpinner"
 		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		        android:layout_height="wrap_content" />
+
 		</TableRow>
-    
 	</TableLayout>
 	
 	<ScrollView
@@ -95,7 +71,7 @@
 	        android:layout_height="fill_parent" >
 	        
 	        <TextView
-	            android:id="@+id/textView1"
+	            android:id="@+id/results"
 	            android:layout_width="fill_parent"
 	            android:layout_height="fill_parent"
 	            android:layout_gravity="top"
