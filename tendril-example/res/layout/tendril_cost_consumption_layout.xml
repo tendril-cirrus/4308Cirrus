@@ -5,7 +5,18 @@
     android:orientation="vertical"
 	android:background="@drawable/backrepeat" >
 
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginRight="5dp"
+	    android:shrinkColumns="1"
+	    android:stretchColumns="1" >
+
+	    <TableRow>
 	    <TextView
+	        android:layout_column="1"
 	        android:id="@+id/TitleText"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -14,15 +25,14 @@
 	        android:layout_marginTop="5dp"
 	        android:text="@string/cost_consumption_title"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    
-	<TableLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="5dp"
-	    android:layout_marginRight="5dp"
-	    android:stretchColumns="1" >
-	    
+
+	    <Button
+	        android:id="@+id/goButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Go!" />
+
+	    </TableRow>
 	    <TableRow >
 
 	 		<TextView
@@ -61,7 +71,9 @@
 		    <Spinner
 		        android:id="@+id/resolutionSpinner"
 		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content" />
+		        android:layout_height="wrap_content" 
+		        
+		        />
 
 		</TableRow>
 	</TableLayout>

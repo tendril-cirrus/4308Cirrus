@@ -26,7 +26,7 @@ public class UsageActivity extends AbstractAsyncTendrilActivity {
 		User user = null;
 		try {
 			//user = (new UserTask()).execute(tendril).get();
-			user=tendril.asyncGetUser();
+			//user=tendril.asyncGetUser();
 			
 			TextView username = (TextView) findViewById(R.id.user_profile_username);
 			username.setText(user.getUserName().toString());

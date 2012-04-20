@@ -8,9 +8,13 @@ import org.joda.time.DateTime;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
@@ -21,12 +25,14 @@ import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
     protected static final String TAG = CostAndConsumptionActivity.class.getSimpleName();
 
-    protected DateTime start = new DateTime().minusMonths(9);
-    protected DateTime end = new DateTime().minusMonths(4);
+    protected DateTime start = new DateTime();
+    protected DateTime end = new DateTime();
     protected int limitToLatest = 20;
-    private String resolution = CostAndConsumption.MONTHLY;
+    private Resolution resolution = Resolution.MONTHLY;
 
     private Button startPickDate;
+    private Button goButton;
+    private Spinner resolutionPicker;
     private int startYear;
     private int startMonth;
     private int startDay;
@@ -51,6 +57,19 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
         // startDateDisplay = (TextView) findViewById(R.id.startDateDisplay);
         startPickDate = (Button) findViewById(R.id.startPickDate);
         endPickDate = (Button) findViewById(R.id.endPickDate);
+        goButton = (Button) findViewById(R.id.goButton);
+        resolutionPicker = (Spinner) findViewById(R.id.resolutionSpinner);
+
+        resolutionPicker.setPrompt("Pick one");
+        ArrayAdapter<Resolution> adapter = new ArrayAdapter<Resolution>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item);
+
+        int i = 0;
+        for (Resolution r : Resolution.values()) {
+            adapter.insert(r, i);
+            i++;
+        }
+        resolutionPicker.setAdapter(adapter);
 
         // add a click listener to the buttons
         startPickDate.setOnClickListener(new View.OnClickListener() {
@@ -58,10 +77,37 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
                 showDialog(START_DATE_DIALOG_ID);
             }
         });
-
+        
+        
+        
         endPickDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(END_DATE_DIALOG_ID);
+            }
+        });
+
+        goButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CostAndConsumption results = null;
+                try {
+                    showLoadingProgressDialog();
+                    resolution = (Resolution) resolutionPicker.getSelectedItem();
+                    results = tendril.fetchCostAndConsumption(resolution, start, end, limitToLatest);
+                    TextView consumptionData = (TextView) findViewById(R.id.results);
+                    consumptionData.setText(results.getComponentList().toString());
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+                finally {
+                    dismissProgressDialog();
+                }
+                // String profile = new UserProfileTask().execute("").get();
+                System.err.println(results);
+
+                // String profile = task.execute();
             }
         });
 
@@ -81,26 +127,6 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
 
         super.onStart();
 
-        CostAndConsumption results = null;
-        try {
-            this.showLoadingProgressDialog();
-            results = tendril.fetchCostAndConsumption(resolution, start, end, limitToLatest);
-            TextView consumptionData = (TextView) findViewById(R.id.results);
-            consumptionData.setText(results.getComponentList().toString());
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-        }
-        finally {
-            this.dismissProgressDialog();
-        }
-        // String profile = new UserProfileTask().execute("").get();
-        System.err.println(results);
-
-        // String profile = task.execute();
-
     }
 
     // updates the date in the TextView
@@ -118,24 +144,28 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
     private DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            start.withYear(year).withMonthOfYear(monthOfYear).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay();
+            start = start.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay();
             startYear = year;
             startMonth = monthOfYear;
             startDay = dayOfMonth;
             updateDisplay();
         }
     };
-    
+
     private DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            end.withYear(year).withMonthOfYear(monthOfYear).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay().plusHours(24);
+           // end = new DateTime()
+           end = end.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay()
+                    .plusHours(24).minusMillis(1);
+            Log.i(TAG, "end: "+ end);
             endYear = year;
             endMonth = monthOfYear;
             endDay = dayOfMonth;
             updateDisplay();
         }
     };
+    
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -147,9 +177,5 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
         }
         return null;
     }
-
-   
-
-   
 
 }

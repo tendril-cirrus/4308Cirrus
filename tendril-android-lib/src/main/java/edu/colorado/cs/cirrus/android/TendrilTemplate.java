@@ -157,117 +157,6 @@ public class TendrilTemplate implements ITendril {
         
     }
     
-    @Deprecated
-    public CostAndConsumption asyncGetCostAndConsumption() throws TendrilException {
-        try {
-            return (new CostAndConsumptionTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public Devices asyncGetDevices() throws TendrilException {
-        try {
-            return (new DevicesTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public MeterReadings asyncGetMeterReadings() throws TendrilException {
-        try {
-            return (new MeterReadingsTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public PricingProgram asyncGetPricingProgram() throws TendrilException {
-        try {
-            return (new PricingProgramTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public PricingSchedule asyncGetPricingSchedule() throws TendrilException {
-        try {
-            return (new PricingScheduleTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public User asyncGetUser() throws TendrilException {
-        try {
-            return (new UserTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public GetThermostatDataRequest asyncGetThermostatData() throws TendrilException {
-        try {
-            return (new GetThermostatDataTask()).execute(TendrilTemplate.get()).get();
-
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
-    
-    @Deprecated
-    public UserProfile asyncGetUserProfile() throws TendrilException {
-        try {
-            UserProfile profile = (new UserProfileTask()).execute(TendrilTemplate.get()).get();
-            if (profile == null) {
-                System.err.println("NULL profile returned - shouldnt happen");
-                throw new TendrilException("NULL UserProfile returned");
-            }
-            else if (profile.getException() != null) {
-                throw new TendrilException(profile.getException());
-            }
-            return profile;
-        }
-        catch (Exception e) {
-            if (e instanceof TendrilException) {
-                throw (TendrilException) e;
-            }
-            else {
-                throw new TendrilException(e);
-            }
-        }
-    }
-    
-    @Deprecated
-    public SetThermostatDataRequest asyncSetThermostat() throws TendrilException {
-        try {
-            return (new SetThermostatTask()).execute(TendrilTemplate.get()).get();
-        }
-        catch (Exception e) {
-            throw new TendrilException(e);
-        }
-        // return null;
-    }
 
     private boolean authorize(boolean refresh, String userName, String password) {
         DateTime expiration = new DateTime();
@@ -308,14 +197,14 @@ public class TendrilTemplate implements ITendril {
     }
 
     // TENDRIL's API is not working well- some date ranges return 500 error for no known reason
-    public CostAndConsumption fetchCostAndConsumption(String resolution, DateTime from, DateTime to,
+    public CostAndConsumption fetchCostAndConsumption(Resolution resolution, DateTime from, DateTime to,
             int limitToLatest) throws TendrilException {
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
         String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
         System.err.println(fromString);
         System.err.println(toString);
 
-        Object[] vars = { resolution, fromString, toString, limitToLatest };
+        Object[] vars = { resolution.name(), fromString, toString, limitToLatest };
         ResponseEntity<CostAndConsumption> costAndConsumption;
 
         try{
@@ -330,7 +219,7 @@ public class TendrilTemplate implements ITendril {
     }
 
     public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) throws TendrilException {
-        return fetchCostAndConsumption("RANGE", from, to, 1);
+        return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
 
     }
 
