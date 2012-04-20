@@ -28,7 +28,7 @@ public interface ITendril {
 	 * Local access token is deleted regardless of return value.
 	 * @return
 	 */
-	boolean logOut();
+	//boolean logOut();
 	
 	/**
 	 * Logs in using 'OAuthy' 0/1 legged authentication. Returns success status

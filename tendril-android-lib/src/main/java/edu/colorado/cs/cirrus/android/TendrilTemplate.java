@@ -20,6 +20,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import android.util.Log;
+
 import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
 import edu.colorado.cs.cirrus.android.task.DevicesTask;
 import edu.colorado.cs.cirrus.android.task.GetThermostatDataTask;
@@ -47,11 +49,12 @@ import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
-
+    private static final String TAG = "TendrilTemplate";
     private static TendrilTemplate instance;// this is the single instance of TendrilTemplate allowed
 
     private static final String BASE_URL = "https://dev.tendrilinc.com/connect/";
     private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
+    private static final String LOGOUT_URL = "https://dev.tendrilinc.com/oauth/logout";
     private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
     private static final String APP_SECRET = "3230f8f0aa064bea145d425c57fe8679";
     private static final String SCOPE = "offline_access";
@@ -90,6 +93,9 @@ public class TendrilTemplate implements ITendril {
         }
         return instance;
     }
+    
+    
+    
 
     private HttpEntity<?> requestEntity;
     private HttpHeaders requestHeaders;
@@ -121,16 +127,19 @@ public class TendrilTemplate implements ITendril {
     }
 
     public String logIn(String userName, String password) {
+        Log.i(TAG, "logIn attempt: username: " + userName + ", password: " + password);
         authorize(false, userName, password);
 
         List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
         acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+        
         requestHeaders = new HttpHeaders();
         requestHeaders.setAccept(acceptableMediaTypes);
         requestHeaders.setContentType(MediaType.APPLICATION_XML);
         requestHeaders.set("access_token", this.accessGrant.getAccess_token());
         requestEntity = new HttpEntity<Object>(requestHeaders);
         
+        Log.i(TAG, "login successful! access token: " + accessGrant.getAccess_token());
         return this.accessGrant.getAccess_token();
     }
     
@@ -575,12 +584,12 @@ public class TendrilTemplate implements ITendril {
 //        }
     }
 
-
-    public boolean logOut() {
+    public static boolean logOut() {
         // TODO: actually log out of Tendril server
-        accessGrant = null;
+         instance = null;
+        //accessGrant = null;
+        //requestHeaders = null;
         return true;
-
     }
 
     private boolean refreshToken() {

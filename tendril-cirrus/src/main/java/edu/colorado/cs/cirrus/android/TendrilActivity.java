@@ -107,7 +107,7 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
     @Override
     public void onResume() {
         super.onResume();
-
+        tendril = TendrilTemplate.get();
         // Recover our accessToken if set, or null if not set
         accessToken = cirrusPrefs.getAccessToken();
 
@@ -165,17 +165,13 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
     // What to do on login
     private void loginClicked(View v) {
         try {
-
             showProgressDialog("Working...");
-
-            tendril = TendrilTemplate.get();
             accessToken = tendril.logIn(emailInput.getText().toString(),
                     passwordInput.getText().toString());
 
-
             // Save accessToken
             cirrusPrefs.setAccessToken(accessToken);
-
+           
             Intent intent = new Intent(this,
                     CirrusActivity.class);
             startActivityForResult(intent, 0);
