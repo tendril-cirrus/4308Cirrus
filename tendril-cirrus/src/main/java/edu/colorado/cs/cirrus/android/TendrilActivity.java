@@ -182,6 +182,9 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         	if(e.getStatusCode() == 403){//forbidden: in this case it means bad user/password
         		ToastFactory.showToast(v.getContext(), "Invalid user or password. Please try again.");
         	}
+        	//the exception also has some JSON strings in the ErrorResponse (not deserialized),
+        	//but it will always tell us invalid user/pass, so deserializing is not worth it
+        	//the 403 is the only error code for which we need to do something special
             ToastFactory.showToast(v.getContext(), s);
         } catch(TendrilException e){
         	ToastFactory.showToast(v.getContext(), e.toString());
