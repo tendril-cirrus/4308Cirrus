@@ -38,9 +38,9 @@ import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
     private static final String TAG = "TendrilTemplate";
-    private static ITendril instance;
+    private static TendrilTemplate instance;
 
-    public static ITendril get() {
+    public static TendrilTemplate get() {
         if (instance == null) {
             instance = new TendrilTemplate();
         }
@@ -58,11 +58,6 @@ public class TendrilTemplate implements ITendril {
 
     private Device tstat = null;
 
-    /**
-     * Create a new instance of TendrilTemplate. This constructor creates the TendrilTemplate using a username and
-     * password.
-     * 
-     **/
     private TendrilTemplate() {
         System.err.println("Initializing TendrilTemplate");
 
@@ -71,14 +66,8 @@ public class TendrilTemplate implements ITendril {
         // The HttpComponentsClientHttpRequestFactory uses the
         // org.apache.http package to make network requests
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(HttpUtils.getNewHttpClient()));
-
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#logIn(java.lang.String, java.lang.String)
-     */
     public String logIn(String userName, String password) throws TendrilException {
         Log.i(TAG, "logIn attempt: username: " + userName + ", password: " + password);
         String accessToken = authorize(false, userName, password);
@@ -98,11 +87,6 @@ public class TendrilTemplate implements ITendril {
         requestEntity = new HttpEntity<Object>(requestHeaders);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#useAccessToken(java.lang.String)
-     */
     public void useAccessToken(String accessToken) {
         accessGrant = new AccessGrant();
         accessGrant.setAccess_token(accessToken);
@@ -148,12 +132,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     // TENDRIL's API is not working well- some date ranges return 500 error for no known reason
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchCostAndConsumption(edu.colorado.cs.cirrus.android.Resolution,
-     * org.joda.time.DateTime, org.joda.time.DateTime, int)
-     */
     public CostAndConsumption fetchCostAndConsumption(Resolution resolution, DateTime from, DateTime to,
             int limitToLatest) throws TendrilException {
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -175,22 +153,11 @@ public class TendrilTemplate implements ITendril {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchCostAndConsumptionRange(org.joda.time.DateTime,
-     * org.joda.time.DateTime)
-     */
     public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) throws TendrilException {
         return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchDevices()
-     */
     public Devices fetchDevices() throws TendrilException {
         ResponseEntity<Devices> devices;
         try {
@@ -204,11 +171,6 @@ public class TendrilTemplate implements ITendril {
         return devices.getBody();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchExternalAccountId()
-     */
     public ExternalAccountId fetchExternalAccountId() throws TendrilException {
 
         ResponseEntity<ExternalAccountId> response;
@@ -251,21 +213,10 @@ public class TendrilTemplate implements ITendril {
         return meterReadings.getBody();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchMeterReadingsRange(org.joda.time.DateTime,
-     * org.joda.time.DateTime)
-     */
     public MeterReadings fetchMeterReadingsRange(DateTime from, DateTime to) throws TendrilException {
         return fetchMeterReadings(from, to, 100, Source.ACTUAL);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchPricingProgram()
-     */
     public PricingProgram fetchPricingProgram() throws TendrilException {
 
         ResponseEntity<PricingProgram> pricingSchedule;
@@ -281,11 +232,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     // This does not currently work- API documentation is inconsistent
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchPricingSchedule(org.joda.time.DateTime, org.joda.time.DateTime)
-     */
     public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) throws TendrilException {
         Object[] vars = { from.toString(ISODateTimeFormat.dateTimeNoMillis()),
                 to.toString(ISODateTimeFormat.dateTimeNoMillis()) };
@@ -332,11 +278,6 @@ public class TendrilTemplate implements ITendril {
         return gtdrResponse.getRequestId();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchUser()
-     */
     public User fetchUser() throws TendrilException {
         ResponseEntity<User> response;
         try {
@@ -350,11 +291,6 @@ public class TendrilTemplate implements ITendril {
     }
 
     // throws a 404 even for current-user. See Tendril's "try it" page
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#fetchUserProfile()
-     */
     public UserProfile fetchUserProfile() throws TendrilException {
 
         ResponseEntity<UserProfile> response;
@@ -370,21 +306,11 @@ public class TendrilTemplate implements ITendril {
         return userProfile;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#getDevices()
-     */
     public Devices getDevices() throws TendrilException {
         if (devices == null) devices = fetchDevices();
         return devices;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#getExternalAccountId()
-     */
     public String getExternalAccountId() throws TendrilException {
         if (this.externalAccountId == null) fetchExternalAccountId();
         return externalAccountId.getExternalAccountId();
@@ -395,11 +321,6 @@ public class TendrilTemplate implements ITendril {
         return user.getId();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#getThermostatData()
-     */
     public GetThermostatDataRequest getThermostatData() throws TendrilException {
         Object[] vars = { fetchThermostatDeviceRequestId() };
         GetThermostatDataRequest gtdrResponse = null;
@@ -431,11 +352,6 @@ public class TendrilTemplate implements ITendril {
         return gtdrResponse;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#getTstat()
-     */
     public Device getTstat() throws TendrilException {
         if (tstat == null) {
             for (Device d : getDevices().getDevice()) {
@@ -449,21 +365,11 @@ public class TendrilTemplate implements ITendril {
         return tstat;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#getUser()
-     */
     public User getUser() throws TendrilException {
         if (user == null) fetchUser();
         return user;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#getUserProfile()
-     */
     public UserProfile getUserProfile() throws TendrilException {
         if (this.userProfile == null) {
             this.userProfile = fetchUserProfile();
@@ -476,11 +382,6 @@ public class TendrilTemplate implements ITendril {
         instance = null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.colorado.cs.cirrus.android.ITendril#setTstatSetpoint(java.lang.Float)
-     */
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) throws TendrilException {
         SetThermostatDataRequest stdr = new SetThermostatDataRequest();
         stdr.setDeviceId(getTstat().getDeviceId());

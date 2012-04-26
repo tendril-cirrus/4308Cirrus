@@ -15,8 +15,6 @@ import edu.colorado.cs.cirrus.domain.TendrilException;
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
 
 public class TendrilActivity extends SherlockActivity {
-    // public class TendrilActivity extends FragmentActivity {
-
     protected static final String TAG = TendrilActivity.class.getSimpleName();
     private final String USERNAME = "csci4138@tendrilinc.com";
     private final String PASSWORD = "password";
