@@ -1,7 +1,6 @@
 package edu.colorado.cs.cirrus.android;
 
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 import org.joda.time.DateTime;
 
@@ -14,13 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
-import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
-import edu.colorado.cs.cirrus.domain.model.PricingProgram;
+import edu.colorado.cs.cirrus.domain.model.Resolution;
 
 public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
     protected static final String TAG = CostAndConsumptionActivity.class.getSimpleName();
@@ -77,9 +73,7 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
                 showDialog(START_DATE_DIALOG_ID);
             }
         });
-        
-        
-        
+
         endPickDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(END_DATE_DIALOG_ID);
@@ -141,10 +135,11 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
     }
 
     // the callback received when the user "sets" the date in the dialog
-    private DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    private final DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            start = start.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay();
+            start = start.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth)
+                    .withTimeAtStartOfDay();
             startYear = year;
             startMonth = monthOfYear;
             startDay = dayOfMonth;
@@ -152,20 +147,19 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
         }
     };
 
-    private DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    private final DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-           // end = new DateTime()
-           end = end.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay()
+            // end = new DateTime()
+            end = end.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay()
                     .plusHours(24).minusMillis(1);
-            Log.i(TAG, "end: "+ end);
+            Log.i(TAG, "end: " + end);
             endYear = year;
             endMonth = monthOfYear;
             endDay = dayOfMonth;
             updateDisplay();
         }
     };
-    
 
     @Override
     protected Dialog onCreateDialog(int id) {

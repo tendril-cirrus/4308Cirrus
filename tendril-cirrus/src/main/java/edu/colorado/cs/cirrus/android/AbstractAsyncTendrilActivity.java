@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import com.actionbarsherlock.app.SherlockActivity;
 
+import edu.colorado.cs.cirrus.domain.intf.ITendril;
+
 /**
  * @author Roy Clarkson
  * @author Pierre-Yves Ricau
@@ -33,7 +35,7 @@ public abstract class AbstractAsyncTendrilActivity extends SherlockActivity impl
 
     private boolean destroyed = false;
     
-    protected TendrilTemplate tendril;
+    protected ITendril tendril;
 
     // ***************************************
     // Activity methods

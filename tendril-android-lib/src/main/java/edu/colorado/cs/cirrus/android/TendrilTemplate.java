@@ -2,12 +2,9 @@ package edu.colorado.cs.cirrus.android;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,17 +18,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import android.util.Log;
-
-import edu.colorado.cs.cirrus.android.task.CostAndConsumptionTask;
-import edu.colorado.cs.cirrus.android.task.DevicesTask;
-import edu.colorado.cs.cirrus.android.task.GetThermostatDataTask;
-import edu.colorado.cs.cirrus.android.task.MeterReadingsTask;
-import edu.colorado.cs.cirrus.android.task.PricingProgramTask;
-import edu.colorado.cs.cirrus.android.task.PricingScheduleTask;
-import edu.colorado.cs.cirrus.android.task.SetThermostatTask;
-import edu.colorado.cs.cirrus.android.task.UserProfileTask;
-import edu.colorado.cs.cirrus.android.task.UserTask;
+import edu.colorado.cs.cirrus.domain.TendrilException;
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
+import edu.colorado.cs.cirrus.domain.intf.TendrilUrls;
 import edu.colorado.cs.cirrus.domain.model.AccessGrant;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
 import edu.colorado.cs.cirrus.domain.model.Device;
@@ -39,70 +28,29 @@ import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
 import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
-import edu.colorado.cs.cirrus.domain.model.MeterReading;
 import edu.colorado.cs.cirrus.domain.model.MeterReadings;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
+import edu.colorado.cs.cirrus.domain.model.Resolution;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
-import edu.colorado.cs.cirrus.domain.model.TendrilErrorResponse;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
 
 public class TendrilTemplate implements ITendril {
     private static final String TAG = "TendrilTemplate";
-    private static TendrilTemplate instance;// this is the single instance of TendrilTemplate allowed
+    private static ITendril instance;
 
-    private static final String BASE_URL = "https://dev.tendrilinc.com/connect/";
-    private static final String ACCESS_TOKEN_URL = "https://dev.tendrilinc.com/oauth/access_token";
-    private static final String LOGOUT_URL = "https://dev.tendrilinc.com/oauth/logout";
-    private static final String APP_KEY = "925272ee5d12eac858aeb81949671584";
-    private static final String APP_SECRET = "3230f8f0aa064bea145d425c57fe8679";
-    private static final String SCOPE = "offline_access";
-    //private static final String USERNAME = "csci4138@tendrilinc.com";
-    //private static final String PASSWORD = "password";
-    private static final String THERMOSTAT_CATEGORY = "Thermostat";
-
-    private static final String GET_USER_INFO_URL = BASE_URL + "user/current-user";
-    private static final String GET_USER_PROFILE_URL = BASE_URL + "user/current-user/profile";
-    private static final String GET_USER_LOCATION_PROFILE_URL = BASE_URL
-            + "user/current-user/account/default-acccount/location/default-location/profile/household";
-    private static final String GET_USER_EXTERNAL_ACCOUNT_ID_URL = BASE_URL
-            + "user/current-user/account/default-account";
-    private static final String GET_METER_READINGS_URL = BASE_URL
-            + "meter/read;external-account-id={external-account-id};from={from};to={to};limit-to-latest={limit-to-latest};source={source}";
-    private static final String GET_HISTORICAL_COST_AND_CONSUMPTION_URL = BASE_URL
-            + "user/current-user/account/default-account/consumption/{resolution};from={from};to={to};limit-to-latest={limit-to-latest}";
-    private static final String GET_PROJECTED_COST_AND_CONSUMPTION_URL = BASE_URL
-            + "user/current-user/account/default-account/consumption/{resolution}/projection;source={source}";
-    private static final String GET_PRICING_PROGRAM_URL = BASE_URL
-            + "user/current-user/account/default-account/pricing/current-pricing-program";
-    private static final String GET_PRICING_SCHEDULE_URL = BASE_URL
-            + "account/default-account/pricing/schedule;from={from};to={to}";
-    private static final String GET_DEVICE_LIST_URL = BASE_URL
-            + "user/current-user/account/default-account/location/default-location/network/default-network/device;include-extended-properties=true";
-    private static final String GET_DEVICE_ACTION_DATA = BASE_URL + "device-action/{requestId}";
-    private static final String POST_DEVICE_ACTION_URL = BASE_URL + "device-action";
-    private static final String GET_COST_AND_CONSUMPTION_MY_NEIGHBORS_URL = BASE_URL
-            + "user/current-user/account/default-account/comparison/myneighbors/{resolution};from={from};to={to}";
-    private static final String GET_COST_AND_CONSUMPTION_BASELINEACTUAL_URL = BASE_URL
-            + "user/current-user/account/default-account/comparison/baselineactual/{resolution};asof={asof}";
-
-    public static TendrilTemplate get() {
+    public static ITendril get() {
         if (instance == null) {
             instance = new TendrilTemplate();
         }
         return instance;
     }
-    
-    
-    
 
     private HttpEntity<?> requestEntity;
     private HttpHeaders requestHeaders;
-    private RestTemplate restTemplate;
-    private long expiresIn = 0l;
+    private final RestTemplate restTemplate;
     private AccessGrant accessGrant = null;
-    // private static final String TAG = "TendrilTemplate";
     private User user = null;
     private UserProfile userProfile = null;
     private ExternalAccountId externalAccountId = null;
@@ -126,54 +74,57 @@ public class TendrilTemplate implements ITendril {
 
     }
 
-    public String logIn(String userName, String password) throws TendrilException{
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#logIn(java.lang.String, java.lang.String)
+     */
+    public String logIn(String userName, String password) throws TendrilException {
         Log.i(TAG, "logIn attempt: username: " + userName + ", password: " + password);
-        authorize(false, userName, password);
+        String accessToken = authorize(false, userName, password);
+        setRequestEntity();
+        Log.i(TAG, "login successful! access token: " + accessGrant.getAccess_token());
+        return accessToken;
+    }
 
+    private void setRequestEntity() {
         List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
         acceptableMediaTypes.add(MediaType.APPLICATION_XML);
-        
+
         requestHeaders = new HttpHeaders();
         requestHeaders.setAccept(acceptableMediaTypes);
         requestHeaders.setContentType(MediaType.APPLICATION_XML);
         requestHeaders.set("access_token", this.accessGrant.getAccess_token());
         requestEntity = new HttpEntity<Object>(requestHeaders);
-        
-        Log.i(TAG, "login successful! access token: " + accessGrant.getAccess_token());
-        return this.accessGrant.getAccess_token();
     }
-    
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#useAccessToken(java.lang.String)
+     */
     public void useAccessToken(String accessToken) {
         accessGrant = new AccessGrant();
         accessGrant.setAccess_token(accessToken);
-        List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-        acceptableMediaTypes.add(MediaType.APPLICATION_XML);
-        requestHeaders = new HttpHeaders();
-        requestHeaders.setAccept(acceptableMediaTypes);
-        requestHeaders.setContentType(MediaType.APPLICATION_XML);
-        requestHeaders.set("access_token", accessToken);
-        requestEntity = new HttpEntity<Object>(requestHeaders);
-        //TODO: check validity of access token
-        
+        setRequestEntity();
     }
-    
 
-    private boolean authorize(boolean refresh, String userName, String password) {
+    private String authorize(boolean refresh, String userName, String password) {
         DateTime expiration = new DateTime();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.set("Accept", "application/json");
         params.set("Content-Type", "application/x-www-form-urlencoded");
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
-        formData.add("scope", SCOPE);
+        formData.add("scope", TendrilUrls.SCOPE);
 
         if (refresh) {
             formData.add("grant_type", "refresh_token");
             formData.add("refresh_token", accessGrant.getRefresh_token());
         }
         else {
-            formData.add("client_id", APP_KEY);
-            formData.add("client_secret", APP_SECRET);
+            formData.add("client_id", TendrilUrls.APP_KEY);
+            formData.add("client_secret", TendrilUrls.APP_SECRET);
             formData.add("grant_type", "password");
             formData.add("username", userName);
             formData.add("password", password);
@@ -186,17 +137,23 @@ public class TendrilTemplate implements ITendril {
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(
                 formData, requestHeaders);
 
-        ResponseEntity<AccessGrant> response = restTemplate.exchange(ACCESS_TOKEN_URL, HttpMethod.POST, requestEntity,
-                AccessGrant.class);
+        ResponseEntity<AccessGrant> response = restTemplate.exchange(TendrilUrls.ACCESS_TOKEN_URL, HttpMethod.POST,
+                requestEntity, AccessGrant.class);
 
         System.err.println(response);
         accessGrant = response.getBody();
         accessGrant.setExpirationDateTime(expiration.plusSeconds((int) accessGrant.getExpires_in()));
         System.err.println(accessGrant);
-        return true;
+        return accessGrant.getAccess_token();
     }
 
     // TENDRIL's API is not working well- some date ranges return 500 error for no known reason
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchCostAndConsumption(edu.colorado.cs.cirrus.android.Resolution,
+     * org.joda.time.DateTime, org.joda.time.DateTime, int)
+     */
     public CostAndConsumption fetchCostAndConsumption(Resolution resolution, DateTime from, DateTime to,
             int limitToLatest) throws TendrilException {
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -207,51 +164,70 @@ public class TendrilTemplate implements ITendril {
         Object[] vars = { resolution.name(), fromString, toString, limitToLatest };
         ResponseEntity<CostAndConsumption> costAndConsumption;
 
-        try{
-        	costAndConsumption = restTemplate.exchange(
-                GET_HISTORICAL_COST_AND_CONSUMPTION_URL, HttpMethod.GET, requestEntity, CostAndConsumption.class, vars);
-        }catch(Exception e){
-        	throw new TendrilException(e);
+        try {
+            costAndConsumption = restTemplate.exchange(TendrilUrls.GET_HISTORICAL_COST_AND_CONSUMPTION_URL,
+                    HttpMethod.GET, requestEntity, CostAndConsumption.class, vars);
         }
-        //System.err.println(costAndConsumption.getBody());
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
         return costAndConsumption.getBody();
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchCostAndConsumptionRange(org.joda.time.DateTime,
+     * org.joda.time.DateTime)
+     */
     public CostAndConsumption fetchCostAndConsumptionRange(DateTime from, DateTime to) throws TendrilException {
         return fetchCostAndConsumption(Resolution.RANGE, from, to, 1);
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchDevices()
+     */
     public Devices fetchDevices() throws TendrilException {
-    	ResponseEntity<Devices> devices;
-    	try{
-    		devices = restTemplate.exchange(GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,Devices.class);
-    	}catch(Exception e){
-    		throw new TendrilException(e);
-    	}
-    	
-        //System.err.println(devices.getBody());
+        ResponseEntity<Devices> devices;
+        try {
+            devices = restTemplate.exchange(TendrilUrls.GET_DEVICE_LIST_URL, HttpMethod.GET, requestEntity,
+                    Devices.class);
+        }
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
+
         return devices.getBody();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchExternalAccountId()
+     */
     public ExternalAccountId fetchExternalAccountId() throws TendrilException {
-    	
-    	ResponseEntity<ExternalAccountId> response;
-    	
-        try{
-        	response = restTemplate.exchange(GET_USER_EXTERNAL_ACCOUNT_ID_URL,
-                HttpMethod.GET, requestEntity, ExternalAccountId.class);
-        }catch(Exception e){
-    		throw new TendrilException(e);
-    	}
-        //System.err.println(response.getBody());
+
+        ResponseEntity<ExternalAccountId> response;
+
+        try {
+            response = restTemplate.exchange(TendrilUrls.GET_USER_EXTERNAL_ACCOUNT_ID_URL, HttpMethod.GET,
+                    requestEntity, ExternalAccountId.class);
+        }
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
+        // System.err.println(response.getBody());
         this.externalAccountId = response.getBody();
         return externalAccountId;
     }
 
     // Tendril's API is not working consistently enough to test this
-    private MeterReadings fetchMeterReadings(DateTime from, DateTime to, Integer limitToLatest, Source source) throws TendrilException {
+    private MeterReadings fetchMeterReadings(DateTime from, DateTime to, Integer limitToLatest, Source source)
+            throws TendrilException {
 
         String fromString = from.toString(ISODateTimeFormat.dateTimeNoMillis());
         String toString = to.toString(ISODateTimeFormat.dateTimeNoMillis());
@@ -261,53 +237,68 @@ public class TendrilTemplate implements ITendril {
         for (Object o : vars) {
             System.err.println(o.toString());
         }
-        
+
         ResponseEntity<MeterReadings> meterReadings;
-        try{
-        	meterReadings = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
-                requestEntity, MeterReadings.class, vars);
-        }catch(Exception e){
-        	throw new TendrilException(e);
+        try {
+            meterReadings = restTemplate.exchange(TendrilUrls.GET_METER_READINGS_URL, HttpMethod.GET, requestEntity,
+                    MeterReadings.class, vars);
         }
-        // ResponseEntity<String> meterReading = restTemplate.exchange(GET_METER_READINGS_URL, HttpMethod.GET,
-        // requestEntity, String.class, vars);
-        // Serializer serializer = new Persister();
-        // return serializer.read(MeterReadings.class, meterReading.getBody());
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
 
         System.err.println(meterReadings.getBody());
         return meterReadings.getBody();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchMeterReadingsRange(org.joda.time.DateTime,
+     * org.joda.time.DateTime)
+     */
     public MeterReadings fetchMeterReadingsRange(DateTime from, DateTime to) throws TendrilException {
         return fetchMeterReadings(from, to, 100, Source.ACTUAL);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchPricingProgram()
+     */
     public PricingProgram fetchPricingProgram() throws TendrilException {
-        
-    	ResponseEntity<PricingProgram> pricingSchedule;
-    	try{
-    	pricingSchedule = restTemplate.exchange(GET_PRICING_PROGRAM_URL, HttpMethod.GET,
-                requestEntity, PricingProgram.class);
-    	}catch(Exception e){
-    		throw new TendrilException(e);
-    	}
+
+        ResponseEntity<PricingProgram> pricingSchedule;
+        try {
+            pricingSchedule = restTemplate.exchange(TendrilUrls.GET_PRICING_PROGRAM_URL, HttpMethod.GET, requestEntity,
+                    PricingProgram.class);
+        }
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
         return pricingSchedule.getBody();
 
     }
 
-    // FIXME: this does not currently work- API documentation is inconsistent
+    // This does not currently work- API documentation is inconsistent
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchPricingSchedule(org.joda.time.DateTime, org.joda.time.DateTime)
+     */
     public PricingSchedule fetchPricingSchedule(DateTime from, DateTime to) throws TendrilException {
         Object[] vars = { from.toString(ISODateTimeFormat.dateTimeNoMillis()),
                 to.toString(ISODateTimeFormat.dateTimeNoMillis()) };
-        
+
         ResponseEntity<PricingSchedule> response;
-        try{
-        	response = restTemplate.exchange(GET_PRICING_SCHEDULE_URL, HttpMethod.GET,
-                requestEntity, PricingSchedule.class, vars);
-        }catch(Exception e){
-        	throw new TendrilException(e);
+        try {
+            response = restTemplate.exchange(TendrilUrls.GET_PRICING_SCHEDULE_URL, HttpMethod.GET, requestEntity,
+                    PricingSchedule.class, vars);
         }
-        //System.err.println(response.getBody());
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
+        // System.err.println(response.getBody());
         return response.getBody();
     }
 
@@ -319,7 +310,6 @@ public class TendrilTemplate implements ITendril {
             Thread.sleep(2000);
         }
         catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         String gtdrString = "<getThermostatDataRequest xmlns=\"http://platform.tendrilinc.com/tnop/extension/ems\""
@@ -330,52 +320,71 @@ public class TendrilTemplate implements ITendril {
 
         GetThermostatDataRequest gtdrResponse = null;
         try {
-            ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(POST_DEVICE_ACTION_URL,
-                    HttpMethod.POST, requestEntity, GetThermostatDataRequest.class);
+            ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(
+                    TendrilUrls.POST_DEVICE_ACTION_URL, HttpMethod.POST, requestEntity, GetThermostatDataRequest.class);
 
             gtdrResponse = response.getBody();
             System.err.println(gtdrResponse);
         }
         catch (Exception e) {
-            //e.printStackTrace();
-            //System.err.println(e.getResponseBodyAsString());
-        	throw new TendrilException(e);
+            throw new TendrilException(e);
         }
         return gtdrResponse.getRequestId();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchUser()
+     */
     public User fetchUser() throws TendrilException {
-    	ResponseEntity<User> response;
-    	try{
-    		response = restTemplate.exchange(GET_USER_INFO_URL, HttpMethod.GET, requestEntity,User.class);
-    	}catch(Exception e){
-    		throw new TendrilException(e);
-    	}
-        //System.err.println(response.getBody());
+        ResponseEntity<User> response;
+        try {
+            response = restTemplate.exchange(TendrilUrls.GET_USER_INFO_URL, HttpMethod.GET, requestEntity, User.class);
+        }
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
         user = response.getBody();
         return user;
     }
 
     // throws a 404 even for current-user. See Tendril's "try it" page
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#fetchUserProfile()
+     */
     public UserProfile fetchUserProfile() throws TendrilException {
-        
-    	ResponseEntity<UserProfile> response;
-    	try{
-    		response = restTemplate.exchange(GET_USER_PROFILE_URL, HttpMethod.GET,
-                requestEntity, UserProfile.class);
-    	}catch(Exception e){
-    		throw new TendrilException(e);
-    	}
+
+        ResponseEntity<UserProfile> response;
+        try {
+            response = restTemplate.exchange(TendrilUrls.GET_USER_PROFILE_URL, HttpMethod.GET, requestEntity,
+                    UserProfile.class);
+        }
+        catch (Exception e) {
+            throw new TendrilException(e);
+        }
         System.err.println(response.getBody());
         userProfile = response.getBody();
         return userProfile;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#getDevices()
+     */
     public Devices getDevices() throws TendrilException {
         if (devices == null) devices = fetchDevices();
         return devices;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#getExternalAccountId()
+     */
     public String getExternalAccountId() throws TendrilException {
         if (this.externalAccountId == null) fetchExternalAccountId();
         return externalAccountId.getExternalAccountId();
@@ -386,10 +395,11 @@ public class TendrilTemplate implements ITendril {
         return user.getId();
     }
 
-//    private String getPassword() {
-//        return PASSWORD;
-//    }
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#getThermostatData()
+     */
     public GetThermostatDataRequest getThermostatData() throws TendrilException {
         Object[] vars = { fetchThermostatDeviceRequestId() };
         GetThermostatDataRequest gtdrResponse = null;
@@ -402,8 +412,9 @@ public class TendrilTemplate implements ITendril {
                     Thread.sleep(2000);
                 }
                 firstTry = false;
-                ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(GET_DEVICE_ACTION_DATA,
-                        HttpMethod.GET, requestEntity, GetThermostatDataRequest.class, vars);
+                ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(
+                        TendrilUrls.GET_DEVICE_ACTION_DATA, HttpMethod.GET, requestEntity,
+                        GetThermostatDataRequest.class, vars);
 
                 gtdrResponse = response.getBody();
                 System.err.println(response.getBody());
@@ -411,21 +422,24 @@ public class TendrilTemplate implements ITendril {
             }
 
             catch (HttpClientErrorException e) {
-                e.printStackTrace();
-                System.err.println(e.getResponseBodyAsString());
+                throw new TendrilException(e);
             }
             catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
         return gtdrResponse;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#getTstat()
+     */
     public Device getTstat() throws TendrilException {
         if (tstat == null) {
             for (Device d : getDevices().getDevice()) {
-                if (d.getCategory().equalsIgnoreCase(THERMOSTAT_CATEGORY)) {
+                if (d.getCategory().equalsIgnoreCase(TendrilUrls.THERMOSTAT_CATEGORY)) {
                     tstat = d;
                     System.err.println("tstat: " + tstat);
                     break;
@@ -435,15 +449,21 @@ public class TendrilTemplate implements ITendril {
         return tstat;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#getUser()
+     */
     public User getUser() throws TendrilException {
         if (user == null) fetchUser();
         return user;
     }
 
-//    private String getUsername() {
-//        return USERNAME;
-//    }
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#getUserProfile()
+     */
     public UserProfile getUserProfile() throws TendrilException {
         if (this.userProfile == null) {
             this.userProfile = fetchUserProfile();
@@ -451,40 +471,16 @@ public class TendrilTemplate implements ITendril {
         return this.userProfile;
     }
 
-    // TODO: now that we are getting 2 year tokens, maybe we should just
-    // wait for an error connecting before checking expiration time
-    public boolean isConnected() {
-        DateTime now = new DateTime();
-        
-        return true;
-        //THIS WILL NOT WORK
-//        if (accessGrant != null && accessGrant.getExpirationDateTime() != null) {
-//            if (now.isBefore(accessGrant.getExpirationDateTime().minusMinutes(5))) {
-//                System.err.println("isConnected(): Valid access token: " + accessGrant.getAccess_token() + " expires: "
-//                        + accessGrant.getExpirationDateTime());
-//                return true;
-//            }
-//            else {
-//                return refreshToken();
-//            }
-//        }
-//        else {
-//            return false;
-//        }
-    }
-
-    public static boolean logOut() {
+    public static void logOut() {
         // TODO: actually log out of Tendril server
-         instance = null;
-        //accessGrant = null;
-        //requestHeaders = null;
-        return true;
+        instance = null;
     }
 
-    private boolean refreshToken() {
-        return authorize(true, null, null);
-    }
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see edu.colorado.cs.cirrus.android.ITendril#setTstatSetpoint(java.lang.Float)
+     */
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) throws TendrilException {
         SetThermostatDataRequest stdr = new SetThermostatDataRequest();
         stdr.setDeviceId(getTstat().getDeviceId());
@@ -503,8 +499,8 @@ public class TendrilTemplate implements ITendril {
         SetThermostatDataRequest stdrResponse = null;
         try {
 
-            ResponseEntity<SetThermostatDataRequest> response = restTemplate.exchange(POST_DEVICE_ACTION_URL,
-                    HttpMethod.POST, requestEntity, SetThermostatDataRequest.class);
+            ResponseEntity<SetThermostatDataRequest> response = restTemplate.exchange(
+                    TendrilUrls.POST_DEVICE_ACTION_URL, HttpMethod.POST, requestEntity, SetThermostatDataRequest.class);
 
             stdrResponse = response.getBody();
             System.err.println(stdrResponse);
@@ -519,4 +515,5 @@ public class TendrilTemplate implements ITendril {
     protected RestTemplate getRestTemplate() {
         return restTemplate;
     }
+
 }

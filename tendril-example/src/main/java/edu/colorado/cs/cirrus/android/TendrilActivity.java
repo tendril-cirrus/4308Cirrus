@@ -1,11 +1,6 @@
 package edu.colorado.cs.cirrus.android;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
-import org.joda.time.DateTime;
-
-import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,15 +8,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockActivity;
+
+import edu.colorado.cs.cirrus.domain.TendrilException;
+import edu.colorado.cs.cirrus.domain.intf.ITendril;
 
 public class TendrilActivity extends SherlockActivity {
     // public class TendrilActivity extends FragmentActivity {
 
     protected static final String TAG = TendrilActivity.class.getSimpleName();
-    private String USERNAME = "csci4138@tendrilinc.com";
-    private String PASSWORD = "password";
+    private final String USERNAME = "csci4138@tendrilinc.com";
+    private final String PASSWORD = "password";
 
     /**
      * Called when the activity is first created.
@@ -35,10 +33,13 @@ public class TendrilActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
-        TendrilTemplate tendril = TendrilTemplate.get();
-        try{
-        	tendril.logIn(USERNAME, PASSWORD);
-        }catch(TendrilException e){e.printStackTrace();}
+        ITendril tendril = TendrilTemplate.get();
+        try {
+            tendril.logIn(USERNAME, PASSWORD);
+        }
+        catch (TendrilException e) {
+            e.printStackTrace();
+        }
 
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
@@ -48,7 +49,7 @@ public class TendrilActivity extends SherlockActivity {
     public void onStart() {
         super.onStart();
         // TendrilTemplate tendril = ((TendrilApplication) getApplication()).getTendril();
-        
+
         showTendrilOptions();
     }
 
