@@ -25,6 +25,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import edu.colorado.cs.cirrus.android.TendrilActivity;
 import edu.colorado.cs.cirrus.android.TendrilActivity;
+import edu.colorado.cs.cirrus.domain.TendrilException;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;
 
@@ -176,9 +177,15 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
                     CirrusActivity.class);
             startActivityForResult(intent, 0);
 
-        } catch (Exception e) {
-            ToastFactory.showToast(v.getContext(), e.toString());
-        } finally {
+        } catch (TendrilAndroidException e) {
+        	String s=e.toString();
+        	if(e.getStatusCode() == 403){//forbidden: in this case it means bad user/password
+        		ToastFactory.showToast(v.getContext(), "Invalid user or password. Please try again.");
+        	}
+            ToastFactory.showToast(v.getContext(), s);
+        } catch(TendrilException e){
+        	ToastFactory.showToast(v.getContext(), e.toString());
+    	}finally {
             dismissProgressDialog();
         }
     }
