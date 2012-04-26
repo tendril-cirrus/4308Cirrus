@@ -126,7 +126,7 @@ public class TendrilTemplate implements ITendril {
 
     }
 
-    public String logIn(String userName, String password) {
+    public String logIn(String userName, String password) throws TendrilException{
         Log.i(TAG, "logIn attempt: username: " + userName + ", password: " + password);
         authorize(false, userName, password);
 

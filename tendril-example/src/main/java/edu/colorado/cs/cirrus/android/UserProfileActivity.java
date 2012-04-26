@@ -42,7 +42,7 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
 
 		}catch (TendrilException e) {
 			e.printStackTrace();
-			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+			//Toast.makeText(getApplicationContext(), e.getComprehensiveString(), Toast.LENGTH_LONG).show();
 			textView.setText(e.getComprehensiveString());
 		}finally{
 			this.dismissProgressDialog();

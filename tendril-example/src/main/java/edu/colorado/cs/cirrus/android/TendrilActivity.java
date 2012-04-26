@@ -36,7 +36,9 @@ public class TendrilActivity extends SherlockActivity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         TendrilTemplate tendril = TendrilTemplate.get();
-        tendril.logIn(USERNAME, PASSWORD);
+        try{
+        	tendril.logIn(USERNAME, PASSWORD);
+        }catch(TendrilException e){e.printStackTrace();}
 
         setContentView(R.layout.tendril_activity_layout);
         // setContentView(R.layout.main);
