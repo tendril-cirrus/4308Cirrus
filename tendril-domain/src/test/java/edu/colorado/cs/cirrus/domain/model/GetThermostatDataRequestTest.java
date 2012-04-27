@@ -16,8 +16,8 @@ public class GetThermostatDataRequestTest {
         File source = new File("src/test/resources/GetThermostatDataRequest.xml");
 
         try {
-            GetThermostatDataRequest exampleGetThermostatDataRequest = serializer.read(
-            		GetThermostatDataRequest.class, source);
+            fetchThermostatDataRequest exampleGetThermostatDataRequest = serializer.read(
+            		fetchThermostatDataRequest.class, source);
             System.err.println(exampleGetThermostatDataRequest);
 
         } catch (Exception e) {

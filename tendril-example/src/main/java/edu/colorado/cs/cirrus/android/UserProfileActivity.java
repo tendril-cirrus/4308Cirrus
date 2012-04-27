@@ -24,28 +24,17 @@ public class UserProfileActivity extends AbstractAsyncTendrilActivity {
         UserProfile profile = null;
         TextView textView = (TextView) findViewById(R.id.textView1);
         try {
-            // profile=tendril.asyncGetUserProfile();
-
             this.showLoadingProgressDialog();
             profile = tendril.fetchUserProfile();
-
-            // if(profile != null){
             textView.setText(profile.toString());
-            // }else{
-            // textView.setText("NULL profile returned!");
-            // }
-
         }
         catch (TendrilException e) {
 
             e.printStackTrace();
-            // Toast.makeText(getApplicationContext(), e.getComprehensiveString(), Toast.LENGTH_LONG).show();
             textView.setText(((TendrilAndroidException) e).getComprehensiveString());
         }
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
-        // System.err.println(profile);
     }
 }

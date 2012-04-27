@@ -1,9 +1,9 @@
 package edu.colorado.cs.cirrus.android;
+
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
-
 
 public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
     protected static final String TAG = PricingProgramActivity.class.getSimpleName();
@@ -24,8 +24,6 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
 
         PricingProgram program = null;
         try {
-            // program = (new PricingProgramTask()).execute(tendril).get();
-            // program=tendril.asyncGetPricingProgram();
             this.showLoadingProgressDialog();
             program = tendril.fetchPricingProgram();
 
@@ -46,11 +44,7 @@ public class PricingProgramActivity extends AbstractAsyncTendrilActivity {
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
         System.err.println(program);
-
-        // String profile = task.execute();
-
     }
 
 }

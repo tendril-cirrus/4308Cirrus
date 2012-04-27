@@ -1,10 +1,9 @@
 package edu.colorado.cs.cirrus.domain.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -14,7 +13,7 @@ public class MeterReadingsTest {
     // @Ignore
     @Test
     public void canDeserializeMeterReading() {
-        
+
         Serializer serializer = new Persister();
         File source = new File("src/test/resources/MeterReadings.xml");
         try {

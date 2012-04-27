@@ -1,12 +1,15 @@
 package edu.colorado.cs.cirrus.android;
 
 import android.os.Bundle;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
 
 public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
     protected static final String TAG = SetThermostatActivity.class.getSimpleName();
+
+    NumberPicker tempPicker;
 
     // ***************************************
     // Activity methods
@@ -16,6 +19,7 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tendril_set_thermostat_layout);
 
+        tempPicker = (NumberPicker) findViewById(R.id.temperaturePicker);
     }
 
     @Override
@@ -24,7 +28,6 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
 
         SetThermostatDataRequest stdr = null;
         try {
-            // stdr = tendril.asyncSetThermostat();
             this.showLoadingProgressDialog();
             stdr = tendril.setTstatSetpoint(80.0f);
 
@@ -46,11 +49,7 @@ public class SetThermostatActivity extends AbstractAsyncTendrilActivity {
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
         System.err.println(stdr);
-
-        // String profile = task.execute();
-
     }
 
 }

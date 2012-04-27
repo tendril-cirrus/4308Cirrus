@@ -5,7 +5,7 @@ import org.simpleframework.xml.Root;
 
 @Root
 public class ConversionFactor {
-    
+
     /**
      * Constructs a new instance.
      * 
@@ -18,19 +18,19 @@ public class ConversionFactor {
         this.unitName = unitName;
         this.factor = factor;
     }
-    
+
     /**
      * Constructs a new instance.
      */
     public ConversionFactor() {
     }
-    
+
     @Element
     private String unitName;
-    
+
     @Element
     private float factor;
-    
+
     /**
      * Gets the unitName for this instance.
      * 
@@ -39,7 +39,7 @@ public class ConversionFactor {
     public String getUnitName() {
         return this.unitName;
     }
-    
+
     /**
      * Sets the unitName for this instance.
      * 
@@ -49,7 +49,7 @@ public class ConversionFactor {
     public void setUnitName(String unitName) {
         this.unitName = unitName;
     }
-    
+
     /**
      * Gets the factor for this instance.
      * 
@@ -58,7 +58,7 @@ public class ConversionFactor {
     public float getFactor() {
         return this.factor;
     }
-    
+
     /**
      * Sets the factor for this instance.
      * 
@@ -68,12 +68,11 @@ public class ConversionFactor {
     public void setFactor(float factor) {
         this.factor = factor;
     }
-    
+
     @Override
     public String toString() {
-        
-        return "ConversionFactor [unitName=" + unitName + ", factor=" + factor
-                + "]";
+
+        return "ConversionFactor [unitName=" + unitName + ", factor=" + factor + "]";
     }
-    
+
 }

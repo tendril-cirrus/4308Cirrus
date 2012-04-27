@@ -7,7 +7,6 @@ import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
 import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
-import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.MeterReadings;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
@@ -15,6 +14,7 @@ import edu.colorado.cs.cirrus.domain.model.Resolution;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
+import edu.colorado.cs.cirrus.domain.model.fetchThermostatDataRequest;
 
 /**
  * Primary interface for accessing Tendril's API: <a href="http://dev.tendrilinc.com">http://dev.tendrilinc.com</a>
@@ -36,8 +36,9 @@ public interface ITendril {
 
     /**
      * Sets the access token. Useful for applications that do not store a user's credentials, but instead store an
-     * expiring, revokable access token Note: If the <code>logIn()</code> method is called, calling this method with its
-     * return value is not necessary, as the access token is also set upon successful authentication.
+     * expiring (typically in 2 years), revokable access token Note: If the <code>logIn()</code> method is called,
+     * calling this method with its return value is not necessary, as the access token is also set upon successful
+     * authentication.
      * 
      * @param accessToken
      */
@@ -91,7 +92,7 @@ public interface ITendril {
 
     public String getExternalAccountId() throws TendrilException;
 
-    public GetThermostatDataRequest getThermostatData() throws TendrilException;
+    public fetchThermostatDataRequest getThermostatData() throws TendrilException;
 
     public Device getTstat() throws TendrilException;
 

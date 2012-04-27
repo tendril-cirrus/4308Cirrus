@@ -19,14 +19,6 @@ public class TendrilActivity extends SherlockActivity {
     private final String USERNAME = "csci4138@tendrilinc.com";
     private final String PASSWORD = "password";
 
-    /**
-     * Called when the activity is first created.
-     * 
-     * @param savedInstanceState
-     *            If the activity is being re-initialized after previously being shut down then this Bundle contains the
-     *            data it most recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
-     * 
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +32,11 @@ public class TendrilActivity extends SherlockActivity {
         }
 
         setContentView(R.layout.tendril_activity_layout);
-        // setContentView(R.layout.main);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // TendrilTemplate tendril = ((TendrilApplication) getApplication()).getTendril();
-
         showTendrilOptions();
     }
 

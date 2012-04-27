@@ -1,15 +1,8 @@
 package edu.colorado.cs.cirrus.android;
 
-import java.util.Calendar;
-
 import org.joda.time.DateTime;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
@@ -17,42 +10,10 @@ import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
 public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
     protected static final String TAG = PricingScheduleActivity.class.getSimpleName();
 
-    private TextView mDateDisplay;
-    private Button mPickDate;
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-
-    static final int DATE_DIALOG_ID = 0;
-
-    // ***************************************
-    // Activity methods
-    // ***************************************
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tendril_pricingschedule_layout);
-
-        // capture our View elements
-        mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
-        mPickDate = (Button) findViewById(R.id.pickDate);
-
-        // add a click listener to the button
-        mPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
-
-        // get the current date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        // display the current date (this method is below)
-        updateDisplay();
-
     }
 
     @Override
@@ -61,14 +22,11 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
 
         PricingSchedule schedule = null;
         try {
-            // schedule = (new PricingScheduleTask()).execute(tendril).get();
-
             DateTime startDate = new DateTime().withDate(2011, 3, 1).withTimeAtStartOfDay();
             DateTime endDate = new DateTime().withDate(2011, 3, 31).withTimeAtStartOfDay();
 
             this.showLoadingProgressDialog();
             schedule = tendril.fetchPricingSchedule(startDate, endDate);
-            // schedule = tendril.asyncGetPricingSchedule();
 
             TextView test = (TextView) findViewById(R.id.textView1);
             TextView accountID = (TextView) findViewById(R.id.pricingschedule_accountid);
@@ -92,38 +50,6 @@ public class PricingScheduleActivity extends AbstractAsyncTendrilActivity {
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
         System.err.println(schedule);
-
-        // String profile = task.execute();
-
     }
-
-    // updates the date in the TextView
-    private void updateDisplay() {
-        mDateDisplay.setText(new StringBuilder()
-        // Month is 0 based so add 1
-                .append(mMonth + 1).append("-").append(mDay).append("-").append(mYear).append(" "));
-    }
-
-    // the callback received when the user "sets" the date in the dialog
-    private final DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            updateDisplay();
-        }
-    };
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-        case DATE_DIALOG_ID:
-            return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
-        }
-        return null;
-    }
-
 }

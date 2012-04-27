@@ -2,10 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-	android:background="@drawable/backrepeat" >
+    android:background="@drawable/backrepeat"
+    android:gravity="end"
+    android:orientation="vertical" >
+	
+	    <TextView
+	        android:id="@+id/TitleText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_column="1"
+	        android:layout_gravity="top"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginLeft="7dp"
+	        android:layout_marginTop="5dp"
+	        android:text="@string/cost_consumption_title"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-	<TableLayout
+	   <TableLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -15,25 +28,7 @@
 	    android:stretchColumns="1" >
 
 	    <TableRow>
-	    <TextView
-	        android:layout_column="1"
-	        android:id="@+id/TitleText"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="5dp"
-	        android:layout_marginLeft="7dp"
-	        android:layout_marginTop="5dp"
-	        android:text="@string/cost_consumption_title"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-	    <Button
-	        android:id="@+id/goButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Go!" />
-
-	    </TableRow>
-	    <TableRow >
 
 	 		<TextView
 	 		    android:layout_column="1"
@@ -55,11 +50,13 @@
 	 		    android:padding="3dip"
 	 		    android:text="To:"
 	 		    android:textColor="@color/tendril_green" />
+
 	 		<Button
 	 		    android:id="@+id/endPickDate"
-	 		    android:layout_width="wrap_content"
+	 		    android:layout_width="match_parent"
 	 		    android:layout_height="wrap_content"
 	 		    android:text="Change the date" />
+
 		</TableRow>
 		<TableRow>
 		    <TextView
@@ -72,26 +69,30 @@
 		        android:id="@+id/resolutionSpinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content" 
-		        
 		        />
 
 		</TableRow>
 	</TableLayout>
-	
-	<ScrollView
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent" >
-	        
-	        <TextView
-	            android:id="@+id/results"
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:layout_gravity="top"
-	            android:layout_marginLeft="5dp"
-	            android:layout_marginRight="5dp"
-	            android:text="Medium Text"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-		</ScrollView>
+
+<Button
+    android:id="@+id/goButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Go!" />
+
+	   <ScrollView
+	       android:layout_width="fill_parent"
+	       android:layout_height="match_parent" >
+
+	       <TextView
+	           android:id="@+id/results"
+	           android:layout_width="fill_parent"
+	           android:layout_height="fill_parent"
+	           android:layout_gravity="top"
+	           android:layout_marginLeft="5dp"
+	           android:layout_marginRight="5dp"
+	           android:text="Medium Text"
+	           android:textAppearance="?android:attr/textAppearanceMedium" />
+	   </ScrollView>
 
 </LinearLayout>

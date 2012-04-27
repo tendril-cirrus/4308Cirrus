@@ -1,55 +1,48 @@
-/*
- * Insert License Here
- */
-
 package edu.colorado.cs.cirrus.domain.model;
 
-
-import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 
-@Namespace(reference="http://iec.ch/TC57/2009/MeterReadings#",prefix="ns2")
+@Namespace(reference = "http://iec.ch/TC57/2009/MeterReadings#", prefix = "ns2")
 @Root
 public class MeterReadings {
-	@Element(required=false)
-	MeterReading MeterReading;
-	
-	@Element//(required=false)
-	ReadingType ReadingType;
+    @Element(required = false)
+    MeterReading MeterReading;
 
-	public MeterReadings() {
-		super();
-	}
+    @Element
+    // (required=false)
+    ReadingType ReadingType;
 
-	public MeterReadings(MeterReading meterReading, ReadingType readingType) {
-		super();
-		this.MeterReading = meterReading;
-		this.ReadingType = readingType;
-	}
+    public MeterReadings() {
+        super();
+    }
 
-	public MeterReading getMeterReading() {
-		return MeterReading;
-	}
+    public MeterReadings(MeterReading meterReading, ReadingType readingType) {
+        super();
+        this.MeterReading = meterReading;
+        this.ReadingType = readingType;
+    }
 
-	public void setMeterReading(MeterReading meterReading) {
-		this.MeterReading = meterReading;
-	}
+    public MeterReading getMeterReading() {
+        return MeterReading;
+    }
 
-	public ReadingType getReadingType() {
-		return ReadingType;
-	}
+    public void setMeterReading(MeterReading meterReading) {
+        this.MeterReading = meterReading;
+    }
 
-	public void setReadingType(ReadingType readingType) {
-		this.ReadingType = readingType;
-	}
+    public ReadingType getReadingType() {
+        return ReadingType;
+    }
 
-	@Override
-	public String toString() {
-		return "MeterReadings [MeterReading=" + MeterReading + ", ReadingType="
-				+ ReadingType + "]";
-	}
-	
-	
+    public void setReadingType(ReadingType readingType) {
+        this.ReadingType = readingType;
+    }
+
+    @Override
+    public String toString() {
+        return "MeterReadings [MeterReading=" + MeterReading + ", ReadingType=" + ReadingType + "]";
+    }
+
 }

@@ -27,7 +27,6 @@ import edu.colorado.cs.cirrus.domain.model.Device;
 import edu.colorado.cs.cirrus.domain.model.DeviceData;
 import edu.colorado.cs.cirrus.domain.model.Devices;
 import edu.colorado.cs.cirrus.domain.model.ExternalAccountId;
-import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.MeterReadings;
 import edu.colorado.cs.cirrus.domain.model.PricingProgram;
 import edu.colorado.cs.cirrus.domain.model.PricingSchedule;
@@ -35,6 +34,7 @@ import edu.colorado.cs.cirrus.domain.model.Resolution;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.User;
 import edu.colorado.cs.cirrus.domain.model.UserProfile;
+import edu.colorado.cs.cirrus.domain.model.fetchThermostatDataRequest;
 
 public class TendrilTemplate implements ITendril {
     private static final String TAG = "TendrilTemplate";
@@ -147,7 +147,7 @@ public class TendrilTemplate implements ITendril {
                     HttpMethod.GET, requestEntity, CostAndConsumption.class, vars);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         return costAndConsumption.getBody();
 
@@ -165,7 +165,7 @@ public class TendrilTemplate implements ITendril {
                     Devices.class);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
 
         return devices.getBody();
@@ -180,7 +180,7 @@ public class TendrilTemplate implements ITendril {
                     requestEntity, ExternalAccountId.class);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         // System.err.println(response.getBody());
         this.externalAccountId = response.getBody();
@@ -206,7 +206,7 @@ public class TendrilTemplate implements ITendril {
                     MeterReadings.class, vars);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
 
         System.err.println(meterReadings.getBody());
@@ -225,7 +225,7 @@ public class TendrilTemplate implements ITendril {
                     PricingProgram.class);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         return pricingSchedule.getBody();
 
@@ -242,14 +242,14 @@ public class TendrilTemplate implements ITendril {
                     PricingSchedule.class, vars);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         // System.err.println(response.getBody());
         return response.getBody();
     }
 
     private String fetchThermostatDeviceRequestId() throws TendrilException {
-        GetThermostatDataRequest gtdr = new GetThermostatDataRequest();
+        fetchThermostatDataRequest gtdr = new fetchThermostatDataRequest();
         gtdr.setDeviceId(getTstat().getDeviceId());
         gtdr.setLocationId(getLocationId());
         try {
@@ -264,16 +264,17 @@ public class TendrilTemplate implements ITendril {
         System.err.println("gtdr: " + gtdrString);
         HttpEntity<String> requestEntity = new HttpEntity<String>(gtdrString, requestHeaders);
 
-        GetThermostatDataRequest gtdrResponse = null;
+        fetchThermostatDataRequest gtdrResponse = null;
         try {
-            ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(
-                    TendrilUrls.POST_DEVICE_ACTION_URL, HttpMethod.POST, requestEntity, GetThermostatDataRequest.class);
+            ResponseEntity<fetchThermostatDataRequest> response = restTemplate.exchange(
+                    TendrilUrls.POST_DEVICE_ACTION_URL, HttpMethod.POST, requestEntity,
+                    fetchThermostatDataRequest.class);
 
             gtdrResponse = response.getBody();
             System.err.println(gtdrResponse);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         return gtdrResponse.getRequestId();
     }
@@ -284,7 +285,7 @@ public class TendrilTemplate implements ITendril {
             response = restTemplate.exchange(TendrilUrls.GET_USER_INFO_URL, HttpMethod.GET, requestEntity, User.class);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         user = response.getBody();
         return user;
@@ -299,7 +300,7 @@ public class TendrilTemplate implements ITendril {
                     UserProfile.class);
         }
         catch (Exception e) {
-            throw new TendrilException(e);
+            throw new TendrilAndroidException(e);
         }
         System.err.println(response.getBody());
         userProfile = response.getBody();
@@ -321,9 +322,9 @@ public class TendrilTemplate implements ITendril {
         return user.getId();
     }
 
-    public GetThermostatDataRequest getThermostatData() throws TendrilException {
+    public fetchThermostatDataRequest getThermostatData() throws TendrilException {
         Object[] vars = { fetchThermostatDeviceRequestId() };
-        GetThermostatDataRequest gtdrResponse = null;
+        fetchThermostatDataRequest gtdrResponse = null;
         String requestState = "In Progress";
         boolean firstTry = true;
         while (requestState.equals("In Progress")) {
@@ -333,9 +334,9 @@ public class TendrilTemplate implements ITendril {
                     Thread.sleep(2000);
                 }
                 firstTry = false;
-                ResponseEntity<GetThermostatDataRequest> response = restTemplate.exchange(
+                ResponseEntity<fetchThermostatDataRequest> response = restTemplate.exchange(
                         TendrilUrls.GET_DEVICE_ACTION_DATA, HttpMethod.GET, requestEntity,
-                        GetThermostatDataRequest.class, vars);
+                        fetchThermostatDataRequest.class, vars);
 
                 gtdrResponse = response.getBody();
                 System.err.println(response.getBody());
@@ -343,7 +344,7 @@ public class TendrilTemplate implements ITendril {
             }
 
             catch (HttpClientErrorException e) {
-                throw new TendrilException(e);
+                throw new TendrilAndroidException(e);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();
@@ -383,6 +384,7 @@ public class TendrilTemplate implements ITendril {
     }
 
     public SetThermostatDataRequest setTstatSetpoint(Float setpoint) throws TendrilException {
+
         SetThermostatDataRequest stdr = new SetThermostatDataRequest();
         stdr.setDeviceId(getTstat().getDeviceId());
         stdr.setLocationId(getLocationId());

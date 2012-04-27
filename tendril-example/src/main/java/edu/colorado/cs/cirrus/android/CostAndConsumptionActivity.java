@@ -50,7 +50,6 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tendril_cost_consumption_layout);
         // capture our View elements
-        // startDateDisplay = (TextView) findViewById(R.id.startDateDisplay);
         startPickDate = (Button) findViewById(R.id.startPickDate);
         endPickDate = (Button) findViewById(R.id.endPickDate);
         goButton = (Button) findViewById(R.id.goButton);
@@ -98,10 +97,7 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
                 finally {
                     dismissProgressDialog();
                 }
-                // String profile = new UserProfileTask().execute("").get();
                 System.err.println(results);
-
-                // String profile = task.execute();
             }
         });
 
@@ -126,11 +122,11 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
     // updates the date in the TextView
     private void updateDisplay() {
         startPickDate.setText(new StringBuilder()
-        // Month is 0 based so add 1
+        // Month January is 0 so add 1
                 .append(startMonth + 1).append("-").append(startDay).append("-").append(startYear).append(" "));
 
         endPickDate.setText(new StringBuilder()
-        // Month is 0 based so add 1
+        // Month January is 0 so add 1
                 .append(endMonth + 1).append("-").append(endDay).append("-").append(endYear).append(" "));
     }
 
@@ -150,7 +146,6 @@ public class CostAndConsumptionActivity extends AbstractAsyncTendrilActivity {
     private final DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            // end = new DateTime()
             end = end.withYear(year).withMonthOfYear(monthOfYear + 1).withDayOfMonth(dayOfMonth).withTimeAtStartOfDay()
                     .plusHours(24).minusMillis(1);
             Log.i(TAG, "end: " + end);

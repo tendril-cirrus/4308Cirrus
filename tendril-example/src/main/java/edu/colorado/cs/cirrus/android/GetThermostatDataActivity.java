@@ -3,7 +3,7 @@ package edu.colorado.cs.cirrus.android;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-import edu.colorado.cs.cirrus.domain.model.GetThermostatDataRequest;
+import edu.colorado.cs.cirrus.domain.model.fetchThermostatDataRequest;
 
 public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
     protected static final String TAG = GetThermostatDataActivity.class.getSimpleName();
@@ -22,10 +22,8 @@ public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
     public void onStart() {
         super.onStart();
 
-        GetThermostatDataRequest gtdr = null;
+        fetchThermostatDataRequest gtdr = null;
         try {
-            // stdr = (new SetThermostatTask()).execute(tendril).get();
-            // gtdr = tendril.asyncGetThermostatData();
             this.showLoadingProgressDialog();
             gtdr = tendril.getThermostatData();
 
@@ -47,11 +45,7 @@ public class GetThermostatDataActivity extends AbstractAsyncTendrilActivity {
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
         System.err.println(gtdr);
-
-        // String profile = task.execute();
-
     }
 
 }

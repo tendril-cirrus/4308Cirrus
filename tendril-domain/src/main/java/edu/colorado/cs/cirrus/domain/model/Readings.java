@@ -1,76 +1,71 @@
 package edu.colorado.cs.cirrus.domain.model;
 
-import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Namespace;
-import org.simpleframework.xml.Root;
 
 //child of MeterReading
 //@Namespace(reference="http://iec.ch/TC57/2009/MeterReadings#",prefix="ns2")
-public class Readings{
-	@Element//(required=false)//(name="timeStamp")
-	private String timeStamp;
-	
-	@Element
-	float value;
-	
-	@Element
-	ReadingQualities ReadingQualities;
-	
-	@Element
-	ReadingTypeReference ReadingType;//not to be confused with the ReadingType class. Thanks Tendril
+public class Readings {
+    @Element
+    // (required=false)//(name="timeStamp")
+    private String timeStamp;
 
-	public Readings(String timeStamp, float value,
-			ReadingQualities readingQualities, ReadingTypeReference readingType) {
-		super();
-		this.timeStamp = timeStamp;
-		this.value = value;
-		this.ReadingQualities = readingQualities;
-		this.ReadingType = readingType;
-	}
+    @Element
+    float value;
 
-	public Readings() {
-		super();
-	}
+    @Element
+    ReadingQualities ReadingQualities;
 
-	public String getTimeStamp() {
-		return timeStamp;
-	}
+    @Element
+    ReadingTypeReference ReadingType;// not to be confused with the ReadingType class. Thanks Tendril
 
-	public void setTimeStamp(String datetime) {
-		this.timeStamp = datetime;
-	}
+    public Readings(String timeStamp, float value, ReadingQualities readingQualities, ReadingTypeReference readingType) {
+        super();
+        this.timeStamp = timeStamp;
+        this.value = value;
+        this.ReadingQualities = readingQualities;
+        this.ReadingType = readingType;
+    }
 
-	public float getValue() {
-		return value;
-	}
+    public Readings() {
+        super();
+    }
 
-	public void setValue(float value) {
-		this.value = value;
-	}
+    public String getTimeStamp() {
+        return timeStamp;
+    }
 
-	public ReadingQualities getReadingQualities() {
-		return ReadingQualities;
-	}
+    public void setTimeStamp(String datetime) {
+        this.timeStamp = datetime;
+    }
 
-	public void setReadingQualities(ReadingQualities readingQualities) {
-		this.ReadingQualities = readingQualities;
-	}
+    public float getValue() {
+        return value;
+    }
 
-	public ReadingTypeReference getReadingType() {
-		return ReadingType;
-	}
+    public void setValue(float value) {
+        this.value = value;
+    }
 
-	public void setReadingType(ReadingTypeReference readingType) {
-		this.ReadingType = readingType;
-	}
+    public ReadingQualities getReadingQualities() {
+        return ReadingQualities;
+    }
 
-	@Override
-	public String toString() {
-		return "Readings [timeStamp=" + timeStamp + ", value=" + value
-				+ ", ReadingQualities=" + ReadingQualities + ", ReadingType="
-				+ ReadingType + "]";
-	}
-	
-	
+    public void setReadingQualities(ReadingQualities readingQualities) {
+        this.ReadingQualities = readingQualities;
+    }
+
+    public ReadingTypeReference getReadingType() {
+        return ReadingType;
+    }
+
+    public void setReadingType(ReadingTypeReference readingType) {
+        this.ReadingType = readingType;
+    }
+
+    @Override
+    public String toString() {
+        return "Readings [timeStamp=" + timeStamp + ", value=" + value + ", ReadingQualities=" + ReadingQualities
+                + ", ReadingType=" + ReadingType + "]";
+    }
+
 }

@@ -1,46 +1,41 @@
 package edu.colorado.cs.cirrus.domain.model;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Order;
 import org.simpleframework.xml.Root;
 
-@Order(elements={"requestState", "completionStatus", "result"})
+@Order(elements = { "requestState", "completionStatus", "result" })
 @Root
-public class GetThermostatDataRequest {
+public class fetchThermostatDataRequest {
 
-	public GetThermostatDataRequest() {
-	}
-	
-	@Attribute
-	private String deviceId;
-	
-	@Attribute
-	private String locationId;
-	
-	@Attribute(required=false)
-	private String requestId;
-	
-	@Element(required=false)
-	private String requestState;
-	
-	@Element(required=false)
-	private String completionStatus;
-	
-	@Element(required=false)
-	private Result result;
+    public fetchThermostatDataRequest() {
+    }
 
-	@Override
-	public String toString() {
-		return "GetThermostatDataRequest [deviceId=" + deviceId
-				+ ", locationId=" + locationId + ", requestId=" + requestId
-				+ ", requestState=" + requestState + ", completionStatus="
-				+ completionStatus + ", result=" + result + "]";
-	}
+    @Attribute
+    private String deviceId;
+
+    @Attribute
+    private String locationId;
+
+    @Attribute(required = false)
+    private String requestId;
+
+    @Element(required = false)
+    private String requestState;
+
+    @Element(required = false)
+    private String completionStatus;
+
+    @Element(required = false)
+    private Result result;
+
+    @Override
+    public String toString() {
+        return "GetThermostatDataRequest [deviceId=" + deviceId + ", locationId=" + locationId + ", requestId="
+                + requestId + ", requestState=" + requestState + ", completionStatus=" + completionStatus + ", result="
+                + result + "]";
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -89,8 +84,5 @@ public class GetThermostatDataRequest {
     public void setResult(Result result) {
         this.result = result;
     }
-	
-	
-	
 
 }

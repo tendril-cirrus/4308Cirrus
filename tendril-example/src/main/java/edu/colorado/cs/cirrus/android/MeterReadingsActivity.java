@@ -28,8 +28,6 @@ public class MeterReadingsActivity extends AbstractAsyncTendrilActivity {
 
         MeterReadings meterReadings = null;
         try {
-            // meterReading = (new MeterReadingTask()).execute(tendril).get();
-            // meterReadings = tendril.asyncGetMeterReadings();
             this.showLoadingProgressDialog();
             meterReadings = tendril.fetchMeterReadingsRange(new DateTime("2012-03-01T00:00:00-07:00"),
                     (new DateTime()).minusDays(1));
@@ -50,10 +48,7 @@ public class MeterReadingsActivity extends AbstractAsyncTendrilActivity {
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
         System.err.println(meterReadings);
-
-        // String profile = task.execute();
 
     }
 

@@ -19,10 +19,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""/>
-    <Button android:id="@+id/pickDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change the date"/>
 	    
 	<TableLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"

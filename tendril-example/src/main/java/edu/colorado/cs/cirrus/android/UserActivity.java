@@ -24,8 +24,6 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
 
         User user = null;
         try {
-            // user = (new UserTask()).execute(tendril).get();
-            // user=tendril.asyncGetUser();
             this.showLoadingProgressDialog();
             user = tendril.fetchUser();
 
@@ -46,7 +44,6 @@ public class UserActivity extends AbstractAsyncTendrilActivity {
         finally {
             this.dismissProgressDialog();
         }
-        // String profile = new UserProfileTask().execute("").get();
         System.err.println(user);
     }
 }
