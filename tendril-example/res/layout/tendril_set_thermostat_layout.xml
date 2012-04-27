@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-	android:background="@drawable/backrepeat" >
+    android:background="@drawable/backrepeat"
+    android:gravity="right"
+    android:orientation="vertical" >
 
 	    <TextView
 	        android:id="@+id/TitleText"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="5dp"
 	        android:layout_marginLeft="7dp"
@@ -22,78 +23,93 @@
 	    android:layout_marginLeft="5dp"
 	    android:layout_marginRight="5dp"
 	    android:stretchColumns="1" >
-	    
-	    <TableRow >
 
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="device_id:"
-	 		    android:textColor="@color/tendril_green" />
-	    
-		    <TextView
-		        android:id="@+id/thermostat_device_id"
-		        android:layout_gravity="left"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <TableRow>
+
+	        <TextView
+	            android:layout_column="1"
+	            android:layout_gravity="left"
+	            android:padding="3dip"
+	            android:text="device_id:"
+	            android:textColor="@color/tendril_green" />
+
+	        <TextView
+	            android:id="@+id/thermostat_device_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="right"
+	            android:text="Medium Text"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
 	    </TableRow>
-	    
-	    <TableRow >
 
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="Request ID:"
-	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/thermostat_request_id"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		</TableRow>
-	    
-	    <TableRow >
+	    <TableRow>
 
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="Setpoint:"
-	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/thermostat_setpoint"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		</TableRow>
-		
-	    <TableRow >
+	        <TextView
+	            android:layout_column="1"
+	            android:layout_gravity="left"
+	            android:padding="3dip"
+	            android:text="Request ID:"
+	            android:textColor="@color/tendril_green" />
 
-	 		<TextView
-	 		    android:layout_column="1"
-	 		    android:padding="3dip"
-	 		    android:text="Mode:"
-	 		    android:textColor="@color/tendril_green" />
-   
-		    <TextView
-		        android:id="@+id/thermostat_mode"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="Medium Text"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		</TableRow>
-		
-    
+	        <TextView
+	            android:id="@+id/thermostat_request_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="right"
+	            android:text="Medium Text"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </TableRow>
+
+	    <TableRow 
+  android:layout_height="wrap_content"
+  android:baselineAligned="false" 
+  android:id="@+id/tableRow3" 
+  android:gravity="center"
+  android:stretchColumns="1" 
+  android:layout_width="match_parent">
+
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_column="1"
+	            android:layout_gravity="left"
+	            android:padding="3dip"
+	            android:text="Setpoint:"
+	            android:textColor="@color/tendril_green" />
+
+	        <EditText
+	            android:id="@+id/temperature"
+	            android:layout_height="wrap_content"
+	            android:inputType="number"
+	            android:layout_width="60dip">
+	            <requestFocus></requestFocus>
+
+	        </EditText>
+	    </TableRow>
+
+	    <TableRow>
+
+	        <TextView
+	            android:layout_column="1"
+	            android:layout_gravity="left"
+	            android:padding="3dip"
+	            android:text="Mode:"
+	            android:textColor="@color/tendril_green" />
+
+	        <TextView
+	            android:id="@+id/thermostat_mode"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="right"
+	            android:text="Medium Text"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </TableRow>
 	</TableLayout>
 
-	<NumberPicker
-	    android:id="@+id/temperaturePicker"
-	    android:layout_width="231dp"
-	    android:layout_height="170dp" />
+	<Button
+	    android:id="@+id/setButton"
+	    android:layout_width="128dp"
+	    android:layout_height="wrap_content"
+	    android:text="Set Thermostat" />
 
 </LinearLayout>
