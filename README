@@ -14,3 +14,19 @@ Computer Science
 Senior Project 2012
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Invoking the top-level Maven project will build all 4 submodules:
+
+
+
+tendril-domain: Provides platform-agnostic Java classes for Tendril's domain objects. 
+SimpleXML (JSON should work too) annotations included. Also contains ITendril interface for 
+interacting with the Tendril API.
+
+tendril-android-lib: An Android library that depends on tendril-domain. Includes TendrilTemplate 
+implementation of the ITendril interface using the Spring Android Library
+
+tendril-example: A simple Android App that demonstrates usage of most of the API calls.
+
+tendril-cirrus: Another Android App that uses geolocation.
