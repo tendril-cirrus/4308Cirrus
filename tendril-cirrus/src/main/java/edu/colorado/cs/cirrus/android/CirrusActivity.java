@@ -1,16 +1,26 @@
 package edu.colorado.cs.cirrus.android;
 
+import java.util.List;
+
+import org.joda.time.DateTime;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import edu.colorado.cs.cirrus.domain.TendrilException;
+import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
+import edu.colorado.cs.cirrus.domain.model.CostAndConsumptionComponent;
+import edu.colorado.cs.cirrus.domain.model.Resolution;
+
 import android.content.Intent;
 
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import android.widget.LinearLayout;
 
@@ -24,10 +34,22 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity implements
     private ActionBar.Tab costTab;
     private ActionBar.Tab consumptionTab;
     private ActionBar.Tab thermostatTab;
+    
+    private DateTime startOf2011 = new DateTime();
+    private DateTime endOf2011 = new DateTime();
+    
+    private PreferenceUtils cirrusPrefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        startOf2011 = startOf2011.withYear(2011).withMonthOfYear(1).withDayOfMonth(1).withTimeAtStartOfDay();
+        endOf2011 =  endOf2011.withYear(2012).withMonthOfYear(1).withDayOfMonth(1).withTimeAtStartOfDay().minusMillis(1);
+        
+        cirrusPrefs = new PreferenceUtils(this);
+        
+        tendril = TendrilTemplate.get();
 
         // Grab layouts
         setContentView(R.layout.cirrus_all_layout);
@@ -61,6 +83,14 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity implements
         
         startService(new Intent(this, TendrilLocationService.class));
     }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+    	
+    	tendril.useAccessToken(cirrusPrefs.getAccessToken());
+    }
+    
 
     public void onTabReselected(Tab tab, FragmentTransaction transaction) {
     }
@@ -75,10 +105,31 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity implements
         thermostatLayout.setVisibility(8);
 
         // Determine which layout to make visible
-        if (tab.equals(costTab))
+        if (tab.equals(costTab)){
             costLayout.setVisibility(0);
-        else if (tab.equals(consumptionTab))
+            try{
+            	CostAndConsumption CnC = tendril.fetchCostAndConsumption(Resolution.MONTHLY, startOf2011, endOf2011, 12);
+            	costLayout.addView(BarGraph.getYearlyCostView(this, CnC.getComponentList(), "Energy Costs for 2011"));
+            } catch (TendrilException e){
+            	ToastFactory.showToast(this, e.getTendrilResponse().getReason());
+            	Log.e(TAG, e.getTendrilResponse().toString());
+            } catch (Exception e) {
+            	ToastFactory.showToast(this, "Something went horribly wrong...");
+            }
+        }
+        else if (tab.equals(consumptionTab)){
             consumptionLayout.setVisibility(0);
+            try{
+            	CostAndConsumption CnC = tendril.fetchCostAndConsumption(Resolution.MONTHLY, startOf2011, endOf2011, 12);
+            	consumptionLayout.addView(BarGraph.getYearlyConsumptionView(this, CnC.getComponentList(), "Energy Consumption for 2011"));
+            } catch (TendrilException e){
+            	ToastFactory.showToast(this, e.getTendrilResponse().getReason());
+            	Log.e(TAG, e.getTendrilResponse().toString());
+            } catch (Exception e) {
+            	ToastFactory.showToast(this, "Something went horribly wrong...");
+            }
+            
+        }
         else if (tab.equals(thermostatTab))
             thermostatLayout.setVisibility(0);
     }

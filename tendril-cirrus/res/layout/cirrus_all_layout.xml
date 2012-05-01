@@ -14,13 +14,7 @@
         android:layout_gravity="center" 
         android:orientation="vertical" 
         android:visibility="gone"
-        android:layout_marginTop="20dip">
-        <TextView
-                android:id="@+id/costText"
-                android:text="COST"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            />
+        >
     </LinearLayout>
 
     <LinearLayout 
@@ -30,13 +24,7 @@
         android:layout_gravity="center" 
         android:orientation="vertical" 
         android:visibility="gone"
-        android:layout_marginTop="20dip">
-        <TextView
-                android:id="@+id/consumptionText"
-                android:text="CONSUMPTION"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            />
+        >
     </LinearLayout>
 
     <LinearLayout 
@@ -46,13 +34,7 @@
         android:layout_gravity="center" 
         android:orientation="vertical" 
         android:visibility="gone"
-        android:layout_marginTop="20dip">
-        <TextView
-                android:id="@+id/thermostatText"
-                android:text="THERMOSTAT"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            />
+        >
     </LinearLayout>
 
     

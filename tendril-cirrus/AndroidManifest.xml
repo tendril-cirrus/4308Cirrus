@@ -62,6 +62,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="org.achartengine.GraphicalActivity" />
+
 		<service android:name=".TendrilLocationService"/>
     
     </application>
