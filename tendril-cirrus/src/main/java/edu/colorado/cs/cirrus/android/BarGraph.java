@@ -1,6 +1,5 @@
 package edu.colorado.cs.cirrus.android;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
@@ -11,16 +10,13 @@ import org.achartengine.chart.BarChart.Type;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 
-import org.achartengine.renderer.BasicStroke;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumptionComponent;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 
 public class BarGraph {
     

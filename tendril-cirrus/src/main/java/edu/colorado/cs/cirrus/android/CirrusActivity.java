@@ -1,7 +1,5 @@
 package edu.colorado.cs.cirrus.android;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -12,7 +10,6 @@ import com.actionbarsherlock.view.MenuItem;
 
 import edu.colorado.cs.cirrus.domain.TendrilException;
 import edu.colorado.cs.cirrus.domain.model.CostAndConsumption;
-import edu.colorado.cs.cirrus.domain.model.CostAndConsumptionComponent;
 import edu.colorado.cs.cirrus.domain.model.Resolution;
 import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
 import edu.colorado.cs.cirrus.domain.model.fetchThermostatDataRequest;
