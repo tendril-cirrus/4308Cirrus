@@ -1,8 +1,9 @@
-package edu.colorado.cs.cirrus.android;
+package edu.colorado.cs.cirrus.cirrus;
 
 
-import edu.colorado.cs.cirrus.android.R;
+import edu.colorado.cs.cirrus.cirrus.R;
 
+import edu.colorado.cs.cirrus.android.*;
 import android.content.Intent;
 
 import android.view.KeyEvent;
@@ -23,8 +24,6 @@ import android.widget.TextView;
 
 import android.widget.TextView.OnEditorActionListener;
 
-import edu.colorado.cs.cirrus.android.TendrilActivity;
-import edu.colorado.cs.cirrus.android.TendrilActivity;
 import edu.colorado.cs.cirrus.domain.TendrilException;
 
 //import edu.colorado.cs.cirrus.domain.intf.ITendril;

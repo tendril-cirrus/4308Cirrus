@@ -1,6 +1,7 @@
-package edu.colorado.cs.cirrus.android;
+package edu.colorado.cs.cirrus.cirrus;
 
 import org.joda.time.DateTime;
+import edu.colorado.cs.cirrus.android.*;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;

@@ -1,6 +1,7 @@
-package edu.colorado.cs.cirrus.android;
+package edu.colorado.cs.cirrus.cirrus;
 
 import java.util.List;
+import edu.colorado.cs.cirrus.android.*;
 
 import edu.colorado.cs.cirrus.domain.TendrilException;
 import edu.colorado.cs.cirrus.domain.intf.ITendril;
@@ -73,7 +74,7 @@ public class TendrilLocationService extends Service implements LocationListener 
 		Boolean appOpen = false;
 		List<RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
 		for(RunningAppProcessInfo appProcess : appProcesses){
-		    if(appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND  && appProcess.processName.equals("edu.colorado.cs.cirrus.android")){
+		    if(appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND  && appProcess.processName.equals("edu.colorado.cs.cirrus.cirrus")){
 		    	appOpen = true;
 		    }
 		}

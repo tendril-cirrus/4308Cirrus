@@ -1,4 +1,4 @@
-package edu.colorado.cs.cirrus.android;
+package edu.colorado.cs.cirrus.cirrus;
 
 import android.os.Bundle;
 import android.widget.TextView;

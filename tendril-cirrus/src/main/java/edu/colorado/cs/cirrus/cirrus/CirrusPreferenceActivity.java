@@ -1,6 +1,7 @@
-package edu.colorado.cs.cirrus.android;
+package edu.colorado.cs.cirrus.cirrus;
 
 import android.content.Context;
+import edu.colorado.cs.cirrus.android.*;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
