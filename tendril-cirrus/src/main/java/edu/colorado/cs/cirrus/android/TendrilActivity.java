@@ -165,7 +165,7 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
     // What to do on login
     private void loginClicked(View v) {
         try {
-            showProgressDialog("Working...");
+            showLoadingProgressDialog();
             accessToken = tendril.logIn(emailInput.getText().toString(),
                     passwordInput.getText().toString());
 

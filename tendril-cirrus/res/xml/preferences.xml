@@ -60,7 +60,7 @@
             <Preference
                     android:title="@string/logout_title"
                     android:key="logout" />
-                />
+               
     </PreferenceCategory>
 
 </PreferenceScreen>

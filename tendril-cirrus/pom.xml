@@ -88,14 +88,23 @@
             <type>jar</type>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.achartengine</groupId>
+            <artifactId>achartengine</artifactId>
+            <scope>system</scope>
+            <version>1.0.0</version>
+            <systemPath>${basedir}/libs/achartengine-1.0.0.jar</systemPath>
+            <type>jar</type>
+        </dependency>
         
         <!-- DONT THINK WE NEED THIS
         <dependency>
             <groupId>com.actionbarsherlock</groupId>
             <artifactId>plugin-support-lib</artifactId>
             <version>4.0.0-RC1</version>
-        </dependency> -->	
-			
+        </dependency> -->
+
 	</dependencies>
 
 

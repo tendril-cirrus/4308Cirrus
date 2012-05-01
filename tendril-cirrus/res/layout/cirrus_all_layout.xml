@@ -1,59 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_centerVertical="true"
     android:background="@drawable/backrepeat"
-    >
+    android:orientation="vertical" >
 
-    <LinearLayout 
+    <LinearLayout
         android:id="@+id/cost"
-        android:layout_width="wrap_content" 
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" 
-        android:orientation="vertical" 
-        android:visibility="gone"
-        android:layout_marginTop="20dip">
-        <TextView
-                android:id="@+id/costText"
-                android:text="COST"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            />
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
     </LinearLayout>
 
-    <LinearLayout 
+    <LinearLayout
         android:id="@+id/consumption"
-        android:layout_width="wrap_content" 
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" 
-        android:orientation="vertical" 
-        android:visibility="gone"
-        android:layout_marginTop="20dip">
-        <TextView
-                android:id="@+id/consumptionText"
-                android:text="CONSUMPTION"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            />
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
     </LinearLayout>
 
-    <LinearLayout 
+    <LinearLayout
         android:id="@+id/thermostat"
-        android:layout_width="wrap_content" 
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" 
-        android:orientation="vertical" 
-        android:visibility="gone"
-        android:layout_marginTop="20dip">
-        <TextView
-                android:id="@+id/thermostatText"
-                android:text="THERMOSTAT"
-                android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:stretchColumns="1" >
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="6dip"
+                    android:text="Mode:"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/tendril_green" />
+
+                <TextView
+                    android:id="@+id/thermostat_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="6dip"
+                    android:text="Current Temp:"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/tendril_green" />
+
+                <TextView
+                    android:id="@+id/thermostat_current_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="6dip"
+                    android:text="SmartHeat:"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/tendril_green" />
+
+                <TextView
+                    android:id="@+id/thermostat_smart_heat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </TableRow>
+
+            <TableRow android:paddingTop="40dip" >
+
+                <TextView
+                    android:layout_column="1"
+                    android:padding="6dip"
+                    android:text="Setpoint:"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/tendril_green" />
+
+                <EditText
+                    android:id="@+id/thermostat_setpoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100" >
+
+            <Button
+                android:id="@+id/refreshButton"
                 android:layout_height="wrap_content"
-            />
+                android:layout_width="fill_parent"
+                android:layout_column="1"
+                android:layout_weight="50"
+                android:padding="6dip"
+                android:text="Refresh" />
+
+            <Button
+                android:id="@+id/setButton"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_weight="50"
+                android:padding="6dip"
+                android:text="Set Thermostat" />
+        </LinearLayout>
     </LinearLayout>
 
-    
 </LinearLayout>
