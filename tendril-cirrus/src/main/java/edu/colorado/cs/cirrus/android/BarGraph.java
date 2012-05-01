@@ -26,10 +26,13 @@ public class BarGraph {
         
         CategorySeries series = new CategorySeries("BarGraph");
         int max = 0;
+        int min = (int) ySeries[0];
         for (int i = 0; i < ySeries.length; i++) {
             series.add((i+1) + "", ySeries[i]);
             if(ySeries[i] > max)
             	max = (int) ySeries[i];
+            if(ySeries[i] < min)
+            	min = (int) ySeries[i];
         }
         
         
@@ -57,7 +60,7 @@ public class BarGraph {
         mRenderer.setApplyBackgroundColor(true);
         mRenderer.setLabelsColor(Color.BLACK);
         mRenderer.setShowLabels(true);
-        mRenderer.setYAxisMin(0);
+        mRenderer.setYAxisMin(.8*min);
         mRenderer.setYAxisMax(max + (max*.1));
         mRenderer.setXLabels(12);
         mRenderer.setMargins(new int[]{10, 30, 10, 10});
