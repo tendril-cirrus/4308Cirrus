@@ -79,7 +79,7 @@ public class TendrilLocationService extends Service implements LocationListener 
 		}
 		
 		//If the app isn't open, set the thermostat to either home temp or away temp
-		if(appOpen == false){
+		if(appOpen == false && prefs.getSmartHeat()){
 			//Meters*0.0006214 to get miles
 			if(loc.distanceTo(home)*0.0006214 > prefs.getGpsRadius()){
 					try{
