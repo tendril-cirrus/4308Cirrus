@@ -3,6 +3,7 @@
     
     <style name="Theme.TendrilCirrus" parent="Theme.Sherlock.Light">
         <item name="actionBarTabStyle">@style/MyActionBarTabStyle</item>
+        <item name="actionBarItemBackground">@drawable/ad_selectable_background</item>
     </style>
     
     <style name="MyActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBar.TabView">
