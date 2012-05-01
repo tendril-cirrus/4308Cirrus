@@ -27,6 +27,7 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
 
     private EditTextPreference homeTempPref;
     private EditTextPreference awayTempPref;
+    private EditTextPreference radiusPref;
 
     private LocationManager locManager;
     private LocationListener locListener;
@@ -53,6 +54,8 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         smartHeatPref = (Preference) findPreference("smartHeat");
         homeTempPref = (EditTextPreference) findPreference("homeTemp");
         awayTempPref = (EditTextPreference) findPreference("awayTemp");
+        radiusPref = (EditTextPreference) findPreference("gpsRadius");
+        
         logoutPref = (Preference) findPreference("logout");
 
         //Set on click listener
@@ -62,7 +65,7 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         homeTempPref.setOnPreferenceClickListener(myPreferenceClickListener);
         awayTempPref.setOnPreferenceClickListener(myPreferenceClickListener);
         logoutPref.setOnPreferenceClickListener(myPreferenceClickListener);
-
+        radiusPref.setOnPreferenceClickListener(myPreferenceClickListener);
 
         // Force homeTempPref and awayTempPref to take numbers
         EditText homeTempEditText = (EditText)homeTempPref.getEditText();
@@ -72,7 +75,11 @@ public class CirrusPreferenceActivity extends SherlockPreferenceActivity {
         EditText awayTempEditText = (EditText)awayTempPref.getEditText();
         awayTempEditText.setKeyListener(DigitsKeyListener.
                 getInstance(false,true));
-
+        
+        EditText radiusEditText = (EditText)radiusPref.getEditText();
+        radiusEditText.setKeyListener(DigitsKeyListener.
+                getInstance(false,true));
+        
         // Grab custom prefs
         cirrusPrefs = new PreferenceUtils(this);
         
