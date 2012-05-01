@@ -70,8 +70,13 @@ public class TendrilTemplate implements ITendril {
 
     public String logIn(String userName, String password) throws TendrilException {
         Log.i(TAG, "logIn attempt: username: " + userName + ", password: " + password);
-        String accessToken = authorize(false, userName, password);
-        setRequestEntity();
+        String accessToken="";
+        try{
+        	accessToken = authorize(false, userName, password);
+        	setRequestEntity();
+        } catch(Exception e){
+        	throw new TendrilAndroidException(e);
+        }
         Log.i(TAG, "login successful! access token: " + accessGrant.getAccess_token());
         return accessToken;
     }
