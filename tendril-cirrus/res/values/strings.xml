@@ -24,7 +24,9 @@
      <string name="smartHeat_title">SmartHeat</string>
      <string name="smartHeat_desc">Enable the use of GPS for controlling your home\'s thermostat</string>
      <string name="gpsFreq_title">GPS Polling Frequency</string>
-     <string name="gpsFreq_desc">This setting controlls how often the application polls for location changes</string>
+     <string name="gpsFreq_desc">This setting controls how often the application polls for location changes</string>
+     <string name="gpsRadius_title">GPS Radius in Miles</string>
+     <string name="gpsRadius_desc">When within this radius, the thermostat will be set to the at home temp; when outside the radius, the thermostat will be set to the away temp.</string>
      <string name="setHome_title">Set home location</string>
      <string name="setHome_desc">Use current location as home location</string>
      <string name="homeTemp_title">At Home Temp</string>

@@ -1,6 +1,12 @@
 package edu.colorado.cs.cirrus.android;
 
 import java.util.List;
+
+import edu.colorado.cs.cirrus.domain.TendrilException;
+import edu.colorado.cs.cirrus.domain.intf.ITendril;
+import edu.colorado.cs.cirrus.domain.model.SetThermostatDataRequest;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +16,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
  
 public class TendrilLocationService extends Service implements LocationListener {
@@ -55,14 +62,49 @@ public class TendrilLocationService extends Service implements LocationListener 
     }
 	
 	public void onLocationChanged(Location loc) {
-		// TODO Use intents to broadcast location information to do something useful
-		// For now, just toast to know that it has been received
+		Location home = new Location(manager.GPS_PROVIDER);
+		PreferenceUtils prefs = new PreferenceUtils(getApplicationContext());
+
+		home.setLatitude(prefs.getHomeLatitude());
+		home.setLongitude(prefs.getHomeLongitude());
 		
-		String message = String.format("Longitude: %1$.6f \n Latitude: %2$.6f \n \n",
-    			loc.getLongitude(), loc.getLatitude());
-		//Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+		//Need to see if the app is in the foreground
+		ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);;
+		Boolean appOpen = false;
+		List<RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+		for(RunningAppProcessInfo appProcess : appProcesses){
+		    if(appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND  && appProcess.processName.equals("edu.colorado.cs.cirrus.android")){
+		    	appOpen = true;
+		    }
+		}
+		
+		//If the app isn't open, set the thermostat to either home temp or away temp
+		if(appOpen == false){
+			//Meters*0.0006214 to get miles
+			if(loc.distanceTo(home)*0.0006214 > prefs.getGpsRadius()){
+					try{
+						TendrilTemplate.get().useAccessToken(prefs.getAccessToken());
+						TendrilTemplate.get().setTstatSetpoint(prefs.getAwayTemp());
+					}
+					catch(TendrilException e){
+						Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+						e.printStackTrace();	
+	    			}
+			}
+			else{
+					try{
+						TendrilTemplate.get().useAccessToken(prefs.getAccessToken());
+						TendrilTemplate.get().setTstatSetpoint(prefs.getHomeTemp());
+					}
+					catch(TendrilException e){
+						Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+						e.printStackTrace();	
+					}
+			}
+		}
 		
 	}
+
 
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub

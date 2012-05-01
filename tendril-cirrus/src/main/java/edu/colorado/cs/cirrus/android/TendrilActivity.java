@@ -70,7 +70,6 @@ public class TendrilActivity extends AbstractAsyncTendrilActivity {
         
         cirrusPrefs = new PreferenceUtils(this);
         
-        startService(new Intent(this, TendrilLocationService.class));
     }
 
     @Override

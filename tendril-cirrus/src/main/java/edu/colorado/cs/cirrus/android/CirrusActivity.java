@@ -58,6 +58,8 @@ public class CirrusActivity extends AbstractAsyncTendrilActivity implements
 
         // Set Consumption Layout as default
         consumptionTab.select();
+        
+        startService(new Intent(this, TendrilLocationService.class));
     }
 
     public void onTabReselected(Tab tab, FragmentTransaction transaction) {

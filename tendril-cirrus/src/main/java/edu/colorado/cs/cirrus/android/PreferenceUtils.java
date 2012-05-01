@@ -13,12 +13,14 @@ public class PreferenceUtils {
     private static final String HOMELAT = "homeLatitude";
     private static final String HOMELONG = "homeLongitude";
     private static final String GPSFREQ = "gpsFrequency";
+    private static final String GPSRADIUS = "gpsRadius";
     private static final String SMARTHEAT = "smartHeat";
     private static final String HOMETEMP = "homeTemp";
     private static final String AWAYTEMP = "awayTemp";
 
-    private static final int DEFAULT_AWAYTEMP = 60;
-    private static final int DEFAULT_HOMETEMP = 70;
+    private static final String DEFAULT_AWAYTEMP = "60.0";
+    private static final String DEFAULT_HOMETEMP = "70.0";
+    private static final String DEFAULT_GPSRADIUS = "5";
 
     private SharedPreferences customCirrusPrefs;
     private SharedPreferences.Editor editor;
@@ -60,8 +62,9 @@ public class PreferenceUtils {
         editor.commit();
     }
 
-    protected int getAwayTemp(){
-        return customCirrusPrefs.getInt(AWAYTEMP, DEFAULT_AWAYTEMP);
+    protected Float getAwayTemp(){
+        String s = customCirrusPrefs.getString(AWAYTEMP, DEFAULT_AWAYTEMP);
+        return Float.valueOf(s);
     }
 
     protected void setAwayTemp(int temperature){
@@ -69,8 +72,9 @@ public class PreferenceUtils {
         editor.commit();
     }
 
-    protected int getHomeTemp(){
-        return customCirrusPrefs.getInt(HOMETEMP, DEFAULT_HOMETEMP);
+    protected Float getHomeTemp(){
+        String s = customCirrusPrefs.getString(HOMETEMP, DEFAULT_HOMETEMP);
+        return Float.valueOf(s);
     }
 
     protected void setHomeTemp(int temperature){
@@ -87,7 +91,15 @@ public class PreferenceUtils {
         editor.commit();
     }
 
+    protected int getGpsRadius(){
+        String gpsRadius = customCirrusPrefs.getString(GPSRADIUS, DEFAULT_GPSRADIUS);
+    	return Integer.valueOf(gpsRadius);
+    }
 
+    protected void setGpsRadius(String radius){
+        editor.putString(GPSRADIUS, radius); 
+        editor.commit();
+    }
         
 
 }

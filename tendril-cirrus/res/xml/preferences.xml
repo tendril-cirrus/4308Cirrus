@@ -33,6 +33,14 @@
                     android:persistent="true"
                     android:dependency="smartHeat" />
 
+            <EditTextPreference
+                    android:title="@string/gpsRadius_title"
+                    android:summary="@string/gpsRadius_desc"
+                    android:key="gpsRadius"
+                    android:defaultValue="5"
+                    android:persistent="true"
+                    android:dependency="smartHeat" />
+
             <ListPreference
                     android:title="@string/gpsFreq_title"
                     android:summary="@string/gpsFreq_desc"
